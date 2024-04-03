@@ -18,5 +18,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 COPY ./_docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
 
+RUN chmod -R 777 .
+
 WORKDIR /var/www
 
