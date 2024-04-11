@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class FavoriteProductStoreController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(FavoriteProductStoreRequest $request)
     {
         $validatedData = $request->validated();

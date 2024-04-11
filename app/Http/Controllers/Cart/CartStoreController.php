@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class CartStoreController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(CartStoreRequest $request)
     {
         $validatedData = $request->validated();

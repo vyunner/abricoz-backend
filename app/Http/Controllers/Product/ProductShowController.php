@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class ProductShowController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(Request $request, $id, ProductService $productService)
     {
         $product = $productService->transformProduct(Product::with(['subcategory', 'brand', 'country'])->findOrFail($id));

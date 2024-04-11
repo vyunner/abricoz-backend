@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 
 class BrandDestroyController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke($id)
     {
         $brand = Brand::findOrFail($id);

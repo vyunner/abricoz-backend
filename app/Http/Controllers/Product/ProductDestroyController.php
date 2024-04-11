@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 
 class ProductDestroyController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(Request $request, $id)
     {
         $product = Product::findOrFail($id);

@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class CountryStoreController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(CountryStoreRequest $request)
     {
         $validatedData = $request->validated();

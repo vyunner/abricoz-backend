@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 
 class CategoryIndexController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(Request $request)
     {
         if ($request->has('perPage')){

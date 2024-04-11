@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 
 class SubCategoryDestroyController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(Request $request, $id)
     {
         $subCategory = SubCategory::findOrFail($id);

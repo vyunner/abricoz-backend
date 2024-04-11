@@ -12,9 +12,6 @@ use Illuminate\Http\Request;
 
 class OrderStoreController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(OrderStoreRequest $request, OrderService $orderService)
     {
         $user_id = $request->user()->id;

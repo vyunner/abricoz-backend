@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class SubCategoryUpdateController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(SubCategoryUpdateRequest $request, $id)
     {
         $validatedData = $request->validated();

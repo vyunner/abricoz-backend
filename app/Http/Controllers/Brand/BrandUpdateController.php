@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class BrandUpdateController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(BrandUpdateRequest $request, $id)
     {
         $validatedData = $request->validated();

@@ -9,9 +9,6 @@ use App\Services\OrderService;
 
 class OrderShowController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(Request $request, $id, OrderService $orderService)
     {
         $user_id = $request->user()->id;

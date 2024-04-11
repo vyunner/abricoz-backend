@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class SubCategoryStoreController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(SubCategoryStoreRequest $request)
     {
         $validatedData = $request->validated();

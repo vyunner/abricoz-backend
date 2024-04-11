@@ -10,9 +10,6 @@ use Illuminate\Http\Request;
 
 class ProductUpdateController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(ProductUpdateRequest $request, $id, ProductService $productService)
     {
         $validatedData = $request->validated();

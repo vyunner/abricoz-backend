@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class BrandStoreController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(BrandStoreRequest $request)
     {
         $validatedData = $request->validated();

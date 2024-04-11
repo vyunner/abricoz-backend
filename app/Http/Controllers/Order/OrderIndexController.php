@@ -9,9 +9,6 @@ use App\Services\OrderService;
 
 class OrderIndexController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(Request $request, OrderService $orderService)
     {
         $user = $request->user();

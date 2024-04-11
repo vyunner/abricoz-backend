@@ -10,9 +10,6 @@ use Illuminate\Http\Request;
 
 class ProductStoreController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(ProductStoreRequest $request, ProductService $productService)
     {
         $validatedData = $request->validated();

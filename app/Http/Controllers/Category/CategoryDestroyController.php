@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 
 class CategoryDestroyController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(Request $request, $id)
     {
         $category = Category::findOrFail($id);

@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class CountryUpdateController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(CountryUpdateRequest $request)
     {
         $validatedData = $request->validated();

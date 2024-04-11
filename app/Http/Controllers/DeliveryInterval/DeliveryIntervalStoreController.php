@@ -9,9 +9,6 @@ use Illuminate\Http\Request;
 
 class DeliveryIntervalStoreController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(DeliveryIntervalStoreRequest $request)
     {
         $validatedData = $request->validated();

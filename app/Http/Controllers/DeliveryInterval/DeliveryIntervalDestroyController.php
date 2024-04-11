@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 
 class DeliveryIntervalDestroyController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __invoke(Request $request, $id)
     {
         $deliveryInterval = DeliveryInterval::findOrFail($id);
