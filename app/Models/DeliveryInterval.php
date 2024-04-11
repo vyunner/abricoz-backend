@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class DeliveryInterval extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
 }

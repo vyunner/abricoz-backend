@@ -11,7 +11,7 @@ class OrderStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class OrderStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => 'required|exists:users,id',
+            'order_status_id' => 'required|exists:order_statuses,id',
+            'delivery_interval_id' => 'required|exists:delivery_intervals,id',
+            'address' => 'required|text',
+            'address_comment' => 'nullable|text',
+            'order_comment' => 'nullable|text',
+            'delivery_date' => 'required|date',
         ];
     }
 }

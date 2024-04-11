@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Country;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Country\CountryUpdateRequest;
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class CountryUpdateController extends Controller
@@ -10,8 +12,13 @@ class CountryUpdateController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(CountryUpdateRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+        $country = Country::findOrFail($id);
+
+        $country->update($validatedData);
+
+        return $this->response([], 'Данные страны успешно изменены!');
     }
 }

@@ -11,7 +11,7 @@ class CategoryUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class CategoryUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'photo_url' => 'nullable|string',
+            'name_ru' => 'nullable|string',
+            'name_kz' => 'nullable|string',
+            'name_en' => 'nullable|string',
+            'description_ru' => 'nullable|string',
+            'description_kz' => 'nullable|string',
+            'description_en' => 'nullable|string',
         ];
     }
 }

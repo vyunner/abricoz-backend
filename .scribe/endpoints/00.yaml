@@ -3,8 +3,8 @@ description: ''
 endpoints:
   -
     httpMethods:
-      - POST
-    uri: api/sms
+      - GET
+    uri: api/user
     metadata:
       groupName: Endpoints
       groupDescription: ''
@@ -24,7 +24,16 @@ endpoints:
     bodyParameters: []
     cleanBodyParameters: []
     fileParameters: []
-    responses: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
     responseFields: []
     auth: []
     controller: null
@@ -56,13 +65,13 @@ endpoints:
         name: phone
         description: ''
         required: true
-        example: officiis
+        example: omnis
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      phone: officiis
+      phone: omnis
     fileParameters: []
     responses: []
     responseFields: []
@@ -96,7 +105,7 @@ endpoints:
         name: phone
         description: ''
         required: true
-        example: dolor
+        example: ipsum
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -105,16 +114,57 @@ endpoints:
         name: code
         description: ''
         required: true
-        example: exercitationem
+        example: est
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      phone: dolor
-      code: exercitationem
+      phone: ipsum
+      code: est
     fileParameters: []
     responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/brand/index
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Handle the incoming request.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"data":{"current_page":1,"brands":[{"id":1,"name":"Apple","created_at":"2024-04-11T06:38:09.000000Z","updated_at":"2024-04-11T06:38:09.000000Z"},{"id":2,"name":"Samsung","created_at":"2024-04-11T06:38:09.000000Z","updated_at":"2024-04-11T06:38:09.000000Z"},{"id":3,"name":"Lenovo","created_at":"2024-04-11T06:38:09.000000Z","updated_at":"2024-04-11T06:38:09.000000Z"},{"id":4,"name":"Xiaomi","created_at":"2024-04-11T06:38:09.000000Z","updated_at":"2024-04-11T06:38:09.000000Z"},{"id":5,"name":"Asus","created_at":"2024-04-11T06:38:09.000000Z","updated_at":"2024-04-11T06:38:09.000000Z"},{"id":6,"name":"Apple","created_at":"2024-04-11T06:41:56.000000Z","updated_at":"2024-04-11T06:41:56.000000Z"},{"id":7,"name":"Samsung","created_at":"2024-04-11T06:41:56.000000Z","updated_at":"2024-04-11T06:41:56.000000Z"},{"id":8,"name":"Lenovo","created_at":"2024-04-11T06:41:56.000000Z","updated_at":"2024-04-11T06:41:56.000000Z"},{"id":9,"name":"Xiaomi","created_at":"2024-04-11T06:41:56.000000Z","updated_at":"2024-04-11T06:41:56.000000Z"},{"id":10,"name":"Asus","created_at":"2024-04-11T06:41:56.000000Z","updated_at":"2024-04-11T06:41:56.000000Z"}],"total":15},"message":"\u0421\u043f\u0438\u0441\u043e\u043a \u0431\u0440\u0435\u043d\u0434\u043e\u0432 \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043d!","http_code":200,"status":"success"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '59'
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
     responseFields: []
     auth: []
     controller: null

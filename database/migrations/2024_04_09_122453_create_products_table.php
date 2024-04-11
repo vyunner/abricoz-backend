@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('subcategory_id')->constrained('subcategories');
             $table->foreignId('country_id')->constrained('countries');
             $table->foreignId('brand_id')->constrained('brands')->nullable();
-            $table->string('photo_url');
+            $table->string('photo_url')->nullable();
             $table->string('name_ru');
             $table->string('name_kz');
             $table->string('name_en');

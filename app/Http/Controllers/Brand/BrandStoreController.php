@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Brand;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Brand\BrandStoreRequest;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 
 class BrandStoreController extends Controller
@@ -10,8 +12,12 @@ class BrandStoreController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(BrandStoreRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+
+        $brand = Brand::create($validatedData);
+
+        return $this->response(['brand' => $brand], 'Бренд успешно создан!');
     }
 }

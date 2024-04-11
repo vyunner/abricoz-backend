@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\DeliveryInterval;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DeliveryInterval\DeliveryIntervalStoreRequest;
+use App\Models\DeliveryInterval;
 use Illuminate\Http\Request;
 
 class DeliveryIntervalStoreController extends Controller
@@ -10,8 +12,12 @@ class DeliveryIntervalStoreController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(DeliveryIntervalStoreRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+
+        $deliveryInterval = DeliveryInterval::create($validatedData);
+
+        return $this->response($deliveryInterval, 'Временной интервал успешно создан!');
     }
 }

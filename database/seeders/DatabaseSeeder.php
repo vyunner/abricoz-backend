@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Database\Seeders\CountriesSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,7 +12,18 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            RolesSeeder::class,
+            UserSeeder::class,
             CountriesSeeder::class,
+            BrandsSeeder::class,
+            CategoriesSeeder::class,
+            SubCategoriesSeeder::class,
+            ProductsSeeder::class,
+            DeliveryIntervalsSeeder::class,
+            CartsSeeder::class,
+            OrderSatusesSeeder::class,
+            OrdersSeeder::class,
+            FavoriteProductsSeeder::class,
         ]);
     }
 }
