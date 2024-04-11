@@ -22,9 +22,9 @@ class OrderUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'nullable|exists:users,id',
-            'order_status_id' => 'nullable|exists:order_statuses,id',
-            'delivery_interval_id' => 'nullable|exists:delivery_intervals,id',
+            'user_id' => 'nullable|int|exists:users,id',
+            'order_status_id' => 'nullable|int|exists:order_statuses,id',
+            'delivery_interval_id' => 'nullable|int|exists:delivery_intervals,id',
             'address' => 'nullable|text',
             'address_comment' => 'nullable|text',
             'order_comment' => 'nullable|text',

@@ -81,10 +81,32 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::group(['prefix' => '/order'], function () {
         Route::group(['middleware' => 'role:admin'], function () {
-            Route::post('/store', \App\Http\Controllers\Order\OrderStoreController::class);
+            Route::post('/update', \App\Http\Controllers\Order\OrderUpdateController::class);
         });
 
+        Route::post('/store', \App\Http\Controllers\Order\OrderStoreController::class);
         Route::get('/index', \App\Http\Controllers\Order\OrderIndexController::class);
         Route::get('/show/{id}', \App\Http\Controllers\Order\OrderShowController::class);
+    });
+
+    Route::group(['prefix' => '/product'], function () {
+        Route::group(['middleware' => 'role:admin'], function () {
+            Route::post('/update', \App\Http\Controllers\Product\ProductUpdateController::class);
+            Route::post('/store', \App\Http\Controllers\Product\ProductStoreController::class);
+            Route::delete('/delete', \App\Http\Controllers\Product\ProductDestroyController::class);
+        });
+
+        Route::get('/index', \App\Http\Controllers\Product\ProductIndexController::class);
+        Route::get('/show/{id}', \App\Http\Controllers\Product\ProductShowController::class);
+    });
+
+    Route::group(['prefix' => '/sub-category'], function () {
+        Route::group(['middleware' => 'role:admin'], function () {
+            Route::post('/update', \App\Http\Controllers\SubCategory\SubCategoryUpdateController::class);
+            Route::post('/store', \App\Http\Controllers\SubCategory\SubCategoryStoreController::class);
+            Route::delete('/delete', \App\Http\Controllers\SubCategory\SubCategoryDestroyController::class);
+        });
+
+        Route::get('/index', \App\Http\Controllers\SubCategory\SubCategoryIndexController::class);
     });
 });

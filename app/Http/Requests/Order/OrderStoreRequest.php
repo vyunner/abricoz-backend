@@ -22,12 +22,11 @@ class OrderStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
-            'order_status_id' => 'required|exists:order_statuses,id',
-            'delivery_interval_id' => 'required|exists:delivery_intervals,id',
-            'address' => 'required|text',
-            'address_comment' => 'nullable|text',
-            'order_comment' => 'nullable|text',
+            'order_status_id' => 'required|int|exists:order_statuses,id',
+            'delivery_interval_id' => 'required|int|exists:delivery_intervals,id',
+            'address' => 'required|string',
+            'address_comment' => 'nullable|string',
+            'order_comment' => 'nullable|string',
             'delivery_date' => 'required|date',
         ];
     }

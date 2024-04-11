@@ -5,50 +5,41 @@ namespace App\Http\Controllers\Order;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Services\OrderService;
 
 class OrderIndexController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, OrderService $orderService)
     {
-        if ($request->has('perPage')){
-            $perPage = $request->query('perPage', 10);
-            $page = $request->query('page', 1);
+        $user = $request->user();
+        $query = Order::with(['orderStatus', 'deliveryInterval', 'products']);
 
-            $orders = Order::with(['orderStatus', 'deliveryInterval'])->paginate($perPage, ['*'], 'page', $page);
-
-            return $this->response([
-                'current_page' => $orders->currentPage(),
-                'orders' => $orders->items()->map(function ($order) {
-                    return [
-                        'id' => $order->id,
-                        'user_id' => $order->user_id,
-                        'order_status' => $order->orderStatus->name,
-                        'delivery_interval' => $order->deliveryInterval->name,
-                        'address' => $order->address,
-                        'address_comment' => $order->address_comment,
-                        'order_comment' => $order->order_comment,
-                        'delivery_date' => $order->delivery_date,
-                    ];
-                }),
-                'total' => $orders->total(),
-            ], 'Список заказов успешно загружен!');
+        if (!$user->hasRole('admin')) {
+            $query->where('user_id', $user->id);
         }
 
-        $orders = Order::with(['orderStatus', 'deliveryInterval'])->get();
-        return $this->response($orders->map(function ($order) {
-            return [
-                'id' => $order->id,
-                'user_id' => $order->user_id,
-                'order_status' => $order->orderStatus->name,
-                'delivery_interval' => $order->deliveryInterval->name,
-                'address' => $order->address,
-                'address_comment' => $order->address_comment,
-                'order_comment' => $order->order_comment,
-                'delivery_date' => $order->delivery_date,
+        if ($request->has('perPage')) {
+            $perPage = $request->query('perPage', 10);
+            $page = $request->query('page', 1);
+            $orders = $query->paginate($perPage, ['*'], 'page', $page);
+
+            $response = [
+                'current_page' => $orders->currentPage(),
+                'orders' => $orders->map(function ($order) use ($orderService) {
+                    return $orderService->transformOrder($order);
+                }),
+                'total' => $orders->total(),
             ];
-        }), 'Список заказов успешно загружен!');
+        } else {
+            $orders = $query->get();
+            $response = $orders->map(function ($order) use ($orderService) {
+                return $orderService->transformOrder($order);
+            });
+        }
+
+        return $this->response($response, 'Список заказов успешно загружен!');
     }
 }

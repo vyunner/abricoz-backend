@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Subcategory;
+namespace App\Http\Requests\SubCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubcategoryIndexRequest extends FormRequest
+class SubCategoryUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,11 @@ class SubcategoryIndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'category_id' => 'nullable|int|exists:categories,id',
+            'photo_url' => 'nullable|string',
+            'name_ru' => 'nullable|string',
+            'name_kz' => 'nullable|string',
+            'name_en' => 'nullable|string',
         ];
     }
 }

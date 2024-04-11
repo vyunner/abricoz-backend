@@ -20,4 +20,11 @@ class Order extends Model
     {
         return $this->belongsTo(DeliveryInterval::class, 'delivery_interval_id');
     }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'order_products')
+            ->withPivot('product_quantity')
+            ->with('subcategory', 'country', 'brand');
+    }
 }

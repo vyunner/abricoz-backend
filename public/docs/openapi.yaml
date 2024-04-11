@@ -48,7 +48,7 @@ paths:
                 phone:
                   type: string
                   description: ''
-                  example: omnis
+                  example: tempora
               required:
                 - phone
       security: []
@@ -71,14 +71,86 @@ paths:
                 phone:
                   type: string
                   description: ''
-                  example: ipsum
+                  example: ab
                 code:
                   type: string
                   description: ''
-                  example: est
+                  example: tenetur
               required:
                 - phone
                 - code
+      security: []
+  '/api/brand/delete/{id}':
+    delete:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the delete.'
+        example: et
+        required: true
+        schema:
+          type: string
+  '/api/brand/update/{id}':
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: molestias
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the update.'
+        example: maxime
+        required: true
+        schema:
+          type: string
+  /api/brand/store:
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: assumenda
+              required:
+                - name
       security: []
   /api/brand/index:
     get:
@@ -87,157 +159,963 @@ paths:
       description: ''
       parameters: []
       responses:
-        200:
+        401:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  data:
-                    current_page: 1
-                    brands:
-                      -
-                        id: 1
-                        name: Apple
-                        created_at: '2024-04-11T06:38:09.000000Z'
-                        updated_at: '2024-04-11T06:38:09.000000Z'
-                      -
-                        id: 2
-                        name: Samsung
-                        created_at: '2024-04-11T06:38:09.000000Z'
-                        updated_at: '2024-04-11T06:38:09.000000Z'
-                      -
-                        id: 3
-                        name: Lenovo
-                        created_at: '2024-04-11T06:38:09.000000Z'
-                        updated_at: '2024-04-11T06:38:09.000000Z'
-                      -
-                        id: 4
-                        name: Xiaomi
-                        created_at: '2024-04-11T06:38:09.000000Z'
-                        updated_at: '2024-04-11T06:38:09.000000Z'
-                      -
-                        id: 5
-                        name: Asus
-                        created_at: '2024-04-11T06:38:09.000000Z'
-                        updated_at: '2024-04-11T06:38:09.000000Z'
-                      -
-                        id: 6
-                        name: Apple
-                        created_at: '2024-04-11T06:41:56.000000Z'
-                        updated_at: '2024-04-11T06:41:56.000000Z'
-                      -
-                        id: 7
-                        name: Samsung
-                        created_at: '2024-04-11T06:41:56.000000Z'
-                        updated_at: '2024-04-11T06:41:56.000000Z'
-                      -
-                        id: 8
-                        name: Lenovo
-                        created_at: '2024-04-11T06:41:56.000000Z'
-                        updated_at: '2024-04-11T06:41:56.000000Z'
-                      -
-                        id: 9
-                        name: Xiaomi
-                        created_at: '2024-04-11T06:41:56.000000Z'
-                        updated_at: '2024-04-11T06:41:56.000000Z'
-                      -
-                        id: 10
-                        name: Asus
-                        created_at: '2024-04-11T06:41:56.000000Z'
-                        updated_at: '2024-04-11T06:41:56.000000Z'
-                    total: 15
-                  message: 'Список брендов успешно загружен!'
-                  http_code: 200
-                  status: success
+                  message: Unauthenticated.
                 properties:
-                  data:
-                    type: object
-                    properties:
-                      current_page:
-                        type: integer
-                        example: 1
-                      brands:
-                        type: array
-                        example:
-                          -
-                            id: 1
-                            name: Apple
-                            created_at: '2024-04-11T06:38:09.000000Z'
-                            updated_at: '2024-04-11T06:38:09.000000Z'
-                          -
-                            id: 2
-                            name: Samsung
-                            created_at: '2024-04-11T06:38:09.000000Z'
-                            updated_at: '2024-04-11T06:38:09.000000Z'
-                          -
-                            id: 3
-                            name: Lenovo
-                            created_at: '2024-04-11T06:38:09.000000Z'
-                            updated_at: '2024-04-11T06:38:09.000000Z'
-                          -
-                            id: 4
-                            name: Xiaomi
-                            created_at: '2024-04-11T06:38:09.000000Z'
-                            updated_at: '2024-04-11T06:38:09.000000Z'
-                          -
-                            id: 5
-                            name: Asus
-                            created_at: '2024-04-11T06:38:09.000000Z'
-                            updated_at: '2024-04-11T06:38:09.000000Z'
-                          -
-                            id: 6
-                            name: Apple
-                            created_at: '2024-04-11T06:41:56.000000Z'
-                            updated_at: '2024-04-11T06:41:56.000000Z'
-                          -
-                            id: 7
-                            name: Samsung
-                            created_at: '2024-04-11T06:41:56.000000Z'
-                            updated_at: '2024-04-11T06:41:56.000000Z'
-                          -
-                            id: 8
-                            name: Lenovo
-                            created_at: '2024-04-11T06:41:56.000000Z'
-                            updated_at: '2024-04-11T06:41:56.000000Z'
-                          -
-                            id: 9
-                            name: Xiaomi
-                            created_at: '2024-04-11T06:41:56.000000Z'
-                            updated_at: '2024-04-11T06:41:56.000000Z'
-                          -
-                            id: 10
-                            name: Asus
-                            created_at: '2024-04-11T06:41:56.000000Z'
-                            updated_at: '2024-04-11T06:41:56.000000Z'
-                        items:
-                          type: object
-                          properties:
-                            id:
-                              type: integer
-                              example: 1
-                            name:
-                              type: string
-                              example: Apple
-                            created_at:
-                              type: string
-                              example: '2024-04-11T06:38:09.000000Z'
-                            updated_at:
-                              type: string
-                              example: '2024-04-11T06:38:09.000000Z'
-                      total:
-                        type: integer
-                        example: 15
                   message:
                     type: string
-                    example: 'Список брендов успешно загружен!'
-                  http_code:
-                    type: integer
-                    example: 200
-                  status:
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/cart/index:
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
                     type: string
-                    example: success
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/cart/store:
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  description: ''
+                  example: nobis
+                product_id:
+                  type: string
+                  description: ''
+                  example: fuga
+                quantity:
+                  type: integer
+                  description: ''
+                  example: 8
+              required:
+                - user_id
+                - product_id
+      security: []
+  '/api/cart/delete/{id}':
+    delete:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the delete.'
+        example: aut
+        required: true
+        schema:
+          type: string
+  '/api/category/delete/{id}':
+    delete:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the delete.'
+        example: quae
+        required: true
+        schema:
+          type: string
+  /api/category/store:
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                photo_url:
+                  type: string
+                  description: ''
+                  example: 'http://mraz.net/facilis-odit-quae-cumque-odio'
+                name_ru:
+                  type: string
+                  description: ''
+                  example: assumenda
+                name_kz:
+                  type: string
+                  description: ''
+                  example: iure
+                name_en:
+                  type: string
+                  description: ''
+                  example: incidunt
+                description_ru:
+                  type: string
+                  description: ''
+                  example: aut
+                description_kz:
+                  type: string
+                  description: ''
+                  example: doloremque
+                description_en:
+                  type: string
+                  description: ''
+                  example: enim
+              required:
+                - name_ru
+                - name_kz
+                - name_en
+                - description_ru
+                - description_kz
+                - description_en
+      security: []
+  '/api/category/update/{id}':
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                photo_url:
+                  type: string
+                  description: ''
+                  example: 'http://kunde.com/'
+                name_ru:
+                  type: string
+                  description: ''
+                  example: ullam
+                name_kz:
+                  type: string
+                  description: ''
+                  example: voluptatem
+                name_en:
+                  type: string
+                  description: ''
+                  example: laudantium
+                description_ru:
+                  type: string
+                  description: ''
+                  example: aut
+                description_kz:
+                  type: string
+                  description: ''
+                  example: possimus
+                description_en:
+                  type: string
+                  description: ''
+                  example: perferendis
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the update.'
+        example: dolores
+        required: true
+        schema:
+          type: string
+  /api/category/index:
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/country/delete/{id}':
+    delete:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the delete.'
+        example: cupiditate
+        required: true
+        schema:
+          type: string
+  /api/country/store:
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: et
+              required:
+                - name
+      security: []
+  '/api/country/update/{id}':
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: est
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the update.'
+        example: et
+        required: true
+        schema:
+          type: string
+  /api/country/index:
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/delivery-interval/delete/{id}':
+    delete:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the delete.'
+        example: in
+        required: true
+        schema:
+          type: string
+  /api/delivery-interval/store:
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: labore
+                is_active:
+                  type: boolean
+                  description: ''
+                  example: false
+              required:
+                - name
+      security: []
+  '/api/delivery-interval/update/{id}':
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: odit
+                is_active:
+                  type: boolean
+                  description: ''
+                  example: true
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the update.'
+        example: quas
+        required: true
+        schema:
+          type: string
+  /api/delivery-interval/index:
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/favorite-product/delete/{id}':
+    delete:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the delete.'
+        example: quisquam
+        required: true
+        schema:
+          type: string
+  /api/favorite-product/store:
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: ''
+                  example: 18
+                product_id:
+                  type: string
+                  description: ''
+                  example: est
+              required:
+                - user_id
+                - product_id
+      security: []
+  /api/favorite-product/index:
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/order/update:
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  description: ''
+                  example: 17
+                order_status_id:
+                  type: integer
+                  description: ''
+                  example: 15
+                delivery_interval_id:
+                  type: integer
+                  description: ''
+                  example: 2
+                address:
+                  type: string
+                  description: ''
+                  example: null
+                address_comment:
+                  type: string
+                  description: ''
+                  example: null
+                order_comment:
+                  type: string
+                  description: ''
+                  example: null
+                delivery_date:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2024-04-11T15:05:44'
+      security: []
+  /api/order/store:
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order_status_id:
+                  type: integer
+                  description: ''
+                  example: 18
+                delivery_interval_id:
+                  type: integer
+                  description: ''
+                  example: 8
+                address:
+                  type: string
+                  description: ''
+                  example: cupiditate
+                address_comment:
+                  type: string
+                  description: ''
+                  example: est
+                order_comment:
+                  type: string
+                  description: ''
+                  example: ut
+                delivery_date:
+                  type: string
+                  description: 'Must be a valid date.'
+                  example: '2024-04-11T15:05:44'
+              required:
+                - order_status_id
+                - delivery_interval_id
+                - address
+                - delivery_date
+      security: []
+  /api/order/index:
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/order/show/{id}':
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the show.'
+        example: dignissimos
+        required: true
+        schema:
+          type: string
+  /api/product/update:
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subcategory_id:
+                  type: integer
+                  description: ''
+                  example: 5
+                country_id:
+                  type: integer
+                  description: ''
+                  example: 15
+                brand_id:
+                  type: integer
+                  description: ''
+                  example: 8
+                photo_url:
+                  type: string
+                  description: ''
+                  example: 'http://www.mayert.com/'
+                name_ru:
+                  type: string
+                  description: ''
+                  example: quaerat
+                name_kz:
+                  type: string
+                  description: ''
+                  example: et
+                name_en:
+                  type: string
+                  description: ''
+                  example: qui
+                description_ru:
+                  type: string
+                  description: ''
+                  example: et
+                description_kz:
+                  type: string
+                  description: ''
+                  example: quasi
+                description_en:
+                  type: string
+                  description: ''
+                  example: voluptatum
+                price:
+                  type: integer
+                  description: ''
+                  example: 5
+                discount:
+                  type: integer
+                  description: ''
+                  example: 13
+      security: []
+  /api/product/store:
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subcategory_id:
+                  type: integer
+                  description: ''
+                  example: 15
+                country_id:
+                  type: integer
+                  description: ''
+                  example: 6
+                brand_id:
+                  type: integer
+                  description: ''
+                  example: 7
+                photo_url:
+                  type: string
+                  description: ''
+                  example: 'http://www.grady.info/laborum-et-quam-rem-ut-fuga.html'
+                name_ru:
+                  type: string
+                  description: ''
+                  example: dicta
+                name_kz:
+                  type: string
+                  description: ''
+                  example: temporibus
+                name_en:
+                  type: string
+                  description: ''
+                  example: consequatur
+                description_ru:
+                  type: string
+                  description: ''
+                  example: eum
+                description_kz:
+                  type: string
+                  description: ''
+                  example: sunt
+                description_en:
+                  type: string
+                  description: ''
+                  example: iste
+                price:
+                  type: integer
+                  description: ''
+                  example: 18
+                discount:
+                  type: integer
+                  description: ''
+                  example: 3
+              required:
+                - subcategory_id
+                - country_id
+                - brand_id
+                - name_ru
+                - name_kz
+                - name_en
+                - description_ru
+                - description_kz
+                - description_en
+                - price
+                - discount
+      security: []
+  /api/product/delete:
+    delete:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/product/index:
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/product/show/{id}':
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the show.'
+        example: aliquid
+        required: true
+        schema:
+          type: string
+  /api/sub-category/update:
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: integer
+                  description: ''
+                  example: 9
+                photo_url:
+                  type: string
+                  description: ''
+                  example: 'http://www.bashirian.net/'
+                name_ru:
+                  type: string
+                  description: ''
+                  example: cupiditate
+                name_kz:
+                  type: string
+                  description: ''
+                  example: at
+                name_en:
+                  type: string
+                  description: ''
+                  example: earum
+      security: []
+  /api/sub-category/store:
+    post:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category_id:
+                  type: integer
+                  description: ''
+                  example: 6
+                photo_url:
+                  type: string
+                  description: ''
+                  example: 'https://www.white.com/in-ad-quisquam-consequatur-sunt-nemo-consequatur-nobis-aut'
+                name_ru:
+                  type: string
+                  description: ''
+                  example: ipsum
+                name_kz:
+                  type: string
+                  description: ''
+                  example: tempore
+                name_en:
+                  type: string
+                  description: ''
+                  example: voluptas
+              required:
+                - category_id
+                - name_ru
+                - name_kz
+                - name_en
+      security: []
+  /api/sub-category/delete:
+    delete:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/sub-category/index:
+    get:
+      summary: 'Handle the incoming request.'
+      operationId: handleTheIncomingRequest
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
       tags:
         - Endpoints
       security: []

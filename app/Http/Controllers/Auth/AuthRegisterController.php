@@ -38,6 +38,9 @@ class AuthRegisterController extends Controller
         // Работает!!! Отправка смс
 //        $response = $this->mobizonService->sendSmsMessage($recipient, $text);
 
-        return $this->response($user, 'Аккаунт успешно зарегистрирован!');
+        $userData = $user->toArray();
+        unset($userData['phone_verification_code']);
+
+        return $this->response($userData, 'Аккаунт успешно зарегистрирован!');
     }
 }
