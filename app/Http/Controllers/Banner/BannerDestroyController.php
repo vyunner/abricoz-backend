@@ -7,8 +7,17 @@ use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @group Banner
+ */
 class BannerDestroyController extends Controller
 {
+    /**
+     * Удаление
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(Request $request, $id)
     {
         $banner = Banner::findOrFail($id);

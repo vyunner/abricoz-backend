@@ -3,12 +3,21 @@
 namespace App\Http\Controllers\SubCategory;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubCategory\SubCategoryIndexRequest;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
+/**
+ * @group SubCategory
+ */
 class SubCategoryIndexController extends Controller
 {
-    public function __invoke(Request $request)
+    /**
+     * Список
+     * @param SubCategoryIndexRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function __invoke(SubCategoryIndexRequest $request)
     {
         if ($request->has('perPage')) {
             $perPage = $request->query('perPage', 10);

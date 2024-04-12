@@ -7,8 +7,16 @@ use App\Http\Requests\Banner\BannerUpdateRequest;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 
+/**
+ * @group Banner
+ */
 class BannerUpdateController extends Controller
 {
+    /**
+     * Обновление
+     * @param BannerUpdateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(BannerUpdateRequest $request)
     {
         $validatedData = $request->validated();

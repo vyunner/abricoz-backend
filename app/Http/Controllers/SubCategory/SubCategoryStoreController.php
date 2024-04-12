@@ -7,8 +7,16 @@ use App\Http\Requests\SubCategory\SubCategoryStoreRequest;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
+/**
+ * @group SubCategory
+ */
 class SubCategoryStoreController extends Controller
 {
+    /**
+     * Создание
+     * @param SubCategoryStoreRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(SubCategoryStoreRequest $request)
     {
         $validatedData = $request->validated();

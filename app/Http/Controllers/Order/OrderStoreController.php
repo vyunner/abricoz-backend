@@ -10,8 +10,16 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 
+/**
+ * @group Order
+ */
 class OrderStoreController extends Controller
 {
+    /**
+     * Создание
+     * @param OrderStoreRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(OrderStoreRequest $request)
     {
         $user_id = $request->user()->id;

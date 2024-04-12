@@ -8,8 +8,16 @@ use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @group Banner
+ */
 class BannerStoreController extends Controller
 {
+    /**
+     * Создание
+     * @param BannerStoreRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(BannerStoreRequest $request)
     {
         $validatedData = $request->validated();

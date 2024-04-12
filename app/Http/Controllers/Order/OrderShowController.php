@@ -7,9 +7,18 @@ use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
+/**
+ * @group Order
+ */
 class OrderShowController extends Controller
 {
-    public function __invoke(Request $request, $id, OrderService $orderService)
+    /**
+     * Элемент
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function __invoke(Request $request, $id)
     {
         $user_id = $request->user()->id;
         $order = OrderResource::make(Order::with(['orderStatus', 'deliveryInterval', 'products'])->findOrFail($id));

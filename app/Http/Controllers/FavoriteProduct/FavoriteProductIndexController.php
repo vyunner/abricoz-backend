@@ -6,8 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\FavoriteProduct;
 use Illuminate\Http\Request;
 
+/**
+ * @group FavoriteProduct
+ */
 class FavoriteProductIndexController extends Controller
 {
+    /**
+     * Список
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(Request $request)
     {
         if ($request->has('perPage')) {

@@ -7,8 +7,16 @@ use App\Http\Requests\FavoriteProduct\FavoriteProductStoreRequest;
 use App\Models\FavoriteProduct;
 use Illuminate\Http\Request;
 
+/**
+ * @group FavoriteProduct
+ */
 class FavoriteProductStoreController extends Controller
 {
+    /**
+     * Создание
+     * @param FavoriteProductStoreRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(FavoriteProductStoreRequest $request)
     {
         $validatedData = $request->validated();

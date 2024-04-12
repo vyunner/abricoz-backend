@@ -8,8 +8,17 @@ use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
+/**
+ * @group Product
+ */
 class ProductUpdateController extends Controller
 {
+    /**
+     * Обновление
+     * @param ProductUpdateRequest $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(ProductUpdateRequest $request, $id)
     {
         $validatedData = $request->validated();

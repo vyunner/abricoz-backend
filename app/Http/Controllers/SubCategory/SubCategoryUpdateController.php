@@ -7,8 +7,17 @@ use App\Http\Requests\SubCategory\SubCategoryUpdateRequest;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
+/**
+ * @group SubCategory
+ */
 class SubCategoryUpdateController extends Controller
 {
+    /**
+     * Обновление
+     * @param SubCategoryUpdateRequest $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(SubCategoryUpdateRequest $request, $id)
     {
         $validatedData = $request->validated();

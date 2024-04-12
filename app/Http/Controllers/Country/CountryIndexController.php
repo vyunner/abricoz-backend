@@ -3,12 +3,21 @@
 namespace App\Http\Controllers\Country;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Country\CountryIndexRequest;
 use App\Models\Country;
 use Illuminate\Http\Request;
 
+/**
+ * @group Country
+ */
 class CountryIndexController extends Controller
 {
-    public function __invoke(Request $request)
+    /**
+     * Список
+     * @param CountryIndexRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function __invoke(CountryIndexRequest $request)
     {
         if ($request->has('perPage')) {
             $perPage = $request->query('perPage', 10);

@@ -7,8 +7,16 @@ use App\Http\Requests\Brand\BrandIndexRequest;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 
+/**
+ * @group Brand
+ */
 class BrandIndexController extends Controller
 {
+    /**
+     * Список
+     * @param BrandIndexRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(BrandIndexRequest $request)
     {
         if ($request->has('perPage')) {

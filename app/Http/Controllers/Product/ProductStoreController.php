@@ -8,8 +8,16 @@ use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
+/**
+ * @group Product
+ */
 class ProductStoreController extends Controller
 {
+    /**
+     * Создание
+     * @param ProductStoreRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(ProductStoreRequest $request)
     {
         $validatedData = $request->validated();

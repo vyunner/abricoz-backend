@@ -7,8 +7,16 @@ use App\Http\Requests\Country\CountryUpdateRequest;
 use App\Models\Country;
 use Illuminate\Http\Request;
 
+/**
+ * @group Country
+ */
 class CountryUpdateController extends Controller
 {
+    /**
+     * Обновление
+     * @param CountryUpdateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(CountryUpdateRequest $request)
     {
         $validatedData = $request->validated();

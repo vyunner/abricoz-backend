@@ -23,100 +23,98 @@ Route::group(['prefix' => '/auth'], function () {
     Route::post('/login', \App\Http\Controllers\Auth\AuthLoginController::class);
 });
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::group(['prefix' => '/brand'], function () {
-        Route::group(['middleware' => 'role:admin'], function () {
-            Route::delete('/delete/{id}', \App\Http\Controllers\Brand\BrandDestroyController::class);
-            Route::post('/update/{id}', \App\Http\Controllers\Brand\BrandUpdateController::class);
-            Route::post('/store', \App\Http\Controllers\Brand\BrandStoreController::class);
-        });
-
-        Route::get('/index', \App\Http\Controllers\Brand\BrandIndexController::class);
+Route::group(['prefix' => '/brand'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+        Route::delete('/delete/{id}', \App\Http\Controllers\Brand\BrandDestroyController::class);
+        Route::post('/update/{id}', \App\Http\Controllers\Brand\BrandUpdateController::class);
+        Route::post('/store', \App\Http\Controllers\Brand\BrandStoreController::class);
     });
 
-    Route::group(['prefix' => '/cart'], function () {
-        Route::get('/index', \App\Http\Controllers\Cart\CartIndexController::class);
-        Route::post('/store', \App\Http\Controllers\Cart\CartStoreController::class);
-        Route::delete('/delete/{id}', \App\Http\Controllers\Cart\CartDestroyController::class);
+    Route::get('/index', \App\Http\Controllers\Brand\BrandIndexController::class);
+});
+
+Route::group(['prefix' => '/cart', 'middleware' => 'auth:sanctum'], function () {
+    Route::get('/index', \App\Http\Controllers\Cart\CartIndexController::class);
+    Route::post('/store', \App\Http\Controllers\Cart\CartStoreController::class);
+    Route::delete('/delete/{id}', \App\Http\Controllers\Cart\CartDestroyController::class);
+});
+
+Route::group(['prefix' => '/category'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+        Route::delete('/delete/{id}', \App\Http\Controllers\Category\CategoryDestroyController::class);
+        Route::post('/store', \App\Http\Controllers\Category\CategoryStoreController::class);
+        Route::post('/update/{id}', \App\Http\Controllers\Category\CategoryUpdateController::class);
     });
 
-    Route::group(['prefix' => '/category'], function () {
-        Route::group(['middleware' => 'role:admin'], function () {
-            Route::delete('/delete/{id}', \App\Http\Controllers\Category\CategoryDestroyController::class);
-            Route::post('/store', \App\Http\Controllers\Category\CategoryStoreController::class);
-            Route::post('/update/{id}', \App\Http\Controllers\Category\CategoryUpdateController::class);
-        });
+    Route::get('/index', \App\Http\Controllers\Category\CategoryIndexController::class);
+});
 
-        Route::get('/index', \App\Http\Controllers\Category\CategoryIndexController::class);
+Route::group(['prefix' => '/country'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+        Route::delete('/delete/{id}', \App\Http\Controllers\Country\CountryDestroyController::class);
+        Route::post('/store', \App\Http\Controllers\Country\CountryStoreController::class);
+        Route::post('/update/{id}', \App\Http\Controllers\Country\CountryUpdateController::class);
     });
 
-    Route::group(['prefix' => '/country'], function () {
-        Route::group(['middleware' => 'role:admin'], function () {
-            Route::delete('/delete/{id}', \App\Http\Controllers\Country\CountryDestroyController::class);
-            Route::post('/store', \App\Http\Controllers\Country\CountryStoreController::class);
-            Route::post('/update/{id}', \App\Http\Controllers\Country\CountryUpdateController::class);
-        });
+    Route::get('/index', \App\Http\Controllers\Country\CountryIndexController::class);
+});
 
-        Route::get('/index', \App\Http\Controllers\Country\CountryIndexController::class);
+Route::group(['prefix' => '/delivery-interval'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+        Route::delete('/delete/{id}', \App\Http\Controllers\DeliveryInterval\DeliveryIntervalDestroyController::class);
+        Route::post('/store', \App\Http\Controllers\DeliveryInterval\DeliveryIntervalStoreController::class);
+        Route::post('/update/{id}', \App\Http\Controllers\DeliveryInterval\DeliveryIntervalUpdateController::class);
     });
 
-    Route::group(['prefix' => '/delivery-interval'], function () {
-        Route::group(['middleware' => 'role:admin'], function () {
-            Route::delete('/delete/{id}', \App\Http\Controllers\DeliveryInterval\DeliveryIntervalDestroyController::class);
-            Route::post('/store', \App\Http\Controllers\DeliveryInterval\DeliveryIntervalStoreController::class);
-            Route::post('/update/{id}', \App\Http\Controllers\DeliveryInterval\DeliveryIntervalUpdateController::class);
-        });
+    Route::get('/index', \App\Http\Controllers\DeliveryInterval\DeliveryIntervalIndexController::class);
+});
 
-        Route::get('/index', \App\Http\Controllers\DeliveryInterval\DeliveryIntervalIndexController::class);
+Route::group(['prefix' => '/favorite-product'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+        Route::delete('/delete/{id}', \App\Http\Controllers\FavoriteProduct\FavoriteProductDestroyController::class);
+        Route::post('/store', \App\Http\Controllers\FavoriteProduct\FavoriteProductStoreController::class);
     });
 
-    Route::group(['prefix' => '/favorite-product'], function () {
-        Route::group(['middleware' => 'role:admin'], function () {
-            Route::delete('/delete/{id}', \App\Http\Controllers\FavoriteProduct\FavoriteProductDestroyController::class);
-            Route::post('/store', \App\Http\Controllers\FavoriteProduct\FavoriteProductStoreController::class);
-        });
+    Route::get('/index', \App\Http\Controllers\FavoriteProduct\FavoriteProductIndexController::class);
+});
 
-        Route::get('/index', \App\Http\Controllers\FavoriteProduct\FavoriteProductIndexController::class);
+Route::group(['prefix' => '/order', 'middleware' => 'auth:sanctum'], function () {
+    Route::group(['middleware' => 'role:admin'], function () {
+        Route::post('/update/{id}', \App\Http\Controllers\Order\OrderUpdateController::class);
     });
 
-    Route::group(['prefix' => '/order'], function () {
-        Route::group(['middleware' => 'role:admin'], function () {
-            Route::post('/update/{id}', \App\Http\Controllers\Order\OrderUpdateController::class);
-        });
+    Route::post('/store', \App\Http\Controllers\Order\OrderStoreController::class);
+    Route::get('/index', \App\Http\Controllers\Order\OrderIndexController::class);
+    Route::get('/show/{id}', \App\Http\Controllers\Order\OrderShowController::class);
+});
 
-        Route::post('/store', \App\Http\Controllers\Order\OrderStoreController::class);
-        Route::get('/index', \App\Http\Controllers\Order\OrderIndexController::class);
-        Route::get('/show/{id}', \App\Http\Controllers\Order\OrderShowController::class);
+Route::group(['prefix' => '/product'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+        Route::post('/update/{id}', \App\Http\Controllers\Product\ProductUpdateController::class);
+        Route::post('/store', \App\Http\Controllers\Product\ProductStoreController::class);
+        Route::delete('/delete/{id}', \App\Http\Controllers\Product\ProductDestroyController::class);
     });
 
-    Route::group(['prefix' => '/product'], function () {
-        Route::group(['middleware' => 'role:admin'], function () {
-            Route::post('/update/{id}', \App\Http\Controllers\Product\ProductUpdateController::class);
-            Route::post('/store', \App\Http\Controllers\Product\ProductStoreController::class);
-            Route::delete('/delete/{id}', \App\Http\Controllers\Product\ProductDestroyController::class);
-        });
+    Route::get('/index', \App\Http\Controllers\Product\ProductIndexController::class);
+    Route::get('/show/{id}', \App\Http\Controllers\Product\ProductShowController::class);
+});
 
-        Route::get('/index', \App\Http\Controllers\Product\ProductIndexController::class);
-        Route::get('/show/{id}', \App\Http\Controllers\Product\ProductShowController::class);
+Route::group(['prefix' => '/sub-category'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+        Route::post('/update/{id}', \App\Http\Controllers\SubCategory\SubCategoryUpdateController::class);
+        Route::post('/store', \App\Http\Controllers\SubCategory\SubCategoryStoreController::class);
+        Route::delete('/delete/${id}', \App\Http\Controllers\SubCategory\SubCategoryDestroyController::class);
     });
 
-    Route::group(['prefix' => '/sub-category'], function () {
-        Route::group(['middleware' => 'role:admin'], function () {
-            Route::post('/update/{id}', \App\Http\Controllers\SubCategory\SubCategoryUpdateController::class);
-            Route::post('/store', \App\Http\Controllers\SubCategory\SubCategoryStoreController::class);
-            Route::delete('/delete/${id}', \App\Http\Controllers\SubCategory\SubCategoryDestroyController::class);
-        });
+    Route::get('/index', \App\Http\Controllers\SubCategory\SubCategoryIndexController::class);
+});
 
-        Route::get('/index', \App\Http\Controllers\SubCategory\SubCategoryIndexController::class);
+Route::group(['prefix' => '/banner'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+        Route::post('/update', \App\Http\Controllers\Banner\BannerUpdateController::class);
+        Route::post('/store', \App\Http\Controllers\Banner\BannerStoreController::class);
+        Route::delete('/delete/{id}', \App\Http\Controllers\Banner\BannerDestroyController::class);
     });
 
-    Route::group(['prefix' => '/banner'], function () {
-        Route::group(['middleware' => 'role:admin'], function () {
-            Route::post('/update', \App\Http\Controllers\Banner\BannerUpdateController::class);
-            Route::post('/store', \App\Http\Controllers\Banner\BannerStoreController::class);
-            Route::delete('/delete/{id}', \App\Http\Controllers\Banner\BannerDestroyController::class);
-        });
-
-        Route::get('/index', \App\Http\Controllers\Banner\BannerIndexController::class);
-    });
+    Route::get('/index', \App\Http\Controllers\Banner\BannerIndexController::class);
 });

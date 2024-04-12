@@ -3,13 +3,22 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\ProductIndexRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
+/**
+ * @group Product
+ */
 class ProductIndexController extends Controller
 {
-    public function __invoke(Request $request)
+    /**
+     * Список
+     * @param ProductIndexRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function __invoke(ProductIndexRequest $request)
     {
         if ($request->has('perPage')) {
             $perPage = $request->input('perPage', 10);

@@ -7,8 +7,18 @@ use App\Http\Requests\Cart\CartDestroyRequest;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 
+
+/**
+ * @group Cart
+ */
 class CartDestroyController extends Controller
 {
+    /**
+     * Удаление
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(Request $request, $id)
     {
         $user = $request->user();

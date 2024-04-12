@@ -8,8 +8,18 @@ use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
+/**
+ * @group Order
+ */
 class OrderUpdateController extends Controller
 {
+    /**
+     * Обновление
+     * @param OrderUpdateRequest $request
+     * @param $id
+     * @param OrderService $orderService
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(OrderUpdateRequest $request, $id, OrderService $orderService)
     {
         $validatedData = $request->validated();

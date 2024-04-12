@@ -3,13 +3,22 @@
 namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Order\OrderIndexRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
+/**
+ * @group Order
+ */
 class OrderIndexController extends Controller
 {
-    public function __invoke(Request $request)
+    /**
+     * Список
+     * @param OrderIndexRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function __invoke(OrderIndexRequest $request)
     {
         $user = $request->user();
         $query = Order::with(['orderStatus', 'deliveryInterval', 'products']);
