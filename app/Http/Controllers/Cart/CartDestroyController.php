@@ -14,7 +14,7 @@ class CartDestroyController extends Controller
         $user = $request->user();
         $cart = Cart::findOrFail($id);
 
-        if ($user->id == $cart['user_id']){
+        if ($user->id == $cart['user_id']) {
             $cart->delete();
             return $this->response([], 'Продукт успешно удален из корзины!');
         }

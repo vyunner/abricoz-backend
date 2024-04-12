@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\MobizonServiceInterface;
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\AuthRegisterRequest;
 use App\Models\User;
@@ -10,19 +11,26 @@ use Illuminate\Support\Facades\Hash;
 use App\Services\MobizonService;
 use Carbon\Carbon;
 
+/**
+ * @group Auth
+ */
 class AuthRegisterController extends Controller
 {
-    protected $mobizonService;
-
-    public function __construct(MobizonService $mobizonService)
+    public function __construct(
+        protected MobizonServiceInterface $mobizonService
+    )
     {
-        $this->mobizonService = $mobizonService;
     }
 
+    /**
+     * Регистрация
+     * @param AuthRegisterRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(AuthRegisterRequest $request)
     {
         $data = $request->validated();
-//        $code = mt_rand(100000, 999999);
+        //TODO $code = mt_rand(100000, 999999);
         $code = 123456;
 
         $user = User::firstOrCreate([
@@ -35,8 +43,8 @@ class AuthRegisterController extends Controller
         $recipient = $data['phone'];
         $text = 'Спасибо за регистрацию на glowbee.kz! Ваш код подтверждения: ' . $code;
 
-        // Работает!!! Отправка смс
-//        $response = $this->mobizonService->sendSmsMessage($recipient, $text);
+        //TODO Работает!!! Отправка смс
+//         $response = $this->mobizonService->sendSmsMessage($recipient, $text);
 
         $userData = $user->toArray();
         unset($userData['phone_verification_code']);

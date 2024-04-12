@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\OrderStoreRequest;
+use App\Http\Resources\OrderResource;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderProduct;
-use App\Services\OrderService;
 use Illuminate\Http\Request;
 
 class OrderStoreController extends Controller
 {
-    public function __invoke(OrderStoreRequest $request, OrderService $orderService)
+    public function __invoke(OrderStoreRequest $request)
     {
         $user_id = $request->user()->id;
 
@@ -36,7 +36,7 @@ class OrderStoreController extends Controller
         Cart::where('user_id', $user_id)->delete();
 
         $order = $order->load(['products', 'orderStatus', 'deliveryInterval']);
-        $order = $orderService->transformOrder($order);
+        $order = OrderResource::make($order);
 
         return $this->response($order, 'Заказ успешно создан!');
     }

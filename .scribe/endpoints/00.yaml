@@ -1,8 +1,7 @@
 name: Endpoints
 description: ''
 endpoints:
-  -
-    httpMethods:
+  - httpMethods:
       - GET
     uri: api/user
     metadata:
@@ -13,125 +12,33 @@ endpoints:
       title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 401
+      - status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/auth/register
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      phone:
-        name: phone
-        description: ''
-        required: true
-        example: tempora
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        custom: []
-    cleanBodyParameters:
-      phone: tempora
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/auth/login
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      phone:
-        name: phone
-        description: ''
-        required: true
-        example: ab
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        custom: []
-      code:
-        name: code
-        description: ''
-        required: true
-        example: tenetur
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        custom: []
-    cleanBodyParameters:
-      phone: ab
-      code: tenetur
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - DELETE
     uri: 'api/brand/delete/{id}'
     metadata:
@@ -139,10 +46,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
@@ -151,27 +58,26 @@ endpoints:
         name: id
         description: 'The ID of the delete.'
         required: true
-        example: et
+        example: non
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanUrlParameters:
-      id: et
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      id: non
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
     uri: 'api/brand/update/{id}'
     metadata:
@@ -179,10 +85,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
@@ -191,37 +97,36 @@ endpoints:
         name: id
         description: 'The ID of the update.'
         required: true
-        example: maxime
+        example: dicta
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanUrlParameters:
-      id: maxime
-    queryParameters: []
-    cleanQueryParameters: []
+      id: dicta
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       name:
         name: name
         description: ''
         required: false
-        example: molestias
+        example: cum
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      name: molestias
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      name: cum
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
     uri: api/brand/store
     metadata:
@@ -229,39 +134,38 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       name:
         name: name
         description: ''
         required: true
-        example: assumenda
+        example: non
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      name: assumenda
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      name: non
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - GET
     uri: api/brand/index
     metadata:
@@ -269,38 +173,36 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 401
+      - status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - GET
     uri: api/cart/index
     metadata:
@@ -308,38 +210,36 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 401
+      - status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
     uri: api/cart/store
     metadata:
@@ -347,59 +247,58 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       user_id:
         name: user_id
         description: ''
         required: true
-        example: nobis
+        example: sit
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       product_id:
         name: product_id
         description: ''
         required: true
-        example: fuga
+        example: eos
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       quantity:
         name: quantity
         description: ''
         required: false
-        example: 8
+        example: 6
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      user_id: nobis
-      product_id: fuga
-      quantity: 8
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      user_id: sit
+      product_id: eos
+      quantity: 6
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - DELETE
     uri: 'api/cart/delete/{id}'
     metadata:
@@ -407,50 +306,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the delete.'
-        required: true
-        example: aut
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        custom: []
-    cleanUrlParameters:
-      id: aut
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - DELETE
-    uri: 'api/category/delete/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'Handle the incoming request.'
-      description: ''
-      authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
@@ -461,25 +320,63 @@ endpoints:
         required: true
         example: quae
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanUrlParameters:
       id: quae
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
+      - DELETE
+    uri: 'api/category/delete/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: [ ]
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the delete.'
+        required: true
+        example: mollitia
+        type: string
+        enumValues: [ ]
+        exampleWasSpecified: false
+        custom: [ ]
+    cleanUrlParameters:
+      id: mollitia
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
+    controller: null
+    method: null
+    route: null
+    custom: [ ]
+  - httpMethods:
       - POST
     uri: api/category/store
     metadata:
@@ -487,99 +384,98 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       photo_url:
         name: photo_url
         description: ''
         required: false
-        example: 'http://mraz.net/facilis-odit-quae-cumque-odio'
+        example: 'http://www.schaden.biz/totam-labore-itaque-repellat'
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_ru:
         name: name_ru
         description: ''
         required: true
-        example: assumenda
+        example: officiis
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_kz:
         name: name_kz
         description: ''
         required: true
-        example: iure
+        example: ratione
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_en:
         name: name_en
         description: ''
         required: true
-        example: incidunt
+        example: ut
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       description_ru:
         name: description_ru
         description: ''
         required: true
-        example: aut
+        example: velit
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       description_kz:
         name: description_kz
         description: ''
         required: true
-        example: doloremque
+        example: beatae
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       description_en:
         name: description_en
         description: ''
         required: true
-        example: enim
+        example: voluptatum
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      photo_url: 'http://mraz.net/facilis-odit-quae-cumque-odio'
-      name_ru: assumenda
-      name_kz: iure
-      name_en: incidunt
-      description_ru: aut
-      description_kz: doloremque
-      description_en: enim
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      photo_url: 'http://www.schaden.biz/totam-labore-itaque-repellat'
+      name_ru: officiis
+      name_kz: ratione
+      name_en: ut
+      description_ru: velit
+      description_kz: beatae
+      description_en: voluptatum
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
     uri: 'api/category/update/{id}'
     metadata:
@@ -587,10 +483,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
@@ -599,97 +495,96 @@ endpoints:
         name: id
         description: 'The ID of the update.'
         required: true
-        example: dolores
+        example: deserunt
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanUrlParameters:
-      id: dolores
-    queryParameters: []
-    cleanQueryParameters: []
+      id: deserunt
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       photo_url:
         name: photo_url
         description: ''
         required: false
-        example: 'http://kunde.com/'
+        example: 'http://www.huels.com/'
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_ru:
         name: name_ru
         description: ''
         required: false
-        example: ullam
+        example: id
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_kz:
         name: name_kz
         description: ''
         required: false
-        example: voluptatem
+        example: numquam
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_en:
         name: name_en
         description: ''
         required: false
-        example: laudantium
+        example: nemo
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       description_ru:
         name: description_ru
         description: ''
         required: false
-        example: aut
+        example: minima
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       description_kz:
         name: description_kz
         description: ''
         required: false
-        example: possimus
+        example: sed
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       description_en:
         name: description_en
         description: ''
         required: false
-        example: perferendis
+        example: et
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      photo_url: 'http://kunde.com/'
-      name_ru: ullam
-      name_kz: voluptatem
-      name_en: laudantium
-      description_ru: aut
-      description_kz: possimus
-      description_en: perferendis
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      photo_url: 'http://www.huels.com/'
+      name_ru: id
+      name_kz: numquam
+      name_en: nemo
+      description_ru: minima
+      description_kz: sed
+      description_en: et
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - GET
     uri: api/category/index
     metadata:
@@ -697,38 +592,36 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 401
+      - status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - DELETE
     uri: 'api/country/delete/{id}'
     metadata:
@@ -736,10 +629,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
@@ -748,27 +641,26 @@ endpoints:
         name: id
         description: 'The ID of the delete.'
         required: true
-        example: cupiditate
+        example: quaerat
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanUrlParameters:
-      id: cupiditate
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      id: quaerat
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
     uri: api/country/store
     metadata:
@@ -776,39 +668,38 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       name:
         name: name
         description: ''
         required: true
-        example: et
+        example: autem
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      name: et
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      name: autem
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
     uri: 'api/country/update/{id}'
     metadata:
@@ -816,10 +707,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
@@ -828,37 +719,36 @@ endpoints:
         name: id
         description: 'The ID of the update.'
         required: true
-        example: et
+        example: non
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanUrlParameters:
-      id: et
-    queryParameters: []
-    cleanQueryParameters: []
+      id: non
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       name:
         name: name
         description: ''
         required: false
-        example: est
+        example: dolor
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      name: est
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      name: dolor
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - GET
     uri: api/country/index
     metadata:
@@ -866,38 +756,36 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 401
+      - status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - DELETE
     uri: 'api/delivery-interval/delete/{id}'
     metadata:
@@ -905,10 +793,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
@@ -917,27 +805,26 @@ endpoints:
         name: id
         description: 'The ID of the delete.'
         required: true
-        example: in
+        example: aut
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanUrlParameters:
-      id: in
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      id: aut
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
     uri: api/delivery-interval/store
     metadata:
@@ -945,49 +832,48 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       name:
         name: name
         description: ''
         required: true
-        example: labore
+        example: et
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       is_active:
         name: is_active
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      name: labore
-      is_active: false
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      name: et
+      is_active: true
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
     uri: 'api/delivery-interval/update/{id}'
     metadata:
@@ -995,10 +881,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
@@ -1007,47 +893,46 @@ endpoints:
         name: id
         description: 'The ID of the update.'
         required: true
-        example: quas
+        example: autem
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanUrlParameters:
-      id: quas
-    queryParameters: []
-    cleanQueryParameters: []
+      id: autem
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       name:
         name: name
         description: ''
         required: false
-        example: odit
+        example: explicabo
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       is_active:
         name: is_active
         description: ''
         required: false
-        example: true
+        example: false
         type: boolean
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      name: odit
-      is_active: true
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      name: explicabo
+      is_active: false
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - GET
     uri: api/delivery-interval/index
     metadata:
@@ -1055,38 +940,36 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 401
+      - status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - DELETE
     uri: 'api/favorite-product/delete/{id}'
     metadata:
@@ -1094,10 +977,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
@@ -1106,27 +989,26 @@ endpoints:
         name: id
         description: 'The ID of the delete.'
         required: true
-        example: quisquam
+        example: quia
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanUrlParameters:
-      id: quisquam
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      id: quia
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
     uri: api/favorite-product/store
     metadata:
@@ -1134,49 +1016,48 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       user_id:
         name: user_id
         description: ''
         required: true
-        example: 18
+        example: 10
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       product_id:
         name: product_id
         description: ''
         required: true
-        example: est
+        example: et
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      user_id: 18
-      product_id: est
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      user_id: 10
+      product_id: et
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - GET
     uri: api/favorite-product/index
     metadata:
@@ -1184,135 +1065,142 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 401
+      - status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
-    uri: api/order/update
+    uri: 'api/order/update/{id}'
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the update.'
+        required: true
+        example: sed
+        type: string
+        enumValues: [ ]
+        exampleWasSpecified: false
+        custom: [ ]
+    cleanUrlParameters:
+      id: sed
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       user_id:
         name: user_id
         description: ''
         required: false
-        example: 17
+        example: 12
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       order_status_id:
         name: order_status_id
         description: ''
         required: false
-        example: 15
+        example: 9
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       delivery_interval_id:
         name: delivery_interval_id
         description: ''
         required: false
-        example: 2
+        example: 20
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       address:
         name: address
         description: ''
         required: false
         example: null
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       address_comment:
         name: address_comment
         description: ''
         required: false
         example: null
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       order_comment:
         name: order_comment
         description: ''
         required: false
         example: null
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       delivery_date:
         name: delivery_date
         description: 'Must be a valid date.'
         required: false
-        example: '2024-04-11T15:05:44'
+        example: '2024-04-12T16:26:38'
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      user_id: 17
-      order_status_id: 15
-      delivery_interval_id: 2
-      delivery_date: '2024-04-11T15:05:44'
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      user_id: 12
+      order_status_id: 9
+      delivery_interval_id: 20
+      delivery_date: '2024-04-12T16:26:38'
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
     uri: api/order/store
     metadata:
@@ -1320,89 +1208,88 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       order_status_id:
         name: order_status_id
         description: ''
         required: true
-        example: 18
+        example: 15
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       delivery_interval_id:
         name: delivery_interval_id
         description: ''
         required: true
-        example: 8
+        example: 14
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       address:
         name: address
         description: ''
         required: true
-        example: cupiditate
+        example: totam
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       address_comment:
         name: address_comment
         description: ''
         required: false
-        example: est
+        example: molestias
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       order_comment:
         name: order_comment
         description: ''
         required: false
-        example: ut
+        example: harum
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       delivery_date:
         name: delivery_date
         description: 'Must be a valid date.'
         required: true
-        example: '2024-04-11T15:05:44'
+        example: '2024-04-12T16:26:38'
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      order_status_id: 18
-      delivery_interval_id: 8
-      address: cupiditate
-      address_comment: est
-      order_comment: ut
-      delivery_date: '2024-04-11T15:05:44'
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      order_status_id: 15
+      delivery_interval_id: 14
+      address: totam
+      address_comment: molestias
+      order_comment: harum
+      delivery_date: '2024-04-12T16:26:38'
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - GET
     uri: api/order/index
     metadata:
@@ -1410,38 +1297,36 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 401
+      - status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - GET
     uri: 'api/order/show/{id}'
     metadata:
@@ -1449,10 +1334,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
@@ -1461,186 +1346,193 @@ endpoints:
         name: id
         description: 'The ID of the show.'
         required: true
-        example: dignissimos
+        example: asperiores
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanUrlParameters:
-      id: dignissimos
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+      id: asperiores
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 401
+      - status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
-    uri: api/product/update
+    uri: 'api/product/update/{id}'
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the update.'
+        required: true
+        example: sit
+        type: string
+        enumValues: [ ]
+        exampleWasSpecified: false
+        custom: [ ]
+    cleanUrlParameters:
+      id: sit
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       subcategory_id:
         name: subcategory_id
         description: ''
         required: false
-        example: 5
+        example: 16
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       country_id:
         name: country_id
         description: ''
         required: false
-        example: 15
+        example: 13
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       brand_id:
         name: brand_id
         description: ''
         required: false
-        example: 8
+        example: 5
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       photo_url:
         name: photo_url
         description: ''
         required: false
-        example: 'http://www.mayert.com/'
+        example: 'http://kirlin.info/natus-repellendus-voluptas-reiciendis-ut'
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_ru:
         name: name_ru
         description: ''
         required: false
-        example: quaerat
+        example: dignissimos
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_kz:
         name: name_kz
         description: ''
         required: false
-        example: et
+        example: quo
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_en:
         name: name_en
         description: ''
         required: false
-        example: qui
+        example: omnis
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       description_ru:
         name: description_ru
         description: ''
         required: false
-        example: et
+        example: labore
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       description_kz:
         name: description_kz
         description: ''
         required: false
-        example: quasi
+        example: dolore
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       description_en:
         name: description_en
         description: ''
         required: false
-        example: voluptatum
+        example: et
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       price:
         name: price
         description: ''
         required: false
-        example: 5
+        example: 11
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       discount:
         name: discount
         description: ''
         required: false
-        example: 13
+        example: 6
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      subcategory_id: 5
-      country_id: 15
-      brand_id: 8
-      photo_url: 'http://www.mayert.com/'
-      name_ru: quaerat
-      name_kz: et
-      name_en: qui
-      description_ru: et
-      description_kz: quasi
-      description_en: voluptatum
-      price: 5
-      discount: 13
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      subcategory_id: 16
+      country_id: 13
+      brand_id: 5
+      photo_url: 'http://kirlin.info/natus-repellendus-voluptas-reiciendis-ut'
+      name_ru: dignissimos
+      name_kz: quo
+      name_en: omnis
+      description_ru: labore
+      description_kz: dolore
+      description_en: et
+      price: 11
+      discount: 6
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
     uri: api/product/store
     metadata:
@@ -1648,179 +1540,187 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       subcategory_id:
         name: subcategory_id
         description: ''
         required: true
-        example: 15
+        example: 9
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       country_id:
         name: country_id
         description: ''
         required: true
-        example: 6
+        example: 18
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       brand_id:
         name: brand_id
         description: ''
         required: true
-        example: 7
+        example: 18
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       photo_url:
         name: photo_url
         description: ''
         required: false
-        example: 'http://www.grady.info/laborum-et-quam-rem-ut-fuga.html'
+        example: 'http://morar.com/quae-quam-sint-maiores-veniam-voluptates-maiores-rerum-vero'
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_ru:
         name: name_ru
         description: ''
         required: true
-        example: dicta
+        example: soluta
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_kz:
         name: name_kz
         description: ''
         required: true
-        example: temporibus
+        example: sint
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_en:
         name: name_en
         description: ''
         required: true
-        example: consequatur
+        example: ut
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       description_ru:
         name: description_ru
         description: ''
         required: true
-        example: eum
+        example: et
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       description_kz:
         name: description_kz
         description: ''
         required: true
-        example: sunt
+        example: earum
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       description_en:
         name: description_en
         description: ''
         required: true
-        example: iste
+        example: sed
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       price:
         name: price
         description: ''
         required: true
-        example: 18
+        example: 2
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       discount:
         name: discount
         description: ''
         required: true
-        example: 3
+        example: 10
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      subcategory_id: 15
-      country_id: 6
-      brand_id: 7
-      photo_url: 'http://www.grady.info/laborum-et-quam-rem-ut-fuga.html'
-      name_ru: dicta
-      name_kz: temporibus
-      name_en: consequatur
-      description_ru: eum
-      description_kz: sunt
-      description_en: iste
-      price: 18
-      discount: 3
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      subcategory_id: 9
+      country_id: 18
+      brand_id: 18
+      photo_url: 'http://morar.com/quae-quam-sint-maiores-veniam-voluptates-maiores-rerum-vero'
+      name_ru: soluta
+      name_kz: sint
+      name_en: ut
+      description_ru: et
+      description_kz: earum
+      description_en: sed
+      price: 2
+      discount: 10
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - DELETE
-    uri: api/product/delete
+    uri: 'api/product/delete/{id}'
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the delete.'
+        required: true
+        example: nesciunt
+        type: string
+        enumValues: [ ]
+        exampleWasSpecified: false
+        custom: [ ]
+    cleanUrlParameters:
+      id: nesciunt
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - GET
     uri: api/product/index
     metadata:
@@ -1828,38 +1728,36 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 401
+      - status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - GET
     uri: 'api/product/show/{id}'
     metadata:
@@ -1867,10 +1765,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
@@ -1879,116 +1777,123 @@ endpoints:
         name: id
         description: 'The ID of the show.'
         required: true
-        example: aliquid
+        example: ullam
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanUrlParameters:
-      id: aliquid
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+      id: ullam
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 401
+      - status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
-    uri: api/sub-category/update
+    uri: 'api/sub-category/update/{id}'
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the update.'
+        required: true
+        example: accusantium
+        type: string
+        enumValues: [ ]
+        exampleWasSpecified: false
+        custom: [ ]
+    cleanUrlParameters:
+      id: accusantium
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       category_id:
         name: category_id
         description: ''
         required: false
-        example: 9
+        example: 12
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       photo_url:
         name: photo_url
         description: ''
         required: false
-        example: 'http://www.bashirian.net/'
+        example: 'https://streich.com/nihil-ea-architecto-et-eos-adipisci-consequuntur.html'
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_ru:
         name: name_ru
         description: ''
         required: false
-        example: cupiditate
+        example: fugit
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_kz:
         name: name_kz
         description: ''
         required: false
-        example: at
+        example: ratione
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_en:
         name: name_en
         description: ''
         required: false
-        example: earum
+        example: nobis
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      category_id: 9
-      photo_url: 'http://www.bashirian.net/'
-      name_ru: cupiditate
-      name_kz: at
-      name_en: earum
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      category_id: 12
+      photo_url: 'https://streich.com/nihil-ea-architecto-et-eos-adipisci-consequuntur.html'
+      name_ru: fugit
+      name_kz: ratione
+      name_en: nobis
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - POST
     uri: api/sub-category/store
     metadata:
@@ -1996,109 +1901,117 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
     bodyParameters:
       category_id:
         name: category_id
         description: ''
         required: true
-        example: 6
+        example: 11
         type: integer
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       photo_url:
         name: photo_url
         description: ''
         required: false
-        example: 'https://www.white.com/in-ad-quisquam-consequatur-sunt-nemo-consequatur-nobis-aut'
+        example: 'https://www.lindgren.com/et-nesciunt-facilis-ut-ut-voluptates-voluptatem-provident'
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_ru:
         name: name_ru
         description: ''
         required: true
-        example: ipsum
+        example: non
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_kz:
         name: name_kz
         description: ''
         required: true
-        example: tempore
+        example: excepturi
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
       name_en:
         name: name_en
         description: ''
         required: true
-        example: voluptas
+        example: aliquid
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanBodyParameters:
-      category_id: 6
-      photo_url: 'https://www.white.com/in-ad-quisquam-consequatur-sunt-nemo-consequatur-nobis-aut'
-      name_ru: ipsum
-      name_kz: tempore
-      name_en: voluptas
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+      category_id: 11
+      photo_url: 'https://www.lindgren.com/et-nesciunt-facilis-ut-ut-voluptates-voluptatem-provident'
+      name_ru: non
+      name_kz: excepturi
+      name_en: aliquid
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - DELETE
-    uri: api/sub-category/delete
+    uri: 'api/sub-category/delete/${id}'
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth: []
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the .'
+        required: true
+        example: molestiae
+        type: string
+        enumValues: [ ]
+        exampleWasSpecified: false
+        custom: [ ]
+    cleanUrlParameters:
+      id: molestiae
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - GET
     uri: api/sub-category/index
     metadata:
@@ -2106,33 +2019,206 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Handle the incoming request.'
+      title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 401
+      - status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
+    custom: [ ]
+  - httpMethods:
+      - POST
+    uri: api/banner/update
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: [ ]
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters:
+      banners:
+        name: banners
+        description: ''
+        required: true
+        example:
+          - rerum
+        type: 'string[]'
+        enumValues: [ ]
+        exampleWasSpecified: false
+        custom: [ ]
+      'banners[].id':
+        name: 'banners[].id'
+        description: ''
+        required: true
+        example: minus
+        type: string
+        enumValues: [ ]
+        exampleWasSpecified: false
+        custom: [ ]
+      'banners[].number':
+        name: 'banners[].number'
+        description: ''
+        required: true
+        example: 1
+        type: integer
+        enumValues: [ ]
+        exampleWasSpecified: false
+        custom: [ ]
+    cleanBodyParameters:
+      banners:
+        - rerum
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
+    controller: null
+    method: null
+    route: null
+    custom: [ ]
+  - httpMethods:
+      - POST
+    uri: api/banner/store
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: [ ]
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters:
+      image:
+        name: image
+        description: 'Must be an image.'
+        required: true
+        example: null
+        type: file
+        enumValues: [ ]
+        exampleWasSpecified: false
+        custom: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters:
+      image: null
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
+    controller: null
+    method: null
+    route: null
+    custom: [ ]
+  - httpMethods:
+      - DELETE
+    uri: 'api/banner/delete/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: [ ]
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the delete.'
+        required: true
+        example: assumenda
+        type: string
+        enumValues: [ ]
+        exampleWasSpecified: false
+        custom: [ ]
+    cleanUrlParameters:
+      id: assumenda
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
+    responses: [ ]
+    responseFields: [ ]
+    auth: [ ]
+    controller: null
+    method: null
+    route: null
+    custom: [ ]
+  - httpMethods:
+      - GET
+    uri: api/banner/index
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      custom: [ ]
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
+    responses:
+      - status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
+    controller: null
+    method: null
+    route: null
+    custom: [ ]

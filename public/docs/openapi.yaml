@@ -4,15 +4,65 @@ info:
   description: ''
   version: 1.0.0
 servers:
-  -
-    url: 'http://localhost'
+  - url: 'http://localhost'
 paths:
+  /api/auth/register:
+    post:
+      summary: Регистрация
+      operationId: ''
+      description: ''
+      parameters: [ ]
+      responses: { }
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  description: ''
+                  example: nemo
+              required:
+                - phone
+      security: [ ]
+  /api/auth/login:
+    post:
+      summary: Авторизация
+      operationId: ''
+      description: ''
+      parameters: [ ]
+      responses: { }
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  description: ''
+                  example: omnis
+                code:
+                  type: string
+                  description: ''
+                  example: nihil
+              required:
+                - phone
+                - code
+      security: [ ]
   /api/user:
     get:
       summary: ''
       operationId: getApiUser
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -28,84 +78,32 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
-  /api/auth/register:
-    post:
-      summary: ''
-      operationId: postApiAuthRegister
-      description: ''
-      parameters: []
-      responses: {  }
-      tags:
-        - Endpoints
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                phone:
-                  type: string
-                  description: ''
-                  example: tempora
-              required:
-                - phone
-      security: []
-  /api/auth/login:
-    post:
-      summary: ''
-      operationId: postApiAuthLogin
-      description: ''
-      parameters: []
-      responses: {  }
-      tags:
-        - Endpoints
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                phone:
-                  type: string
-                  description: ''
-                  example: ab
-                code:
-                  type: string
-                  description: ''
-                  example: tenetur
-              required:
-                - phone
-                - code
-      security: []
+      security: [ ]
   '/api/brand/delete/{id}':
     delete:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: deleteApiBrandDeleteId
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the delete.'
-        example: et
+        example: non
         required: true
         schema:
           type: string
   '/api/brand/update/{id}':
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiBrandUpdateId
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -118,24 +116,23 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: molestias
-      security: []
+                  example: cum
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the update.'
-        example: maxime
+        example: dicta
         required: true
         schema:
           type: string
   /api/brand/store:
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiBrandStore
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -148,16 +145,16 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: assumenda
+                  example: non
               required:
                 - name
-      security: []
+      security: [ ]
   /api/brand/index:
     get:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: getApiBrandIndex
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -173,13 +170,13 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
+      security: [ ]
   /api/cart/index:
     get:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: getApiCartIndex
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -195,14 +192,14 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
+      security: [ ]
   /api/cart/store:
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiCartStore
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -215,64 +212,62 @@ paths:
                 user_id:
                   type: string
                   description: ''
-                  example: nobis
+                  example: sit
                 product_id:
                   type: string
                   description: ''
-                  example: fuga
+                  example: eos
                 quantity:
                   type: integer
                   description: ''
-                  example: 8
+                  example: 6
               required:
                 - user_id
                 - product_id
-      security: []
+      security: [ ]
   '/api/cart/delete/{id}':
     delete:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: deleteApiCartDeleteId
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
-        name: id
-        description: 'The ID of the delete.'
-        example: aut
-        required: true
-        schema:
-          type: string
-  '/api/category/delete/{id}':
-    delete:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
-      description: ''
-      parameters: []
-      responses: {  }
-      tags:
-        - Endpoints
-      security: []
-    parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the delete.'
         example: quae
         required: true
         schema:
           type: string
+  '/api/category/delete/{id}':
+    delete:
+      summary: ''
+      operationId: deleteApiCategoryDeleteId
+      description: ''
+      parameters: [ ]
+      responses: { }
+      tags:
+        - Endpoints
+      security: [ ]
+    parameters:
+      - in: path
+        name: id
+        description: 'The ID of the delete.'
+        example: mollitia
+        required: true
+        schema:
+          type: string
   /api/category/store:
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiCategoryStore
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -285,31 +280,31 @@ paths:
                 photo_url:
                   type: string
                   description: ''
-                  example: 'http://mraz.net/facilis-odit-quae-cumque-odio'
+                  example: 'http://www.schaden.biz/totam-labore-itaque-repellat'
                 name_ru:
                   type: string
                   description: ''
-                  example: assumenda
+                  example: officiis
                 name_kz:
                   type: string
                   description: ''
-                  example: iure
+                  example: ratione
                 name_en:
                   type: string
                   description: ''
-                  example: incidunt
+                  example: ut
                 description_ru:
                   type: string
                   description: ''
-                  example: aut
+                  example: velit
                 description_kz:
                   type: string
                   description: ''
-                  example: doloremque
+                  example: beatae
                 description_en:
                   type: string
                   description: ''
-                  example: enim
+                  example: voluptatum
               required:
                 - name_ru
                 - name_kz
@@ -317,14 +312,14 @@ paths:
                 - description_ru
                 - description_kz
                 - description_en
-      security: []
+      security: [ ]
   '/api/category/update/{id}':
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiCategoryUpdateId
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -337,47 +332,46 @@ paths:
                 photo_url:
                   type: string
                   description: ''
-                  example: 'http://kunde.com/'
+                  example: 'http://www.huels.com/'
                 name_ru:
                   type: string
                   description: ''
-                  example: ullam
+                  example: id
                 name_kz:
                   type: string
                   description: ''
-                  example: voluptatem
+                  example: numquam
                 name_en:
                   type: string
                   description: ''
-                  example: laudantium
+                  example: nemo
                 description_ru:
                   type: string
                   description: ''
-                  example: aut
+                  example: minima
                 description_kz:
                   type: string
                   description: ''
-                  example: possimus
+                  example: sed
                 description_en:
                   type: string
                   description: ''
-                  example: perferendis
-      security: []
+                  example: et
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the update.'
-        example: dolores
+        example: deserunt
         required: true
         schema:
           type: string
   /api/category/index:
     get:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: getApiCategoryIndex
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -393,33 +387,32 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
+      security: [ ]
   '/api/country/delete/{id}':
     delete:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: deleteApiCountryDeleteId
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the delete.'
-        example: cupiditate
+        example: quaerat
         required: true
         schema:
           type: string
   /api/country/store:
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiCountryStore
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -432,17 +425,17 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: et
+                  example: autem
               required:
                 - name
-      security: []
+      security: [ ]
   '/api/country/update/{id}':
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiCountryUpdateId
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -455,23 +448,22 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: est
-      security: []
+                  example: dolor
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the update.'
-        example: et
+        example: non
         required: true
         schema:
           type: string
   /api/country/index:
     get:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: getApiCountryIndex
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -487,33 +479,32 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
+      security: [ ]
   '/api/delivery-interval/delete/{id}':
     delete:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: deleteApiDeliveryIntervalDeleteId
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the delete.'
-        example: in
+        example: aut
         required: true
         schema:
           type: string
   /api/delivery-interval/store:
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiDeliveryIntervalStore
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -526,21 +517,21 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: labore
+                  example: et
                 is_active:
                   type: boolean
                   description: ''
-                  example: false
+                  example: true
               required:
                 - name
-      security: []
+      security: [ ]
   '/api/delivery-interval/update/{id}':
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiDeliveryIntervalUpdateId
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -553,27 +544,26 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: odit
+                  example: explicabo
                 is_active:
                   type: boolean
                   description: ''
-                  example: true
-      security: []
+                  example: false
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the update.'
-        example: quas
+        example: autem
         required: true
         schema:
           type: string
   /api/delivery-interval/index:
     get:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: getApiDeliveryIntervalIndex
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -589,33 +579,32 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
+      security: [ ]
   '/api/favorite-product/delete/{id}':
     delete:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: deleteApiFavoriteProductDeleteId
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the delete.'
-        example: quisquam
+        example: quia
         required: true
         schema:
           type: string
   /api/favorite-product/store:
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiFavoriteProductStore
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -628,21 +617,21 @@ paths:
                 user_id:
                   type: integer
                   description: ''
-                  example: 18
+                  example: 10
                 product_id:
                   type: string
                   description: ''
-                  example: est
+                  example: et
               required:
                 - user_id
                 - product_id
-      security: []
+      security: [ ]
   /api/favorite-product/index:
     get:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: getApiFavoriteProductIndex
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -658,14 +647,14 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
-  /api/order/update:
+      security: [ ]
+  '/api/order/update/{id}':
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiOrderUpdateId
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -678,15 +667,15 @@ paths:
                 user_id:
                   type: integer
                   description: ''
-                  example: 17
+                  example: 12
                 order_status_id:
                   type: integer
                   description: ''
-                  example: 15
+                  example: 9
                 delivery_interval_id:
                   type: integer
                   description: ''
-                  example: 2
+                  example: 20
                 address:
                   type: string
                   description: ''
@@ -702,15 +691,23 @@ paths:
                 delivery_date:
                   type: string
                   description: 'Must be a valid date.'
-                  example: '2024-04-11T15:05:44'
-      security: []
+                  example: '2024-04-12T16:26:38'
+      security: [ ]
+    parameters:
+      - in: path
+        name: id
+        description: 'The ID of the update.'
+        example: sed
+        required: true
+        schema:
+          type: string
   /api/order/store:
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiOrderStore
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -723,39 +720,39 @@ paths:
                 order_status_id:
                   type: integer
                   description: ''
-                  example: 18
+                  example: 15
                 delivery_interval_id:
                   type: integer
                   description: ''
-                  example: 8
+                  example: 14
                 address:
                   type: string
                   description: ''
-                  example: cupiditate
+                  example: totam
                 address_comment:
                   type: string
                   description: ''
-                  example: est
+                  example: molestias
                 order_comment:
                   type: string
                   description: ''
-                  example: ut
+                  example: harum
                 delivery_date:
                   type: string
                   description: 'Must be a valid date.'
-                  example: '2024-04-11T15:05:44'
+                  example: '2024-04-12T16:26:38'
               required:
                 - order_status_id
                 - delivery_interval_id
                 - address
                 - delivery_date
-      security: []
+      security: [ ]
   /api/order/index:
     get:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: getApiOrderIndex
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -771,13 +768,13 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
+      security: [ ]
   '/api/order/show/{id}':
     get:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: getApiOrderShowId
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -793,23 +790,22 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the show.'
-        example: dignissimos
+        example: asperiores
         required: true
         schema:
           type: string
-  /api/product/update:
+  '/api/product/update/{id}':
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiProductUpdateId
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -822,59 +818,67 @@ paths:
                 subcategory_id:
                   type: integer
                   description: ''
-                  example: 5
+                  example: 16
                 country_id:
                   type: integer
                   description: ''
-                  example: 15
+                  example: 13
                 brand_id:
                   type: integer
                   description: ''
-                  example: 8
+                  example: 5
                 photo_url:
                   type: string
                   description: ''
-                  example: 'http://www.mayert.com/'
+                  example: 'http://kirlin.info/natus-repellendus-voluptas-reiciendis-ut'
                 name_ru:
                   type: string
                   description: ''
-                  example: quaerat
+                  example: dignissimos
                 name_kz:
                   type: string
                   description: ''
-                  example: et
+                  example: quo
                 name_en:
                   type: string
                   description: ''
-                  example: qui
+                  example: omnis
                 description_ru:
                   type: string
                   description: ''
-                  example: et
+                  example: labore
                 description_kz:
                   type: string
                   description: ''
-                  example: quasi
+                  example: dolore
                 description_en:
                   type: string
                   description: ''
-                  example: voluptatum
+                  example: et
                 price:
                   type: integer
                   description: ''
-                  example: 5
+                  example: 11
                 discount:
                   type: integer
                   description: ''
-                  example: 13
-      security: []
+                  example: 6
+      security: [ ]
+    parameters:
+      - in: path
+        name: id
+        description: 'The ID of the update.'
+        example: sit
+        required: true
+        schema:
+          type: string
   /api/product/store:
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiProductStore
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -887,51 +891,51 @@ paths:
                 subcategory_id:
                   type: integer
                   description: ''
-                  example: 15
+                  example: 9
                 country_id:
                   type: integer
                   description: ''
-                  example: 6
+                  example: 18
                 brand_id:
                   type: integer
                   description: ''
-                  example: 7
+                  example: 18
                 photo_url:
                   type: string
                   description: ''
-                  example: 'http://www.grady.info/laborum-et-quam-rem-ut-fuga.html'
+                  example: 'http://morar.com/quae-quam-sint-maiores-veniam-voluptates-maiores-rerum-vero'
                 name_ru:
                   type: string
                   description: ''
-                  example: dicta
+                  example: soluta
                 name_kz:
                   type: string
                   description: ''
-                  example: temporibus
+                  example: sint
                 name_en:
                   type: string
                   description: ''
-                  example: consequatur
+                  example: ut
                 description_ru:
                   type: string
                   description: ''
-                  example: eum
+                  example: et
                 description_kz:
                   type: string
                   description: ''
-                  example: sunt
+                  example: earum
                 description_en:
                   type: string
                   description: ''
-                  example: iste
+                  example: sed
                 price:
                   type: integer
                   description: ''
-                  example: 18
+                  example: 2
                 discount:
                   type: integer
                   description: ''
-                  example: 3
+                  example: 10
               required:
                 - subcategory_id
                 - country_id
@@ -944,77 +948,84 @@ paths:
                 - description_en
                 - price
                 - discount
-      security: []
-  /api/product/delete:
+      security: [ ]
+  '/api/product/delete/{id}':
     delete:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: deleteApiProductDeleteId
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
-      security: []
-  /api/product/index:
-    get:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
-      description: ''
-      parameters: []
-      responses:
-        401:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: Unauthenticated.
-                properties:
-                  message:
-                    type: string
-                    example: Unauthenticated.
-      tags:
-        - Endpoints
-      security: []
-  '/api/product/show/{id}':
-    get:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
-      description: ''
-      parameters: []
-      responses:
-        401:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: Unauthenticated.
-                properties:
-                  message:
-                    type: string
-                    example: Unauthenticated.
-      tags:
-        - Endpoints
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
-        description: 'The ID of the show.'
-        example: aliquid
+        description: 'The ID of the delete.'
+        example: nesciunt
         required: true
         schema:
           type: string
-  /api/sub-category/update:
-    post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+  /api/product/index:
+    get:
+      summary: ''
+      operationId: getApiProductIndex
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: [ ]
+  '/api/product/show/{id}':
+    get:
+      summary: ''
+      operationId: getApiProductShowId
+      description: ''
+      parameters: [ ]
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: [ ]
+    parameters:
+      - in: path
+        name: id
+        description: 'The ID of the show.'
+        example: ullam
+        required: true
+        schema:
+          type: string
+  '/api/sub-category/update/{id}':
+    post:
+      summary: ''
+      operationId: postApiSubCategoryUpdateId
+      description: ''
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -1027,31 +1038,39 @@ paths:
                 category_id:
                   type: integer
                   description: ''
-                  example: 9
+                  example: 12
                 photo_url:
                   type: string
                   description: ''
-                  example: 'http://www.bashirian.net/'
+                  example: 'https://streich.com/nihil-ea-architecto-et-eos-adipisci-consequuntur.html'
                 name_ru:
                   type: string
                   description: ''
-                  example: cupiditate
+                  example: fugit
                 name_kz:
                   type: string
                   description: ''
-                  example: at
+                  example: ratione
                 name_en:
                   type: string
                   description: ''
-                  example: earum
-      security: []
+                  example: nobis
+      security: [ ]
+    parameters:
+      - in: path
+        name: id
+        description: 'The ID of the update.'
+        example: accusantium
+        required: true
+        schema:
+          type: string
   /api/sub-category/store:
     post:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: postApiSubCategoryStore
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
       requestBody:
@@ -1064,45 +1083,53 @@ paths:
                 category_id:
                   type: integer
                   description: ''
-                  example: 6
+                  example: 11
                 photo_url:
                   type: string
                   description: ''
-                  example: 'https://www.white.com/in-ad-quisquam-consequatur-sunt-nemo-consequatur-nobis-aut'
+                  example: 'https://www.lindgren.com/et-nesciunt-facilis-ut-ut-voluptates-voluptatem-provident'
                 name_ru:
                   type: string
                   description: ''
-                  example: ipsum
+                  example: non
                 name_kz:
                   type: string
                   description: ''
-                  example: tempore
+                  example: excepturi
                 name_en:
                   type: string
                   description: ''
-                  example: voluptas
+                  example: aliquid
               required:
                 - category_id
                 - name_ru
                 - name_kz
                 - name_en
-      security: []
-  /api/sub-category/delete:
+      security: [ ]
+  '/api/sub-category/delete/${id}':
     delete:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: deleteApiSubCategoryDeleteId
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Endpoints
-      security: []
+      security: [ ]
+    parameters:
+      - in: path
+        name: id
+        description: 'The ID of the .'
+        example: molestiae
+        required: true
+        schema:
+          type: string
   /api/sub-category/index:
     get:
-      summary: 'Handle the incoming request.'
-      operationId: handleTheIncomingRequest
+      summary: ''
+      operationId: getApiSubCategoryIndex
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -1118,8 +1145,98 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
+      security: [ ]
+  /api/banner/update:
+    post:
+      summary: ''
+      operationId: postApiBannerUpdate
+      description: ''
+      parameters: [ ]
+      responses: { }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                banners:
+                  type: array
+                  description: ''
+                  example:
+                    - rerum
+                  items:
+                    type: string
+              required:
+                - banners
+      security: [ ]
+  /api/banner/store:
+    post:
+      summary: ''
+      operationId: postApiBannerStore
+      description: ''
+      parameters: [ ]
+      responses: { }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                  description: 'Must be an image.'
+              required:
+                - image
+      security: [ ]
+  '/api/banner/delete/{id}':
+    delete:
+      summary: ''
+      operationId: deleteApiBannerDeleteId
+      description: ''
+      parameters: [ ]
+      responses: { }
+      tags:
+        - Endpoints
+      security: [ ]
+    parameters:
+      - in: path
+        name: id
+        description: 'The ID of the delete.'
+        example: assumenda
+        required: true
+        schema:
+          type: string
+  /api/banner/index:
+    get:
+      summary: ''
+      operationId: getApiBannerIndex
+      description: ''
+      parameters: [ ]
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: [ ]
 tags:
-  -
-    name: Endpoints
+  - name: Auth
+    description: ''
+  - name: Endpoints
     description: ''

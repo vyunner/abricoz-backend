@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\OrderUpdateRequest;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
-use App\Services\OrderService;
 use Illuminate\Http\Request;
 
 class OrderUpdateController extends Controller
@@ -18,7 +18,7 @@ class OrderUpdateController extends Controller
         $order->fill($validatedData)->save();
         $order->load(['products', 'orderStatus', 'deliveryInterval']);
 
-        $order = $orderService->transformOrder($order);
+        $order = OrderResource::make($order);
 
         return $this->response($order, 'Данные заказа успешно изменены!');
     }

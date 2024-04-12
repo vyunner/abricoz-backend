@@ -1,22 +1,28 @@
 <?php
 
-namespace App\Services;
+namespace App\Http\Resources;
 
-use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderService
+class OrderResource extends JsonResource
 {
-    public function transformOrder($order)
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(Request $request): array
     {
         return [
-            'id' => $order->id,
-            'order_status' => $order->orderStatus->name,
-            'delivery_interval' => $order->deliveryInterval->name,
-            'address' => $order->address,
-            'address_comment' => $order->address_comment,
-            'order_comment' => $order->order_comment,
-            'delivery_date' => $order->delivery_date,
-            'products' => $order->products->map(function ($product) {
+            'id' => $this->id,
+            'order_status' => $this->orderStatus->name,
+            'delivery_interval' => $this->deliveryInterval->name,
+            'address' => $this->address,
+            'address_comment' => $this->address_comment,
+            'order_comment' => $this->order_comment,
+            'delivery_date' => $this->delivery_date,
+            'products' => $this->products->map(function ($product) {
                 return [
                     'product_quantity' => $product->pivot->product_quantity,
                     'country' => $product->country->name,

@@ -81,7 +81,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::group(['prefix' => '/order'], function () {
         Route::group(['middleware' => 'role:admin'], function () {
-            Route::post('/update', \App\Http\Controllers\Order\OrderUpdateController::class);
+            Route::post('/update/{id}', \App\Http\Controllers\Order\OrderUpdateController::class);
         });
 
         Route::post('/store', \App\Http\Controllers\Order\OrderStoreController::class);
@@ -91,9 +91,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::group(['prefix' => '/product'], function () {
         Route::group(['middleware' => 'role:admin'], function () {
-            Route::post('/update', \App\Http\Controllers\Product\ProductUpdateController::class);
+            Route::post('/update/{id}', \App\Http\Controllers\Product\ProductUpdateController::class);
             Route::post('/store', \App\Http\Controllers\Product\ProductStoreController::class);
-            Route::delete('/delete', \App\Http\Controllers\Product\ProductDestroyController::class);
+            Route::delete('/delete/{id}', \App\Http\Controllers\Product\ProductDestroyController::class);
         });
 
         Route::get('/index', \App\Http\Controllers\Product\ProductIndexController::class);
@@ -102,11 +102,21 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::group(['prefix' => '/sub-category'], function () {
         Route::group(['middleware' => 'role:admin'], function () {
-            Route::post('/update', \App\Http\Controllers\SubCategory\SubCategoryUpdateController::class);
+            Route::post('/update/{id}', \App\Http\Controllers\SubCategory\SubCategoryUpdateController::class);
             Route::post('/store', \App\Http\Controllers\SubCategory\SubCategoryStoreController::class);
-            Route::delete('/delete', \App\Http\Controllers\SubCategory\SubCategoryDestroyController::class);
+            Route::delete('/delete/${id}', \App\Http\Controllers\SubCategory\SubCategoryDestroyController::class);
         });
 
         Route::get('/index', \App\Http\Controllers\SubCategory\SubCategoryIndexController::class);
+    });
+
+    Route::group(['prefix' => '/banner'], function () {
+        Route::group(['middleware' => 'role:admin'], function () {
+            Route::post('/update', \App\Http\Controllers\Banner\BannerUpdateController::class);
+            Route::post('/store', \App\Http\Controllers\Banner\BannerStoreController::class);
+            Route::delete('/delete/{id}', \App\Http\Controllers\Banner\BannerDestroyController::class);
+        });
+
+        Route::get('/index', \App\Http\Controllers\Banner\BannerIndexController::class);
     });
 });

@@ -10,7 +10,7 @@ class CountryIndexController extends Controller
 {
     public function __invoke(Request $request)
     {
-        if ($request->has('perPage')){
+        if ($request->has('perPage')) {
             $perPage = $request->query('perPage', 10);
             $page = $request->query('page', 1);
 

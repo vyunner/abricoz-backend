@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\ProductUpdateRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
-use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class ProductUpdateController extends Controller
 {
-    public function __invoke(ProductUpdateRequest $request, $id, ProductService $productService)
+    public function __invoke(ProductUpdateRequest $request, $id)
     {
         $validatedData = $request->validated();
 
@@ -18,7 +18,7 @@ class ProductUpdateController extends Controller
         $product->fill($validatedData)->save();
         $product->load(['subcategory', 'brand', 'country']);
 
-        $product = $productService->transformProduct($product);
+        $product = ProductResource::collection($product);
 
         return $this->response($product, 'Продукт успешно изменен!');
     }

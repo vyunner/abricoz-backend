@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use App\Interfaces\MobizonServiceInterface;
 use Illuminate\Support\Facades\Http;
 
-class MobizonService
+class MobizonService implements MobizonServiceInterface
 {
     protected $apiKey;
     protected $baseUrl = 'https://api.mobizon.kz/service/';
@@ -14,7 +15,7 @@ class MobizonService
         $this->apiKey = env('MOBIZON_API_KEY');
     }
 
-    public function sendSmsMessage($recipient, $text, $from = null, $params = [])
+    public function sendSmsMessage($recipient, $text, $from = null, $params = []): array
     {
         $url = $this->baseUrl . 'Message/SendSmsMessage';
         $data = [
@@ -33,7 +34,7 @@ class MobizonService
         return $this->makeRequest($url, $data);
     }
 
-    public function getSmsStatus($ids)
+    public function getSmsStatus($ids): array
     {
         $url = $this->baseUrl . 'Message/GetSMSStatus';
         $data = [
@@ -43,7 +44,7 @@ class MobizonService
         return $this->makeRequest($url, $data);
     }
 
-    public function listMessages($criteria = [], $pagination = [], $sort = [], $withNumberInfo = 0)
+    public function listMessages($criteria = [], $pagination = [], $sort = [], $withNumberInfo = 0): array
     {
         $url = $this->baseUrl . 'Message/List';
         $data = [

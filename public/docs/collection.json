@@ -10,11 +10,79 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "d48e942d-b10b-444c-ba7f-1daaf15e431b",
+        "_postman_id": "fd5586cf-b6b2-4be8-9771-654353031b57",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
     "item": [
+        {
+            "name": "Auth",
+            "description": "",
+            "item": [
+                {
+                    "name": "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/register",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"phone\":\"nemo\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "\u0410\u0432\u0442\u043e\u0440\u0438\u0437\u0430\u0446\u0438\u044f",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/auth\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/auth\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"phone\":\"omnis\",\"code\":\"nihil\"}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
         {
             "name": "Endpoints",
             "description": "",
@@ -68,69 +136,7 @@
                     ]
                 },
                 {
-                    "name": "POST api\/auth\/register",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/auth\/register",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/register"
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"phone\":\"tempora\"}"
-                        },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "POST api\/auth\/login",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/auth\/login",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/auth\/login"
-                        },
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": "{\"phone\":\"ab\",\"code\":\"tenetur\"}"
-                        },
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Handle the incoming request.",
+                    "name": "DELETE api\/brand\/delete\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -141,7 +147,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "et",
+                                    "value": "non",
                                     "description": "The ID of the delete."
                                 }
                             ]
@@ -166,7 +172,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/brand\/update\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -177,7 +183,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "maxime",
+                                    "value": "dicta",
                                     "description": "The ID of the update."
                                 }
                             ]
@@ -195,7 +201,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"molestias\"}"
+                            "raw": "{\"name\":\"cum\"}"
                         },
                         "description": "",
                         "auth": {
@@ -205,7 +211,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/brand\/store",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -226,7 +232,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"assumenda\"}"
+                            "raw": "{\"name\":\"non\"}"
                         },
                         "description": "",
                         "auth": {
@@ -236,7 +242,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "GET api\/brand\/index",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -284,7 +290,7 @@
                     ]
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "GET api\/cart\/index",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -332,7 +338,7 @@
                     ]
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/cart\/store",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -353,7 +359,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"user_id\":\"nobis\",\"product_id\":\"fuga\",\"quantity\":8}"
+                            "raw": "{\"user_id\":\"sit\",\"product_id\":\"eos\",\"quantity\":6}"
                         },
                         "description": "",
                         "auth": {
@@ -363,49 +369,13 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "DELETE api\/cart\/delete\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
                             "path": "api\/cart\/delete\/:id",
                             "query": [],
                             "raw": "{{baseUrl}}\/api\/cart\/delete\/:id",
-                            "variable": [
-                                {
-                                    "id": "id",
-                                    "key": "id",
-                                    "value": "aut",
-                                    "description": "The ID of the delete."
-                                }
-                            ]
-                        },
-                        "method": "DELETE",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "Handle the incoming request.",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/category\/delete\/:id",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/category\/delete\/:id",
                             "variable": [
                                 {
                                     "id": "id",
@@ -435,7 +405,43 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "DELETE api\/category\/delete\/{id}",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/category\/delete\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/category\/delete\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "mollitia",
+                                    "description": "The ID of the delete."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "POST api\/category\/store",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -456,7 +462,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"photo_url\":\"http:\\\/\\\/mraz.net\\\/facilis-odit-quae-cumque-odio\",\"name_ru\":\"assumenda\",\"name_kz\":\"iure\",\"name_en\":\"incidunt\",\"description_ru\":\"aut\",\"description_kz\":\"doloremque\",\"description_en\":\"enim\"}"
+                            "raw": "{\"photo_url\":\"http:\\\/\\\/www.schaden.biz\\\/totam-labore-itaque-repellat\",\"name_ru\":\"officiis\",\"name_kz\":\"ratione\",\"name_en\":\"ut\",\"description_ru\":\"velit\",\"description_kz\":\"beatae\",\"description_en\":\"voluptatum\"}"
                         },
                         "description": "",
                         "auth": {
@@ -466,7 +472,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/category\/update\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -477,7 +483,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "dolores",
+                                    "value": "deserunt",
                                     "description": "The ID of the update."
                                 }
                             ]
@@ -495,7 +501,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"photo_url\":\"http:\\\/\\\/kunde.com\\\/\",\"name_ru\":\"ullam\",\"name_kz\":\"voluptatem\",\"name_en\":\"laudantium\",\"description_ru\":\"aut\",\"description_kz\":\"possimus\",\"description_en\":\"perferendis\"}"
+                            "raw": "{\"photo_url\":\"http:\\\/\\\/www.huels.com\\\/\",\"name_ru\":\"id\",\"name_kz\":\"numquam\",\"name_en\":\"nemo\",\"description_ru\":\"minima\",\"description_kz\":\"sed\",\"description_en\":\"et\"}"
                         },
                         "description": "",
                         "auth": {
@@ -505,7 +511,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "GET api\/category\/index",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -553,7 +559,7 @@
                     ]
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "DELETE api\/country\/delete\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -564,7 +570,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "cupiditate",
+                                    "value": "quaerat",
                                     "description": "The ID of the delete."
                                 }
                             ]
@@ -589,7 +595,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/country\/store",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -610,7 +616,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"et\"}"
+                            "raw": "{\"name\":\"autem\"}"
                         },
                         "description": "",
                         "auth": {
@@ -620,7 +626,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/country\/update\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -631,7 +637,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "et",
+                                    "value": "non",
                                     "description": "The ID of the update."
                                 }
                             ]
@@ -649,7 +655,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"est\"}"
+                            "raw": "{\"name\":\"dolor\"}"
                         },
                         "description": "",
                         "auth": {
@@ -659,7 +665,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "GET api\/country\/index",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -707,7 +713,7 @@
                     ]
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "DELETE api\/delivery-interval\/delete\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -718,7 +724,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "in",
+                                    "value": "aut",
                                     "description": "The ID of the delete."
                                 }
                             ]
@@ -743,7 +749,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/delivery-interval\/store",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -764,7 +770,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"labore\",\"is_active\":false}"
+                            "raw": "{\"name\":\"et\",\"is_active\":true}"
                         },
                         "description": "",
                         "auth": {
@@ -774,7 +780,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/delivery-interval\/update\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -785,7 +791,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quas",
+                                    "value": "autem",
                                     "description": "The ID of the update."
                                 }
                             ]
@@ -803,7 +809,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"odit\",\"is_active\":true}"
+                            "raw": "{\"name\":\"explicabo\",\"is_active\":false}"
                         },
                         "description": "",
                         "auth": {
@@ -813,7 +819,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "GET api\/delivery-interval\/index",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -861,7 +867,7 @@
                     ]
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "DELETE api\/favorite-product\/delete\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -872,7 +878,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "quisquam",
+                                    "value": "quia",
                                     "description": "The ID of the delete."
                                 }
                             ]
@@ -897,7 +903,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/favorite-product\/store",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -918,7 +924,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"user_id\":18,\"product_id\":\"est\"}"
+                            "raw": "{\"user_id\":10,\"product_id\":\"et\"}"
                         },
                         "description": "",
                         "auth": {
@@ -928,7 +934,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "GET api\/favorite-product\/index",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -976,13 +982,21 @@
                     ]
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/order\/update\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/order\/update",
+                            "path": "api\/order\/update\/:id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/order\/update"
+                            "raw": "{{baseUrl}}\/api\/order\/update\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "sed",
+                                    "description": "The ID of the update."
+                                }
+                            ]
                         },
                         "method": "POST",
                         "header": [
@@ -997,7 +1011,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"user_id\":17,\"order_status_id\":15,\"delivery_interval_id\":2,\"delivery_date\":\"2024-04-11T15:05:44\"}"
+                            "raw": "{\"user_id\":12,\"order_status_id\":9,\"delivery_interval_id\":20,\"delivery_date\":\"2024-04-12T16:26:38\"}"
                         },
                         "description": "",
                         "auth": {
@@ -1007,7 +1021,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/order\/store",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -1028,7 +1042,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"order_status_id\":18,\"delivery_interval_id\":8,\"address\":\"cupiditate\",\"address_comment\":\"est\",\"order_comment\":\"ut\",\"delivery_date\":\"2024-04-11T15:05:44\"}"
+                            "raw": "{\"order_status_id\":15,\"delivery_interval_id\":14,\"address\":\"totam\",\"address_comment\":\"molestias\",\"order_comment\":\"harum\",\"delivery_date\":\"2024-04-12T16:26:38\"}"
                         },
                         "description": "",
                         "auth": {
@@ -1038,7 +1052,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "GET api\/order\/index",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -1086,7 +1100,7 @@
                     ]
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "GET api\/order\/show\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -1097,7 +1111,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "dignissimos",
+                                    "value": "asperiores",
                                     "description": "The ID of the show."
                                 }
                             ]
@@ -1142,13 +1156,21 @@
                     ]
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/product\/update\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/product\/update",
+                            "path": "api\/product\/update\/:id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/product\/update"
+                            "raw": "{{baseUrl}}\/api\/product\/update\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "sit",
+                                    "description": "The ID of the update."
+                                }
+                            ]
                         },
                         "method": "POST",
                         "header": [
@@ -1163,7 +1185,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"subcategory_id\":5,\"country_id\":15,\"brand_id\":8,\"photo_url\":\"http:\\\/\\\/www.mayert.com\\\/\",\"name_ru\":\"quaerat\",\"name_kz\":\"et\",\"name_en\":\"qui\",\"description_ru\":\"et\",\"description_kz\":\"quasi\",\"description_en\":\"voluptatum\",\"price\":5,\"discount\":13}"
+                            "raw": "{\"subcategory_id\":16,\"country_id\":13,\"brand_id\":5,\"photo_url\":\"http:\\\/\\\/kirlin.info\\\/natus-repellendus-voluptas-reiciendis-ut\",\"name_ru\":\"dignissimos\",\"name_kz\":\"quo\",\"name_en\":\"omnis\",\"description_ru\":\"labore\",\"description_kz\":\"dolore\",\"description_en\":\"et\",\"price\":11,\"discount\":6}"
                         },
                         "description": "",
                         "auth": {
@@ -1173,7 +1195,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/product\/store",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -1194,7 +1216,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"subcategory_id\":15,\"country_id\":6,\"brand_id\":7,\"photo_url\":\"http:\\\/\\\/www.grady.info\\\/laborum-et-quam-rem-ut-fuga.html\",\"name_ru\":\"dicta\",\"name_kz\":\"temporibus\",\"name_en\":\"consequatur\",\"description_ru\":\"eum\",\"description_kz\":\"sunt\",\"description_en\":\"iste\",\"price\":18,\"discount\":3}"
+                            "raw": "{\"subcategory_id\":9,\"country_id\":18,\"brand_id\":18,\"photo_url\":\"http:\\\/\\\/morar.com\\\/quae-quam-sint-maiores-veniam-voluptates-maiores-rerum-vero\",\"name_ru\":\"soluta\",\"name_kz\":\"sint\",\"name_en\":\"ut\",\"description_ru\":\"et\",\"description_kz\":\"earum\",\"description_en\":\"sed\",\"price\":2,\"discount\":10}"
                         },
                         "description": "",
                         "auth": {
@@ -1204,13 +1226,21 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "DELETE api\/product\/delete\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/product\/delete",
+                            "path": "api\/product\/delete\/:id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/product\/delete"
+                            "raw": "{{baseUrl}}\/api\/product\/delete\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "nesciunt",
+                                    "description": "The ID of the delete."
+                                }
+                            ]
                         },
                         "method": "DELETE",
                         "header": [
@@ -1232,7 +1262,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "GET api\/product\/index",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -1280,7 +1310,7 @@
                     ]
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "GET api\/product\/show\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -1291,7 +1321,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "aliquid",
+                                    "value": "ullam",
                                     "description": "The ID of the show."
                                 }
                             ]
@@ -1336,13 +1366,21 @@
                     ]
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/sub-category\/update\/{id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/sub-category\/update",
+                            "path": "api\/sub-category\/update\/:id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/sub-category\/update"
+                            "raw": "{{baseUrl}}\/api\/sub-category\/update\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "accusantium",
+                                    "description": "The ID of the update."
+                                }
+                            ]
                         },
                         "method": "POST",
                         "header": [
@@ -1357,7 +1395,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"category_id\":9,\"photo_url\":\"http:\\\/\\\/www.bashirian.net\\\/\",\"name_ru\":\"cupiditate\",\"name_kz\":\"at\",\"name_en\":\"earum\"}"
+                            "raw": "{\"category_id\":12,\"photo_url\":\"https:\\\/\\\/streich.com\\\/nihil-ea-architecto-et-eos-adipisci-consequuntur.html\",\"name_ru\":\"fugit\",\"name_kz\":\"ratione\",\"name_en\":\"nobis\"}"
                         },
                         "description": "",
                         "auth": {
@@ -1367,7 +1405,7 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "POST api\/sub-category\/store",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -1388,7 +1426,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"category_id\":6,\"photo_url\":\"https:\\\/\\\/www.white.com\\\/in-ad-quisquam-consequatur-sunt-nemo-consequatur-nobis-aut\",\"name_ru\":\"ipsum\",\"name_kz\":\"tempore\",\"name_en\":\"voluptas\"}"
+                            "raw": "{\"category_id\":11,\"photo_url\":\"https:\\\/\\\/www.lindgren.com\\\/et-nesciunt-facilis-ut-ut-voluptates-voluptatem-provident\",\"name_ru\":\"non\",\"name_kz\":\"excepturi\",\"name_en\":\"aliquid\"}"
                         },
                         "description": "",
                         "auth": {
@@ -1398,13 +1436,21 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "DELETE api\/sub-category\/delete\/${id}",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
-                            "path": "api\/sub-category\/delete",
+                            "path": "api\/sub-category\/delete\/$:id",
                             "query": [],
-                            "raw": "{{baseUrl}}\/api\/sub-category\/delete"
+                            "raw": "{{baseUrl}}\/api\/sub-category\/delete\/$:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "molestiae",
+                                    "description": "The ID of the ."
+                                }
+                            ]
                         },
                         "method": "DELETE",
                         "header": [
@@ -1426,13 +1472,165 @@
                     "response": []
                 },
                 {
-                    "name": "Handle the incoming request.",
+                    "name": "GET api\/sub-category\/index",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
                             "path": "api\/sub-category\/index",
                             "query": [],
                             "raw": "{{baseUrl}}\/api\/sub-category\/index"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "POST api\/banner\/update",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/banner\/update",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/banner\/update"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"banners\":[\"rerum\"]}"
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "POST api\/banner\/store",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/banner\/store",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/banner\/store"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart\/form-data"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "image",
+                                    "src": [],
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "DELETE api\/banner\/delete\/{id}",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/banner\/delete\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/banner\/delete\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "assumenda",
+                                    "description": "The ID of the delete."
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GET api\/banner\/index",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/banner\/index",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/banner\/index"
                         },
                         "method": "GET",
                         "header": [
