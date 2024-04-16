@@ -20,16 +20,8 @@ class CartIndexController extends Controller
     {
         $user = $request->user();
 
-        $cartItems = Cart::with('product')
-            ->where('user_id', $user->id)
-            ->get()
-            ->map(function ($item) {
-                return [
-                    'cart_id' => $item->id,
-                    'product' => $item->product,
-                ];
-            });
+        $carts = Cart::with('product')->get();
 
-        return $this->response($cartItems, 'Список корзины успешно загружен!');
+        return $this->response($carts, 'Список корзины успешно загружен!');
     }
 }
