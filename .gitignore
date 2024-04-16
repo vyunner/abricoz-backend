@@ -1,4 +1,5 @@
 /.scribe
+/public/docs
 /.phpunit.cache
 /node_modules
 /public/build
