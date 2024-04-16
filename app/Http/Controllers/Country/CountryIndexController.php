@@ -27,8 +27,8 @@ class CountryIndexController extends Controller
 
             return $this->response([
                 'current_page' => $countries->currentPage(),
-                'countries' => $countries->items(),
                 'total' => $countries->total(),
+                'countries' => $countries->items(),
             ], 'Список стран успешно загружен!');
         }
 

@@ -3,8 +3,7 @@
 name: Endpoints
 description: ''
 endpoints:
-  -
-    httpMethods:
+  - httpMethods:
       - GET
     uri: api/user
     metadata:
@@ -15,35 +14,33 @@ endpoints:
       title: ''
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    urlParameters: [ ]
+    cleanUrlParameters: [ ]
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 401
+      - status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
-  -
-    httpMethods:
+    custom: [ ]
+  - httpMethods:
       - GET
     uri: 'api/product/show/{id}'
     metadata:
@@ -54,7 +51,7 @@ endpoints:
       title: Элемент
       description: ''
       authenticated: false
-      custom: []
+      custom: [ ]
     headers:
       Content-Type: application/json
       Accept: application/json
@@ -65,19 +62,18 @@ endpoints:
         required: true
         example: aut
         type: string
-        enumValues: []
+        enumValues: [ ]
         exampleWasSpecified: false
-        custom: []
+        custom: [ ]
     cleanUrlParameters:
       id: aut
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
+    queryParameters: [ ]
+    cleanQueryParameters: [ ]
+    bodyParameters: [ ]
+    cleanBodyParameters: [ ]
+    fileParameters: [ ]
     responses:
-      -
-        status: 404
+      - status: 404
         content: |-
           {
               "message": "No query results for model [App\\Models\\Product] aut",
@@ -507,10 +503,10 @@ endpoints:
           x-ratelimit-remaining: '53'
           access-control-allow-origin: '*'
         description: null
-        custom: []
-    responseFields: []
-    auth: []
+        custom: [ ]
+    responseFields: [ ]
+    auth: [ ]
     controller: null
     method: null
     route: null
-    custom: []
+    custom: [ ]

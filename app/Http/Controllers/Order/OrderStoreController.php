@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\OrderStoreRequest;
-use App\Http\Resources\OrderResource;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderProduct;
-use Illuminate\Http\Request;
 
 /**
  * @group Order
@@ -68,8 +66,7 @@ class OrderStoreController extends Controller
 
         $order->update(['total_price' => $totalPrice]);
 
-        $order = $order->load(['products', 'orderStatus', 'deliveryInterval']);
-        $order = OrderResource::make($order);
+        $order = $order->load(['orderStatus', 'deliveryInterval', 'products']);
 
         return $this->response($order, 'Заказ успешно создан!');
     }

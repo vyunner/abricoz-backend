@@ -27,8 +27,8 @@ class BrandIndexController extends Controller
 
             return $this->response([
                 'current_page' => $brands->currentPage(),
-                'brands' => $brands->items(),
                 'total' => $brands->total(),
+                'brands' => $brands->items(),
             ], 'Список брендов успешно загружен!');
         }
 

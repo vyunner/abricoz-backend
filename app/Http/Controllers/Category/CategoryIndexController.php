@@ -27,8 +27,8 @@ class CategoryIndexController extends Controller
 
             return $this->response([
                 'current_page' => $categories->currentPage(),
-                'categories' => $categories->items(),
                 'total' => $categories->total(),
+                'categories' => $categories->items(),
             ], 'Список стран успешно загружен!');
         }
 

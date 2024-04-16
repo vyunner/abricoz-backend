@@ -21,7 +21,7 @@ class CartIndexController extends Controller
         $user = $request->user();
 
         $carts = Cart::with('product')->get();
-//123
+
         return $this->response($carts, 'Список корзины успешно загружен!');
     }
 }

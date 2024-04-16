@@ -27,8 +27,8 @@ class FavoriteProductIndexController extends Controller
 
             return $this->response([
                 'current_page' => $favoriteProduct->currentPage(),
-                'favorite_products' => $favoriteProduct->items(),
                 'total' => $favoriteProduct->total(),
+                'favorite_products' => $favoriteProduct->items(),
             ], 'Список любимых продуктов успешно загружен!');
         }
 

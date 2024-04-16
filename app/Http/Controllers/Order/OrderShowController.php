@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -21,7 +20,7 @@ class OrderShowController extends Controller
     public function __invoke(Request $request, $id)
     {
         $user_id = $request->user()->id;
-        $order = OrderResource::make(Order::with(['orderStatus', 'deliveryInterval', 'products'])->findOrFail($id));
+        $order = Order::with(['orderStatus', 'deliveryInterval', 'products'])->findOrFail($id);
 
         if ($request->user()->hasRole('admin') || $order->user_id == $user_id) {
             return $this->response($order, 'Заказ успешно отображен!');

@@ -4,16 +4,15 @@ info:
   description: ''
   version: 1.0.0
 servers:
-  -
-    url: 'http://localhost'
+  - url: 'http://localhost'
 paths:
   /api/auth/register:
     post:
       summary: Регистрация
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Auth
       requestBody:
@@ -29,14 +28,14 @@ paths:
                   example: sapiente
               required:
                 - phone
-      security: []
+      security: [ ]
   /api/auth/login:
     post:
       summary: Авторизация
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Auth
       requestBody:
@@ -57,14 +56,14 @@ paths:
               required:
                 - phone
                 - code
-      security: []
+      security: [ ]
   /api/banner/update:
     post:
       summary: Обновление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Banner
       requestBody:
@@ -83,14 +82,14 @@ paths:
                     type: string
               required:
                 - banners
-      security: []
+      security: [ ]
   /api/banner/store:
     post:
       summary: Создание
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Banner
       requestBody:
@@ -106,20 +105,19 @@ paths:
                   description: 'Must be an image. Must not be greater than 10000 kilobytes.'
               required:
                 - image
-      security: []
+      security: [ ]
   '/api/banner/delete/{id}':
     delete:
       summary: Удаление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Banner
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the delete.'
         example: quia
@@ -131,7 +129,7 @@ paths:
       summary: Список
       operationId: ''
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         200:
           description: ''
@@ -140,14 +138,14 @@ paths:
               schema:
                 type: object
                 example:
-                  data: []
+                  data: [ ]
                   message: 'Баннеры успешно загружены!'
                   http_code: 200
                   status: success
                 properties:
                   data:
                     type: array
-                    example: []
+                    example: [ ]
                   message:
                     type: string
                     example: 'Баннеры успешно загружены!'
@@ -159,20 +157,19 @@ paths:
                     example: success
       tags:
         - Banner
-      security: []
+      security: [ ]
   '/api/brand/delete/{id}':
     delete:
       summary: Удаление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Brand
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the delete.'
         example: id
@@ -184,8 +181,8 @@ paths:
       summary: Обновление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Brand
       requestBody:
@@ -199,10 +196,9 @@ paths:
                   type: string
                   description: ''
                   example: saepe
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the update.'
         example: velit
@@ -214,8 +210,8 @@ paths:
       summary: Создание
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Brand
       requestBody:
@@ -231,13 +227,13 @@ paths:
                   example: est
               required:
                 - name
-      security: []
+      security: [ ]
   /api/brand/index:
     get:
       summary: Список
       operationId: ''
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         200:
           description: ''
@@ -249,28 +245,23 @@ paths:
                   data:
                     current_page: 1
                     brands:
-                      -
-                        id: 1
+                      - id: 1
                         name: Apple
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 2
+                      - id: 2
                         name: Samsung
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 3
+                      - id: 3
                         name: Lenovo
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 4
+                      - id: 4
                         name: Xiaomi
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 5
+                      - id: 5
                         name: Asus
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
@@ -288,28 +279,23 @@ paths:
                       brands:
                         type: array
                         example:
-                          -
-                            id: 1
+                          - id: 1
                             name: Apple
                             created_at: '2024-04-13T08:22:49.000000Z'
                             updated_at: '2024-04-13T08:22:49.000000Z'
-                          -
-                            id: 2
+                          - id: 2
                             name: Samsung
                             created_at: '2024-04-13T08:22:49.000000Z'
                             updated_at: '2024-04-13T08:22:49.000000Z'
-                          -
-                            id: 3
+                          - id: 3
                             name: Lenovo
                             created_at: '2024-04-13T08:22:49.000000Z'
                             updated_at: '2024-04-13T08:22:49.000000Z'
-                          -
-                            id: 4
+                          - id: 4
                             name: Xiaomi
                             created_at: '2024-04-13T08:22:49.000000Z'
                             updated_at: '2024-04-13T08:22:49.000000Z'
-                          -
-                            id: 5
+                          - id: 5
                             name: Asus
                             created_at: '2024-04-13T08:22:49.000000Z'
                             updated_at: '2024-04-13T08:22:49.000000Z'
@@ -353,13 +339,13 @@ paths:
                   type: integer
                   description: ''
                   example: 12
-      security: []
+      security: [ ]
   /api/cart/index:
     get:
       summary: Список
       operationId: ''
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -375,14 +361,14 @@ paths:
                     example: Unauthenticated.
       tags:
         - Cart
-      security: []
+      security: [ ]
   /api/cart/store:
     post:
       summary: Создание
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Cart
       requestBody:
@@ -407,20 +393,19 @@ paths:
               required:
                 - user_id
                 - product_id
-      security: []
+      security: [ ]
   '/api/cart/delete/{id}':
     delete:
       summary: Удаление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Cart
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the delete.'
         example: non
@@ -432,14 +417,13 @@ paths:
       summary: Удаление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Category
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the delete.'
         example: dolore
@@ -451,8 +435,8 @@ paths:
       summary: Создание
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Category
       requestBody:
@@ -497,14 +481,14 @@ paths:
                 - description_ru
                 - description_kz
                 - description_en
-      security: []
+      security: [ ]
   '/api/category/update/{id}':
     post:
       summary: Обновление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Category
       requestBody:
@@ -542,10 +526,9 @@ paths:
                   type: string
                   description: ''
                   example: illum
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the update.'
         example: adipisci
@@ -557,7 +540,7 @@ paths:
       summary: Список
       operationId: ''
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         200:
           description: ''
@@ -569,24 +552,21 @@ paths:
                   data:
                     current_page: 1
                     categories:
-                      -
-                        id: 1
+                      - id: 1
                         photo_url: null
                         name_ru: 'Фрукты и овощи'
                         name_kz: 'Жеміс және тамақтық нәрселер'
                         name_en: 'Fruits and vegetables'
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 2
+                      - id: 2
                         photo_url: null
                         name_ru: 'Мясо и птица'
                         name_kz: 'Мақта және құс'
                         name_en: 'Meat and poultry'
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 3
+                      - id: 3
                         photo_url: null
                         name_ru: 'Рыба и морепродукты'
                         name_kz: 'Балық және деуінділер'
@@ -607,24 +587,21 @@ paths:
                       categories:
                         type: array
                         example:
-                          -
-                            id: 1
+                          - id: 1
                             photo_url: null
                             name_ru: 'Фрукты и овощи'
                             name_kz: 'Жеміс және тамақтық нәрселер'
                             name_en: 'Fruits and vegetables'
                             created_at: '2024-04-13T08:22:49.000000Z'
                             updated_at: '2024-04-13T08:22:49.000000Z'
-                          -
-                            id: 2
+                          - id: 2
                             photo_url: null
                             name_ru: 'Мясо и птица'
                             name_kz: 'Мақта және құс'
                             name_en: 'Meat and poultry'
                             created_at: '2024-04-13T08:22:49.000000Z'
                             updated_at: '2024-04-13T08:22:49.000000Z'
-                          -
-                            id: 3
+                          - id: 3
                             photo_url: null
                             name_ru: 'Рыба и морепродукты'
                             name_kz: 'Балық және деуінділер'
@@ -680,20 +657,19 @@ paths:
                   type: integer
                   description: ''
                   example: 14
-      security: []
+      security: [ ]
   '/api/country/delete/{id}':
     delete:
       summary: Удаление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Country
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the delete.'
         example: voluptatem
@@ -705,8 +681,8 @@ paths:
       summary: Создание
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Country
       requestBody:
@@ -722,14 +698,14 @@ paths:
                   example: voluptatum
               required:
                 - name
-      security: []
+      security: [ ]
   '/api/country/update/{id}':
     post:
       summary: Обновление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Country
       requestBody:
@@ -743,10 +719,9 @@ paths:
                   type: string
                   description: ''
                   example: eum
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the update.'
         example: velit
@@ -758,7 +733,7 @@ paths:
       summary: Список
       operationId: ''
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         200:
           description: ''
@@ -770,53 +745,43 @@ paths:
                   data:
                     current_page: 1
                     countries:
-                      -
-                        id: 1
+                      - id: 1
                         name: Афганистан
                         created_at: null
                         updated_at: null
-                      -
-                        id: 2
+                      - id: 2
                         name: Албания
                         created_at: null
                         updated_at: null
-                      -
-                        id: 3
+                      - id: 3
                         name: Алжир
                         created_at: null
                         updated_at: null
-                      -
-                        id: 4
+                      - id: 4
                         name: Самоа
                         created_at: null
                         updated_at: null
-                      -
-                        id: 5
+                      - id: 5
                         name: Андорра
                         created_at: null
                         updated_at: null
-                      -
-                        id: 6
+                      - id: 6
                         name: Ангола
                         created_at: null
                         updated_at: null
-                      -
-                        id: 7
+                      - id: 7
                         name: Ангилья
                         created_at: null
                         updated_at: null
-                      -
-                        id: 8
+                      - id: 8
                         name: 'Антигуа и Барбуда'
                         created_at: null
                         updated_at: null
-                      -
-                        id: 9
+                      - id: 9
                         name: Аргентина
                         created_at: null
                         updated_at: null
-                      -
-                        id: 10
+                      - id: 10
                         name: Армения
                         created_at: null
                         updated_at: null
@@ -834,53 +799,43 @@ paths:
                       countries:
                         type: array
                         example:
-                          -
-                            id: 1
+                          - id: 1
                             name: Афганистан
                             created_at: null
                             updated_at: null
-                          -
-                            id: 2
+                          - id: 2
                             name: Албания
                             created_at: null
                             updated_at: null
-                          -
-                            id: 3
+                          - id: 3
                             name: Алжир
                             created_at: null
                             updated_at: null
-                          -
-                            id: 4
+                          - id: 4
                             name: Самоа
                             created_at: null
                             updated_at: null
-                          -
-                            id: 5
+                          - id: 5
                             name: Андорра
                             created_at: null
                             updated_at: null
-                          -
-                            id: 6
+                          - id: 6
                             name: Ангола
                             created_at: null
                             updated_at: null
-                          -
-                            id: 7
+                          - id: 7
                             name: Ангилья
                             created_at: null
                             updated_at: null
-                          -
-                            id: 8
+                          - id: 8
                             name: 'Антигуа и Барбуда'
                             created_at: null
                             updated_at: null
-                          -
-                            id: 9
+                          - id: 9
                             name: Аргентина
                             created_at: null
                             updated_at: null
-                          -
-                            id: 10
+                          - id: 10
                             name: Армения
                             created_at: null
                             updated_at: null
@@ -924,20 +879,19 @@ paths:
                   type: integer
                   description: ''
                   example: 12
-      security: []
+      security: [ ]
   '/api/delivery-interval/delete/{id}':
     delete:
       summary: Удаление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - DeliveryInterval
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the delete.'
         example: consequatur
@@ -949,8 +903,8 @@ paths:
       summary: Создание
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - DeliveryInterval
       requestBody:
@@ -970,14 +924,14 @@ paths:
                   example: true
               required:
                 - name
-      security: []
+      security: [ ]
   '/api/delivery-interval/update/{id}':
     post:
       summary: Обновление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - DeliveryInterval
       requestBody:
@@ -995,10 +949,9 @@ paths:
                   type: boolean
                   description: ''
                   example: true
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the update.'
         example: at
@@ -1010,7 +963,7 @@ paths:
       summary: Список
       operationId: ''
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         200:
           description: ''
@@ -1020,146 +973,122 @@ paths:
                 type: object
                 example:
                   data:
-                    -
-                      id: 1
+                    - id: 1
                       name: '00:00 - 01:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 2
+                    - id: 2
                       name: '01:00 - 02:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 3
+                    - id: 3
                       name: '02:00 - 03:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 4
+                    - id: 4
                       name: '03:00 - 04:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 5
+                    - id: 5
                       name: '04:00 - 05:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 6
+                    - id: 6
                       name: '05:00 - 06:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 7
+                    - id: 7
                       name: '06:00 - 07:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 8
+                    - id: 8
                       name: '07:00 - 08:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 9
+                    - id: 9
                       name: '08:00 - 09:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 10
+                    - id: 10
                       name: '09:00 - 10:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 11
+                    - id: 11
                       name: '10:00 - 11:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 12
+                    - id: 12
                       name: '11:00 - 12:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 13
+                    - id: 13
                       name: '12:00 - 13:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 14
+                    - id: 14
                       name: '13:00 - 14:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 15
+                    - id: 15
                       name: '14:00 - 15:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 16
+                    - id: 16
                       name: '15:00 - 16:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 17
+                    - id: 17
                       name: '16:00 - 17:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 18
+                    - id: 18
                       name: '17:00 - 18:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 19
+                    - id: 19
                       name: '18:00 - 19:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 20
+                    - id: 20
                       name: '19:00 - 20:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 21
+                    - id: 21
                       name: '20:00 - 21:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 22
+                    - id: 22
                       name: '21:00 - 22:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 23
+                    - id: 23
                       name: '22:00 - 23:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
                       updated_at: '2024-04-13T08:22:49.000000Z'
-                    -
-                      id: 24
+                    - id: 24
                       name: '23:00 - 00:00'
                       is_active: 1
                       created_at: '2024-04-13T08:22:49.000000Z'
@@ -1171,146 +1100,122 @@ paths:
                   data:
                     type: array
                     example:
-                      -
-                        id: 1
+                      - id: 1
                         name: '00:00 - 01:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 2
+                      - id: 2
                         name: '01:00 - 02:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 3
+                      - id: 3
                         name: '02:00 - 03:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 4
+                      - id: 4
                         name: '03:00 - 04:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 5
+                      - id: 5
                         name: '04:00 - 05:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 6
+                      - id: 6
                         name: '05:00 - 06:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 7
+                      - id: 7
                         name: '06:00 - 07:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 8
+                      - id: 8
                         name: '07:00 - 08:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 9
+                      - id: 9
                         name: '08:00 - 09:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 10
+                      - id: 10
                         name: '09:00 - 10:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 11
+                      - id: 11
                         name: '10:00 - 11:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 12
+                      - id: 12
                         name: '11:00 - 12:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 13
+                      - id: 13
                         name: '12:00 - 13:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 14
+                      - id: 14
                         name: '13:00 - 14:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 15
+                      - id: 15
                         name: '14:00 - 15:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 16
+                      - id: 16
                         name: '15:00 - 16:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 17
+                      - id: 17
                         name: '16:00 - 17:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 18
+                      - id: 18
                         name: '17:00 - 18:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 19
+                      - id: 19
                         name: '18:00 - 19:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 20
+                      - id: 20
                         name: '19:00 - 20:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 21
+                      - id: 21
                         name: '20:00 - 21:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 22
+                      - id: 22
                         name: '21:00 - 22:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 23
+                      - id: 23
                         name: '22:00 - 23:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 24
+                      - id: 24
                         name: '23:00 - 00:00'
                         is_active: 1
                         created_at: '2024-04-13T08:22:49.000000Z'
@@ -1344,13 +1249,13 @@ paths:
                     example: success
       tags:
         - DeliveryInterval
-      security: []
+      security: [ ]
   /api/user:
     get:
       summary: ''
       operationId: getApiUser
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -1366,13 +1271,13 @@ paths:
                     example: Unauthenticated.
       tags:
         - Endpoints
-      security: []
+      security: [ ]
   '/api/product/show/{id}':
     get:
       summary: Элемент
       operationId: ''
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         404:
           description: ''
@@ -1386,356 +1291,297 @@ paths:
                   file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php
                   line: 487
                   trace:
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php
                       line: 463
                       function: prepareException
                       class: Illuminate\Foundation\Exceptions\Handler
                       type: '->'
-                    -
-                      file: /var/www/vendor/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php
+                    - file: /var/www/vendor/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php
                       line: 54
                       function: render
                       class: Illuminate\Foundation\Exceptions\Handler
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php
                       line: 51
                       function: render
                       class: NunoMaduro\Collision\Adapters\Laravel\ExceptionHandler
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 146
                       function: handleException
                       class: Illuminate\Routing\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php
                       line: 50
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Routing\Middleware\SubstituteBindings
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
                       line: 159
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
                       line: 135
                       function: handleRequest
                       class: Illuminate\Routing\Middleware\ThrottleRequests
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
                       line: 87
                       function: handleRequestUsingNamedLimiter
                       class: Illuminate\Routing\Middleware\ThrottleRequests
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Routing\Middleware\ThrottleRequests
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 119
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                       line: 807
                       function: then
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                       line: 784
                       function: runRouteWithinStack
                       class: Illuminate\Routing\Router
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                       line: 748
                       function: runRoute
                       class: Illuminate\Routing\Router
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                       line: 737
                       function: dispatchToRoute
                       class: Illuminate\Routing\Router
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
                       line: 200
                       function: dispatch
                       class: Illuminate\Routing\Router
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 144
                       function: 'Illuminate\Foundation\Http\{closure}'
                       class: Illuminate\Foundation\Http\Kernel
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
                       line: 21
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php
                       line: 31
                       function: handle
                       class: Illuminate\Foundation\Http\Middleware\TransformsRequest
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
                       line: 21
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php
                       line: 40
                       function: handle
                       class: Illuminate\Foundation\Http\Middleware\TransformsRequest
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Foundation\Http\Middleware\TrimStrings
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php
                       line: 27
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php
                       line: 99
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php
                       line: 62
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Http\Middleware\HandleCors
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php
                       line: 39
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Http\Middleware\TrustProxies
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 119
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
                       line: 175
                       function: then
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
                       line: 144
                       function: sendRequestThroughRouter
                       class: Illuminate\Foundation\Http\Kernel
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                       line: 300
                       function: handle
                       class: Illuminate\Foundation\Http\Kernel
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                       line: 288
                       function: callLaravelOrLumenRoute
                       class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                       line: 91
                       function: makeApiCall
                       class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                       line: 44
                       function: makeResponseCall
                       class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                       line: 35
                       function: makeResponseCallIfConditionsPass
                       class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
                       line: 236
                       function: __invoke
                       class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
                       line: 166
                       function: iterateThroughStrategies
                       class: Knuckles\Scribe\Extracting\Extractor
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
                       line: 95
                       function: fetchResponses
                       class: Knuckles\Scribe\Extracting\Extractor
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
                       line: 125
                       function: processRoute
                       class: Knuckles\Scribe\Extracting\Extractor
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
                       line: 72
                       function: extractEndpointsInfoFromLaravelApp
                       class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
                       line: 50
                       function: extractEndpointsInfoAndWriteToDisk
                       class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php
                       line: 53
                       function: get
                       class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
                       line: 36
                       function: handle
                       class: Knuckles\Scribe\Commands\GenerateDocumentation
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php
                       line: 41
                       function: 'Illuminate\Container\{closure}'
                       class: Illuminate\Container\BoundMethod
                       type: '::'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
                       line: 93
                       function: unwrapIfClosure
                       class: Illuminate\Container\Util
                       type: '::'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
                       line: 37
                       function: callBoundMethod
                       class: Illuminate\Container\BoundMethod
                       type: '::'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php
                       line: 662
                       function: call
                       class: Illuminate\Container\BoundMethod
                       type: '::'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
                       line: 211
                       function: call
                       class: Illuminate\Container\Container
                       type: '->'
-                    -
-                      file: /var/www/vendor/symfony/console/Command/Command.php
+                    - file: /var/www/vendor/symfony/console/Command/Command.php
                       line: 326
                       function: execute
                       class: Illuminate\Console\Command
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
                       line: 181
                       function: run
                       class: Symfony\Component\Console\Command\Command
                       type: '->'
-                    -
-                      file: /var/www/vendor/symfony/console/Application.php
+                    - file: /var/www/vendor/symfony/console/Application.php
                       line: 1096
                       function: run
                       class: Illuminate\Console\Command
                       type: '->'
-                    -
-                      file: /var/www/vendor/symfony/console/Application.php
+                    - file: /var/www/vendor/symfony/console/Application.php
                       line: 324
                       function: doRunCommand
                       class: Symfony\Component\Console\Application
                       type: '->'
-                    -
-                      file: /var/www/vendor/symfony/console/Application.php
+                    - file: /var/www/vendor/symfony/console/Application.php
                       line: 175
                       function: doRun
                       class: Symfony\Component\Console\Application
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php
                       line: 201
                       function: run
                       class: Symfony\Component\Console\Application
                       type: '->'
-                    -
-                      file: /var/www/artisan
+                    - file: /var/www/artisan
                       line: 37
                       function: handle
                       class: Illuminate\Foundation\Console\Kernel
@@ -1756,356 +1602,297 @@ paths:
                   trace:
                     type: array
                     example:
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php
                         line: 463
                         function: prepareException
                         class: Illuminate\Foundation\Exceptions\Handler
                         type: '->'
-                      -
-                        file: /var/www/vendor/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php
+                      - file: /var/www/vendor/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php
                         line: 54
                         function: render
                         class: Illuminate\Foundation\Exceptions\Handler
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php
                         line: 51
                         function: render
                         class: NunoMaduro\Collision\Adapters\Laravel\ExceptionHandler
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 146
                         function: handleException
                         class: Illuminate\Routing\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php
                         line: 50
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Routing\Middleware\SubstituteBindings
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
                         line: 159
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
                         line: 135
                         function: handleRequest
                         class: Illuminate\Routing\Middleware\ThrottleRequests
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
                         line: 87
                         function: handleRequestUsingNamedLimiter
                         class: Illuminate\Routing\Middleware\ThrottleRequests
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Routing\Middleware\ThrottleRequests
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 119
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                         line: 807
                         function: then
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                         line: 784
                         function: runRouteWithinStack
                         class: Illuminate\Routing\Router
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                         line: 748
                         function: runRoute
                         class: Illuminate\Routing\Router
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                         line: 737
                         function: dispatchToRoute
                         class: Illuminate\Routing\Router
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
                         line: 200
                         function: dispatch
                         class: Illuminate\Routing\Router
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 144
                         function: 'Illuminate\Foundation\Http\{closure}'
                         class: Illuminate\Foundation\Http\Kernel
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
                         line: 21
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php
                         line: 31
                         function: handle
                         class: Illuminate\Foundation\Http\Middleware\TransformsRequest
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
                         line: 21
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php
                         line: 40
                         function: handle
                         class: Illuminate\Foundation\Http\Middleware\TransformsRequest
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Foundation\Http\Middleware\TrimStrings
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php
                         line: 27
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php
                         line: 99
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php
                         line: 62
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Http\Middleware\HandleCors
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php
                         line: 39
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Http\Middleware\TrustProxies
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 119
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
                         line: 175
                         function: then
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
                         line: 144
                         function: sendRequestThroughRouter
                         class: Illuminate\Foundation\Http\Kernel
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                         line: 300
                         function: handle
                         class: Illuminate\Foundation\Http\Kernel
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                         line: 288
                         function: callLaravelOrLumenRoute
                         class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                         line: 91
                         function: makeApiCall
                         class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                         line: 44
                         function: makeResponseCall
                         class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                         line: 35
                         function: makeResponseCallIfConditionsPass
                         class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
                         line: 236
                         function: __invoke
                         class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
                         line: 166
                         function: iterateThroughStrategies
                         class: Knuckles\Scribe\Extracting\Extractor
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
                         line: 95
                         function: fetchResponses
                         class: Knuckles\Scribe\Extracting\Extractor
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
                         line: 125
                         function: processRoute
                         class: Knuckles\Scribe\Extracting\Extractor
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
                         line: 72
                         function: extractEndpointsInfoFromLaravelApp
                         class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
                         line: 50
                         function: extractEndpointsInfoAndWriteToDisk
                         class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php
                         line: 53
                         function: get
                         class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
                         line: 36
                         function: handle
                         class: Knuckles\Scribe\Commands\GenerateDocumentation
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php
                         line: 41
                         function: 'Illuminate\Container\{closure}'
                         class: Illuminate\Container\BoundMethod
                         type: '::'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
                         line: 93
                         function: unwrapIfClosure
                         class: Illuminate\Container\Util
                         type: '::'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
                         line: 37
                         function: callBoundMethod
                         class: Illuminate\Container\BoundMethod
                         type: '::'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php
                         line: 662
                         function: call
                         class: Illuminate\Container\BoundMethod
                         type: '::'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
                         line: 211
                         function: call
                         class: Illuminate\Container\Container
                         type: '->'
-                      -
-                        file: /var/www/vendor/symfony/console/Command/Command.php
+                      - file: /var/www/vendor/symfony/console/Command/Command.php
                         line: 326
                         function: execute
                         class: Illuminate\Console\Command
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
                         line: 181
                         function: run
                         class: Symfony\Component\Console\Command\Command
                         type: '->'
-                      -
-                        file: /var/www/vendor/symfony/console/Application.php
+                      - file: /var/www/vendor/symfony/console/Application.php
                         line: 1096
                         function: run
                         class: Illuminate\Console\Command
                         type: '->'
-                      -
-                        file: /var/www/vendor/symfony/console/Application.php
+                      - file: /var/www/vendor/symfony/console/Application.php
                         line: 324
                         function: doRunCommand
                         class: Symfony\Component\Console\Application
                         type: '->'
-                      -
-                        file: /var/www/vendor/symfony/console/Application.php
+                      - file: /var/www/vendor/symfony/console/Application.php
                         line: 175
                         function: doRun
                         class: Symfony\Component\Console\Application
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php
                         line: 201
                         function: run
                         class: Symfony\Component\Console\Application
                         type: '->'
-                      -
-                        file: /var/www/artisan
+                      - file: /var/www/artisan
                         line: 37
                         function: handle
                         class: Illuminate\Foundation\Console\Kernel
@@ -2130,10 +1917,9 @@ paths:
                           example: '->'
       tags:
         - Endpoints
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the show.'
         example: aut
@@ -2145,14 +1931,13 @@ paths:
       summary: Удаление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - FavoriteProduct
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the delete.'
         example: illo
@@ -2164,8 +1949,8 @@ paths:
       summary: Создание
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - FavoriteProduct
       requestBody:
@@ -2186,13 +1971,13 @@ paths:
               required:
                 - user_id
                 - product_id
-      security: []
+      security: [ ]
   /api/favorite-product/index:
     get:
       summary: Список
       operationId: ''
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         200:
           description: ''
@@ -2201,14 +1986,14 @@ paths:
               schema:
                 type: object
                 example:
-                  data: []
+                  data: [ ]
                   message: 'Список любимых продуктов успешно загружен!'
                   http_code: 200
                   status: success
                 properties:
                   data:
                     type: array
-                    example: []
+                    example: [ ]
                   message:
                     type: string
                     example: 'Список любимых продуктов успешно загружен!'
@@ -2220,14 +2005,14 @@ paths:
                     example: success
       tags:
         - FavoriteProduct
-      security: []
+      security: [ ]
   '/api/order/update/{id}':
     post:
       summary: Обновление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Order
       requestBody:
@@ -2265,10 +2050,9 @@ paths:
                   type: string
                   description: 'Must be a valid date.'
                   example: '2024-04-13T08:24:11'
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the update.'
         example: placeat
@@ -2280,8 +2064,8 @@ paths:
       summary: Создание
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Order
       requestBody:
@@ -2320,13 +2104,13 @@ paths:
                 - delivery_interval_id
                 - address
                 - delivery_date
-      security: []
+      security: [ ]
   /api/order/index:
     get:
       summary: Список
       operationId: ''
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -2353,13 +2137,13 @@ paths:
                   type: integer
                   description: ''
                   example: 1
-      security: []
+      security: [ ]
   '/api/order/show/{id}':
     get:
       summary: Элемент
       operationId: ''
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         401:
           description: ''
@@ -2375,10 +2159,9 @@ paths:
                     example: Unauthenticated.
       tags:
         - Order
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the show.'
         example: et
@@ -2390,8 +2173,8 @@ paths:
       summary: Обновление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Product
       requestBody:
@@ -2453,10 +2236,9 @@ paths:
                   type: boolean
                   description: ''
                   example: false
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the update.'
         example: a
@@ -2468,8 +2250,8 @@ paths:
       summary: Создание
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Product
       requestBody:
@@ -2539,20 +2321,19 @@ paths:
                 - description_en
                 - price
                 - discount
-      security: []
+      security: [ ]
   '/api/product/delete/{id}':
     delete:
       summary: Удаление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - Product
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the delete.'
         example: architecto
@@ -2564,7 +2345,7 @@ paths:
       summary: Список
       operationId: ''
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         500:
           description: ''
@@ -2578,368 +2359,307 @@ paths:
                   file: /var/www/app/Http/Controllers/Product/ProductIndexController.php
                   line: 25
                   trace:
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Controller.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Controller.php
                       line: 54
                       function: __invoke
                       class: App\Http\Controllers\Product\ProductIndexController
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php
                       line: 43
                       function: callAction
                       class: Illuminate\Routing\Controller
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Route.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Route.php
                       line: 260
                       function: dispatch
                       class: Illuminate\Routing\ControllerDispatcher
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Route.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Route.php
                       line: 205
                       function: runController
                       class: Illuminate\Routing\Route
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                       line: 806
                       function: run
                       class: Illuminate\Routing\Route
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 144
                       function: 'Illuminate\Routing\{closure}'
                       class: Illuminate\Routing\Router
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php
                       line: 50
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Routing\Middleware\SubstituteBindings
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
                       line: 159
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
                       line: 135
                       function: handleRequest
                       class: Illuminate\Routing\Middleware\ThrottleRequests
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
                       line: 87
                       function: handleRequestUsingNamedLimiter
                       class: Illuminate\Routing\Middleware\ThrottleRequests
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Routing\Middleware\ThrottleRequests
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 119
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                       line: 807
                       function: then
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                       line: 784
                       function: runRouteWithinStack
                       class: Illuminate\Routing\Router
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                       line: 748
                       function: runRoute
                       class: Illuminate\Routing\Router
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                       line: 737
                       function: dispatchToRoute
                       class: Illuminate\Routing\Router
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
                       line: 200
                       function: dispatch
                       class: Illuminate\Routing\Router
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 144
                       function: 'Illuminate\Foundation\Http\{closure}'
                       class: Illuminate\Foundation\Http\Kernel
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
                       line: 21
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php
                       line: 31
                       function: handle
                       class: Illuminate\Foundation\Http\Middleware\TransformsRequest
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
                       line: 21
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php
                       line: 40
                       function: handle
                       class: Illuminate\Foundation\Http\Middleware\TransformsRequest
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Foundation\Http\Middleware\TrimStrings
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php
                       line: 27
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php
                       line: 99
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php
                       line: 62
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Http\Middleware\HandleCors
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php
                       line: 39
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 183
                       function: handle
                       class: Illuminate\Http\Middleware\TrustProxies
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                       line: 119
                       function: 'Illuminate\Pipeline\{closure}'
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
                       line: 175
                       function: then
                       class: Illuminate\Pipeline\Pipeline
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
                       line: 144
                       function: sendRequestThroughRouter
                       class: Illuminate\Foundation\Http\Kernel
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                       line: 300
                       function: handle
                       class: Illuminate\Foundation\Http\Kernel
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                       line: 288
                       function: callLaravelOrLumenRoute
                       class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                       line: 91
                       function: makeApiCall
                       class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                       line: 44
                       function: makeResponseCall
                       class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                       line: 35
                       function: makeResponseCallIfConditionsPass
                       class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
                       line: 236
                       function: __invoke
                       class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
                       line: 166
                       function: iterateThroughStrategies
                       class: Knuckles\Scribe\Extracting\Extractor
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
                       line: 95
                       function: fetchResponses
                       class: Knuckles\Scribe\Extracting\Extractor
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
                       line: 125
                       function: processRoute
                       class: Knuckles\Scribe\Extracting\Extractor
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
                       line: 72
                       function: extractEndpointsInfoFromLaravelApp
                       class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
                       line: 50
                       function: extractEndpointsInfoAndWriteToDisk
                       class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
                       type: '->'
-                    -
-                      file: /var/www/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php
+                    - file: /var/www/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php
                       line: 53
                       function: get
                       class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
                       line: 36
                       function: handle
                       class: Knuckles\Scribe\Commands\GenerateDocumentation
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php
                       line: 41
                       function: 'Illuminate\Container\{closure}'
                       class: Illuminate\Container\BoundMethod
                       type: '::'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
                       line: 93
                       function: unwrapIfClosure
                       class: Illuminate\Container\Util
                       type: '::'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
                       line: 37
                       function: callBoundMethod
                       class: Illuminate\Container\BoundMethod
                       type: '::'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php
                       line: 662
                       function: call
                       class: Illuminate\Container\BoundMethod
                       type: '::'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
                       line: 211
                       function: call
                       class: Illuminate\Container\Container
                       type: '->'
-                    -
-                      file: /var/www/vendor/symfony/console/Command/Command.php
+                    - file: /var/www/vendor/symfony/console/Command/Command.php
                       line: 326
                       function: execute
                       class: Illuminate\Console\Command
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
                       line: 181
                       function: run
                       class: Symfony\Component\Console\Command\Command
                       type: '->'
-                    -
-                      file: /var/www/vendor/symfony/console/Application.php
+                    - file: /var/www/vendor/symfony/console/Application.php
                       line: 1096
                       function: run
                       class: Illuminate\Console\Command
                       type: '->'
-                    -
-                      file: /var/www/vendor/symfony/console/Application.php
+                    - file: /var/www/vendor/symfony/console/Application.php
                       line: 324
                       function: doRunCommand
                       class: Symfony\Component\Console\Application
                       type: '->'
-                    -
-                      file: /var/www/vendor/symfony/console/Application.php
+                    - file: /var/www/vendor/symfony/console/Application.php
                       line: 175
                       function: doRun
                       class: Symfony\Component\Console\Application
                       type: '->'
-                    -
-                      file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php
+                    - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php
                       line: 201
                       function: run
                       class: Symfony\Component\Console\Application
                       type: '->'
-                    -
-                      file: /var/www/artisan
+                    - file: /var/www/artisan
                       line: 37
                       function: handle
                       class: Illuminate\Foundation\Console\Kernel
@@ -2960,368 +2680,307 @@ paths:
                   trace:
                     type: array
                     example:
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Controller.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Controller.php
                         line: 54
                         function: __invoke
                         class: App\Http\Controllers\Product\ProductIndexController
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php
                         line: 43
                         function: callAction
                         class: Illuminate\Routing\Controller
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Route.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Route.php
                         line: 260
                         function: dispatch
                         class: Illuminate\Routing\ControllerDispatcher
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Route.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Route.php
                         line: 205
                         function: runController
                         class: Illuminate\Routing\Route
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                         line: 806
                         function: run
                         class: Illuminate\Routing\Route
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 144
                         function: 'Illuminate\Routing\{closure}'
                         class: Illuminate\Routing\Router
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php
                         line: 50
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Routing\Middleware\SubstituteBindings
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
                         line: 159
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
                         line: 135
                         function: handleRequest
                         class: Illuminate\Routing\Middleware\ThrottleRequests
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php
                         line: 87
                         function: handleRequestUsingNamedLimiter
                         class: Illuminate\Routing\Middleware\ThrottleRequests
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Routing\Middleware\ThrottleRequests
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 119
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                         line: 807
                         function: then
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                         line: 784
                         function: runRouteWithinStack
                         class: Illuminate\Routing\Router
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                         line: 748
                         function: runRoute
                         class: Illuminate\Routing\Router
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php
                         line: 737
                         function: dispatchToRoute
                         class: Illuminate\Routing\Router
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
                         line: 200
                         function: dispatch
                         class: Illuminate\Routing\Router
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 144
                         function: 'Illuminate\Foundation\Http\{closure}'
                         class: Illuminate\Foundation\Http\Kernel
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
                         line: 21
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php
                         line: 31
                         function: handle
                         class: Illuminate\Foundation\Http\Middleware\TransformsRequest
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php
                         line: 21
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php
                         line: 40
                         function: handle
                         class: Illuminate\Foundation\Http\Middleware\TransformsRequest
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Foundation\Http\Middleware\TrimStrings
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php
                         line: 27
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Foundation\Http\Middleware\ValidatePostSize
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php
                         line: 99
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php
                         line: 62
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Http\Middleware\HandleCors
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php
                         line: 39
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 183
                         function: handle
                         class: Illuminate\Http\Middleware\TrustProxies
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php
                         line: 119
                         function: 'Illuminate\Pipeline\{closure}'
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
                         line: 175
                         function: then
                         class: Illuminate\Pipeline\Pipeline
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php
                         line: 144
                         function: sendRequestThroughRouter
                         class: Illuminate\Foundation\Http\Kernel
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                         line: 300
                         function: handle
                         class: Illuminate\Foundation\Http\Kernel
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                         line: 288
                         function: callLaravelOrLumenRoute
                         class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                         line: 91
                         function: makeApiCall
                         class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                         line: 44
                         function: makeResponseCall
                         class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php
                         line: 35
                         function: makeResponseCallIfConditionsPass
                         class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
                         line: 236
                         function: __invoke
                         class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
                         line: 166
                         function: iterateThroughStrategies
                         class: Knuckles\Scribe\Extracting\Extractor
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php
                         line: 95
                         function: fetchResponses
                         class: Knuckles\Scribe\Extracting\Extractor
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
                         line: 125
                         function: processRoute
                         class: Knuckles\Scribe\Extracting\Extractor
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
                         line: 72
                         function: extractEndpointsInfoFromLaravelApp
                         class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php
                         line: 50
                         function: extractEndpointsInfoAndWriteToDisk
                         class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
                         type: '->'
-                      -
-                        file: /var/www/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php
+                      - file: /var/www/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php
                         line: 53
                         function: get
                         class: Knuckles\Scribe\GroupedEndpoints\GroupedEndpointsFromApp
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
                         line: 36
                         function: handle
                         class: Knuckles\Scribe\Commands\GenerateDocumentation
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php
                         line: 41
                         function: 'Illuminate\Container\{closure}'
                         class: Illuminate\Container\BoundMethod
                         type: '::'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
                         line: 93
                         function: unwrapIfClosure
                         class: Illuminate\Container\Util
                         type: '::'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php
                         line: 37
                         function: callBoundMethod
                         class: Illuminate\Container\BoundMethod
                         type: '::'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php
                         line: 662
                         function: call
                         class: Illuminate\Container\BoundMethod
                         type: '::'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
                         line: 211
                         function: call
                         class: Illuminate\Container\Container
                         type: '->'
-                      -
-                        file: /var/www/vendor/symfony/console/Command/Command.php
+                      - file: /var/www/vendor/symfony/console/Command/Command.php
                         line: 326
                         function: execute
                         class: Illuminate\Console\Command
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php
                         line: 181
                         function: run
                         class: Symfony\Component\Console\Command\Command
                         type: '->'
-                      -
-                        file: /var/www/vendor/symfony/console/Application.php
+                      - file: /var/www/vendor/symfony/console/Application.php
                         line: 1096
                         function: run
                         class: Illuminate\Console\Command
                         type: '->'
-                      -
-                        file: /var/www/vendor/symfony/console/Application.php
+                      - file: /var/www/vendor/symfony/console/Application.php
                         line: 324
                         function: doRunCommand
                         class: Symfony\Component\Console\Application
                         type: '->'
-                      -
-                        file: /var/www/vendor/symfony/console/Application.php
+                      - file: /var/www/vendor/symfony/console/Application.php
                         line: 175
                         function: doRun
                         class: Symfony\Component\Console\Application
                         type: '->'
-                      -
-                        file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php
+                      - file: /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php
                         line: 201
                         function: run
                         class: Symfony\Component\Console\Application
                         type: '->'
-                      -
-                        file: /var/www/artisan
+                      - file: /var/www/artisan
                         line: 37
                         function: handle
                         class: Illuminate\Foundation\Console\Kernel
@@ -3357,14 +3016,14 @@ paths:
                   type: integer
                   description: ''
                   example: 15
-      security: []
+      security: [ ]
   '/api/sub-category/update/{id}':
     post:
       summary: Обновление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - SubCategory
       requestBody:
@@ -3394,10 +3053,9 @@ paths:
                   type: string
                   description: ''
                   example: iste
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the update.'
         example: laudantium
@@ -3409,8 +3067,8 @@ paths:
       summary: Создание
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - SubCategory
       requestBody:
@@ -3445,20 +3103,19 @@ paths:
                 - name_ru
                 - name_kz
                 - name_en
-      security: []
+      security: [ ]
   '/api/sub-category/delete/${id}':
     delete:
       summary: Удаление
       operationId: ''
       description: ''
-      parameters: []
-      responses: {  }
+      parameters: [ ]
+      responses: { }
       tags:
         - SubCategory
-      security: []
+      security: [ ]
     parameters:
-      -
-        in: path
+      - in: path
         name: id
         description: 'The ID of the .'
         example: et
@@ -3470,7 +3127,7 @@ paths:
       summary: Список
       operationId: ''
       description: ''
-      parameters: []
+      parameters: [ ]
       responses:
         200:
           description: ''
@@ -3482,8 +3139,7 @@ paths:
                   data:
                     current_page: 1
                     subCategory:
-                      -
-                        id: 1
+                      - id: 1
                         category_id: 1
                         photo_url: null
                         name_ru: Фрукты
@@ -3491,8 +3147,7 @@ paths:
                         name_en: Fruits
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 2
+                      - id: 2
                         category_id: 1
                         photo_url: null
                         name_ru: Овощи
@@ -3500,8 +3155,7 @@ paths:
                         name_en: Vegetables
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 3
+                      - id: 3
                         category_id: 1
                         photo_url: null
                         name_ru: Зелень
@@ -3509,8 +3163,7 @@ paths:
                         name_en: Greens
                         created_at: '2024-04-13T08:22:49.000000Z'
                         updated_at: '2024-04-13T08:22:49.000000Z'
-                      -
-                        id: 4
+                      - id: 4
                         category_id: 1
                         photo_url: null
                         name_ru: Грибы
@@ -3532,8 +3185,7 @@ paths:
                       subCategory:
                         type: array
                         example:
-                          -
-                            id: 1
+                          - id: 1
                             category_id: 1
                             photo_url: null
                             name_ru: Фрукты
@@ -3541,8 +3193,7 @@ paths:
                             name_en: Fruits
                             created_at: '2024-04-13T08:22:49.000000Z'
                             updated_at: '2024-04-13T08:22:49.000000Z'
-                          -
-                            id: 2
+                          - id: 2
                             category_id: 1
                             photo_url: null
                             name_ru: Овощи
@@ -3550,8 +3201,7 @@ paths:
                             name_en: Vegetables
                             created_at: '2024-04-13T08:22:49.000000Z'
                             updated_at: '2024-04-13T08:22:49.000000Z'
-                          -
-                            id: 3
+                          - id: 3
                             category_id: 1
                             photo_url: null
                             name_ru: Зелень
@@ -3559,8 +3209,7 @@ paths:
                             name_en: Greens
                             created_at: '2024-04-13T08:22:49.000000Z'
                             updated_at: '2024-04-13T08:22:49.000000Z'
-                          -
-                            id: 4
+                          - id: 4
                             category_id: 1
                             photo_url: null
                             name_ru: Грибы
@@ -3620,41 +3269,29 @@ paths:
                   type: integer
                   description: ''
                   example: 6
-      security: []
+      security: [ ]
 tags:
-  -
-    name: Auth
+  - name: Auth
     description: ''
-  -
-    name: Banner
+  - name: Banner
     description: ''
-  -
-    name: Brand
+  - name: Brand
     description: ''
-  -
-    name: Cart
+  - name: Cart
     description: ''
-  -
-    name: Category
+  - name: Category
     description: ''
-  -
-    name: Country
+  - name: Country
     description: ''
-  -
-    name: DeliveryInterval
+  - name: DeliveryInterval
     description: ''
-  -
-    name: Endpoints
+  - name: Endpoints
     description: ''
-  -
-    name: FavoriteProduct
+  - name: FavoriteProduct
     description: ''
-  -
-    name: Order
+  - name: Order
     description: ''
-  -
-    name: Product
+  - name: Product
     description: ''
-  -
-    name: SubCategory
+  - name: SubCategory
     description: ''

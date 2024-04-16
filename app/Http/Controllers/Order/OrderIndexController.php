@@ -34,16 +34,11 @@ class OrderIndexController extends Controller
 
             $response = [
                 'current_page' => $orders->currentPage(),
-                'orders' => $orders->map(function ($order) {
-                    return OrderResource::make($order);
-                }),
                 'total' => $orders->total(),
+                'orders' => $orders->items(),
             ];
         } else {
-            $orders = $query->get();
-            $response = $orders->map(function ($order) {
-                return OrderResource::make($order);
-            });
+            $response = $query->get();
         }
 
         return $this->response($response, 'Список заказов успешно загружен!');
