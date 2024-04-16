@@ -22,7 +22,7 @@ class BannerStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => 'required|image',
+            'image' => 'required|image|max:10000',
         ];
     }
 }

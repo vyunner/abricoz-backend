@@ -19,9 +19,11 @@ class FavoriteProductStoreController extends Controller
      */
     public function __invoke(FavoriteProductStoreRequest $request)
     {
+        $user_id = $request->user()->id();
         $validatedData = $request->validated();
+        $validatedData['user_id'] = $user_id;
 
-        $favoriteProduct = FavoriteProduct::create($validatedData);
+        $favoriteProduct = FavoriteProduct::create($validatedData)->load('product');
 
         return $this->response($favoriteProduct, 'Любимый продукт успешно добавлен!');
     }

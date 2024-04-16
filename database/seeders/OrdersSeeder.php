@@ -70,6 +70,8 @@ class OrdersSeeder extends Seeder
                     'order_id' => $order->id,
                     'product_id' => rand(1, 5),
                     'product_quantity' => rand(1, 15),
+                    'product_price' => rand(1, 15),
+                    'product_discount' => rand(0, 1),
                 ]);
             }
         }

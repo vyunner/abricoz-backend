@@ -34,6 +34,7 @@ class ProductUpdateRequest extends FormRequest
             'description_en' => 'nullable|string',
             'price' => 'nullable|int',
             'discount' => 'nullable|int',
+            'is_active' => 'nullable|boolean',
         ];
     }
 }

@@ -3,7 +3,8 @@
 name: Endpoints
 description: ''
 endpoints:
-  - httpMethods:
+  -
+    httpMethods:
       - GET
     uri: api/user
     metadata:
@@ -14,1752 +15,35 @@ endpoints:
       title: ''
       description: ''
       authenticated: false
-      custom: [ ]
+      custom: []
     headers:
       Content-Type: application/json
       Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
     responses:
-      - status: 401
+      -
+        status: 401
         content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
           access-control-allow-origin: '*'
         description: null
-        custom: [ ]
-    responseFields: [ ]
-    auth: [ ]
+        custom: []
+    responseFields: []
+    auth: []
     controller: null
     method: null
     route: null
-    custom: [ ]
-  - httpMethods:
-      - DELETE
-    uri: 'api/brand/delete/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the delete.'
-        required: true
-        example: non
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: non
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: 'api/brand/update/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the update.'
-        required: true
-        example: dicta
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: dicta
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      name:
-        name: name
-        description: ''
-        required: false
-        example: cum
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      name: cum
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: api/brand/store
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      name:
-        name: name
-        description: ''
-        required: true
-        example: non
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      name: non
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - GET
-    uri: api/brand/index
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses:
-      - status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - GET
-    uri: api/cart/index
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses:
-      - status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: api/cart/store
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      user_id:
-        name: user_id
-        description: ''
-        required: true
-        example: sit
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      product_id:
-        name: product_id
-        description: ''
-        required: true
-        example: eos
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      quantity:
-        name: quantity
-        description: ''
-        required: false
-        example: 6
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      user_id: sit
-      product_id: eos
-      quantity: 6
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - DELETE
-    uri: 'api/cart/delete/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the delete.'
-        required: true
-        example: quae
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: quae
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - DELETE
-    uri: 'api/category/delete/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the delete.'
-        required: true
-        example: mollitia
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: mollitia
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: api/category/store
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      photo_url:
-        name: photo_url
-        description: ''
-        required: false
-        example: 'http://www.schaden.biz/totam-labore-itaque-repellat'
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_ru:
-        name: name_ru
-        description: ''
-        required: true
-        example: officiis
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_kz:
-        name: name_kz
-        description: ''
-        required: true
-        example: ratione
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_en:
-        name: name_en
-        description: ''
-        required: true
-        example: ut
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      description_ru:
-        name: description_ru
-        description: ''
-        required: true
-        example: velit
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      description_kz:
-        name: description_kz
-        description: ''
-        required: true
-        example: beatae
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      description_en:
-        name: description_en
-        description: ''
-        required: true
-        example: voluptatum
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      photo_url: 'http://www.schaden.biz/totam-labore-itaque-repellat'
-      name_ru: officiis
-      name_kz: ratione
-      name_en: ut
-      description_ru: velit
-      description_kz: beatae
-      description_en: voluptatum
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: 'api/category/update/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the update.'
-        required: true
-        example: deserunt
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: deserunt
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      photo_url:
-        name: photo_url
-        description: ''
-        required: false
-        example: 'http://www.huels.com/'
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_ru:
-        name: name_ru
-        description: ''
-        required: false
-        example: id
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_kz:
-        name: name_kz
-        description: ''
-        required: false
-        example: numquam
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_en:
-        name: name_en
-        description: ''
-        required: false
-        example: nemo
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      description_ru:
-        name: description_ru
-        description: ''
-        required: false
-        example: minima
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      description_kz:
-        name: description_kz
-        description: ''
-        required: false
-        example: sed
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      description_en:
-        name: description_en
-        description: ''
-        required: false
-        example: et
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      photo_url: 'http://www.huels.com/'
-      name_ru: id
-      name_kz: numquam
-      name_en: nemo
-      description_ru: minima
-      description_kz: sed
-      description_en: et
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - GET
-    uri: api/category/index
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses:
-      - status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - DELETE
-    uri: 'api/country/delete/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the delete.'
-        required: true
-        example: quaerat
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: quaerat
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: api/country/store
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      name:
-        name: name
-        description: ''
-        required: true
-        example: autem
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      name: autem
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: 'api/country/update/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the update.'
-        required: true
-        example: non
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: non
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      name:
-        name: name
-        description: ''
-        required: false
-        example: dolor
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      name: dolor
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - GET
-    uri: api/country/index
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses:
-      - status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - DELETE
-    uri: 'api/delivery-interval/delete/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the delete.'
-        required: true
-        example: aut
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: aut
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: api/delivery-interval/store
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      name:
-        name: name
-        description: ''
-        required: true
-        example: et
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      is_active:
-        name: is_active
-        description: ''
-        required: false
-        example: true
-        type: boolean
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      name: et
-      is_active: true
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: 'api/delivery-interval/update/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the update.'
-        required: true
-        example: autem
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: autem
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      name:
-        name: name
-        description: ''
-        required: false
-        example: explicabo
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      is_active:
-        name: is_active
-        description: ''
-        required: false
-        example: false
-        type: boolean
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      name: explicabo
-      is_active: false
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - GET
-    uri: api/delivery-interval/index
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses:
-      - status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - DELETE
-    uri: 'api/favorite-product/delete/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the delete.'
-        required: true
-        example: quia
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: quia
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: api/favorite-product/store
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      user_id:
-        name: user_id
-        description: ''
-        required: true
-        example: 10
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      product_id:
-        name: product_id
-        description: ''
-        required: true
-        example: et
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      user_id: 10
-      product_id: et
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - GET
-    uri: api/favorite-product/index
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses:
-      - status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: 'api/order/update/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the update.'
-        required: true
-        example: sed
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: sed
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      user_id:
-        name: user_id
-        description: ''
-        required: false
-        example: 12
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      order_status_id:
-        name: order_status_id
-        description: ''
-        required: false
-        example: 9
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      delivery_interval_id:
-        name: delivery_interval_id
-        description: ''
-        required: false
-        example: 20
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      address:
-        name: address
-        description: ''
-        required: false
-        example: null
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      address_comment:
-        name: address_comment
-        description: ''
-        required: false
-        example: null
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      order_comment:
-        name: order_comment
-        description: ''
-        required: false
-        example: null
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      delivery_date:
-        name: delivery_date
-        description: 'Must be a valid date.'
-        required: false
-        example: '2024-04-12T16:26:38'
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      user_id: 12
-      order_status_id: 9
-      delivery_interval_id: 20
-      delivery_date: '2024-04-12T16:26:38'
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: api/order/store
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      order_status_id:
-        name: order_status_id
-        description: ''
-        required: true
-        example: 15
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      delivery_interval_id:
-        name: delivery_interval_id
-        description: ''
-        required: true
-        example: 14
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      address:
-        name: address
-        description: ''
-        required: true
-        example: totam
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      address_comment:
-        name: address_comment
-        description: ''
-        required: false
-        example: molestias
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      order_comment:
-        name: order_comment
-        description: ''
-        required: false
-        example: harum
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      delivery_date:
-        name: delivery_date
-        description: 'Must be a valid date.'
-        required: true
-        example: '2024-04-12T16:26:38'
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      order_status_id: 15
-      delivery_interval_id: 14
-      address: totam
-      address_comment: molestias
-      order_comment: harum
-      delivery_date: '2024-04-12T16:26:38'
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - GET
-    uri: api/order/index
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses:
-      - status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - GET
-    uri: 'api/order/show/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the show.'
-        required: true
-        example: asperiores
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: asperiores
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses:
-      - status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: 'api/product/update/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the update.'
-        required: true
-        example: sit
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: sit
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      subcategory_id:
-        name: subcategory_id
-        description: ''
-        required: false
-        example: 16
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      country_id:
-        name: country_id
-        description: ''
-        required: false
-        example: 13
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      brand_id:
-        name: brand_id
-        description: ''
-        required: false
-        example: 5
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      photo_url:
-        name: photo_url
-        description: ''
-        required: false
-        example: 'http://kirlin.info/natus-repellendus-voluptas-reiciendis-ut'
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_ru:
-        name: name_ru
-        description: ''
-        required: false
-        example: dignissimos
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_kz:
-        name: name_kz
-        description: ''
-        required: false
-        example: quo
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_en:
-        name: name_en
-        description: ''
-        required: false
-        example: omnis
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      description_ru:
-        name: description_ru
-        description: ''
-        required: false
-        example: labore
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      description_kz:
-        name: description_kz
-        description: ''
-        required: false
-        example: dolore
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      description_en:
-        name: description_en
-        description: ''
-        required: false
-        example: et
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      price:
-        name: price
-        description: ''
-        required: false
-        example: 11
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      discount:
-        name: discount
-        description: ''
-        required: false
-        example: 6
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      subcategory_id: 16
-      country_id: 13
-      brand_id: 5
-      photo_url: 'http://kirlin.info/natus-repellendus-voluptas-reiciendis-ut'
-      name_ru: dignissimos
-      name_kz: quo
-      name_en: omnis
-      description_ru: labore
-      description_kz: dolore
-      description_en: et
-      price: 11
-      discount: 6
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: api/product/store
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      subcategory_id:
-        name: subcategory_id
-        description: ''
-        required: true
-        example: 9
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      country_id:
-        name: country_id
-        description: ''
-        required: true
-        example: 18
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      brand_id:
-        name: brand_id
-        description: ''
-        required: true
-        example: 18
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      photo_url:
-        name: photo_url
-        description: ''
-        required: false
-        example: 'http://morar.com/quae-quam-sint-maiores-veniam-voluptates-maiores-rerum-vero'
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_ru:
-        name: name_ru
-        description: ''
-        required: true
-        example: soluta
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_kz:
-        name: name_kz
-        description: ''
-        required: true
-        example: sint
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_en:
-        name: name_en
-        description: ''
-        required: true
-        example: ut
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      description_ru:
-        name: description_ru
-        description: ''
-        required: true
-        example: et
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      description_kz:
-        name: description_kz
-        description: ''
-        required: true
-        example: earum
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      description_en:
-        name: description_en
-        description: ''
-        required: true
-        example: sed
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      price:
-        name: price
-        description: ''
-        required: true
-        example: 2
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      discount:
-        name: discount
-        description: ''
-        required: true
-        example: 10
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      subcategory_id: 9
-      country_id: 18
-      brand_id: 18
-      photo_url: 'http://morar.com/quae-quam-sint-maiores-veniam-voluptates-maiores-rerum-vero'
-      name_ru: soluta
-      name_kz: sint
-      name_en: ut
-      description_ru: et
-      description_kz: earum
-      description_en: sed
-      price: 2
-      discount: 10
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - DELETE
-    uri: 'api/product/delete/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the delete.'
-        required: true
-        example: nesciunt
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: nesciunt
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - GET
-    uri: api/product/index
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses:
-      - status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
+    custom: []
+  -
+    httpMethods:
       - GET
     uri: 'api/product/show/{id}'
     metadata:
@@ -1767,10 +51,10 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: ''
+      title: Элемент
       description: ''
       authenticated: false
-      custom: [ ]
+      custom: []
     headers:
       Content-Type: application/json
       Accept: application/json
@@ -1779,448 +63,454 @@ endpoints:
         name: id
         description: 'The ID of the show.'
         required: true
-        example: ullam
+        example: aut
         type: string
-        enumValues: [ ]
+        enumValues: []
         exampleWasSpecified: false
-        custom: [ ]
+        custom: []
     cleanUrlParameters:
-      id: ullam
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
+      id: aut
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
     responses:
-      - status: 401
-        content: '{"message":"Unauthenticated."}'
+      -
+        status: 404
+        content: |-
+          {
+              "message": "No query results for model [App\\Models\\Product] aut",
+              "exception": "Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException",
+              "file": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php",
+              "line": 487,
+              "trace": [
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php",
+                      "line": 463,
+                      "function": "prepareException",
+                      "class": "Illuminate\\Foundation\\Exceptions\\Handler",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php",
+                      "line": 54,
+                      "function": "render",
+                      "class": "Illuminate\\Foundation\\Exceptions\\Handler",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php",
+                      "line": 51,
+                      "function": "render",
+                      "class": "NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+                      "line": 146,
+                      "function": "handleException",
+                      "class": "Illuminate\\Routing\\Pipeline",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php",
+                      "line": 50,
+                      "function": "Illuminate\\Pipeline\\{closure}",
+                      "class": "Illuminate\\Pipeline\\Pipeline",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+                      "line": 183,
+                      "function": "handle",
+                      "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php",
+                      "line": 159,
+                      "function": "Illuminate\\Pipeline\\{closure}",
+                      "class": "Illuminate\\Pipeline\\Pipeline",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php",
+                      "line": 135,
+                      "function": "handleRequest",
+                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php",
+                      "line": 87,
+                      "function": "handleRequestUsingNamedLimiter",
+                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+                      "line": 183,
+                      "function": "handle",
+                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+                      "line": 119,
+                      "function": "Illuminate\\Pipeline\\{closure}",
+                      "class": "Illuminate\\Pipeline\\Pipeline",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+                      "line": 807,
+                      "function": "then",
+                      "class": "Illuminate\\Pipeline\\Pipeline",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+                      "line": 784,
+                      "function": "runRouteWithinStack",
+                      "class": "Illuminate\\Routing\\Router",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+                      "line": 748,
+                      "function": "runRoute",
+                      "class": "Illuminate\\Routing\\Router",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php",
+                      "line": 737,
+                      "function": "dispatchToRoute",
+                      "class": "Illuminate\\Routing\\Router",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
+                      "line": 200,
+                      "function": "dispatch",
+                      "class": "Illuminate\\Routing\\Router",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+                      "line": 144,
+                      "function": "Illuminate\\Foundation\\Http\\{closure}",
+                      "class": "Illuminate\\Foundation\\Http\\Kernel",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php",
+                      "line": 21,
+                      "function": "Illuminate\\Pipeline\\{closure}",
+                      "class": "Illuminate\\Pipeline\\Pipeline",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php",
+                      "line": 31,
+                      "function": "handle",
+                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+                      "line": 183,
+                      "function": "handle",
+                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php",
+                      "line": 21,
+                      "function": "Illuminate\\Pipeline\\{closure}",
+                      "class": "Illuminate\\Pipeline\\Pipeline",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php",
+                      "line": 40,
+                      "function": "handle",
+                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+                      "line": 183,
+                      "function": "handle",
+                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TrimStrings",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php",
+                      "line": 27,
+                      "function": "Illuminate\\Pipeline\\{closure}",
+                      "class": "Illuminate\\Pipeline\\Pipeline",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+                      "line": 183,
+                      "function": "handle",
+                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php",
+                      "line": 99,
+                      "function": "Illuminate\\Pipeline\\{closure}",
+                      "class": "Illuminate\\Pipeline\\Pipeline",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+                      "line": 183,
+                      "function": "handle",
+                      "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php",
+                      "line": 62,
+                      "function": "Illuminate\\Pipeline\\{closure}",
+                      "class": "Illuminate\\Pipeline\\Pipeline",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+                      "line": 183,
+                      "function": "handle",
+                      "class": "Illuminate\\Http\\Middleware\\HandleCors",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php",
+                      "line": 39,
+                      "function": "Illuminate\\Pipeline\\{closure}",
+                      "class": "Illuminate\\Pipeline\\Pipeline",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+                      "line": 183,
+                      "function": "handle",
+                      "class": "Illuminate\\Http\\Middleware\\TrustProxies",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php",
+                      "line": 119,
+                      "function": "Illuminate\\Pipeline\\{closure}",
+                      "class": "Illuminate\\Pipeline\\Pipeline",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
+                      "line": 175,
+                      "function": "then",
+                      "class": "Illuminate\\Pipeline\\Pipeline",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php",
+                      "line": 144,
+                      "function": "sendRequestThroughRouter",
+                      "class": "Illuminate\\Foundation\\Http\\Kernel",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
+                      "line": 300,
+                      "function": "handle",
+                      "class": "Illuminate\\Foundation\\Http\\Kernel",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
+                      "line": 288,
+                      "function": "callLaravelOrLumenRoute",
+                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
+                      "line": 91,
+                      "function": "makeApiCall",
+                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
+                      "line": 44,
+                      "function": "makeResponseCall",
+                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php",
+                      "line": 35,
+                      "function": "makeResponseCallIfConditionsPass",
+                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php",
+                      "line": 236,
+                      "function": "__invoke",
+                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php",
+                      "line": 166,
+                      "function": "iterateThroughStrategies",
+                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/knuckleswtf/scribe/src/Extracting/Extractor.php",
+                      "line": 95,
+                      "function": "fetchResponses",
+                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php",
+                      "line": 125,
+                      "function": "processRoute",
+                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php",
+                      "line": 72,
+                      "function": "extractEndpointsInfoFromLaravelApp",
+                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/knuckleswtf/scribe/src/GroupedEndpoints/GroupedEndpointsFromApp.php",
+                      "line": 50,
+                      "function": "extractEndpointsInfoAndWriteToDisk",
+                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php",
+                      "line": 53,
+                      "function": "get",
+                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php",
+                      "line": 36,
+                      "function": "handle",
+                      "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php",
+                      "line": 41,
+                      "function": "Illuminate\\Container\\{closure}",
+                      "class": "Illuminate\\Container\\BoundMethod",
+                      "type": "::"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php",
+                      "line": 93,
+                      "function": "unwrapIfClosure",
+                      "class": "Illuminate\\Container\\Util",
+                      "type": "::"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php",
+                      "line": 37,
+                      "function": "callBoundMethod",
+                      "class": "Illuminate\\Container\\BoundMethod",
+                      "type": "::"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php",
+                      "line": 662,
+                      "function": "call",
+                      "class": "Illuminate\\Container\\BoundMethod",
+                      "type": "::"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php",
+                      "line": 211,
+                      "function": "call",
+                      "class": "Illuminate\\Container\\Container",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/symfony/console/Command/Command.php",
+                      "line": 326,
+                      "function": "execute",
+                      "class": "Illuminate\\Console\\Command",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php",
+                      "line": 181,
+                      "function": "run",
+                      "class": "Symfony\\Component\\Console\\Command\\Command",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/symfony/console/Application.php",
+                      "line": 1096,
+                      "function": "run",
+                      "class": "Illuminate\\Console\\Command",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/symfony/console/Application.php",
+                      "line": 324,
+                      "function": "doRunCommand",
+                      "class": "Symfony\\Component\\Console\\Application",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/symfony/console/Application.php",
+                      "line": 175,
+                      "function": "doRun",
+                      "class": "Symfony\\Component\\Console\\Application",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php",
+                      "line": 201,
+                      "function": "run",
+                      "class": "Symfony\\Component\\Console\\Application",
+                      "type": "->"
+                  },
+                  {
+                      "file": "/var/www/artisan",
+                      "line": 37,
+                      "function": "handle",
+                      "class": "Illuminate\\Foundation\\Console\\Kernel",
+                      "type": "->"
+                  }
+              ]
+          }
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '53'
           access-control-allow-origin: '*'
         description: null
-        custom: [ ]
-    responseFields: [ ]
-    auth: [ ]
+        custom: []
+    responseFields: []
+    auth: []
     controller: null
     method: null
     route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: 'api/sub-category/update/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the update.'
-        required: true
-        example: accusantium
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: accusantium
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      category_id:
-        name: category_id
-        description: ''
-        required: false
-        example: 12
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      photo_url:
-        name: photo_url
-        description: ''
-        required: false
-        example: 'https://streich.com/nihil-ea-architecto-et-eos-adipisci-consequuntur.html'
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_ru:
-        name: name_ru
-        description: ''
-        required: false
-        example: fugit
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_kz:
-        name: name_kz
-        description: ''
-        required: false
-        example: ratione
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_en:
-        name: name_en
-        description: ''
-        required: false
-        example: nobis
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      category_id: 12
-      photo_url: 'https://streich.com/nihil-ea-architecto-et-eos-adipisci-consequuntur.html'
-      name_ru: fugit
-      name_kz: ratione
-      name_en: nobis
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: api/sub-category/store
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      category_id:
-        name: category_id
-        description: ''
-        required: true
-        example: 11
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      photo_url:
-        name: photo_url
-        description: ''
-        required: false
-        example: 'https://www.lindgren.com/et-nesciunt-facilis-ut-ut-voluptates-voluptatem-provident'
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_ru:
-        name: name_ru
-        description: ''
-        required: true
-        example: non
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_kz:
-        name: name_kz
-        description: ''
-        required: true
-        example: excepturi
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      name_en:
-        name: name_en
-        description: ''
-        required: true
-        example: aliquid
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      category_id: 11
-      photo_url: 'https://www.lindgren.com/et-nesciunt-facilis-ut-ut-voluptates-voluptatem-provident'
-      name_ru: non
-      name_kz: excepturi
-      name_en: aliquid
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - DELETE
-    uri: 'api/sub-category/delete/${id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the .'
-        required: true
-        example: molestiae
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: molestiae
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - GET
-    uri: api/sub-category/index
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses:
-      - status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: api/banner/update
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      banners:
-        name: banners
-        description: ''
-        required: true
-        example:
-          - rerum
-        type: 'string[]'
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      'banners[].id':
-        name: 'banners[].id'
-        description: ''
-        required: true
-        example: minus
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-      'banners[].number':
-        name: 'banners[].number'
-        description: ''
-        required: true
-        example: 1
-        type: integer
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters:
-      banners:
-        - rerum
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - POST
-    uri: api/banner/store
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: multipart/form-data
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters:
-      image:
-        name: image
-        description: 'Must be an image.'
-        required: true
-        example: null
-        type: file
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters:
-      image: null
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - DELETE
-    uri: 'api/banner/delete/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the delete.'
-        required: true
-        example: assumenda
-        type: string
-        enumValues: [ ]
-        exampleWasSpecified: false
-        custom: [ ]
-    cleanUrlParameters:
-      id: assumenda
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
-  - httpMethods:
-      - GET
-    uri: api/banner/index
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: false
-      custom: [ ]
-    headers:
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: [ ]
-    cleanUrlParameters: [ ]
-    queryParameters: [ ]
-    cleanQueryParameters: [ ]
-    bodyParameters: [ ]
-    cleanBodyParameters: [ ]
-    fileParameters: [ ]
-    responses:
-      - status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: [ ]
-    responseFields: [ ]
-    auth: [ ]
-    controller: null
-    method: null
-    route: null
-    custom: [ ]
+    custom: []

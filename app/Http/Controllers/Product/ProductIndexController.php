@@ -20,11 +20,17 @@ class ProductIndexController extends Controller
      */
     public function __invoke(ProductIndexRequest $request)
     {
+        $query = Product::with(['subcategory', 'brand', 'country']);
+
+        if (!$request->user()->hasRole('admin')) {
+            $query->where('is_active', 1);
+        }
+
         if ($request->has('perPage')) {
             $perPage = $request->input('perPage', 10);
             $page = $request->input('page', 1);
 
-            $products = Product::with(['subcategory', 'brand', 'country'])->paginate($perPage, ['*'], 'page', $page);
+            $products = $query->paginate($perPage, ['*'], 'page', $page);
 
             return $this->response([
                 'current_page' => $products->currentPage(),
@@ -33,7 +39,7 @@ class ProductIndexController extends Controller
             ], 'Список продуктов успешно загружен!');
         }
 
-        $allProducts = ProductResource::collection(Product::with(['subcategory', 'brand', 'country'])->get());
+        $allProducts = ProductResource::collection($query->get());
 
         return $this->response($allProducts, 'Список продуктов успешно загружен!');
     }

@@ -15,6 +15,8 @@ return new class extends Migration {
             $table->foreignId('order_id')->constrained('orders');
             $table->foreignId('product_id')->constrained('products');
             $table->integer('product_quantity')->default(1);
+            $table->integer('product_price');
+            $table->integer('product_discount')->default(0);
             $table->timestamps();
         });
     }

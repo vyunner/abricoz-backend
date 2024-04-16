@@ -24,24 +24,49 @@ class OrderStoreController extends Controller
     {
         $user_id = $request->user()->id;
 
+        $inactiveProducts = Cart::where('user_id', $user_id)
+            ->whereHas('product', function ($query) {
+                $query->where('is_active', 0);
+            })
+            ->get();
+
+        if ($inactiveProducts->isNotEmpty()) {
+            $inactiveProductNames = $inactiveProducts->pluck('product.name')->toArray();
+            Cart::whereIn('id', $inactiveProducts->pluck('id'))->delete();
+
+            return $this->response([
+                'inactive_products' => $inactiveProductNames
+            ], 'Некоторые продукты в вашей корзине были неактивны и удалены. Пожалуйста, пересмотрите ваш заказ.');
+        }
+
         $validatedData = $request->validated();
         $validatedData['user_id'] = $user_id;
 
         $order = Order::create($validatedData);
 
-        $cartItems = Cart::where('user_id', $user_id)->get();
+        $cartItems = Cart::where('user_id', $user_id)
+            ->with('product')
+            ->get();
 
         $orderProducts = $cartItems->map(function ($cartItem) use ($order) {
             return [
                 'order_id' => $order->id,
                 'product_id' => $cartItem->product_id,
                 'product_quantity' => $cartItem->product_quantity,
+                'product_price' => $productPrice = $cartItem->product->price,
+                'product_discount' => $cartItem->product->discount
             ];
         })->toArray();
+
+        $totalPrice = collect($orderProducts)->sum(function ($item) {
+            return ($item['product_price'] - ($item['product_price'] * ($item['product_discount'] / 100))) * $item['product_quantity'];
+        });
 
         OrderProduct::insert($orderProducts);
 
         Cart::where('user_id', $user_id)->delete();
+
+        $order->update(['total_price' => $totalPrice]);
 
         $order = $order->load(['products', 'orderStatus', 'deliveryInterval']);
         $order = OrderResource::make($order);

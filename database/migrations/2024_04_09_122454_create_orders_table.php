@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->text('address_comment')->nullable();
             $table->text('order_comment')->nullable();
             $table->date('delivery_date');
+            $table->integer('total_price')->default(0);
             $table->timestamps();
         });
     }

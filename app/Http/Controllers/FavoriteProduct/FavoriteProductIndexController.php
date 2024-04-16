@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FavoriteProduct;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FavoriteProduct\FavoriteProductIndexRequest;
 use App\Models\FavoriteProduct;
 use Illuminate\Http\Request;
 
@@ -16,13 +17,13 @@ class FavoriteProductIndexController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(FavoriteProductIndexRequest $request)
     {
         if ($request->has('perPage')) {
             $perPage = $request->query('perPage', 10);
             $page = $request->query('page', 1);
 
-            $favoriteProduct = FavoriteProduct::paginate($perPage, ['*'], 'page', $page);
+            $favoriteProduct = FavoriteProduct::with('product')->paginate($perPage, ['*'], 'page', $page);
 
             return $this->response([
                 'current_page' => $favoriteProduct->currentPage(),
@@ -31,6 +32,8 @@ class FavoriteProductIndexController extends Controller
             ], 'Список любимых продуктов успешно загружен!');
         }
 
-        return $this->response(FavoriteProduct::all(), 'Список любимых продуктов успешно загружен!');
+        $favoriteProduct = FavoriteProduct::with('product')->get();
+
+        return $this->response($favoriteProduct, 'Список любимых продуктов успешно загружен!');
     }
 }

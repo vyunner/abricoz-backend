@@ -4,7 +4,7 @@ namespace App\Http\Requests\FavoriteProduct;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FavoriteProductStoreRequest extends FormRequest
+class FavoriteProductIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class FavoriteProductStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id' => 'required|exists:products,id',
+            'perPage' => 'nullable|int'
         ];
     }
 }
