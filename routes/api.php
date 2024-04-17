@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::group(['prefix' => '/auth'], function () {
     Route::post('/register', \App\Http\Controllers\Auth\AuthRegisterController::class);
@@ -69,12 +66,9 @@ Route::group(['prefix' => '/delivery-interval'], function () {
     Route::get('/index', \App\Http\Controllers\DeliveryInterval\DeliveryIntervalIndexController::class);
 });
 
-Route::group(['prefix' => '/favorite-product'], function () {
-    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
-        Route::delete('/delete/{id}', \App\Http\Controllers\FavoriteProduct\FavoriteProductDestroyController::class);
-        Route::post('/store', \App\Http\Controllers\FavoriteProduct\FavoriteProductStoreController::class);
-    });
-
+Route::group(['prefix' => '/favorite-product', 'middleware' => 'auth:sanctum'], function () {
+    Route::delete('/delete/{id}', \App\Http\Controllers\FavoriteProduct\FavoriteProductDestroyController::class);
+    Route::post('/store', \App\Http\Controllers\FavoriteProduct\FavoriteProductStoreController::class);
     Route::get('/index', \App\Http\Controllers\FavoriteProduct\FavoriteProductIndexController::class);
 });
 

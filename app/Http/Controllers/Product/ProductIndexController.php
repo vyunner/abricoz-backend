@@ -21,7 +21,7 @@ class ProductIndexController extends Controller
         $user = $request->user();
         $query = Product::with(['subcategory', 'brand', 'country']);
 
-        if (!$user->hasRole('admin')) {
+        if (!$user || !$user->hasRole('admin')) {
             $query->where('is_active', 1);
         }
 

@@ -19,11 +19,14 @@ class FavoriteProductIndexController extends Controller
      */
     public function __invoke(FavoriteProductIndexRequest $request)
     {
+        $user = $request->user();
+
         if ($request->has('perPage')) {
             $perPage = $request->query('perPage', 10);
             $page = $request->query('page', 1);
 
-            $favoriteProduct = FavoriteProduct::with('product')->paginate($perPage, ['*'], 'page', $page);
+            $favoriteProduct = FavoriteProduct::where(['user_id' => $user->id])->with('product')
+                ->paginate($perPage, ['*'], 'page', $page);
 
             return $this->response([
                 'current_page' => $favoriteProduct->currentPage(),
@@ -32,7 +35,7 @@ class FavoriteProductIndexController extends Controller
             ], 'Список любимых продуктов успешно загружен!');
         }
 
-        $favoriteProduct = FavoriteProduct::with('product')->get();
+        $favoriteProduct = FavoriteProduct::where(['user_id' => $user->id])->with('product')->get();
 
         return $this->response($favoriteProduct, 'Список любимых продуктов успешно загружен!');
     }

@@ -23,7 +23,7 @@ class OrderIndexController extends Controller
         $user = $request->user();
         $query = Order::with(['orderStatus', 'deliveryInterval', 'products']);
 
-        if (!$user->hasRole('admin')) {
+        if (!$user || !$user->hasRole('admin')) {
             $query->where('user_id', $user->id);
         }
 

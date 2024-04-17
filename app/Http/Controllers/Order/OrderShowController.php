@@ -19,10 +19,10 @@ class OrderShowController extends Controller
      */
     public function __invoke(Request $request, $id)
     {
-        $user_id = $request->user()->id;
+        $user = $request->user();
         $order = Order::with(['orderStatus', 'deliveryInterval', 'products'])->findOrFail($id);
 
-        if ($request->user()->hasRole('admin') || $order->user_id == $user_id) {
+        if ($user->hasRole('admin') || $order->user_id == $user->id) {
             return $this->response($order, 'Заказ успешно отображен!');
         }
 
