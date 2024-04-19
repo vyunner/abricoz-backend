@@ -21,10 +21,10 @@ class CartDestroyController extends Controller
      */
     public function __invoke(Request $request, $id)
     {
-        $user = $request->user();
+        $user_id = $request->user()->id;
         $cart = Cart::findOrFail($id);
 
-        if ($user->id == $cart['user_id']) {
+        if ($user_id == $cart['user_id']) {
             $cart->delete();
             return $this->response([], 'Продукт успешно удален из корзины!');
         }

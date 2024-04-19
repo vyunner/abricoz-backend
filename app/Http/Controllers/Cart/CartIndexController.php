@@ -18,9 +18,9 @@ class CartIndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $user = $request->user();
+        $user_id = $request->user()->id;
 
-        $carts = Cart::with('product')->get();
+        $carts = Cart::where(['user_id' => $user_id])->with('product')->get();
 
         return $this->response($carts, 'Список корзины успешно загружен!');
     }

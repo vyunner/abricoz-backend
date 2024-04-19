@@ -19,10 +19,13 @@ class CartStoreController extends Controller
      */
     public function __invoke(CartStoreRequest $request)
     {
+        $user_id = $request->user()->id;
         $validatedData = $request->validated();
+        $validatedData['user_id'] = $user_id;
 
-        Cart::create($validatedData);
+        $cart = Cart::create($validatedData);
+        $cart->load('product');
 
-        return $this->response([], 'Продукт успешно добавлен в корзину!');
+        return $this->response($cart, 'Продукт успешно добавлен в корзину!');
     }
 }
