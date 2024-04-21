@@ -49,5 +49,5 @@ volumes:
         driver: local
         driver_opts:
             type: none
-            device: /db/mysql_data
+            device: /mysql_data
             o: bind
