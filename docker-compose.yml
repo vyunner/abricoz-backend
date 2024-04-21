@@ -24,7 +24,7 @@ services:
     db:
         image: mysql:8.0
         volumes:
-            - mysql_data:/var/lib/mysql
+            - mysqldata:/var/lib/mysql
         environment:
             MYSQL_DATABASE: laravel
             MYSQL_ROOT_PASSWORD: root
@@ -45,9 +45,9 @@ services:
         container_name: adminer
 
 volumes:
-    mysql_data:
+    mysqldata:
         driver: local
         driver_opts:
             type: none
-            device: /mysql_data
+            device: /mysql
             o: bind
