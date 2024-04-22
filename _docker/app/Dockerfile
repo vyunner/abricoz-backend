@@ -24,9 +24,3 @@ COPY ./_docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
 RUN chmod -R 777 .
 
 WORKDIR /var/www
-RUN composer update
-RUN php artisan migrate
-RUN php artisan key:generate
-RUN php artisan db:seed
-RUN php artisan scribe:generate
-RUN chmod -R 777 .
