@@ -28,9 +28,10 @@ services:
         environment:
             MYSQL_DATABASE: laravel
             MYSQL_ROOT_PASSWORD: root
+            MYSQL_INITDB_CHARSET: utf8
+            MYSQL_INITDB_COLLATION: utf8_unicode_ci
         ports:
             - "3306:3306"
-        command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
         container_name: db
         restart: unless-stopped
     admin:
