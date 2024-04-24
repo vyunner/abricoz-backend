@@ -24,7 +24,7 @@ services:
     db:
         image: mariadb
         volumes:
-            - ./mariadb:/var/lib/mariadb
+            - ./mariadb:/var/lib/mysql
         environment:
             MYSQL_DATABASE: laravel
             MYSQL_ROOT_PASSWORD: root
