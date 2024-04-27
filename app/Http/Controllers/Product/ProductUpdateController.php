@@ -37,6 +37,10 @@ class ProductUpdateController extends Controller
             $validatedData['photo_url'] = Storage::url($newPath);
         }
 
+        if (isset($validatedData['discount']) && $validatedData['discount'] > 0){
+            $validatedData['price_with_discount'] = $validatedData['price'] - $validatedData['price'] * $validatedData['discount'] / 100;
+        }
+
         $product->fill($validatedData)->save();
         $product->load(['subcategory', 'brand', 'country']);
 

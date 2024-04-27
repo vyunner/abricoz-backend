@@ -177,5 +177,12 @@ class ProductsSeeder extends Seeder
             'discount' => rand(0, 10),
             'photo_url' => '/storage/products/11.jpg',
         ]);
+
+        $products = Product::all();
+        foreach ($products as $product) {
+            $discountedPrice = $product->price - ($product->price * $product->discount / 100);
+            $product->price_with_discount = $discountedPrice;
+            $product->save();
+        }
     }
 }

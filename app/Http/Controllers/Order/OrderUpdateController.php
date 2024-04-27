@@ -17,10 +17,9 @@ class OrderUpdateController extends Controller
      * Обновление
      * @param OrderUpdateRequest $request
      * @param $id
-     * @param OrderService $orderService
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(OrderUpdateRequest $request, $id, OrderService $orderService)
+    public function __invoke(OrderUpdateRequest $request, $id)
     {
         $validatedData = $request->validated();
         $order = Order::findOrFail($id);

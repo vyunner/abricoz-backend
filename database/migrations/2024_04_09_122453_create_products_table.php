@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->text('description_en');
             $table->integer('price');
             $table->integer('discount')->default(0);
+            $table->integer('price_with_discount')->nullable();
             $table->float('rating')->default(0);
             $table->integer('total_sales')->default(0);
             $table->boolean('is_active')->default(1);
