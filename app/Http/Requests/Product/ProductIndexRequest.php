@@ -24,6 +24,10 @@ class ProductIndexRequest extends FormRequest
         return [
             'perPage' => 'nullable|int',
             'page' => 'nullable|int',
+            'category_id' => 'nullable|int|exists:categories,id',
+            'subcategory_id' => 'nullable|int|exists:subcategories,id',
+            'country_id' => 'nullable|int|exists:countries,id',
+            'brand_id' => 'nullable|int|exists:brands,id',
         ];
     }
 }
