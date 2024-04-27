@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategory\SubCategoryStoreRequest;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @group SubCategory
@@ -20,6 +21,12 @@ class SubCategoryStoreController extends Controller
     public function __invoke(SubCategoryStoreRequest $request)
     {
         $validatedData = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/subcategories');
+            unset($validatedData['image']);
+            $validatedData['photo_url'] = Storage::url($path);
+        }
 
         $subCategory = SubCategory::create($validatedData);
 

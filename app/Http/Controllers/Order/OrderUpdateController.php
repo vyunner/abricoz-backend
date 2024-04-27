@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Order;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\OrderUpdateRequest;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 /**
@@ -26,6 +27,19 @@ class OrderUpdateController extends Controller
 
         $order->fill($validatedData)->save();
         $order->load(['orderStatus', 'deliveryInterval', 'products']);
+
+        if (isset($validatedData['order_status_id']) && $validatedData['order_status_id'] == 3) {
+            $orderProducts = $order->products;
+
+            foreach ($orderProducts as $orderProduct) {
+                $productQuantity = $orderProduct->pivot->product_quantity;
+
+                $product = $orderProduct;
+
+                $product->total_sales += $productQuantity;
+                $product->save();
+            }
+        }
 
         return $this->response($order, 'Данные заказа успешно изменены!');
     }

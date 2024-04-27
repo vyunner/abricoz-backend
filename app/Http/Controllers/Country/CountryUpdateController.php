@@ -22,8 +22,8 @@ class CountryUpdateController extends Controller
         $validatedData = $request->validated();
         $country = Country::findOrFail($id);
 
-        $country->update($validatedData);
+        $country->fill($validatedData)->save();
 
-        return $this->response([], 'Данные страны успешно изменены!');
+        return $this->response($country, 'Данные страны успешно изменены!');
     }
 }

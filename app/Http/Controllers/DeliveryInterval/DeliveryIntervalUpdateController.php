@@ -22,8 +22,8 @@ class DeliveryIntervalUpdateController extends Controller
         $validatedData = $request->validated();
         $deliveryInterval = DeliveryInterval::findOrFail($id);
 
-        $deliveryInterval->update($validatedData);
+        $deliveryInterval->fill($validatedData)->save();
 
-        return $this->response([], 'Данные временного интервала успешно изменены!');
+        return $this->response($deliveryInterval, 'Данные временного интервала успешно изменены!');
     }
 }
