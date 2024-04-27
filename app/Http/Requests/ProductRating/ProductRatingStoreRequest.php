@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Order;
+namespace App\Http\Requests\ProductRating;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrderStoreRequest extends FormRequest
+class ProductRatingStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,8 @@ class OrderStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'delivery_interval_id' => 'required|int|exists:delivery_intervals,id',
-            'address' => 'required|string',
-            'address_comment' => 'nullable|string',
-            'order_comment' => 'nullable|string',
-            'delivery_date' => 'required|date',
+            'product_id' => 'required|int|exists:products,id',
+            'rating' => 'required|int|max:5',
         ];
     }
 }

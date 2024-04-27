@@ -39,6 +39,7 @@ class OrderStoreController extends Controller
 
         $validatedData = $request->validated();
         $validatedData['user_id'] = $user_id;
+        $validatedData['order_status_id'] = 1;
 
         $order = Order::create($validatedData);
 

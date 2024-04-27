@@ -23,8 +23,8 @@ class BrandUpdateController extends Controller
         $validatedData = $request->validated();
         $brand = Brand::findOrFail($id);
 
-        $brand->update($validatedData);
+        $brand->fill($validatedData)->save();
 
-        return $this->response([], 'Данные бренда успешно изменены!');
+        return $this->response($brand, 'Данные бренда успешно изменены!');
     }
 }

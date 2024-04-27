@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CategoryUpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @group Category
@@ -23,8 +24,21 @@ class CategoryUpdateController extends Controller
         $validatedData = $request->validated();
         $category = Category::findOrFail($id);
 
-        $category->update($validatedData);
+        if($request->hasFile('image')){
+            if($category->photo_url){
+                $oldPath = 'public' . str_replace('/storage', '', $category->photo_url);
+                if (Storage::exists($oldPath)) {
+                    Storage::delete($oldPath);
+                }
+            }
 
-        return $this->response([], 'Данные категории успешно изменены!');
+            $newPath = $request->file('image')->store('public/categories');
+            unset($validatedData['image']);
+            $validatedData['photo_url'] = Storage::url($newPath);
+        }
+
+        $category->fill($validatedData)->save();
+
+        return $this->response($category, 'Данные категории успешно изменены!');
     }
 }

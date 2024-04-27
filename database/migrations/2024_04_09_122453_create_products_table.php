@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->integer('price');
             $table->integer('discount')->default(0);
             $table->float('rating')->default(0);
+            $table->integer('total_sales')->default(0);
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
