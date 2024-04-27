@@ -22,13 +22,21 @@ class ProductUpdateController extends Controller
     {
         $validatedData = $request->validated();
 
+        $product = Product::findOrFail($id);
+
         if($request->hasFile('image')){
-            $path = $request->file('image')->store('public/products');
+            if($product->photo_url){
+                $oldPath = 'public' . str_replace('/storage', '', $product->photo_url);
+                if (Storage::exists($oldPath)) {
+                    Storage::delete($oldPath);
+                }
+            }
+
+            $newPath = $request->file('image')->store('public/products');
             unset($validatedData['image']);
-            $validatedData['photo_url'] = Storage::url($path);
+            $validatedData['photo_url'] = Storage::url($newPath);
         }
 
-        $product = Product::findOrFail($id);
         $product->fill($validatedData)->save();
         $product->load(['subcategory', 'brand', 'country']);
 
