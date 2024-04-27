@@ -25,6 +25,15 @@ class ProductIndexController extends Controller
             $query->where('is_active', 1);
         }
 
+        if ($request->has('name')) {
+            $name = $request->input('name');
+            $query->where(function ($query) use ($name) {
+                $query->where('name_ru', 'like', '%' . $name . '%')
+                    ->orWhere('name_kz', 'like', '%' . $name . '%')
+                    ->orWhere('name_en', 'like', '%' . $name . '%');
+            });
+        }
+
         if ($request->has('country_id')) {
             $query->where('country_id', $request->country_id);
         }

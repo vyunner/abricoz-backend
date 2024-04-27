@@ -28,6 +28,7 @@ class ProductIndexRequest extends FormRequest
             'subcategory_id' => 'nullable|int|exists:subcategories,id',
             'country_id' => 'nullable|int|exists:countries,id',
             'brand_id' => 'nullable|int|exists:brands,id',
+            'name' => 'nullable|string',
         ];
     }
 }
