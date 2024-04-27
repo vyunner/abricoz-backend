@@ -34,9 +34,9 @@ class ProductDestroyController extends Controller
             }
         } catch (QueryException $e) {
             if ($e->getCode() === '23000') {
-                return $this->response(['message' => 'Невозможно удалить продукт, так как он используется в других записях.'], 409);
+                return $this->response([], 'Невозможно удалить продукт, так как он используется в других записях.', 409);
             }
-            return $this->response(['message' => 'Произошла ошибка при удалении продукта.'], 500);
+            return $this->response([], 'Произошла ошибка при удалении продукта', 500);
         }
 
         return $this->response([], 'Продукт успешно удален!');
