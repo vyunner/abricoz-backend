@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Product\ProductGetDiscountsRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,10 +13,10 @@ class ProductGetDiscountsController extends Controller
 {
     /**
      * Топ 15 товаров со скидкой
-     * @param ProductGetDiscountsRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(ProductGetDiscountsRequest $request){
+    public function __invoke(Request $request){
         $products = Product::where('discount', '>', 0)
             ->with(['subcategory', 'brand', 'country'])
             ->orderByDesc('discount')
