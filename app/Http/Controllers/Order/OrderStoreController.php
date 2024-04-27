@@ -52,13 +52,14 @@ class OrderStoreController extends Controller
                 'order_id' => $order->id,
                 'product_id' => $cartItem->product_id,
                 'product_quantity' => $cartItem->product_quantity,
-                'product_price' => $productPrice = $cartItem->product->price,
-                'product_discount' => $cartItem->product->discount
+                'product_price' => $cartItem->product->price,
+                'product_discount' => $cartItem->product->discount,
+                'product_price_with_discount' => $cartItem->product->price_with_discount
             ];
         })->toArray();
 
         $totalPrice = collect($orderProducts)->sum(function ($item) {
-            return ($item['product_price'] - ($item['product_price'] * ($item['product_discount'] / 100))) * $item['product_quantity'];
+            return $item['product_price_with_discount'] * $item['product_quantity'];
         });
 
         OrderProduct::insert($orderProducts);

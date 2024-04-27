@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->integer('product_quantity')->default(1);
             $table->integer('product_price');
             $table->integer('product_discount')->default(0);
+            $table->integer('product_price_with_discount')->nullable();
             $table->timestamps();
         });
     }

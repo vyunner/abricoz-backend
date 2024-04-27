@@ -21,10 +21,14 @@ class ProductStoreController extends Controller
     {
         $validatedData = $request->validated();
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $path = $request->file('image')->store('public/products');
             unset($validatedData['image']);
             $validatedData['photo_url'] = Storage::url($path);
+        }
+
+        if ($validatedData['discount'] > 0) {
+            $validatedData['price_with_discount'] = $validatedData['price'] - $validatedData['price'] * $validatedData['discount'] / 100;
         }
 
         $product = Product::create($validatedData);
