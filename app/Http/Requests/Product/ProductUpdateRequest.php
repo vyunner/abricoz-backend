@@ -35,6 +35,7 @@ class ProductUpdateRequest extends FormRequest
             'price' => 'nullable|int',
             'discount' => 'nullable|int',
             'is_active' => 'nullable|boolean',
+            'image' => 'nullable|image|max:10000'
         ];
     }
 }
