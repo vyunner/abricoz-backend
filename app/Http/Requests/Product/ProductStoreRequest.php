@@ -34,6 +34,7 @@ class ProductStoreRequest extends FormRequest
             'description_en' => 'required|string',
             'price' => 'required|int',
             'discount' => 'required|int',
+            'image' => 'nullable|image|max:10000'
         ];
     }
 }
