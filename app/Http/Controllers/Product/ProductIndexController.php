@@ -25,6 +25,24 @@ class ProductIndexController extends Controller
             $query->where('is_active', 1);
         }
 
+        if ($request->has('country_id')) {
+            $query->where('country_id', $request->country_id);
+        }
+
+        if ($request->has('brand_id')) {
+            $query->where('brand_id', $request->brand_id);
+        }
+
+        if ($request->has('subcategory_id')) {
+            $query->where('subcategory_id', $request->subcategory_id);
+        }
+
+        if ($request->has('category_id')) {
+            $query->whereHas('subcategory', function ($q) use ($request) {
+                $q->where('category_id', $request->category_id);
+            });
+        }
+
         if ($request->has('perPage')) {
             $perPage = $request->input('perPage', 10);
             $page = $request->input('page', 1);
