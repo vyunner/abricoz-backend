@@ -22,13 +22,16 @@ class CartDestroyController extends Controller
     public function __invoke(Request $request, $id)
     {
         $user_id = $request->user()->id;
-        $cart = Cart::findOrFail($id);
 
-        if ($user_id == $cart['user_id']) {
-            $cart->delete();
-            return $this->response([], 'Продукт успешно удален из корзины!');
+        $cart = Cart::where('product_id', $id)
+            ->where('user_id', $user_id)
+            ->first();
+
+        if (!$cart) {
+            return $this->response([], 'Продукт не найден в корзине!', 404);
         }
 
-        return $this->response([], 'Нельзя удалить продукт из чужой корзины!', 403);
+        $cart->delete();
+        return $this->response([], 'Продукт успешно удален из корзины!', 403);
     }
 }
