@@ -19,7 +19,7 @@ class FavoriteProductStoreController extends Controller
      */
     public function __invoke(FavoriteProductStoreRequest $request)
     {
-        $user_id = $request->user()->id();
+        $user_id = $request->user()->id;
         $validatedData = $request->validated();
         $validatedData['user_id'] = $user_id;
 
