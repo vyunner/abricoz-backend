@@ -19,13 +19,17 @@ class FavoriteProductDestroyController extends Controller
      */
     public function __invoke(Request $request, $id)
     {
-        $favoriteProduct = FavoriteProduct::findOrFail($id);
+        $user_id = $request->user()->id;
 
-        if ($favoriteProduct->user_id == $request->user()->id){
-            $favoriteProduct->delete();
-            return $this->response([], 'Любимый продукт успешно удален!');
+        $favoriteProduct = FavoriteProduct::where('product_id', $id)
+            ->where('user_id', $user_id)
+            ->first();
+
+        if (!$favoriteProduct) {
+            return $this->response([], 'Избранный продукт не найден!', 404);
         }
 
-        return $this->response([], 'Вы не имеете право удалять чужой любимый продукт!', 403);
+        $favoriteProduct->delete();
+        return $this->response([], 'Любимый продукт успешно удален!');
     }
 }
