@@ -21,11 +21,11 @@
     {{-- Attributes specified first override later ones --}}
     {!! $attribute !!}="{!! $value !!}"
 @endforeach
-    apiDescriptionUrl="{!! $metadata['openapi_spec_url'] !!}"
-    router="hash"
-    layout="sidebar"
-    hideTryIt="{!! ($tryItOut['enabled'] ?? true) ? '' : 'true'!!}"
-    logo="{!! $metadata['logo'] !!}"
+apiDescriptionUrl="{!! $metadata['openapi_spec_url'] !!}"
+router="hash"
+layout="sidebar"
+hideTryIt="{!! ($tryItOut['enabled'] ?? true) ? '' : 'true'!!}"
+logo="{!! $metadata['logo'] !!}"
 />
 
 </body>

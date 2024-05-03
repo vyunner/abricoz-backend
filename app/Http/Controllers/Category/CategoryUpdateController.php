@@ -24,8 +24,8 @@ class CategoryUpdateController extends Controller
         $validatedData = $request->validated();
         $category = Category::findOrFail($id);
 
-        if($request->hasFile('image')){
-            if($category->photo_url){
+        if ($request->hasFile('image')) {
+            if ($category->photo_url) {
                 $oldPath = 'public' . str_replace('/storage', '', $category->photo_url);
                 if (Storage::exists($oldPath)) {
                     Storage::delete($oldPath);

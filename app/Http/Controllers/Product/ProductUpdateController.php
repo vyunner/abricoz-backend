@@ -24,8 +24,8 @@ class ProductUpdateController extends Controller
 
         $product = Product::findOrFail($id);
 
-        if($request->hasFile('image')){
-            if($product->photo_url){
+        if ($request->hasFile('image')) {
+            if ($product->photo_url) {
                 $oldPath = 'public' . str_replace('/storage', '', $product->photo_url);
                 if (Storage::exists($oldPath)) {
                     Storage::delete($oldPath);
@@ -37,7 +37,7 @@ class ProductUpdateController extends Controller
             $validatedData['photo_url'] = Storage::url($newPath);
         }
 
-        if (isset($validatedData['discount']) && $validatedData['discount'] > 0){
+        if (isset($validatedData['discount']) && $validatedData['discount'] > 0) {
             $validatedData['price_with_discount'] = $validatedData['price'] - $validatedData['price'] * $validatedData['discount'] / 100;
         }
 

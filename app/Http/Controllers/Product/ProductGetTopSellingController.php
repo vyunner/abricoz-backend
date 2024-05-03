@@ -16,7 +16,8 @@ class ProductGetTopSellingController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request){
+    public function __invoke(Request $request)
+    {
         $products = Product::orderByDesc('total_sales')->take(15)->get();
 
         return $this->response($products, 'Список самых продаваемых продуктов успешно загружен!');

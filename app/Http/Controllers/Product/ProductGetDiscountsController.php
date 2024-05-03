@@ -16,7 +16,8 @@ class ProductGetDiscountsController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request){
+    public function __invoke(Request $request)
+    {
         $products = Product::where('discount', '>', 0)
             ->with(['subcategory', 'brand', 'country'])
             ->orderByDesc('discount')

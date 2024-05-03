@@ -24,8 +24,8 @@ class SubCategoryUpdateController extends Controller
         $validatedData = $request->validated();
         $subCategory = SubCategory::findOrFail($id);
 
-        if($request->hasFile('image')){
-            if($subCategory->photo_url){
+        if ($request->hasFile('image')) {
+            if ($subCategory->photo_url) {
                 $oldPath = 'public' . str_replace('/storage', '', $subCategory->photo_url);
                 if (Storage::exists($oldPath)) {
                     Storage::delete($oldPath);
