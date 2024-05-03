@@ -23,9 +23,15 @@ class CartStoreController extends Controller
         $validatedData = $request->validated();
         $validatedData['user_id'] = $user_id;
 
-        $cart = Cart::create($validatedData);
+        $cart = Cart::firstOrCreate([
+            'user_id' => $user_id,
+            'product_id' => $validatedData['product_id']
+        ], $validatedData);
+
         $cart->load('product');
 
-        return $this->response($cart, 'Продукт успешно добавлен в корзину!');
+        $message = $cart->wasRecentlyCreated ? 'Продукт успешно добавлен в корзину!' : 'Продукт успешно обновлен в корзине!';
+
+        return $this->response($cart, $message);
     }
 }
