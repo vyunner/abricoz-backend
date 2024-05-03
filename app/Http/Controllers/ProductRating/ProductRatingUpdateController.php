@@ -19,7 +19,8 @@ class ProductRatingUpdateController extends Controller
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(ProductRatingUpdateRequest $request, $id){
+    public function __invoke(ProductRatingUpdateRequest $request, $id)
+    {
         $validatedData = $request->validated();
         $productRating = ProductRating::findOrFail($id);
 

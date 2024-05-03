@@ -23,7 +23,7 @@ class CartStoreController extends Controller
         $validatedData = $request->validated();
         $validatedData['user_id'] = $user_id;
 
-        $cart = Cart::firstOrCreate([
+        $cart = Cart::updateOrCreate([
             'user_id' => $user_id,
             'product_id' => $validatedData['product_id']
         ], $validatedData);

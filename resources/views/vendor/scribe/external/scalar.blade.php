@@ -20,7 +20,7 @@
     {{-- Attributes specified first override later ones --}}
     {!! $attribute !!}="{!! $value !!}"
 @endforeach
-    data-url="{!! $metadata['openapi_spec_url'] !!}">
+data-url="{!! $metadata['openapi_spec_url'] !!}">
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
 </body>

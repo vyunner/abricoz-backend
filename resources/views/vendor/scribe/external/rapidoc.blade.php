@@ -11,13 +11,13 @@
     {{-- Attributes specified first override later ones --}}
     {!! $attribute !!}="{!! $value !!}"
 @endforeach
-    spec-url="{!! $metadata['openapi_spec_url'] !!}"
-    render-style="read"
-    allow-try="{!! ($tryItOut['enabled'] ?? true) ? 'true' : 'false'!!}"
+spec-url="{!! $metadata['openapi_spec_url'] !!}"
+render-style="read"
+allow-try="{!! ($tryItOut['enabled'] ?? true) ? 'true' : 'false'!!}"
 >
-    @if($metadata['logo'])
-        <img slot="logo" src="{!! $metadata['logo'] !!}"/>
+@if($metadata['logo'])
+    <img slot="logo" src="{!! $metadata['logo'] !!}"/>
     @endif
-</rapi-doc>
+    </rapi-doc>
 </body>
 </html>

@@ -2,8 +2,12 @@
     $html ??= []; $class = $html['class'] ?? null;
 @endphp
 <b style="line-height: 2;"><code>{{ $name }}</code></b>&nbsp;&nbsp;
-@if($type)<small>{{ $type }}</small>@endif&nbsp;
-@if($isInput && !$required)<i>optional</i>@endif &nbsp;
+@if($type)
+    <small>{{ $type }}</small>
+@endif&nbsp;
+@if($isInput && !$required)
+    <i>optional</i>
+@endif &nbsp;
 @if($isInput && empty($hasChildren))
     @php
         $isList = Str::endsWith($type, '[]');
@@ -41,18 +45,18 @@
         </label>
     @elseif($isList)
         <input type="{{ $inputType }}" style="display: none"
-               @if($inputType === 'number')step="any"@endif
-               name="{{ $fullName."[0]" }}" @if($class)class="{{ $class }}"@endif
+               @if($inputType === 'number')step="any" @endif
+               name="{{ $fullName."[0]" }}" @if($class)class="{{ $class }}" @endif
                data-endpoint="{{ $endpointId }}"
                data-component="{{ $component }}">
         <input type="{{ $inputType }}" style="display: none"
-               name="{{ $fullName."[1]" }}" @if($class)class="{{ $class }}"@endif
+               name="{{ $fullName."[1]" }}" @if($class)class="{{ $class }}" @endif
                data-endpoint="{{ $endpointId }}"
                data-component="{{ $component }}">
     @else
         <input type="{{ $inputType }}" style="display: none"
-               @if($inputType === 'number')step="any"@endif
-               name="{{ $fullName }}" @if($class)class="{{ $class }}"@endif
+               @if($inputType === 'number')step="any" @endif
+               name="{{ $fullName }}" @if($class)class="{{ $class }}" @endif
                data-endpoint="{{ $endpointId }}"
                value="{!! (isset($example) && (is_string($example) || is_numeric($example))) ? $example : '' !!}"
                data-component="{{ $component }}">
@@ -70,6 +74,6 @@
 @endphp
 {!! Parsedown::instance()->text(trim($description)) !!}
 @if(!empty($enumValues))
-Must be one of:
-<ul style="list-style-type: square;">{!! implode(" ", array_map(fn($val) => "<li><code>$val</code></li>", $enumValues)) !!}</ul>
+    Must be one of:
+    <ul style="list-style-type: square;">{!! implode(" ", array_map(fn($val) => "<li><code>$val</code></li>", $enumValues)) !!}</ul>
 @endif
