@@ -32,6 +32,6 @@ class CartDestroyController extends Controller
         }
 
         $cart->delete();
-        return $this->response([], 'Продукт успешно удален из корзины!', 403);
+        return $this->response([], 'Продукт успешно удален из корзины!');
     }
 }
