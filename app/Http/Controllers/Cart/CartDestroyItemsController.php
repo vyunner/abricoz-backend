@@ -24,6 +24,6 @@ class CartDestroyItemsController extends Controller
 
         Cart::where('user_id', $user_id)->delete();
 
-        return $this->response([], 'Все продукты успешно удалены из корзины!', 403);
+        return $this->response([], 'Все продукты успешно удалены из корзины!');
     }
 }
