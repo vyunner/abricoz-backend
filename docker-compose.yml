@@ -7,7 +7,6 @@ services:
             - ./:/var/www/
             - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
             - ./_docker/nginx/conf.d/:/etc/nginx/ssl/
-
         ports:
             - "8000:80"
         container_name: nginx
