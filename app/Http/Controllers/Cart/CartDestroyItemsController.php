@@ -18,7 +18,7 @@ class CartDestroyItemsController extends Controller
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request, $id)
+    public function __invoke(Request $request)
     {
         $user_id = $request->user()->id;
 
