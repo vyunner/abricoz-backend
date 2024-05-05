@@ -34,16 +34,16 @@ class ProductIndexController extends Controller
             });
         }
 
-        if ($request->has('country_id')) {
-            $query->where('country_id', $request->country_id);
+        if ($request->filled('country_id')) {
+            $query->whereIn('country_id', $request->country_id);
         }
 
-        if ($request->has('brand_id')) {
-            $query->where('brand_id', $request->brand_id);
+        if ($request->filled('brand_id')) {
+            $query->whereIn('brand_id', $request->brand_id);
         }
 
-        if ($request->has('subcategory_id')) {
-            $query->where('subcategory_id', $request->subcategory_id);
+        if ($request->filled('subcategory_id')) {
+            $query->whereIn('subcategory_id', $request->subcategory_id);
         }
 
         if ($request->has('category_id')) {
