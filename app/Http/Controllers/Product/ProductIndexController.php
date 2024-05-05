@@ -73,15 +73,15 @@ class ProductIndexController extends Controller
             $response = [
                 'current_page' => $products->currentPage(),
                 'total' => $products->total(),
-                'products' => $products->items(),
                 'min_price' => $minPrice,
-                'max_price' => $maxPrice
+                'max_price' => $maxPrice,
+                'products' => $products->items(),
             ];
         } else {
             $response = [
-                'products' => $query->get(),
                 'min_price' => $minPrice,
-                'max_price' => $maxPrice
+                'max_price' => $maxPrice,
+                'products' => $query->get(),
             ];
         }
 
