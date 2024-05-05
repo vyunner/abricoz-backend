@@ -28,7 +28,7 @@ class ProductIndexRequest extends FormRequest
             'country_id' => 'nullable|array',
             'country_id.*' => 'nullable|integer|exists:countries,id',
             'brand_id' => 'nullable|array',
-            'brand_id.*' => 'nullable|exists:brands,id',
+            'brand_id.*' => 'nullable|integer|exists:brands,id',
             'subcategory_id' => 'nullable|array',
             'subcategory_id.*' => 'nullable|integer|exists:subcategories,id',
             'name' => 'nullable|string',

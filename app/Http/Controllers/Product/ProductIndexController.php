@@ -52,6 +52,9 @@ class ProductIndexController extends Controller
             });
         }
 
+        $minPrice = $query->min('price');
+        $maxPrice = $query->max('price');
+
         if ($request->has('perPage')) {
             $perPage = $request->input('perPage', 10);
             $page = $request->input('page', 1);
@@ -60,10 +63,16 @@ class ProductIndexController extends Controller
             $response = [
                 'current_page' => $products->currentPage(),
                 'total' => $products->total(),
+                'min_price' => $minPrice,
+                'max_price' => $maxPrice,
                 'products' => $products->items(),
             ];
         } else {
-            $response = $query->get();
+            $response = [
+                'min_price' => $minPrice,
+                'max_price' => $maxPrice,
+                'products' => $query->get(),
+            ];
         }
 
         return $this->response($response, 'Список продуктов успешно загружен!');
