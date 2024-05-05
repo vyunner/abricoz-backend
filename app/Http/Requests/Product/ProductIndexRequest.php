@@ -25,9 +25,12 @@ class ProductIndexRequest extends FormRequest
             'perPage' => 'nullable|int',
             'page' => 'nullable|int',
             'category_id' => 'nullable|int|exists:categories,id',
-            'subcategory_id' => 'nullable|int|exists:subcategories,id',
-            'country_id' => 'nullable|int|exists:countries,id',
-            'brand_id' => 'nullable|int|exists:brands,id',
+            'country_id' => 'nullable|array',
+            'country_id.*' => 'nullable|integer|exists:countries,id',
+            'brand_id' => 'nullable|array',
+            'brand_id.*' => 'nullable|exists:brands,id',
+            'subcategory_id' => 'nullable|array',
+            'subcategory_id.*' => 'nullable|integer|exists:subcategories,id',
             'name' => 'nullable|string',
         ];
     }
