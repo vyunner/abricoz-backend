@@ -32,6 +32,8 @@ class ProductIndexRequest extends FormRequest
             'subcategory_id' => 'nullable|array',
             'subcategory_id.*' => 'nullable|integer|exists:subcategories,id',
             'name' => 'nullable|string',
+            'min_price' => 'nullable|int',
+            'max_price' => 'nullable|int'
         ];
     }
 }

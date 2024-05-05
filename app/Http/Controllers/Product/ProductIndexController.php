@@ -52,8 +52,18 @@ class ProductIndexController extends Controller
             });
         }
 
-        $minPrice = $query->min('price');
-        $maxPrice = $query->max('price');
+        $priceRangeQuery = clone $query;
+
+        if ($request->has('min_price')) {
+            $query->where('price', '>=', $request->min_price);
+        }
+
+        if ($request->has('max_price')) {
+            $query->where('price', '<=', $request->max_price);
+        }
+
+        $minPrice = $priceRangeQuery->min('price');
+        $maxPrice = $priceRangeQuery->max('price');
 
         if ($request->has('perPage')) {
             $perPage = $request->input('perPage', 10);
@@ -63,15 +73,15 @@ class ProductIndexController extends Controller
             $response = [
                 'current_page' => $products->currentPage(),
                 'total' => $products->total(),
-                'min_price' => $minPrice,
-                'max_price' => $maxPrice,
                 'products' => $products->items(),
+                'min_price' => $minPrice,
+                'max_price' => $maxPrice
             ];
         } else {
             $response = [
-                'min_price' => $minPrice,
-                'max_price' => $maxPrice,
                 'products' => $query->get(),
+                'min_price' => $minPrice,
+                'max_price' => $maxPrice
             ];
         }
 
