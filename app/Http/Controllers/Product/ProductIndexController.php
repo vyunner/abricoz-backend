@@ -52,6 +52,19 @@ class ProductIndexController extends Controller
             });
         }
 
+        $priceRangeQuery = clone $query;
+
+        if ($request->has('min_price')) {
+            $query->where('price', '>=', $request->min_price);
+        }
+
+        if ($request->has('max_price')) {
+            $query->where('price', '<=', $request->max_price);
+        }
+
+        $minPrice = $priceRangeQuery->min('price');
+        $maxPrice = $priceRangeQuery->max('price');
+
         if ($request->has('perPage')) {
             $perPage = $request->input('perPage', 10);
             $page = $request->input('page', 1);
@@ -61,9 +74,15 @@ class ProductIndexController extends Controller
                 'current_page' => $products->currentPage(),
                 'total' => $products->total(),
                 'products' => $products->items(),
+                'min_price' => $minPrice,
+                'max_price' => $maxPrice
             ];
         } else {
-            $response = $query->get();
+            $response = [
+                'products' => $query->get(),
+                'min_price' => $minPrice,
+                'max_price' => $maxPrice
+            ];
         }
 
         return $this->response($response, 'Список продуктов успешно загружен!');
