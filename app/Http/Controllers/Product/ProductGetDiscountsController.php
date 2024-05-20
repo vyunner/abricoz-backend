@@ -24,6 +24,6 @@ class ProductGetDiscountsController extends Controller
             ->take(15)
             ->get();;
 
-        return $this->response($products, 'Список продуктов со скидкой успешно загружен!');
+        return $this->response(['products' => $products], 'Список продуктов со скидкой успешно загружен!');
     }
 }
