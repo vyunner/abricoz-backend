@@ -18,8 +18,11 @@ class ProductGetTopSellingController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $products = Product::orderByDesc('total_sales')->take(15)->get();
+        $products = Product::orderByDesc('total_sales')
+            ->with(['subcategory', 'brand', 'country'])
+            ->take(15)
+            ->get();
 
-        return $this->response($products, 'Список самых продаваемых продуктов успешно загружен!');
+        return $this->response(['products' => $products], 'Список самых продаваемых продуктов успешно загружен!');
     }
 }
