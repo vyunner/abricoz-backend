@@ -19,7 +19,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs
 
-COPY ./_docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
 
 RUN chmod -R 777 .
 
