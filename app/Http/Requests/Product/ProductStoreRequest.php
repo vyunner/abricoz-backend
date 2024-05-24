@@ -25,7 +25,6 @@ class ProductStoreRequest extends FormRequest
             'subcategory_id' => 'required|int|exists:subcategories,id',
             'country_id' => 'required|int|exists:countries,id',
             'brand_id' => 'required|int|exists:brands,id',
-            'photo_url' => 'nullable|string',
             'name_ru' => 'required|string',
             'name_kz' => 'required|string',
             'name_en' => 'required|string',
