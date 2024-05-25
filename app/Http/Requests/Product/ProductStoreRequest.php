@@ -33,6 +33,7 @@ class ProductStoreRequest extends FormRequest
             'description_en' => 'required|string',
             'price' => 'required|int',
             'discount' => 'required|int',
+            'is_active' => 'required|bool',
             'image' => 'nullable|image|max:10000'
         ];
     }

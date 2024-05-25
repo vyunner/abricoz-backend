@@ -23,7 +23,7 @@ class SubCategoryUpdateRequest extends FormRequest
     {
         return [
             'category_id' => 'nullable|int|exists:categories,id',
-            'photo_url' => 'nullable|string',
+            'image' => 'nullable|image|max:10000',
             'name_ru' => 'nullable|string',
             'name_kz' => 'nullable|string',
             'name_en' => 'nullable|string',
