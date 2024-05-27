@@ -98,7 +98,7 @@ Route::group(['prefix' => '/product'], function () {
 
 Route::group(['prefix' => '/sub-category'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
-        Route::post('/update}', \App\Http\Controllers\SubCategory\SubCategoryUpdateController::class);
+        Route::post('/update', \App\Http\Controllers\SubCategory\SubCategoryUpdateController::class);
         Route::post('/store', \App\Http\Controllers\SubCategory\SubCategoryStoreController::class);
         Route::delete('/delete/{id}', \App\Http\Controllers\SubCategory\SubCategoryDestroyController::class);
     });
