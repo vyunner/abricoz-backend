@@ -23,7 +23,7 @@ class BannerUpdateController extends Controller
 
         foreach ($validatedData['banners'] as $bannerData) {
             $banner = Banner::find($bannerData['id']);
-            $banner->order = $bannerData['order'];
+            $banner->number = $bannerData['number'];
             $banner->save();
         }
 
