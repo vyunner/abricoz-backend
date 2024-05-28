@@ -68,26 +68,6 @@ class ProductIndexController extends Controller
         $minPrice = $priceRangeQuery->min('price');
         $maxPrice = $priceRangeQuery->max('price');
 
-        $brands = [];
-        $countries = [];
-
-        if ($request->filled('subcategory_id') || $request->has('category_id')){
-            $query2 = Product::query();
-
-            if ($request->filled('subcategory_id')) {
-                $subcategoryIds = $request->subcategory_id;
-                $query2->whereIn('subcategory_id', $subcategoryIds);
-            } elseif ($request->has('category_id')) {
-                $categoryId = $request->category_id;
-                $subcategories = SubCategory::where('category_id', $categoryId)->get();
-                $query2->whereIn('subcategory_id', $subcategories->pluck('id'));
-            }
-
-            $products2 = $query2->with(['brand', 'country'])->get();
-            $brands = $products2->pluck('brand')->unique('id');
-            $countries = $products2->pluck('country')->unique('id');
-        }
-
         if ($request->has('perPage')) {
             $perPage = $request->input('perPage', 10);
             $page = $request->input('page', 1);
@@ -98,16 +78,12 @@ class ProductIndexController extends Controller
                 'total' => $products->total(),
                 'min_price' => $minPrice,
                 'max_price' => $maxPrice,
-                'countries' => $countries,
-                'brands' => $brands,
                 'products' => $products->items(),
             ];
         } else {
             $response = [
                 'min_price' => $minPrice,
                 'max_price' => $maxPrice,
-                'countries' => $countries,
-                'brands' => $brands,
                 'products' => $query->get(),
             ];
         }
