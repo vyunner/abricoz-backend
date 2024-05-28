@@ -7,6 +7,7 @@ use App\Http\Requests\Product\ProductIndexRequest;
 use App\Models\Brand;
 use App\Models\Country;
 use App\Models\Product;
+use App\Models\SubCategory;
 
 /**
  * @group Product
@@ -48,11 +49,11 @@ class ProductIndexController extends Controller
             $query->whereIn('subcategory_id', $request->subcategory_id);
         }
 
+        $subcategoryIds = SubCategory::query();
         if ($request->has('category_id')) {
-            $query->whereHas('subcategory', function ($q) use ($request) {
-                $q->where('category_id', $request->category_id);
-            });
+            $subcategoryIds->where('category_id', $request->category_id);
         }
+        $subcategoryIds = $subcategoryIds->pluck('id');
 
         $priceRangeQuery = clone $query;
 
@@ -67,11 +68,12 @@ class ProductIndexController extends Controller
         $minPrice = $priceRangeQuery->min('price');
         $maxPrice = $priceRangeQuery->max('price');
 
-        $countryIds = $query->pluck('country_id')->unique();
-        $countries = Country::whereIn('id', $countryIds)->get();
+        $subcategoryIds = $subcategoryIds->pluck('id');
 
-        $brandIds = $query->pluck('brand_id')->unique();
-        $brands = Brand::whereIn('id', $brandIds)->get();
+        $countryBrandQuery = Product::whereIn('subcategory_id', $subcategoryIds)->select('country_id', 'brand_id')->distinct();
+
+        $countries = Country::whereIn('id', $countryBrandQuery->pluck('country_id'))->get();
+        $brands = Brand::whereIn('id', $countryBrandQuery->pluck('brand_id'))->get();
 
         if ($request->has('perPage')) {
             $perPage = $request->input('perPage', 10);
