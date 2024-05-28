@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Country;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Country\CountryIndexRequest;
 use App\Models\Country;
+use App\Models\Product;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 /**
@@ -32,6 +34,33 @@ class CountryIndexController extends Controller
             ], 'Список стран успешно загружен!');
         }
 
-        return $this->response(Country::all(), 'Список стран успешно загружен!');
+        if ($request->filled('subcategory_id') || $request->has('category_id') || $request->has('name')){
+            $query = Product::query();
+
+            if ($request->has('name')){
+                $name = $request->name;
+                $query->where(function ($query) use ($name) {
+                    $query->where('name_ru', 'like', '%' . $name . '%')
+                        ->orWhere('name_kz', 'like', '%' . $name . '%')
+                        ->orWhere('name_en', 'like', '%' . $name . '%');
+                });
+            }
+            elseif ($request->filled('subcategory_id')) {
+                $subcategoryIds = $request->subcategory_id;
+                $query->whereIn('subcategory_id', $subcategoryIds);
+            } elseif ($request->has('category_id')) {
+                $categoryId = $request->category_id;
+                $subcategories = SubCategory::where('category_id', $categoryId)->get();
+                $query->whereIn('subcategory_id', $subcategories->pluck('id'));
+            }
+
+            $products = $query->with(['country'])->get();
+            $countries = $products->pluck('country')->unique('id');
+        }
+        else {
+            $countries = Country::all();
+        }
+
+        return $this->response($countries, 'Список стран успешно загружен!');
     }
 }

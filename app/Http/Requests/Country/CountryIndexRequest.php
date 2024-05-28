@@ -24,6 +24,10 @@ class CountryIndexRequest extends FormRequest
         return [
             'perPage' => 'nullable|int',
             'page' => 'nullable|int',
+            'category_id' => 'nullable|int|exists:categories,id',
+            'subcategory_id' => 'nullable|array',
+            'subcategory_id.*' => 'nullable|integer|exists:subcategories,id',
+            'name' => 'nullable|string',
         ];
     }
 }
