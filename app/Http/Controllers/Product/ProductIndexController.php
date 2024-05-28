@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\ProductIndexRequest;
+use App\Models\Brand;
+use App\Models\Country;
 use App\Models\Product;
 
 /**
@@ -65,6 +67,12 @@ class ProductIndexController extends Controller
         $minPrice = $priceRangeQuery->min('price');
         $maxPrice = $priceRangeQuery->max('price');
 
+        $countryIds = $query->pluck('country_id')->unique();
+        $countries = Country::whereIn('id', $countryIds)->get();
+
+        $brandIds = $query->pluck('brand_id')->unique();
+        $brands = Brand::whereIn('id', $brandIds)->get();
+
         if ($request->has('perPage')) {
             $perPage = $request->input('perPage', 10);
             $page = $request->input('page', 1);
@@ -75,12 +83,16 @@ class ProductIndexController extends Controller
                 'total' => $products->total(),
                 'min_price' => $minPrice,
                 'max_price' => $maxPrice,
+                'countries' => $countries,
+                'brands' => $brands,
                 'products' => $products->items(),
             ];
         } else {
             $response = [
                 'min_price' => $minPrice,
                 'max_price' => $maxPrice,
+                'countries' => $countries,
+                'brands' => $brands,
                 'products' => $query->get(),
             ];
         }
