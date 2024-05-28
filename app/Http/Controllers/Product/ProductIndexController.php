@@ -68,6 +68,9 @@ class ProductIndexController extends Controller
         $minPrice = $priceRangeQuery->min('price');
         $maxPrice = $priceRangeQuery->max('price');
 
+        $brands = [];
+        $countries = [];
+
         if ($request->filled('subcategory_id') || $request->has('category_id')){
             $query2 = Product::query();
 
@@ -79,12 +82,11 @@ class ProductIndexController extends Controller
                 $subcategories = SubCategory::where('category_id', $categoryId)->get();
                 $query2->whereIn('subcategory_id', $subcategories->pluck('id'));
             }
+
+            $products2 = $query2->with(['brand', 'country'])->get();
+            $brands = $products2->pluck('brand')->unique('id');
+            $countries = $products2->pluck('country')->unique('id');
         }
-
-        $products2 = $query2->with(['brand', 'country'])->get();
-        $brands = $products2->pluck('brand')->unique('id');
-        $countries = $products2->pluck('country')->unique('id');
-
 
         if ($request->has('perPage')) {
             $perPage = $request->input('perPage', 10);
