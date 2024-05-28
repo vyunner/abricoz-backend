@@ -68,20 +68,23 @@ class ProductIndexController extends Controller
         $minPrice = $priceRangeQuery->min('price');
         $maxPrice = $priceRangeQuery->max('price');
 
-        $subcategoryIds = [];
-        if ($request->filled('subcategory_id')) {
-            $subcategoryIds = $request->input('subcategory_id');
-        } elseif ($request->has('category_id')) {
-            $subcategoryIds = SubCategory::where('category_id', $request->category_id)->pluck('id')->toArray();
+        if ($request->filled('subcategory_id') || $request->has('category_id')){
+            $query2 = Product::query();
+
+            if ($request->filled('subcategory_id')) {
+                $subcategoryIds = $request->subcategory_id;
+                $query2->whereIn('subcategory_id', $subcategoryIds);
+            } elseif ($request->has('category_id')) {
+                $categoryId = $request->category_id;
+                $subcategories = SubCategory::where('category_id', $categoryId)->get();
+                $query2->whereIn('subcategory_id', $subcategories->pluck('id'));
+            }
         }
 
-        $countries = Country::whereHas('products', function ($subQuery) use ($subcategoryIds) {
-            $subQuery->whereIn('subcategory_id', $subcategoryIds);
-        })->get();
+        $products2 = $query2->with(['brand', 'country'])->get();
+        $brands = $products2->pluck('brand')->unique('id');
+        $countries = $products2->pluck('country')->unique('id');
 
-        $brands = Brand::whereHas('products', function ($subQuery) use ($subcategoryIds) {
-            $subQuery->whereIn('subcategory_id', $subcategoryIds);
-        })->get();
 
         if ($request->has('perPage')) {
             $perPage = $request->input('perPage', 10);

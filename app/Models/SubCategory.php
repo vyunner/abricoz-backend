@@ -12,4 +12,14 @@ class SubCategory extends Model
     protected $table = 'subcategories';
 
     protected $guarded = [];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

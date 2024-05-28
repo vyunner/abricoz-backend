@@ -12,4 +12,9 @@ class Category extends Model
     protected $table = 'categories';
 
     protected $guarded = [];
+
+    public function subcategories()
+    {
+        return $this->hasMany(SubCategory::class);
+    }
 }
