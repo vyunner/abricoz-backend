@@ -23,7 +23,7 @@ class ProductRatingUpdateRequest extends FormRequest
     {
         return [
             'product_id' => 'required|int|exists:products,id',
-            'rating' => 'required|int|max:5',
+            'rating' => 'required|int|min:1|max:5',
             'id' => 'required|int',
         ];
     }

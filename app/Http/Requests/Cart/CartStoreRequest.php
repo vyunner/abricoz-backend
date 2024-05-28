@@ -23,7 +23,7 @@ class CartStoreRequest extends FormRequest
     {
         return [
             'product_id' => 'required|int|exists:products,id',
-            'product_quantity' => 'nullable|int'
+            'product_quantity' => 'nullable|int|min:1'
         ];
     }
 }
