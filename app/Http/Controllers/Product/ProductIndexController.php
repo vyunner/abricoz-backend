@@ -7,6 +7,7 @@ use App\Http\Requests\Product\ProductIndexRequest;
 use App\Models\Brand;
 use App\Models\Country;
 use App\Models\Product;
+use App\Models\SubCategory;
 
 /**
  * @group Product
@@ -67,11 +68,20 @@ class ProductIndexController extends Controller
         $minPrice = $priceRangeQuery->min('price');
         $maxPrice = $priceRangeQuery->max('price');
 
-        $countryIds = $query->pluck('country_id')->unique();
-        $countries = Country::whereIn('id', $countryIds)->get();
+        $subcategoryIds = [];
+        if ($request->filled('subcategory_id')) {
+            $subcategoryIds = $request->input('subcategory_id');
+        } elseif ($request->has('category_id')) {
+            $subcategoryIds = SubCategory::where('category_id', $request->category_id)->pluck('id')->toArray();
+        }
 
-        $brandIds = $query->pluck('brand_id')->unique();
-        $brands = Brand::whereIn('id', $brandIds)->get();
+        $countries = Country::whereHas('products', function ($subQuery) use ($subcategoryIds) {
+            $subQuery->whereIn('subcategory_id', $subcategoryIds);
+        })->get();
+
+        $brands = Brand::whereHas('products', function ($subQuery) use ($subcategoryIds) {
+            $subQuery->whereIn('subcategory_id', $subcategoryIds);
+        })->get();
 
         if ($request->has('perPage')) {
             $perPage = $request->input('perPage', 10);
