@@ -29,8 +29,8 @@ class CategoryStoreController extends Controller
         }
 
         if ($request->hasFile('mobile_image')) {
-            $path = $request->file('image')->store('public/categories');
-            unset($validatedData['image']);
+            $path = $request->file('mobile_image')->store('public/categories');
+            unset($validatedData['mobile_image']);
             $validatedData['mobile_url'] = Storage::url($path);
         }
 

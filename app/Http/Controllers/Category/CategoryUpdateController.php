@@ -39,14 +39,14 @@ class CategoryUpdateController extends Controller
 
         if ($request->hasFile('mobile_image')) {
             if ($category->mobile_url) {
-                $oldPath = 'public' . str_replace('/storage', '', $category->photo_url);
+                $oldPath = 'public' . str_replace('/storage', '', $category->mobile_url);
                 if (Storage::exists($oldPath)) {
                     Storage::delete($oldPath);
                 }
             }
 
-            $newPath = $request->file('image')->store('public/categories');
-            unset($validatedData['image']);
+            $newPath = $request->file('mobile_image')->store('public/categories');
+            unset($validatedData['mobile_image']);
             $validatedData['mobile_url'] = Storage::url($newPath);
         }
 
