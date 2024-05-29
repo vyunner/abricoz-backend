@@ -28,6 +28,13 @@ class CategoryStoreController extends Controller
             $validatedData['photo_url'] = Storage::url($path);
         }
 
+        if ($request->hasFile('mobile_image')) {
+            $path = $request->file('image')->store('public/categories');
+            unset($validatedData['image']);
+            $validatedData['mobile_url'] = Storage::url($path);
+        }
+
+
         $category = Category::create($validatedData);
 
         return $this->response($category, 'Категория успешно создана!');

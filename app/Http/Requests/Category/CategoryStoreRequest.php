@@ -23,6 +23,7 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             'image' => 'nullable|image|max:10000',
+            'mobile_image' => 'nullable|image|max:10000',
             'name_ru' => 'required|string',
             'name_kz' => 'required|string',
             'name_en' => 'required|string',
