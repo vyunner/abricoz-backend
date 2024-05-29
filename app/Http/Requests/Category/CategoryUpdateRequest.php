@@ -23,6 +23,7 @@ class CategoryUpdateRequest extends FormRequest
     {
         return [
             'image' => 'nullable|image|max:10000',
+            'mobile_image' => 'nullable|image|max:10000',
             'name_ru' => 'nullable|string',
             'name_kz' => 'nullable|string',
             'name_en' => 'nullable|string',
