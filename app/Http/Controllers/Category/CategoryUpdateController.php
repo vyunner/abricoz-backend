@@ -37,6 +37,20 @@ class CategoryUpdateController extends Controller
             $validatedData['photo_url'] = Storage::url($newPath);
         }
 
+        if ($request->hasFile('mobile_image')) {
+            if ($category->mobile_url) {
+                $oldPath = 'public' . str_replace('/storage', '', $category->photo_url);
+                if (Storage::exists($oldPath)) {
+                    Storage::delete($oldPath);
+                }
+            }
+
+            $newPath = $request->file('image')->store('public/categories');
+            unset($validatedData['image']);
+            $validatedData['mobile_url'] = Storage::url($newPath);
+        }
+
+
         $category->fill($validatedData)->save();
 
         return $this->response($category, 'Данные категории успешно изменены!');
