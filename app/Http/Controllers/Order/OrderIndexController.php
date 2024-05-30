@@ -26,6 +26,9 @@ class OrderIndexController extends Controller
         if (!$user || !$user->hasRole('admin')) {
             $query->where('user_id', $user->id);
         }
+        else {
+            $query->with('user');
+        }
 
         if ($request->has('perPage')) {
             $perPage = $request->query('perPage', 10);
