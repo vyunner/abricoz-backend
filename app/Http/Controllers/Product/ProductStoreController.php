@@ -32,7 +32,8 @@ class ProductStoreController extends Controller
         }
 
         $product = Product::create($validatedData);
-        $product = $product->load(['subcategory', 'brand', 'country']);
+
+        $product = Product::with(['subcategory', 'brand', 'country'])->find($product->id);
 
         return $this->response($product, 'Продукт успешно создан!');
     }
