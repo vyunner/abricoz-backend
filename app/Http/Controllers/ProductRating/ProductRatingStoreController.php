@@ -16,7 +16,6 @@ class ProductRatingStoreController extends Controller
     /**
      * Создание
      * @param ProductRatingStoreRequest $request
-     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(ProductRatingStoreRequest $request)
@@ -24,7 +23,7 @@ class ProductRatingStoreController extends Controller
         $validatedData = $request->validated();
         $validatedData['user_id'] = $request->user()->id;
 
-        $productRating = ProductRating::findOrCreate([
+        $productRating = ProductRating::updateOrCreate([
             'product_id' => $validatedData['product_id'],
             'user_id' => $validatedData['user_id'],
         ], $validatedData);
