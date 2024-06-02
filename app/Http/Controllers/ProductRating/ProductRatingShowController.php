@@ -16,11 +16,11 @@ class ProductRatingShowController extends Controller
 {
     /**
      * Элемент
-     * @param ProductRatingShowRequest $request
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(ProductRatingShowRequest $request, $id)
+    public function __invoke(Request $request, $id)
     {
         $user_id = $request->user()->id;
         $productRating = ProductRating::where(['product_id' => $id, 'user_id' => $user_id])->firstOrFail();
