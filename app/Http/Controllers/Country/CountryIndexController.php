@@ -34,10 +34,12 @@ class CountryIndexController extends Controller
             ], 'Список стран успешно загружен!');
         }
 
-        if ($request->filled('subcategory_id') || $request->has('category_id') || $request->has('name')){
+        $countries = Country::query();
+
+        if ($request->filled('subcategory_id') || $request->has('category_id') || $request->has('name')) {
             $query = Product::query();
 
-            if ($request->has('name')){
+            if ($request->has('name')) {
                 $name = $request->name;
                 $query->where(function ($query) use ($name) {
                     $query->where('name_ru', 'like', '%' . $name . '%')
@@ -45,22 +47,22 @@ class CountryIndexController extends Controller
                         ->orWhere('name_en', 'like', '%' . $name . '%');
                 });
             }
-            elseif ($request->filled('subcategory_id')) {
+            if ($request->filled('subcategory_id')) {
                 $subcategoryIds = $request->subcategory_id;
                 $query->whereIn('subcategory_id', $subcategoryIds);
-            } elseif ($request->has('category_id')) {
+            }
+            if ($request->has('category_id')) {
                 $categoryId = $request->category_id;
-                $subcategories = SubCategory::where('category_id', $categoryId)->get();
-                $query->whereIn('subcategory_id', $subcategories->pluck('id'));
+                $subcategories = SubCategory::where('category_id', $categoryId)->pluck('id');
+                $query->whereIn('subcategory_id', $subcategories);
             }
 
             $products = $query->with(['country'])->get();
             $countries = $products->pluck('country')->unique('id');
-        }
-        else {
-            $countries = Country::all();
+        } else {
+            $countries = $countries->get();
         }
 
-        return $this->response($countries, 'Список стран успешно загружен!');
+        return $this->response($countries->values(), 'Список стран успешно загружен!');
     }
 }

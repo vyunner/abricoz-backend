@@ -75,7 +75,7 @@ Route::group(['prefix' => '/favorite-product', 'middleware' => 'auth:sanctum'], 
 
 Route::group(['prefix' => '/product-rating', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/store', \App\Http\Controllers\ProductRating\ProductRatingStoreController::class);
-    Route::post('/show/{id}', \App\Http\Controllers\ProductRating\ProductRatingShowController::class);
+    Route::get('/show/{id}', \App\Http\Controllers\ProductRating\ProductRatingShowController::class);
 });
 
 Route::group(['prefix' => '/order', 'middleware' => 'auth:sanctum'], function () {
