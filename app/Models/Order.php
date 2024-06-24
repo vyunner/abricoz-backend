@@ -21,6 +21,11 @@ class Order extends Model
         return $this->belongsTo(DeliveryInterval::class, 'delivery_interval_id');
     }
 
+    public function paymentType()
+    {
+        return $this->belongsTo(PaymentType::class, 'payment_type_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

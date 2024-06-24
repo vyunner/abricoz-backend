@@ -120,3 +120,9 @@ Route::group(['prefix' => '/banner'], function () {
 
     Route::get('/index', \App\Http\Controllers\Banner\BannerIndexController::class);
 });
+
+Route::group(['prefix' => '/robokassa'], function () {
+    Route::post('/robokassa-result', \App\Http\Controllers\Order\OrderShowController::class);
+    Route::post('/robokassa-success', \App\Http\Controllers\Order\OrderShowController::class);
+    Route::post('/robokassa-fail', \App\Http\Controllers\Order\OrderShowController::class);
+});

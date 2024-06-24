@@ -25,7 +25,7 @@ class OrderUpdateController extends Controller
         $order = Order::findOrFail($id);
 
         $order->fill($validatedData)->save();
-        $order->load(['orderStatus', 'deliveryInterval', 'products']);
+        $order->load(['orderStatus', 'deliveryInterval', 'products', 'paymentType']);
 
         if (isset($validatedData['order_status_id']) && $validatedData['order_status_id'] == 3) {
             $orderProducts = $order->products;
