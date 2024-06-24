@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Robokassa;
 
 use App\Http\Controllers\Controller;
+use App\Models\RobokassaJson;
 use Illuminate\Http\Request;
 
 
@@ -18,7 +19,8 @@ class RobokassaResultController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return $request;
-        return $this->response($request, 'Заказ успешно создан!');
+        RobokassaJson::create(['data' => $request->all()]);
+
+        return $this->response([], 'Заказ успешно создан!');
     }
 }
