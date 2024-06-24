@@ -21,7 +21,7 @@ class OrderIndexController extends Controller
     public function __invoke(OrderIndexRequest $request)
     {
         $user = $request->user();
-        $query = Order::with(['orderStatus', 'deliveryInterval', 'products']);
+        $query = Order::with(['orderStatus', 'deliveryInterval', 'products', 'paymentType']);
 
         if (!$user || !$user->hasRole('admin')) {
             $query->where('user_id', $user->id);

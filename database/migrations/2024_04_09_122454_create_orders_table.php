@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('order_status_id')->constrained('order_statuses');
             $table->foreignId('delivery_interval_id')->constrained('delivery_intervals');
+            $table->foreignId('payment_type_id')->constrained('payment_types');
             $table->text('address');
             $table->text('address_comment')->nullable();
             $table->text('order_comment')->nullable();

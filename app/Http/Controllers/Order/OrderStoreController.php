@@ -68,7 +68,7 @@ class OrderStoreController extends Controller
 
         $order->update(['total_price' => $totalPrice]);
 
-        $order = $order->load(['orderStatus', 'deliveryInterval', 'products']);
+        $order = $order->load(['orderStatus', 'deliveryInterval', 'products', 'paymentType']);
 
         return $this->response($order, 'Заказ успешно создан!');
     }
