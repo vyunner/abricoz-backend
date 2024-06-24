@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ProductsSeeder::class,
             DeliveryIntervalsSeeder::class,
             CartsSeeder::class,
+            PaymentTypesSeeder::class,
             OrderSatusesSeeder::class,
             OrdersSeeder::class,
             FavoriteProductsSeeder::class,
