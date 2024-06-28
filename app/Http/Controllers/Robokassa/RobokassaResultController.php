@@ -19,8 +19,9 @@ class RobokassaResultController extends Controller
      */
     public function __invoke(Request $request)
     {
-        RobokassaJson::create(['data' => $request->all()]);
+        $data = $request->all();
+        RobokassaJson::create(['data' => $data]);
 
-        return $this->response([], 'Заказ успешно создан!');
+        return 'OK' . $data['inv_id'];
     }
 }
