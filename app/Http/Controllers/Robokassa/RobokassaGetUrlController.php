@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 /**
  * @group Robokassa
  */
-class RobokassaResultController extends Controller
+class RobokassaGetUrlController extends Controller
 {
     /**
      * Ссылка

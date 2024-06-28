@@ -124,7 +124,8 @@ Route::group(['prefix' => '/banner'], function () {
 });
 
 Route::group(['prefix' => '/robokassa'], function () {
-    Route::post('/robokassa-result', \App\Http\Controllers\Robokassa\RobokassaResultController::class);
-    Route::post('/robokassa-success', \App\Http\Controllers\Robokassa\RobokassaSuccessController::class);
-    Route::post('/robokassa-fail', \App\Http\Controllers\Robokassa\RobokassaFailController::class);
+    Route::post('/result', \App\Http\Controllers\Robokassa\RobokassaResultController::class);
+    Route::post('/success', \App\Http\Controllers\Robokassa\RobokassaSuccessController::class);
+    Route::post('/fail', \App\Http\Controllers\Robokassa\RobokassaFailController::class);
+    Route::get('/get-url', \App\Http\Controllers\Robokassa\RobokassaFailController::class);
 });
