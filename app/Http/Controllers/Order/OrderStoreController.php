@@ -22,6 +22,14 @@ class OrderStoreController extends Controller
     {
         $user_id = $request->user()->id;
 
+        $order = Order::where('user_id', $user_id)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if ($order && $order->order_status_id == 1){
+            return $this->response([], 'Оплатите предыдущий заказ!');
+        }
+
         $inactiveProducts = Cart::where('user_id', $user_id)
             ->whereHas('product', function ($query) {
                 $query->where('is_active', 0);

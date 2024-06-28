@@ -86,6 +86,8 @@ Route::group(['prefix' => '/order', 'middleware' => 'auth:sanctum'], function ()
     Route::post('/store', \App\Http\Controllers\Order\OrderStoreController::class);
     Route::get('/index', \App\Http\Controllers\Order\OrderIndexController::class);
     Route::get('/show/{id}', \App\Http\Controllers\Order\OrderShowController::class);
+    Route::get('/cancel/{id}', \App\Http\Controllers\Order\OrderCancelController::class);
+    Route::get('/status', \App\Http\Controllers\Order\OrderLastStatusController::class);
 });
 
 Route::group(['prefix' => '/product'], function () {

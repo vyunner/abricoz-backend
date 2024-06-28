@@ -37,4 +37,9 @@ class Order extends Model
             ->withPivot(['product_quantity', 'product_price', 'product_discount'])
             ->with('subcategory', 'country', 'brand');
     }
+
+    public function orderProducts()
+    {
+        return $this->hasMany(OrderProduct::class);
+    }
 }
