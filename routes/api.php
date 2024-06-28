@@ -129,6 +129,6 @@ Route::group(['prefix' => '/robokassa'], function () {
     Route::post('/fail', \App\Http\Controllers\Robokassa\RobokassaFailController::class);
 
     Route::group(['middleware' => ['auth:sanctum']], function () {
-        Route::get('/get-url', \App\Http\Controllers\Robokassa\RobokassaFailController::class);
+        Route::get('/get-url', \App\Http\Controllers\Robokassa\RobokassaGetUrlController::class);
     });
 });
