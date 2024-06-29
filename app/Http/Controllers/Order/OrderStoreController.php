@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Order;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\OrderStoreRequest;
 use App\Models\Cart;
+use App\Models\District;
 use App\Models\Order;
 use App\Models\OrderProduct;
 
@@ -66,7 +67,7 @@ class OrderStoreController extends Controller
             ];
         })->toArray();
 
-        $totalPrice = collect($orderProducts)->sum(function ($item) {
+        $productsPrice = collect($orderProducts)->sum(function ($item) {
             return $item['product_price_with_discount'] * $item['product_quantity'];
         });
 
@@ -74,7 +75,11 @@ class OrderStoreController extends Controller
 
         Cart::where('user_id', $user_id)->delete();
 
-        $order->update(['total_price' => $totalPrice]);
+        $delivery_price = District::where(['id' => $order['district_id']])->delivery_price;
+
+        $order->update(['products_price' => $productsPrice]);
+        $order->update(['delivery_price' => $delivery_price]);
+        $order->update(['total_price' => $productsPrice + $delivery_price]);
 
         $order = $order->load(['orderStatus', 'deliveryInterval', 'products', 'paymentType']);
 

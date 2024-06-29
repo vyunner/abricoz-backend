@@ -70,7 +70,7 @@ class OrdersSeeder extends Seeder
         $orders = Order::all();
 
         foreach ($orders as $order) {
-            $total_price = 0;
+            $productsPrice = 0;
             for ($i = 0; $i < 5; $i++) {
                 $product_price = rand(1, 15);
                 $product_quantity = rand(1, 15);
@@ -83,10 +83,10 @@ class OrdersSeeder extends Seeder
                     'product_discount' => rand(0, 1),
                 ]);
 
-                $total_price += $product_price * $product_quantity;
+                $productsPrice += $product_price * $product_quantity;
 
                 if ($i == 4){
-                    $order->update(['total_price' => $total_price]);
+                    $order->update(['products_price' => $productsPrice]);
                 }
             }
         }
