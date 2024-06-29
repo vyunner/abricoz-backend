@@ -115,12 +115,12 @@ Route::group(['prefix' => '/sub-category'], function () {
 
 Route::group(['prefix' => '/banner'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
-        Route::post('/update', \App\Http\Controllers\Banner\DistrictUpdateController::class);
-        Route::post('/store', \App\Http\Controllers\Banner\DistrictStoreController::class);
-        Route::delete('/delete/{id}', \App\Http\Controllers\Banner\DistrictDestroyController::class);
+        Route::post('/update', \App\Http\Controllers\Banner\BannerUpdateController::class);
+        Route::post('/store', \App\Http\Controllers\Banner\BannerStoreController::class);
+        Route::delete('/delete/{id}', \App\Http\Controllers\Banner\BannerDestroyController::class);
     });
 
-    Route::get('/index', \App\Http\Controllers\Banner\DistrictIndexController::class);
+    Route::get('/index', \App\Http\Controllers\Banner\BannerIndexController::class);
 });
 
 Route::group(['prefix' => '/robokassa'], function () {
