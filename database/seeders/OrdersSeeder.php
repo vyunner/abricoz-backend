@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\District;
 use App\Models\Order;
-use App\Models\OrderProduct;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -95,13 +94,12 @@ class OrdersSeeder extends Seeder
                 ]);
 
                 $productsPrice += $product_price * $product_quantity;
-                $deliveryPrice = District::where(['id' => $order->district_id]);
-                $delivery_price = $deliveryPrice->delivery_price;
+                $delivery_price = District::where(['id' => $order->district_id])->first()->delivery_price;
 
                 if ($i == 4) {
                     $order->update(['products_price' => $productsPrice]);
                     $order->update(['delivery_price' => $delivery_price]);
-                    $order->update(['total_price' => $productsPrice + $deliveryPrice]);
+                    $order->update(['total_price' => $productsPrice + $delivery_price]);
                 }
             }
         }
