@@ -136,3 +136,11 @@ Route::group(['prefix' => '/robokassa'], function () {
 Route::group(['prefix' => '/payment-type'], function () {
     Route::get('/index', \App\Http\Controllers\PaymentType\PaymentTypeIndexController::class);
 });
+
+Route::group(['prefix' => '/district'], function () {
+    Route::get('/index', \App\Http\Controllers\District\DistrictIndexController::class);
+});
+
+Route::group(['prefix' => '/city'], function () {
+    Route::get('/index', \App\Http\Controllers\City\CityIndexController::class);
+});

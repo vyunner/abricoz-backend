@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Banner;
+namespace App\Http\Controllers\District;
 
 use App\Http\Controllers\Controller;
 use App\Models\District;
