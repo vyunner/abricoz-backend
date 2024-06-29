@@ -35,7 +35,7 @@ class RobokassaGetUrlController extends Controller
 
         $outSum = (string)$lastOrder->total_price;
 
-        $invoiceId = (string)($lastOrder->id * 10);
+        $invoiceId = (string)($lastOrder->id * 1000000);
 
         $description = $lastOrder->orderProducts->map(function ($orderProduct) {
             return $orderProduct->product->name_ru . ' (' . $orderProduct->product_quantity . ')';

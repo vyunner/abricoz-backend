@@ -23,7 +23,7 @@ class RobokassaResultController extends Controller
         $data = $request->all();
         RobokassaJson::create(['data' => $data]);
 
-        $order = Order::find($data['InvId']);
+        $order = Order::find($data['InvId'] / 1000000);
         $order->order_status_id = 2;
         $order->save();
 
