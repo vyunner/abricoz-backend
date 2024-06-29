@@ -18,8 +18,8 @@ class CityIndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $districts = City::all();
+        $cities = City::all();
 
-        return $this->response($districts, 'Баннеры успешно загружены!');
+        return $this->response($cities, 'Баннеры успешно загружены!');
     }
 }
