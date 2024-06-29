@@ -45,6 +45,6 @@ class RobokassaGetUrlController extends Controller
 
         $signatureValue = md5($merchantLogin . ':' . $outSum . ':' . $invoiceId . ':' . $mrhPass1);
 
-        return $this->response(['robokassa_url' => `https://auth.robokassa.kz/Merchant/Index.aspx?MerchantLogin=$merchantLogin&OutSum=$outSum&InvoiceID=$invoiceId&Description=$description&SignatureValue=$signatureValue`], 'Ссылка успешно сгенерирована!');
+        return $this->response(['robokassa_url' => 'https://auth.robokassa.kz/Merchant/Index.aspx?MerchantLogin=' . $merchantLogin . '&OutSum=' . $outSum . '&InvoiceID=' . $invoiceId . '&Description=' . $description . '&SignatureValue=' . $signatureValue], 'Ссылка успешно сгенерирована!');
     }
 }
