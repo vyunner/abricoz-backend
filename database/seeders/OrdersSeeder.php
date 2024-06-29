@@ -95,7 +95,8 @@ class OrdersSeeder extends Seeder
                 ]);
 
                 $productsPrice += $product_price * $product_quantity;
-                $deliveryPrice = District::where(['id' => $order->district_id])['delivery_price'];
+                $deliveryPrice = District::where(['id' => $order->district_id]);
+                $deliveryPrice = $deliveryPrice->delivery_price;
 
                 if ($i == 4) {
                     $order->update(['products_price' => $productsPrice]);
