@@ -22,7 +22,6 @@ class CountriesSeeder extends Seeder
 
             foreach ($countries as $id => $name) {
                 DB::table('countries')->insert([
-                    'id' => $id,
                     'name' => $name
                 ]);
             }
