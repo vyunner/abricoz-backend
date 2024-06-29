@@ -75,7 +75,7 @@ class OrderStoreController extends Controller
 
         Cart::where('user_id', $user_id)->delete();
 
-        $delivery_price = District::where(['id' => $order['district_id']])->delivery_price;
+        $delivery_price = District::where(['id' => $order['district_id']])->first()->delivery_price;
 
         $order->update(['products_price' => $productsPrice]);
         $order->update(['delivery_price' => $delivery_price]);

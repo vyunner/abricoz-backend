@@ -20,6 +20,6 @@ class DistrictIndexController extends Controller
     {
         $districts = District::all();
 
-        return $this->response($districts, 'Баннеры успешно загружены!');
+        return $this->response($districts, 'Список районов успешно загружены!');
     }
 }
