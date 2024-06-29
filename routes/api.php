@@ -115,12 +115,12 @@ Route::group(['prefix' => '/sub-category'], function () {
 
 Route::group(['prefix' => '/banner'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
-        Route::post('/update', \App\Http\Controllers\Banner\BannerUpdateController::class);
-        Route::post('/store', \App\Http\Controllers\Banner\BannerStoreController::class);
-        Route::delete('/delete/{id}', \App\Http\Controllers\Banner\BannerDestroyController::class);
+        Route::post('/update', \App\Http\Controllers\Banner\DistrictUpdateController::class);
+        Route::post('/store', \App\Http\Controllers\Banner\DistrictStoreController::class);
+        Route::delete('/delete/{id}', \App\Http\Controllers\Banner\DistrictDestroyController::class);
     });
 
-    Route::get('/index', \App\Http\Controllers\Banner\BannerIndexController::class);
+    Route::get('/index', \App\Http\Controllers\Banner\DistrictIndexController::class);
 });
 
 Route::group(['prefix' => '/robokassa'], function () {
@@ -131,4 +131,8 @@ Route::group(['prefix' => '/robokassa'], function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/get-url', \App\Http\Controllers\Robokassa\RobokassaGetUrlController::class);
     });
+});
+
+Route::group(['prefix' => '/payment-type'], function () {
+    Route::get('/index', \App\Http\Controllers\PaymentType\PaymentTypeIndexController::class);
 });
