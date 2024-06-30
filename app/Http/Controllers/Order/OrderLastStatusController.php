@@ -19,9 +19,9 @@ class OrderLastStatusController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $user = $request->user()->id;
+        $user_id = $request->user()->id;
 
-        $order = Order::where('user_id', $user->id)
+        $order = Order::where('user_id', $user_id)
             ->orderBy('created_at', 'desc')
             ->first();
 
