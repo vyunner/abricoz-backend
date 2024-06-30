@@ -23,6 +23,8 @@ class OrderStoreRequest extends FormRequest
     {
         return [
             'delivery_interval_id' => 'required|int|exists:delivery_intervals,id',
+            'city_id' => 'required|int|exists:cities,id',
+            'district_id' => 'required|int|exists:districts,id',
             'address' => 'required|string',
             'address_comment' => 'nullable|string',
             'order_comment' => 'nullable|string',
