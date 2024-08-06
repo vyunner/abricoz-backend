@@ -14,12 +14,42 @@ class BannersSeeder extends Seeder
      */
     public function run(): void
     {
-        DesktopBanner::create(['image_url' => '/storage/desktop-banners/2.png', 'number' => '1']);
-        DesktopBanner::create(['image_url' => '/storage/desktop-banners/3.png', 'number' => '2']);
-        DesktopBanner::create(['image_url' => '/storage/desktop-banners/4.png', 'number' => '3']);
-        DesktopBanner::create(['image_url' => '/storage/desktop-banners/5.png', 'number' => '4']);
+        DesktopBanner::create([
+            'ru_image_url' => '/storage/desktop-banners/2_ru.png',
+            'kz_image_url' => '/storage/desktop-banners/2_kz.png',
+            'en_image_url' => '/storage/desktop-banners/2_en.png',
+            'number' => '1'
+        ]);
+        DesktopBanner::create([
+            'ru_image_url' => '/storage/desktop-banners/3_ru.png',
+            'kz_image_url' => '/storage/desktop-banners/3_kz.png',
+            'en_image_url' => '/storage/desktop-banners/3_en.png',
+            'number' => '2'
+        ]);
+        DesktopBanner::create([
+            'ru_image_url' => '/storage/desktop-banners/4_ru.png',
+            'kz_image_url' => '/storage/desktop-banners/4_kz.png',
+            'en_image_url' => '/storage/desktop-banners/4_en.png',
+            'number' => '3'
+        ]);
+        DesktopBanner::create([
+            'ru_image_url' => '/storage/desktop-banners/5_ru.png',
+            'kz_image_url' => '/storage/desktop-banners/5_kz.png',
+            'en_image_url' => '/storage/desktop-banners/5_en.png',
+            'number' => '4'
+        ]);
 
-        MobileBanner::create(['image_url' => '/storage/mobile-banners/strawberry.png', 'number' => '1']);
-        MobileBanner::create(['image_url' => '/storage/mobile-banners/mandarin.png', 'number' => '2']);
+        MobileBanner::create([
+            'ru_image_url' => '/storage/mobile-banners/strawberry_ru.png',
+            'kz_image_url' => '/storage/mobile-banners/strawberry_kz.png',
+            'en_image_url' => '/storage/mobile-banners/strawberry_en.png',
+            'number' => '1'
+        ]);
+        MobileBanner::create([
+            'ru_image_url' => '/storage/mobile-banners/mandarin_en.png',
+            'kz_image_url' => '/storage/mobile-banners/mandarin_en.png',
+            'en_image_url' => '/storage/mobile-banners/mandarin_en.png',
+            'number' => '2'
+        ]);
     }
 }

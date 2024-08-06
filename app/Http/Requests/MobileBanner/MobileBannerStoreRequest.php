@@ -22,7 +22,9 @@ class MobileBannerStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => 'required|image|max:10000',
+            'ru_image' => 'required|image|max:10000',
+            'kz_image' => 'required|image|max:10000',
+            'en_image' => 'required|image|max:10000',
         ];
     }
 }

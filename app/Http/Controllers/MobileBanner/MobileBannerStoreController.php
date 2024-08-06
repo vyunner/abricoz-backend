@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\MobileBanner;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DesktopBanner\MobileBannerStoreRequest;
+use App\Http\Requests\MobileBanner\MobileBannerStoreRequest;
 use App\Models\MobileBanner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -22,13 +22,17 @@ class MobileBannerStoreController extends Controller
     {
         $validatedData = $request->validated();
 
-        $path = $request->file('image')->store('public/mobile-banners');
+        $paths = [];
+        foreach (['ru', 'kz', 'en'] as $locale) {
+            $paths[$locale] = $request->file("{$locale}_image")->store('public/desktop-banners');
+        }
 
         $lastBanner = MobileBanner::orderBy('number', 'desc')->first();
 
         $banner = new MobileBanner();
-        $banner->image_url = Storage::url($path);
-
+        foreach (['ru', 'kz', 'en'] as $locale) {
+            $banner->{"{$locale}_image_url"} = Storage::url($paths[$locale]);
+        }
         $banner->number = $lastBanner ? $lastBanner->number + 1 : 1;
         $banner->save();
 
