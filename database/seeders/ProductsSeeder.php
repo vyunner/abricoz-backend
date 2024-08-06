@@ -15,7 +15,7 @@ class ProductsSeeder extends Seeder
     {
         Product::create([
             'subcategory_id' => 1,
-            'country_id' => rand(1, 242),
+            'country_id' => rand(1, 10),
             'brand_id' => 1,
             'name_ru' => 'Яблоки',
             'name_kz' => 'Алмалар',
@@ -30,7 +30,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 1,
-            'country_id' => rand(1, 242),
+            'country_id' => rand(1, 10),
             'brand_id' => 1,
             'name_ru' => 'Апельсины',
             'name_kz' => 'Апельсиндер',
@@ -45,7 +45,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 1,
-            'country_id' => rand(1, 242),
+            'country_id' => rand(1, 10),
             'brand_id' => 1,
             'name_ru' => 'Персики',
             'name_kz' => 'Шөпшіндер',
@@ -60,7 +60,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 1,
-            'country_id' => rand(1, 242),
+            'country_id' => rand(1, 10),
             'brand_id' => 1,
             'name_ru' => 'Груши',
             'name_kz' => 'Анар',
@@ -75,7 +75,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 1,
-            'country_id' => rand(1, 242),
+            'country_id' => rand(1, 10),
             'brand_id' => 1,
             'name_ru' => 'Абрикосы',
             'name_kz' => 'Қаймақтар',
@@ -90,7 +90,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 2,
-            'country_id' => rand(1, 242),
+            'country_id' => rand(1, 10),
             'brand_id' => 1,
             'name_ru' => 'Томаты',
             'name_kz' => 'Томаттар',
@@ -105,7 +105,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 2,
-            'country_id' => rand(1, 242),
+            'country_id' => rand(1, 10),
             'brand_id' => 1,
             'name_ru' => 'Огурцы',
             'name_kz' => 'Қияр',
@@ -120,7 +120,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 2,
-            'country_id' => rand(1, 242),
+            'country_id' => rand(1, 10),
             'brand_id' => 1,
             'name_ru' => 'Баклажаны',
             'name_kz' => 'Көкөніс',
@@ -135,7 +135,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 3,
-            'country_id' => rand(1, 242),
+            'country_id' => rand(1, 10),
             'brand_id' => 1,
             'name_ru' => 'Укроп',
             'name_kz' => 'Өсімдік',
@@ -150,7 +150,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 3,
-            'country_id' => rand(1, 242),
+            'country_id' => rand(1, 10),
             'brand_id' => 1,
             'name_ru' => 'Петрушка',
             'name_kz' => 'Петрушка',
@@ -165,7 +165,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 3,
-            'country_id' => rand(1, 242),
+            'country_id' => rand(1, 10),
             'brand_id' => 1,
             'name_ru' => 'Базилик',
             'name_kz' => 'Базилик',
