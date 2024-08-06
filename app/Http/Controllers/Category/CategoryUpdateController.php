@@ -24,22 +24,22 @@ class CategoryUpdateController extends Controller
         $validatedData = $request->validated();
         $category = Category::findOrFail($id);
 
-        if ($request->hasFile('image')) {
-            if ($category->photo_url) {
-                $oldPath = 'public' . str_replace('/storage', '', $category->photo_url);
+        if ($request->hasFile('desktop_image')) {
+            if ($category->desktop_image_url) {
+                $oldPath = 'public' . str_replace('/storage', '', $category->desktop_image_url);
                 if (Storage::exists($oldPath)) {
                     Storage::delete($oldPath);
                 }
             }
 
-            $newPath = $request->file('image')->store('public/categories');
-            unset($validatedData['image']);
-            $validatedData['photo_url'] = Storage::url($newPath);
+            $newPath = $request->file('desktop_image')->store('public/categories');
+            unset($validatedData['desktop_image']);
+            $validatedData['desktop_image_url'] = Storage::url($newPath);
         }
 
         if ($request->hasFile('mobile_image')) {
-            if ($category->mobile_url) {
-                $oldPath = 'public' . str_replace('/storage', '', $category->mobile_url);
+            if ($category->mobile_image_url) {
+                $oldPath = 'public' . str_replace('/storage', '', $category->mobile_image_url);
                 if (Storage::exists($oldPath)) {
                     Storage::delete($oldPath);
                 }
@@ -47,7 +47,7 @@ class CategoryUpdateController extends Controller
 
             $newPath = $request->file('mobile_image')->store('public/categories');
             unset($validatedData['mobile_image']);
-            $validatedData['mobile_url'] = Storage::url($newPath);
+            $validatedData['mobile_image_url'] = Storage::url($newPath);
         }
 
 

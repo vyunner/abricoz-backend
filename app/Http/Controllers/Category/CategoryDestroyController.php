@@ -22,13 +22,13 @@ class CategoryDestroyController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        if ($category->photo_url) {
-            $photo_url = 'public' . str_replace('/storage', '', $category->photo_url);
-            Storage::delete($photo_url);
+        if ($category->desktop_image_url) {
+            $desktop_image_url = 'public' . str_replace('/storage', '', $category->desktop_image_url);
+            Storage::delete($desktop_image_url);
         }
-        if ($category->mobile_url) {
-            $mobile_url = 'public' . str_replace('/storage', '', $category->mobile_url);
-            Storage::delete($mobile_url);
+        if ($category->mobile_image_url) {
+            $mobile_image_url = 'public' . str_replace('/storage', '', $category->mobile_image_url);
+            Storage::delete($mobile_image_url);
         }
 
         $category->delete();

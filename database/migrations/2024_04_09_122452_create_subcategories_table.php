@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('subcategories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained('categories');
-            $table->string('photo_url')->nullable();
+            $table->string('image_url')->nullable();
             $table->string('name_ru');
             $table->string('name_kz');
             $table->string('name_en');

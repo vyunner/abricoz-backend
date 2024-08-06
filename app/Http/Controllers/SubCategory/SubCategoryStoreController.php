@@ -25,7 +25,7 @@ class SubCategoryStoreController extends Controller
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('public/subcategories');
             unset($validatedData['image']);
-            $validatedData['photo_url'] = Storage::url($path);
+            $validatedData['image_url'] = Storage::url($path);
         }
 
         $subCategory = SubCategory::create($validatedData);

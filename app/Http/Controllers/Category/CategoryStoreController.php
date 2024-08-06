@@ -22,16 +22,16 @@ class CategoryStoreController extends Controller
     {
         $validatedData = $request->validated();
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/categories');
-            unset($validatedData['image']);
-            $validatedData['photo_url'] = Storage::url($path);
+        if ($request->hasFile('desktop_image')) {
+            $path = $request->file('desktop_image')->store('public/categories');
+            unset($validatedData['desktop_image']);
+            $validatedData['desktop_image_url'] = Storage::url($path);
         }
 
         if ($request->hasFile('mobile_image')) {
             $path = $request->file('mobile_image')->store('public/categories');
             unset($validatedData['mobile_image']);
-            $validatedData['mobile_url'] = Storage::url($path);
+            $validatedData['mobile_image_url'] = Storage::url($path);
         }
 
 
