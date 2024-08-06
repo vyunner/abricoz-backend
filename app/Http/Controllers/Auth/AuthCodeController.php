@@ -41,7 +41,7 @@ class AuthCodeController extends Controller
         ]);
 
         $recipient = $data['phone'];
-        $text = 'Спасибо за регистрацию на glowbee.kz! Ваш код подтверждения: ' . $code;
+        $text = 'Спасибо за регистрацию на abricoz.kz! Ваш код подтверждения: ' . $code;
 
         //TODO Работает!!! Отправка смс
 //         $response = $this->mobizonService->sendSmsMessage($recipient, $text);
