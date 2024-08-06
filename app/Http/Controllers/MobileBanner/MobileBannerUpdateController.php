@@ -1,33 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Banner;
+namespace App\Http\Controllers\MobileBanner;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Banner\BannerUpdateRequest;
-use App\Models\Banner;
+use App\Http\Requests\MobileBanner\MobileBannerUpdateRequest;
+use App\Models\MobileBanner;
 use Illuminate\Http\Request;
 
 /**
- * @group Banner
+ * @group MobileBanner
  */
-class BannerUpdateController extends Controller
+class MobileBannerUpdateController extends Controller
 {
     /**
      * Обновление
-     * @param BannerUpdateRequest $request
+     * @param MobileBannerUpdateRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(BannerUpdateRequest $request)
+    public function __invoke(MobileBannerUpdateRequest $request)
     {
         $validatedData = $request->validated();
 
         foreach ($validatedData['banners'] as $bannerData) {
-            $banner = Banner::find($bannerData['id']);
+            $banner = MobileBanner::find($bannerData['id']);
             $banner->number = $bannerData['number'];
             $banner->save();
         }
 
-        $banners = Banner::orderBy('number', 'asc')->get();
+        $banners = MobileBanner::orderBy('number', 'asc')->get();
 
         return $this->response($banners, 'Порядок баннеров успешно изменен!');
     }

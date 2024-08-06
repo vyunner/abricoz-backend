@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Banner;
+namespace App\Http\Controllers\MobileBanner;
 
 use App\Http\Controllers\Controller;
-use App\Models\Banner;
+use App\Models\MobileBanner;
 use Illuminate\Http\Request;
 
 /**
- * @group Banner
+ * @group MobileBanner
  */
-class BannerIndexController extends Controller
+class MobileBannerIndexController extends Controller
 {
     /**
      * Список
@@ -18,7 +18,7 @@ class BannerIndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $banners = Banner::orderBy('number', 'asc')->get();
+        $banners = MobileBanner::orderBy('number', 'asc')->get();
 
         return $this->response($banners, 'Баннеры успешно загружены!');
     }

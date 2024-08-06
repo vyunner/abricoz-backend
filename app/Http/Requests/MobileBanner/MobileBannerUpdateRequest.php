@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Banner;
+namespace App\Http\Requests\MobileBanner;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BannerStoreRequest extends FormRequest
+class MobileBannerUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,9 @@ class BannerStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => 'required|image|max:10000',
+            'banners' => 'required|array',
+            'banners.*.id' => 'required|exists:banners,id',
+            'banners.*.number' => 'required|integer'
         ];
     }
 }

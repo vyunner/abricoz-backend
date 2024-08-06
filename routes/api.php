@@ -113,14 +113,24 @@ Route::group(['prefix' => '/sub-category'], function () {
     Route::get('/index', \App\Http\Controllers\SubCategory\SubCategoryIndexController::class);
 });
 
-Route::group(['prefix' => '/banner'], function () {
+Route::group(['prefix' => '/desktop-banner'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
-        Route::post('/update', \App\Http\Controllers\Banner\BannerUpdateController::class);
-        Route::post('/store', \App\Http\Controllers\Banner\BannerStoreController::class);
-        Route::delete('/delete/{id}', \App\Http\Controllers\Banner\BannerDestroyController::class);
+        Route::post('/update', \App\Http\Controllers\DesktopBanner\DesktopBannerUpdateController::class);
+        Route::post('/store', \App\Http\Controllers\DesktopBanner\DesktopBannerStoreController::class);
+        Route::delete('/delete/{id}', \App\Http\Controllers\DesktopBanner\DesktopBannerDestroyController::class);
     });
 
-    Route::get('/index', \App\Http\Controllers\Banner\BannerIndexController::class);
+    Route::get('/index', \App\Http\Controllers\DesktopBanner\DesktopBannerIndexController::class);
+});
+
+Route::group(['prefix' => '/mobile-banner'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+        Route::post('/update', \App\Http\Controllers\MobileBanner\MobileBannerUpdateController::class);
+        Route::post('/store', \App\Http\Controllers\MobileBanner\MobileBannerStoreController::class);
+        Route::delete('/delete/{id}', \App\Http\Controllers\MobileBanner\MobileBannerDestroyController::class);
+    });
+
+    Route::get('/index', \App\Http\Controllers\MobileBanner\MobileBannerIndexController::class);
 });
 
 Route::group(['prefix' => '/robokassa'], function () {
