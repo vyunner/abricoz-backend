@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Interfaces\MobizonServiceInterface;
 use Illuminate\Http\Request;
-use App\Http\Requests\Auth\AuthRegisterRequest;
+use App\Http\Requests\Auth\AuthCodeRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Services\MobizonService;
@@ -14,7 +14,7 @@ use Carbon\Carbon;
 /**
  * @group Auth
  */
-class AuthRegisterController extends Controller
+class AuthCodeController extends Controller
 {
     public function __construct(
         protected MobizonServiceInterface $mobizonService
@@ -23,11 +23,11 @@ class AuthRegisterController extends Controller
     }
 
     /**
-     * Регистрация
-     * @param AuthRegisterRequest $request
+     * Отправить код
+     * @param AuthCodeRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(AuthRegisterRequest $request)
+    public function __invoke(AuthCodeRequest $request)
     {
         $data = $request->validated();
         //TODO $code = mt_rand(100000, 999999);
