@@ -29,7 +29,7 @@ class CategoryIndexController extends Controller
                 'current_page' => $categories->currentPage(),
                 'total' => $categories->total(),
                 'categories' => $categories->items(),
-            ], 'Список стран успешно загружен!');
+            ], 'Список категорий успешно загружен!');
         }
 
         return $this->response(Category::all(), 'Список категорий успешно загружен!');
