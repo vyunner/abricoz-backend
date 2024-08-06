@@ -45,7 +45,6 @@ class OrderResource extends JsonResource
                     ],
                     'price' => $product->price,
                     'discount' => $product->discount,
-                    'rating' => $product->rating,
                 ];
             })->toArray(),
         ];

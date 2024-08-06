@@ -24,14 +24,14 @@ class MobileBannerStoreController extends Controller
 
         $paths = [];
         foreach (['ru', 'kz', 'en'] as $locale) {
-            $paths[$locale] = $request->file("{$locale}_image")->store('public/desktop-banners');
+            $paths[$locale] = $request->file("image_{$locale}")->store('public/mobile-banners');
         }
 
         $lastBanner = MobileBanner::orderBy('number', 'desc')->first();
 
         $banner = new MobileBanner();
         foreach (['ru', 'kz', 'en'] as $locale) {
-            $banner->{"{$locale}_image_url"} = Storage::url($paths[$locale]);
+            $banner->{"image_url_{$locale}"} = Storage::url($paths[$locale]);
         }
         $banner->number = $lastBanner ? $lastBanner->number + 1 : 1;
         $banner->save();

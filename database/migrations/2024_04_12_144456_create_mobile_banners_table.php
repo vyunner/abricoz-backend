@@ -12,9 +12,9 @@ return new class extends Migration {
     {
         Schema::create('mobile_banners', function (Blueprint $table) {
             $table->id();
-            $table->string('ru_image_url');
-            $table->string('kz_image_url');
-            $table->string('en_image_url');
+            $table->string('image_url_ru');
+            $table->string('image_url_kz');
+            $table->string('image_url_en');
             $table->integer('number')->default(1);
             $table->timestamps();
         });

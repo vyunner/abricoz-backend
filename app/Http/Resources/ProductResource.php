@@ -32,7 +32,6 @@ class ProductResource extends JsonResource
             'description_en' => $this->description_en,
             'price' => $this->price,
             'discount' => $this->discount,
-            'rating' => $this->rating,
         ];
     }
 }

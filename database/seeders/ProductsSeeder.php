@@ -26,6 +26,11 @@ class ProductsSeeder extends Seeder
             'price' => rand(200, 1500),
             'discount' => rand(0, 10),
             'photo_url' => '/storage/products/1.jpg',
+            'weight' => '1 кг',
+            'calories' => 52,
+            'proteins' => 0.3,
+            'fats' => 0.2,
+            'carbohydrates' => 14
         ]);
 
         Product::create([
@@ -41,6 +46,11 @@ class ProductsSeeder extends Seeder
             'price' => rand(200, 1500),
             'discount' => rand(0, 10),
             'photo_url' => '/storage/products/2.jpg',
+            'weight' => '1 кг',
+            'calories' => 47,
+            'proteins' => 0.9,
+            'fats' => 0.1,
+            'carbohydrates' => 12
         ]);
 
         Product::create([
@@ -56,6 +66,11 @@ class ProductsSeeder extends Seeder
             'price' => rand(200, 1500),
             'discount' => rand(0, 10),
             'photo_url' => '/storage/products/3.webp',
+            'weight' => '1 кг',
+            'calories' => 39,
+            'proteins' => 0.9,
+            'fats' => 0.3,
+            'carbohydrates' => 10
         ]);
 
         Product::create([
@@ -71,6 +86,11 @@ class ProductsSeeder extends Seeder
             'price' => rand(200, 1500),
             'discount' => rand(0, 10),
             'photo_url' => '/storage/products/4.webp',
+            'weight' => '1 кг',
+            'calories' => 57,
+            'proteins' => 0.4,
+            'fats' => 0.1,
+            'carbohydrates' => 15
         ]);
 
         Product::create([
@@ -86,6 +106,11 @@ class ProductsSeeder extends Seeder
             'price' => rand(200, 1500),
             'discount' => rand(0, 10),
             'photo_url' => '/storage/products/5.jpg',
+            'weight' => '1 кг',
+            'calories' => 48,
+            'proteins' => 1.4,
+            'fats' => 0.4,
+            'carbohydrates' => 11
         ]);
 
         Product::create([
@@ -101,6 +126,11 @@ class ProductsSeeder extends Seeder
             'price' => rand(200, 1500),
             'discount' => rand(0, 10),
             'photo_url' => '/storage/products/6.jpg',
+            'weight' => '1 кг',
+            'calories' => 18,
+            'proteins' => 0.9,
+            'fats' => 0.2,
+            'carbohydrates' => 3.9
         ]);
 
         Product::create([
@@ -116,6 +146,11 @@ class ProductsSeeder extends Seeder
             'price' => rand(200, 1500),
             'discount' => rand(0, 10),
             'photo_url' => '/storage/products/7.webp',
+            'weight' => '1 кг',
+            'calories' => 16,
+            'proteins' => 0.7,
+            'fats' => 0.1,
+            'carbohydrates' => 3.6
         ]);
 
         Product::create([
@@ -131,6 +166,11 @@ class ProductsSeeder extends Seeder
             'price' => rand(200, 1500),
             'discount' => rand(0, 10),
             'photo_url' => '/storage/products/8.jpg',
+            'weight' => '1 кг',
+            'calories' => 25,
+            'proteins' => 1.0,
+            'fats' => 0.2,
+            'carbohydrates' => 5.9
         ]);
 
         Product::create([
@@ -146,6 +186,11 @@ class ProductsSeeder extends Seeder
             'price' => rand(200, 1500),
             'discount' => rand(0, 10),
             'photo_url' => '/storage/products/9.jpg',
+            'weight' => '1 кг',
+            'calories' => 43,
+            'proteins' => 3.5,
+            'fats' => 1.1,
+            'carbohydrates' => 7.0
         ]);
 
         Product::create([
@@ -161,6 +206,11 @@ class ProductsSeeder extends Seeder
             'price' => rand(200, 1500),
             'discount' => rand(0, 10),
             'photo_url' => '/storage/products/10.jpg',
+            'weight' => '1 кг',
+            'calories' => 36,
+            'proteins' => 2.9,
+            'fats' => 0.8,
+            'carbohydrates' => 6.3
         ]);
 
         Product::create([
@@ -176,6 +226,11 @@ class ProductsSeeder extends Seeder
             'price' => rand(200, 1500),
             'discount' => rand(0, 10),
             'photo_url' => '/storage/products/11.jpg',
+            'weight' => '1 кг',
+            'calories' => 23,
+            'proteins' => 3.2,
+            'fats' => 0.6,
+            'carbohydrates' => 2.7
         ]);
 
         $products = Product::all();
