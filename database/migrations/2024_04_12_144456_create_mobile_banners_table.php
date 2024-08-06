@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('banners', function (Blueprint $table) {
+        Schema::create('mobile_banners', function (Blueprint $table) {
             $table->id();
             $table->string('image_url');
             $table->integer('number')->default(1);
@@ -23,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('banners');
+        Schema::dropIfExists('mobile_banners');
     }
 };

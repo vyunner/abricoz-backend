@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Banner;
+namespace App\Http\Controllers\MobileBanner;
 
 use App\Http\Controllers\Controller;
-use App\Models\Banner;
+use App\Models\MobileBanner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * @group Banner
+ * @group MobileBanner
  */
-class BannerDestroyController extends Controller
+class MobileBannerDestroyController extends Controller
 {
     /**
      * Удаление
@@ -20,7 +20,7 @@ class BannerDestroyController extends Controller
      */
     public function __invoke(Request $request, $id)
     {
-        $banner = Banner::findOrFail($id);
+        $banner = MobileBanner::findOrFail($id);
 
         $filePath = 'public' . str_replace('/storage', '', $banner->image_url);
 

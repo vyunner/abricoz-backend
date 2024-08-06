@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Banner;
+use App\Models\DekstopBanner;
 use App\Models\PaymentType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;

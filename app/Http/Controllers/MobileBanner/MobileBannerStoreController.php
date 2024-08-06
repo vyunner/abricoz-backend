@@ -1,32 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Banner;
+namespace App\Http\Controllers\MobileBanner;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Banner\BannerStoreRequest;
-use App\Models\Banner;
+use App\Http\Requests\DesktopBanner\MobileBannerStoreRequest;
+use App\Models\MobileBanner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * @group Banner
+ * @group MobileBanner
  */
-class BannerStoreController extends Controller
+class MobileBannerStoreController extends Controller
 {
     /**
      * Создание
-     * @param BannerStoreRequest $request
+     * @param MobileBannerStoreRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(BannerStoreRequest $request)
+    public function __invoke(MobileBannerStoreRequest $request)
     {
         $validatedData = $request->validated();
 
-        $path = $request->file('image')->store('public/banners');
+        $path = $request->file('image')->store('public/mobile-banners');
 
-        $lastBanner = Banner::orderBy('number', 'desc')->first();
+        $lastBanner = MobileBanner::orderBy('number', 'desc')->first();
 
-        $banner = new Banner();
+        $banner = new MobileBanner();
         $banner->image_url = Storage::url($path);
 
         $banner->number = $lastBanner ? $lastBanner->number + 1 : 1;
