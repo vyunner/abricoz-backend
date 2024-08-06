@@ -22,13 +22,17 @@ class DesktopBannerStoreController extends Controller
     {
         $validatedData = $request->validated();
 
-        $path = $request->file('image')->store('public/desktop-banners');
+        $paths = [];
+        foreach (['ru', 'kz', 'en'] as $locale) {
+            $paths[$locale] = $request->file("{$locale}_image")->store('public/desktop-banners');
+        }
 
         $lastBanner = DesktopBanner::orderBy('number', 'desc')->first();
 
         $banner = new DesktopBanner();
-        $banner->image_url = Storage::url($path);
-
+        foreach (['ru', 'kz', 'en'] as $locale) {
+            $banner->{"{$locale}_image_url"} = Storage::url($paths[$locale]);
+        }
         $banner->number = $lastBanner ? $lastBanner->number + 1 : 1;
         $banner->save();
 

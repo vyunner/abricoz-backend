@@ -22,11 +22,13 @@ class DesktopBannerDestroyController extends Controller
     {
         $banner = DesktopBanner::findOrFail($id);
 
-        $filePath = 'public' . str_replace('/storage', '', $banner->image_url);
-
-        if (Storage::exists($filePath)) {
-            Storage::delete($filePath);
+        foreach (['ru_image_url', 'kz_image_url', 'en_image_url'] as $locale) {
+            $filePath = 'public' . str_replace('/storage', '', $banner->$locale);
+            if (Storage::exists($filePath)) {
+                Storage::delete($filePath);
+            }
         }
+
         $banner->delete();
 
         return $this->response([], 'Баннер успешно удален!');

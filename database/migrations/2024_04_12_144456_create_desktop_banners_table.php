@@ -12,7 +12,9 @@ return new class extends Migration {
     {
         Schema::create('desktop_banners', function (Blueprint $table) {
             $table->id();
-            $table->string('image_url');
+            $table->string('ru_image_url');
+            $table->string('kz_image_url');
+            $table->string('en_image_url');
             $table->integer('number')->default(1);
             $table->timestamps();
         });
