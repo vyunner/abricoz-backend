@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\DekstopBanner;
+use App\Models\DesktopBanner;
 use App\Models\MobileBanner;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,10 +14,10 @@ class BannersSeeder extends Seeder
      */
     public function run(): void
     {
-        DekstopBanner::create(['image_url' => '/storage/desktop-banners/2.png', 'number' => '1']);
-        DekstopBanner::create(['image_url' => '/storage/desktop-banners/3.png', 'number' => '2']);
-        DekstopBanner::create(['image_url' => '/storage/desktop-banners/4.png', 'number' => '3']);
-        DekstopBanner::create(['image_url' => '/storage/desktop-banners/5.png', 'number' => '4']);
+        DesktopBanner::create(['image_url' => '/storage/desktop-banners/2.png', 'number' => '1']);
+        DesktopBanner::create(['image_url' => '/storage/desktop-banners/3.png', 'number' => '2']);
+        DesktopBanner::create(['image_url' => '/storage/desktop-banners/4.png', 'number' => '3']);
+        DesktopBanner::create(['image_url' => '/storage/desktop-banners/5.png', 'number' => '4']);
 
         MobileBanner::create(['image_url' => '/storage/mobile-banners/strawberry.png', 'number' => '1']);
         MobileBanner::create(['image_url' => '/storage/mobile-banners/mandarin.png', 'number' => '2']);

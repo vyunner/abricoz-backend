@@ -4,12 +4,12 @@ namespace App\Http\Controllers\DesktopBanner;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DesktopBanner\DesktopBannerStoreRequest;
-use App\Models\DekstopBanner;
+use App\Models\DesktopBanner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * @group DekstopBanner
+ * @group DesktopBanner
  */
 class DesktopBannerStoreController extends Controller
 {
@@ -24,9 +24,9 @@ class DesktopBannerStoreController extends Controller
 
         $path = $request->file('image')->store('public/desktop-banners');
 
-        $lastBanner = DekstopBanner::orderBy('number', 'desc')->first();
+        $lastBanner = DesktopBanner::orderBy('number', 'desc')->first();
 
-        $banner = new DekstopBanner();
+        $banner = new DesktopBanner();
         $banner->image_url = Storage::url($path);
 
         $banner->number = $lastBanner ? $lastBanner->number + 1 : 1;

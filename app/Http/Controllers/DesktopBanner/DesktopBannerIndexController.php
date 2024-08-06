@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\DesktopBanner;
 
 use App\Http\Controllers\Controller;
-use App\Models\DekstopBanner;
+use App\Models\DesktopBanner;
 use Illuminate\Http\Request;
 
 /**
- * @group DekstopBanner
+ * @group DesktopBanner
  */
 class DesktopBannerIndexController extends Controller
 {
@@ -18,7 +18,7 @@ class DesktopBannerIndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $banners = DekstopBanner::orderBy('number', 'asc')->get();
+        $banners = DesktopBanner::orderBy('number', 'asc')->get();
 
         return $this->response($banners, 'Баннеры успешно загружены!');
     }

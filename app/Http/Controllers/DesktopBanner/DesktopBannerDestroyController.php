@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\DesktopBanner;
 
 use App\Http\Controllers\Controller;
-use App\Models\DekstopBanner;
+use App\Models\DesktopBanner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * @group DekstopBanner
+ * @group DesktopBanner
  */
 class DesktopBannerDestroyController extends Controller
 {
@@ -20,7 +20,7 @@ class DesktopBannerDestroyController extends Controller
      */
     public function __invoke(Request $request, $id)
     {
-        $banner = DekstopBanner::findOrFail($id);
+        $banner = DesktopBanner::findOrFail($id);
 
         $filePath = 'public' . str_replace('/storage', '', $banner->image_url);
 

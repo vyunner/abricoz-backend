@@ -4,11 +4,11 @@ namespace App\Http\Controllers\DesktopBanner;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DesktopBanner\DesktopBannerUpdateRequest;
-use App\Models\DekstopBanner;
+use App\Models\DesktopBanner;
 use Illuminate\Http\Request;
 
 /**
- * @group DekstopBanner
+ * @group DesktopBanner
  */
 class DesktopBannerUpdateController extends Controller
 {
@@ -22,12 +22,12 @@ class DesktopBannerUpdateController extends Controller
         $validatedData = $request->validated();
 
         foreach ($validatedData['banners'] as $bannerData) {
-            $banner = DekstopBanner::find($bannerData['id']);
+            $banner = DesktopBanner::find($bannerData['id']);
             $banner->number = $bannerData['number'];
             $banner->save();
         }
 
-        $banners = DekstopBanner::orderBy('number', 'asc')->get();
+        $banners = DesktopBanner::orderBy('number', 'asc')->get();
 
         return $this->response($banners, 'Порядок баннеров успешно изменен!');
     }
