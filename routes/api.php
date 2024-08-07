@@ -45,6 +45,7 @@ Route::group(['prefix' => '/category'], function () {
     });
 
     Route::get('/index', \App\Http\Controllers\Category\CategoryIndexController::class);
+    Route::get('/show/{id}', \App\Http\Controllers\Category\CategoryShowController::class);
 });
 
 Route::group(['prefix' => '/country'], function () {
@@ -106,6 +107,7 @@ Route::group(['prefix' => '/sub-category'], function () {
     });
 
     Route::get('/index', \App\Http\Controllers\SubCategory\SubCategoryIndexController::class);
+    Route::get('/show/{id}', \App\Http\Controllers\SubCategory\SubCategoryShowController::class);
 });
 
 Route::group(['prefix' => '/desktop-banner'], function () {
