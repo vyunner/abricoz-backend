@@ -19,7 +19,7 @@ class OrdersSeeder extends Seeder
         Order::create([
             'user_id' => 1,
             'order_status_id' => 1,
-            'delivery_interval_id' => 5,
+            'delivery_interval_id' => 1,
             'payment_type_id' => 1,
             'city_id' => 1,
             'district_id' => 1,
@@ -31,7 +31,7 @@ class OrdersSeeder extends Seeder
         Order::create([
             'user_id' => 1,
             'order_status_id' => 2,
-            'delivery_interval_id' => 8,
+            'delivery_interval_id' => 2,
             'payment_type_id' => 1,
             'city_id' => 1,
             'district_id' => 1,
@@ -43,7 +43,7 @@ class OrdersSeeder extends Seeder
         Order::create([
             'user_id' => 1,
             'order_status_id' => 3,
-            'delivery_interval_id' => 10,
+            'delivery_interval_id' => 3,
             'payment_type_id' => 1,
             'city_id' => 1,
             'district_id' => 1,
@@ -55,7 +55,7 @@ class OrdersSeeder extends Seeder
         Order::create([
             'user_id' => 1,
             'order_status_id' => 4,
-            'delivery_interval_id' => 14,
+            'delivery_interval_id' => 4,
             'payment_type_id' => 1,
             'city_id' => 1,
             'district_id' => 1,
@@ -67,7 +67,7 @@ class OrdersSeeder extends Seeder
         Order::create([
             'user_id' => 1,
             'order_status_id' => 1,
-            'delivery_interval_id' => 20,
+            'delivery_interval_id' => 3,
             'payment_type_id' => 1,
             'city_id' => 1,
             'district_id' => 1,
