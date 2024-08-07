@@ -1,5 +1,8 @@
 FROM php:8.1-fpm
 
+# Установка временной зоны
+RUN ln -snf /usr/share/zoneinfo/Asia/Karachi /etc/localtime && echo "Asia/Karachi" > /etc/timezone
+
 RUN apt-get update && apt-get install -y \
     curl \
     libpng-dev \
