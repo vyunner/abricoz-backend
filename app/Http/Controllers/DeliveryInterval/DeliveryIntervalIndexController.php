@@ -28,11 +28,17 @@ class DeliveryIntervalIndexController extends Controller
             $end_time = Carbon::createFromFormat('H:i', $time_range[1]);
 
             if ($current_time->gte($end_time)) {
+                // Если текущее время больше или равно времени окончания, интервал неактивен
                 $interval->is_active = 0;
-                $interval->save();
+            } else {
+                // Если текущее время меньше времени окончания, интервал активен
+                $interval->is_active = 1;
             }
+
+            $interval->save();
         }
 
+        // Получаем только активные интервалы
         $active_intervals = DeliveryInterval::where('is_active', 1)->get();
 
         return response()->json([
