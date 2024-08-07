@@ -19,29 +19,26 @@ class DeliveryIntervalIndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $currentTime = Carbon::now()->format('H:i');
+        $current_time = Carbon::now();
         $intervals = DeliveryInterval::all();
 
         foreach ($intervals as $interval) {
-            if ($this->isCurrentTimeWithinInterval($currentTime, $interval->name)) {
+            $time_range = explode(' - ', $interval->name);
+            $start_time = Carbon::createFromFormat('H:i', $time_range[0]);
+            $end_time = Carbon::createFromFormat('H:i', $time_range[1]);
+
+            if ($current_time->between($start_time, $end_time)) {
                 $interval->is_active = 0;
                 $interval->save();
             }
         }
 
-        $activeIntervals = DeliveryInterval::where('is_active', 1)->get();
+        $active_intervals = DeliveryInterval::where('is_active', 1)->get();
 
         return response()->json([
             'message' => 'Список временных интервалов успешно загружен!',
-            'data' => $activeIntervals,
-            'current_time' => Carbon::now()->toDateTimeString()
+            'data' => $active_intervals,
+            'current_time' => $current_time->toDateTimeString()
         ]);
-    }
-
-    private function isCurrentTimeWithinInterval($currentTime, $intervalName)
-    {
-        list($start, $end) = explode('-', $intervalName);
-
-        return $currentTime >= $start && $currentTime <= $end;
     }
 }
