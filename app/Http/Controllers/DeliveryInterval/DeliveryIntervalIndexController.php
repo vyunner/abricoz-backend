@@ -27,7 +27,7 @@ class DeliveryIntervalIndexController extends Controller
             $start_time = Carbon::createFromFormat('H:i', $time_range[0]);
             $end_time = Carbon::createFromFormat('H:i', $time_range[1]);
 
-            if ($current_time->between($start_time, $end_time)) {
+            if ($current_time->gte($end_time)) {
                 $interval->is_active = 0;
                 $interval->save();
             }
