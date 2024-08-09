@@ -40,15 +40,15 @@ class BannersSeeder extends Seeder
         ]);
 
         MobileBanner::create([
-            'image_url_ru' => '/storage/mobile-banners/strawberry_ru.png',
-            'image_url_kz' => '/storage/mobile-banners/strawberry_kz.png',
-            'image_url_en' => '/storage/mobile-banners/strawberry_en.png',
+            'image_url_ru' => '/storage/mobile-banners/strawberry_ru.jpeg',
+            'image_url_kz' => '/storage/mobile-banners/strawberry_kz.jpeg',
+            'image_url_en' => '/storage/mobile-banners/strawberry_en.jpeg',
             'number' => '1'
         ]);
         MobileBanner::create([
-            'image_url_ru' => '/storage/mobile-banners/mandarin_en.png',
-            'image_url_kz' => '/storage/mobile-banners/mandarin_en.png',
-            'image_url_en' => '/storage/mobile-banners/mandarin_en.png',
+            'image_url_ru' => '/storage/mobile-banners/mandarin_ru.jpeg',
+            'image_url_kz' => '/storage/mobile-banners/mandarin_kz.jpeg',
+            'image_url_en' => '/storage/mobile-banners/mandarin_en.jpeg',
             'number' => '2'
         ]);
     }
