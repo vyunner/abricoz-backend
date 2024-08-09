@@ -97,6 +97,7 @@ Route::group(['prefix' => '/product'], function () {
     Route::get('/get-top-selling', \App\Http\Controllers\Product\ProductGetTopSellingController::class);
     Route::get('/get-discounts', \App\Http\Controllers\Product\ProductGetDiscountsController::class);
     Route::get('/show/{id}', \App\Http\Controllers\Product\ProductShowController::class);
+    Route::get('/search', \App\Http\Controllers\Product\ProductSearchController::class);
 });
 
 Route::group(['prefix' => '/sub-category'], function () {
