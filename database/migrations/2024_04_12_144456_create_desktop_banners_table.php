@@ -15,6 +15,9 @@ return new class extends Migration {
             $table->string('image_url_ru');
             $table->string('image_url_kz');
             $table->string('image_url_en');
+            $table->string('title_ru')->nullable();
+            $table->string('title_kz')->nullable();
+            $table->string('title_en')->nullable();
             $table->integer('number')->default(1);
             $table->timestamps();
         });
