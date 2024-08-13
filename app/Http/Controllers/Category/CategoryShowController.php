@@ -19,8 +19,8 @@ class CategoryShowController extends Controller
      */
     public function __invoke(Request $request, $id)
     {
-        $category = Category::findOrFail($id);
+        $category = Category::with('subcategories')->findOrFail($id);
 
-        return $this->response($category, 'Категория успешно отображена!');
+        return $this->response($category, 'Категория и ее подкатегории успешно отображены!');
     }
 }

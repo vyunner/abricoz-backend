@@ -22,7 +22,7 @@ class AuthLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => 'required|exists:users',
+            'phone' => 'required|exists:users,phone',
             'code' => 'required|exists:users,phone_verification_code',
         ];
     }
