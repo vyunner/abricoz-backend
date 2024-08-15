@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
             SubCategoriesSeeder::class,
             ProductsSeeder::class,
             DeliveryIntervalsSeeder::class,
-            CartsSeeder::class,
             PaymentTypesSeeder::class,
             OrderSatusesSeeder::class,
             OrdersSeeder::class,

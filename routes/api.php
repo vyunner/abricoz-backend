@@ -30,13 +30,6 @@ Route::group(['prefix' => '/brand'], function () {
     Route::get('/index', \App\Http\Controllers\Brand\BrandIndexController::class);
 });
 
-Route::group(['prefix' => '/cart', 'middleware' => 'auth:sanctum'], function () {
-    Route::get('/index', \App\Http\Controllers\Cart\CartIndexController::class);
-    Route::post('/store', \App\Http\Controllers\Cart\CartStoreController::class);
-    Route::delete('/delete/{id}', \App\Http\Controllers\Cart\CartDestroyController::class);
-    Route::delete('/delete-items', \App\Http\Controllers\Cart\CartDestroyItemsController::class);
-});
-
 Route::group(['prefix' => '/category'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::delete('/delete/{id}', \App\Http\Controllers\Category\CategoryDestroyController::class);

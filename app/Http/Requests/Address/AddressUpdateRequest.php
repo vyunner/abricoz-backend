@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Cart;
+namespace App\Http\Requests\Address;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CartStoreRequest extends FormRequest
+class AddressUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,12 @@ class CartStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id' => 'required|int|exists:products,id',
-            'product_quantity' => 'nullable|int|min:1'
+            'city_id' => 'required|exists:cities,id',
+            'district_id' => 'required|exists:districts,id',
+            'address_street_and_house' => 'nullable|string',
+            'address_apartment' => 'nullable|string',
+            'address_entrance' => 'nullable|string',
+            'address_floor' => 'nullable|string',
         ];
     }
 }

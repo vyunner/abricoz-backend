@@ -14,10 +14,10 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('order_id')->constrained('orders');
             $table->foreignId('product_id')->constrained('products');
-            $table->integer('product_quantity')->default(1);
+            $table->integer('product_quantity');
             $table->integer('product_price');
-            $table->integer('product_discount')->default(0);
-            $table->integer('product_price_with_discount')->nullable();
+            $table->integer('product_discount');
+            $table->integer('product_price_with_discount');
             $table->timestamps();
         });
     }
