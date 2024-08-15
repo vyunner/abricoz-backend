@@ -18,7 +18,7 @@ class CartCheckController extends Controller
      * @param $id
      * @return mixed
      */
-    public function __invoke(CartCheckRequest $request, $id)
+    public function __invoke(CartCheckRequest $request)
     {
         $validatedData = $request->validated();
 
