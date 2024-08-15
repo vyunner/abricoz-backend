@@ -32,11 +32,12 @@ class CartCheckController extends Controller
 
             $products[] = [
                 'id' => $product->id,
+                'is_active' => $product->is_active,
+                'product_quantity' => $quantity,
                 'photo_url' => $product->photo_url,
                 'name_ru' => $product->name_ru,
                 'name_kz' => $product->name_kz,
                 'name_en' => $product->name_en,
-                'is_active' => $product->is_active,
                 'weight' => $product->weight,
                 'price' => $product->price,
                 'price_with_discount' => $product->price_with_discount,
