@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 /**
  * @group Address
  */
-class AddressIndexController extends Controller
+class   AddressIndexController extends Controller
 {
     /**
      * Список

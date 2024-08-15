@@ -112,8 +112,8 @@ Route::group(['prefix' => '/cart'], function () {
 
 Route::group(['prefix' => '/address'], function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
-        Route::post('/index', \App\Http\Controllers\Address\AddressIndexController::class);
-        Route::post('/delete/{id}', \App\Http\Controllers\Address\AddressDestroyController::class);
+        Route::get('/index', \App\Http\Controllers\Address\AddressIndexController::class);
+        Route::delete('/delete/{id}', \App\Http\Controllers\Address\AddressDestroyController::class);
         Route::post('/update', \App\Http\Controllers\Address\AddressUpdateController::class);
         Route::post('/store', \App\Http\Controllers\Address\AddressStoreController::class);
     });
