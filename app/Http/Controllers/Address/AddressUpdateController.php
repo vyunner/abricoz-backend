@@ -27,7 +27,7 @@ class AddressUpdateController extends Controller
 
         // Проверка на соответствие user_id
         if ($address->user_id !== $request->user()->id) {
-            return $this->response([], 'У вас нет прав для изменения этого адреса.', JsonResponse::HTTP_FORBIDDEN);
+            return $this->response([], 'У вас нет прав для изменения этого адреса.', 403);
         }
 
         $address->fill($validatedData)->save();
