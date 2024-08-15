@@ -104,7 +104,7 @@ Route::group(['prefix' => '/sub-category'], function () {
     Route::get('/show/{id}', \App\Http\Controllers\SubCategory\SubCategoryShowController::class);
 });
 
-Route::group(['prefix' => '/sub-category'], function () {
+Route::group(['prefix' => '/cart'], function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/check', \App\Http\Controllers\Cart\CartCheckController::class);
     });
