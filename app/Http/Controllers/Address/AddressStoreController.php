@@ -21,6 +21,9 @@ class AddressStoreController extends Controller
     {
         $validatedData = $request->validated();
 
+        $user_id = $request->user()->id;
+        $validatedData['user_id'] = $user_id;
+
         $address = Address::create($validatedData);
 
         return $this->response(['address' => $address], 'Адресс успешно создан!');

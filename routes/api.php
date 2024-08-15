@@ -110,6 +110,15 @@ Route::group(['prefix' => '/cart'], function () {
     });
 });
 
+Route::group(['prefix' => '/address'], function () {
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::post('/index', \App\Http\Controllers\Address\AddressIndexController::class);
+        Route::post('/delete/{id}', \App\Http\Controllers\Address\AddressDestroyController::class);
+        Route::post('/update', \App\Http\Controllers\Address\AddressUpdateController::class);
+        Route::post('/store', \App\Http\Controllers\Address\AddressStoreController::class);
+    });
+});
+
 Route::group(['prefix' => '/desktop-banner'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::post('/update', \App\Http\Controllers\DesktopBanner\DesktopBannerUpdateController::class);
