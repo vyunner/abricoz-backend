@@ -104,6 +104,12 @@ Route::group(['prefix' => '/sub-category'], function () {
     Route::get('/show/{id}', \App\Http\Controllers\SubCategory\SubCategoryShowController::class);
 });
 
+Route::group(['prefix' => '/sub-category'], function () {
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::post('/check', \App\Http\Controllers\Cart\CartCheckController::class);
+    });
+});
+
 Route::group(['prefix' => '/desktop-banner'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::post('/update', \App\Http\Controllers\DesktopBanner\DesktopBannerUpdateController::class);
