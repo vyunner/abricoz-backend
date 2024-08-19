@@ -28,6 +28,7 @@ class AddressStoreRequest extends FormRequest
             'address_apartment' => 'required|string',
             'address_entrance' => 'required|string',
             'address_floor' => 'required|string',
+            'address_comment' => 'nullable|string',
         ];
     }
 }

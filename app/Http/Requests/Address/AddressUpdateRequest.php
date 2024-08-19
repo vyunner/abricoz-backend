@@ -28,6 +28,7 @@ class AddressUpdateRequest extends FormRequest
             'address_apartment' => 'nullable|string',
             'address_entrance' => 'nullable|string',
             'address_floor' => 'nullable|string',
+            'address_comment' => 'nullable|string',
         ];
     }
 }
