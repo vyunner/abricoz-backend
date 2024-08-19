@@ -4,7 +4,7 @@ namespace App\Http\Requests\DeliveryInterval;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeliveryIntervalStoreRequest extends FormRequest
+class DeliveryIntervalIndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class DeliveryIntervalStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
+            'delivery_date' => 'nullable|date',
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\DeliveryInterval;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DeliveryInterval\DeliveryIntervalIndexRequest;
 use App\Models\DeliveryInterval;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -14,37 +15,26 @@ class DeliveryIntervalIndexController extends Controller
 {
     /**
      * Список
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param DeliveryIntervalIndexRequest $request
+     * @return mixed
      */
-    public function __invoke(Request $request)
+    public function __invoke(DeliveryIntervalIndexRequest $request)
     {
         $current_time = Carbon::now();
         $intervals = DeliveryInterval::all();
 
-        foreach ($intervals as $interval) {
+        $available_intervals = $intervals->filter(function ($interval) use ($current_time) {
             $time_range = explode(' - ', $interval->name);
             $start_time = Carbon::createFromFormat('H:i', $time_range[0]);
             $end_time = Carbon::createFromFormat('H:i', $time_range[1]);
 
-            if ($current_time->gte($start_time)) {
-                // Если текущее время больше или равно времени начала, интервал неактивен
-                $interval->is_active = 0;
-            } else {
-                // Если текущее время меньше времени начала, интервал активен
-                $interval->is_active = 1;
-            }
+            // Return true if the current time is not within the interval
+            return !($current_time->between($start_time, $end_time));
+        });
 
-            $interval->save();
-        }
-
-        // Получаем только активные интервалы
-        $active_intervals = DeliveryInterval::where('is_active', 1)->get();
-
-        return response()->json([
-            'message' => 'Список временных интервалов успешно загружен!',
-            'data' => $active_intervals,
+        return $this->response([
+            'delivery_intervals' => $available_intervals->values(),
             'current_time' => $current_time->toDateTimeString()
-        ]);
+        ], 'Список временных интервалов успешно загружен!');
     }
 }

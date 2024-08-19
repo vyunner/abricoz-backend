@@ -23,7 +23,6 @@ class DeliveryIntervalUpdateRequest extends FormRequest
     {
         return [
             'name' => 'nullable|string',
-            'is_active' => 'nullable|boolean'
         ];
     }
 }
