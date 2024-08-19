@@ -15,6 +15,7 @@ class AddressSeeder extends Seeder
     public function run(): void
     {
         Address::create([
+            'user_id' => 1,
             'city_id' => 1, // Допустим, это ID города Нью-Йорк
             'district_id' => 1, // Например, это ID района Манхэттен
             'address_street_and_house' => '123 Main St', // Реальный адрес улицы
