@@ -114,7 +114,7 @@ Route::group(['prefix' => '/address'], function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/index', \App\Http\Controllers\Address\AddressIndexController::class);
         Route::delete('/delete/{id}', \App\Http\Controllers\Address\AddressDestroyController::class);
-        Route::post('/update/${id}', \App\Http\Controllers\Address\AddressUpdateController::class);
+        Route::post('/update/{id}', \App\Http\Controllers\Address\AddressUpdateController::class);
         Route::post('/store', \App\Http\Controllers\Address\AddressStoreController::class);
     });
 });
