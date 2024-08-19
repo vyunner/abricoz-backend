@@ -25,7 +25,7 @@ class OrderStoreRequest extends FormRequest
             'delivery_interval_id' => 'required|int|exists:delivery_intervals,id',
             'payment_type_id' => 'required|int|exists:payment_types,id',
             'address_id' => 'required|int|exists:addresses,id',
-            'delivery_date' => 'required|date',
+            'delivery_date' => 'nullable|date',
 
             'products' => 'required|array',
             'products.*.product_id' => 'required|int|exists:products,id',
