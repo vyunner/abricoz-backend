@@ -22,8 +22,8 @@ class AddressUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'city_id' => 'required|exists:cities,id',
-            'district_id' => 'required|exists:districts,id',
+            'city_id' => 'required|int|exists:cities,id',
+            'district_id' => 'required|int|exists:districts,id',
             'address_street_and_house' => 'nullable|string',
             'address_apartment' => 'nullable|string',
             'address_entrance' => 'nullable|string',
