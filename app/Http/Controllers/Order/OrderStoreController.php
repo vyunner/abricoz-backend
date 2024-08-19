@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Order;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\OrderStoreRequest;
 use App\Models\Address;
-use App\Models\Cart;
 use App\Models\DeliveryInterval;
-use App\Models\District;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
@@ -107,6 +105,9 @@ class OrderStoreController extends Controller
                 'order_products' => $order->orderProducts->map(function ($orderProduct) {
                     return [
                         'product_id' => $orderProduct->product_id,
+                        'name_ru' => $orderProduct->product->name_ru,
+                        'name_en' => $orderProduct->product->name_en,
+                        'name_kz' => $orderProduct->product->name_kz,
                         'price' => $orderProduct->product_price,
                         'price_with_discount' => $orderProduct->product_price_with_discount,
                         'weight' => $orderProduct->product->weight
