@@ -28,8 +28,8 @@ class DeliveryIntervalIndexController extends Controller
             $start_time = Carbon::createFromFormat('H:i', $time_range[0]);
             $end_time = Carbon::createFromFormat('H:i', $time_range[1]);
 
-            // Return true if the current time is not within the interval
-            return !($current_time->between($start_time, $end_time));
+            // Exclude intervals that have already passed or are within the current time
+            return $current_time->lt($start_time);
         });
 
         return $this->response([
