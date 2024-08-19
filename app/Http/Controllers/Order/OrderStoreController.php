@@ -95,6 +95,12 @@ class OrderStoreController extends Controller
                 'total_price' => $productsPrice, // Например, только сумма продуктов, можно добавить доставку
             ]);
 
+            $order->load('products');
+            $order->load('orderStatus');
+            $order->load('deliveryInterval');
+            $order->load('paymentType');
+            $order->load('orderProducts');
+
             // Фиксируем транзакцию
             DB::commit();
 
