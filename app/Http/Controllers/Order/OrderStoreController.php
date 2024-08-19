@@ -95,16 +95,29 @@ class OrderStoreController extends Controller
                 'total_price' => $productsPrice, // Например, только сумма продуктов, можно добавить доставку
             ]);
 
-            $order->load('products');
-            $order->load('orderStatus');
-            $order->load('deliveryInterval');
-            $order->load('paymentType');
-            $order->load('orderProducts');
+            // Загружаем необходимые связи
+            $order->load('orderStatus', 'paymentType', 'orderProducts.product');
+
+            // Подготавливаем данные для ответа
+            $response = [
+                'order_id' => $order->id,
+                'payment_type' => $order->paymentType->name,
+                'total_price' => $order->total_price,
+                'order_status' => $order->orderStatus->name,
+                'order_products' => $order->orderProducts->map(function ($orderProduct) {
+                    return [
+                        'product_id' => $orderProduct->product_id,
+                        'price' => $orderProduct->product_price,
+                        'price_with_discount' => $orderProduct->product_price_with_discount,
+                        'weight' => $orderProduct->product->weight
+                    ];
+                }),
+            ];
 
             // Фиксируем транзакцию
             DB::commit();
 
-            return $this->response($order, 'Заказ успешно создан!');
+            return $this->response($response, 'Заказ успешно создан!');
 
         } catch (\Exception $e) {
             // Откатываем транзакцию в случае ошибки
