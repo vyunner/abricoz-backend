@@ -10,6 +10,7 @@ use App\Models\DeliveryInterval;
 use App\Models\District;
 use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
