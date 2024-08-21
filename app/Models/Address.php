@@ -12,4 +12,10 @@ class Address extends Model
     protected $table = 'addresses';
 
     protected $guarded = [];
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
 }

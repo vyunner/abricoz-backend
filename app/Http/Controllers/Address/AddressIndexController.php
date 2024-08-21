@@ -20,7 +20,8 @@ class   AddressIndexController extends Controller
     {
         $user_id = $request->user()->id;
 
-        $addresses = Address::where('user_id', $user_id)->get();
+        $addresses = Address::where('user_id', $user_id)->with(['district'])->get();
+
 
         return $this->response(['addresses' => $addresses], 'Список адрессов успешно загружен!');
     }
