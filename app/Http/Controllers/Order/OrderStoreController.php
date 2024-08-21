@@ -105,7 +105,7 @@ class OrderStoreController extends Controller
                 'order_products' => $order->orderProducts->map(function ($orderProduct) {
                     return [
                         'product_id' => $orderProduct->product_id,
-                        'photo_url' => $orderProduct,
+                        'photo_url' => $orderProduct->product->photo_url,
                         'name_ru' => $orderProduct->product->name_ru,
                         'name_en' => $orderProduct->product->name_en,
                         'name_kz' => $orderProduct->product->name_kz,
