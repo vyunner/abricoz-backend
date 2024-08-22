@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->text('address_apartment');
             $table->text('address_entrance');
             $table->text('address_floor');
-            $table->text('address_comment');
+            $table->text('address_comment')->nullable();
             $table->timestamps();
         });
     }
