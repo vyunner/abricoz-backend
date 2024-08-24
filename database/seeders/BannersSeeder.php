@@ -40,21 +40,17 @@ class BannersSeeder extends Seeder
         ]);
 
         MobileBanner::create([
-            'image_url_ru' => '/storage/mobile-banners/strawberry_ru.jpeg',
-            'image_url_kz' => '/storage/mobile-banners/strawberry_kz.jpeg',
-            'image_url_en' => '/storage/mobile-banners/strawberry_en.jpeg',
+            'image_url' => '/storage/mobile-banners/strawberry_ru.jpeg',
             'title_ru' => 'Заказывайте клубнику в новом приложении от Abricoz!',
-            'title_en' => 'Заказывайте клубнику в новом приложении от Abricoz!',
-            'title_kz' => 'Заказывайте клубнику в новом приложении от Abricoz!',
+            'title_en' => 'Order strawberries in the new Abricoz app!',
+            'title_kz' => 'Abricoz жаңа қосымшасында құлпынайға тапсырыс беріңіз!',
             'number' => '1'
         ]);
         MobileBanner::create([
-            'image_url_ru' => '/storage/mobile-banners/mandarin_ru.jpeg',
-            'image_url_kz' => '/storage/mobile-banners/mandarin_kz.jpeg',
-            'image_url_en' => '/storage/mobile-banners/mandarin_en.jpeg',
+            'image_url' => '/storage/mobile-banners/mandarin_ru.jpeg',
             'title_ru' => 'Одинокий мандарин требует покупки на Abricoz’е!',
-            'title_en' => 'Одинокий мандарин требует покупки на Abricoz’е!',
-            'title_kz' => 'Одинокий мандарин требует покупки на Abricoz’е!',
+            'title_en' => 'A lonely mandarin demands a purchase on Abricoz',
+            'title_kz' => 'Abricoz-та жалғыз мандарин сатып алуды талап етеді!',
             'number' => '2'
         ]);
     }
