@@ -76,6 +76,7 @@ class ProductIndexController extends Controller
             $response = [
                 'current_page' => $products->currentPage(),
                 'total' => $products->total(),
+                'total_pages' => $products->lastPage(),
                 'min_price' => $minPrice,
                 'max_price' => $maxPrice,
                 'products' => $products->items(),

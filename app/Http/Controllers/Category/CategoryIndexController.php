@@ -28,6 +28,7 @@ class CategoryIndexController extends Controller
             return $this->response([
                 'current_page' => $categories->currentPage(),
                 'total' => $categories->total(),
+                'total_pages' => $categories->lastPage(),
                 'categories' => $categories->items(),
             ], 'Список категорий успешно загружен!');
         }
