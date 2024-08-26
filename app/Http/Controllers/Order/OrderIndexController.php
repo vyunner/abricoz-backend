@@ -38,6 +38,7 @@ class OrderIndexController extends Controller
             $response = [
                 'current_page' => $orders->currentPage(),
                 'total' => $orders->total(),
+                'total_pages' => $orders->lastPage(),
                 'orders' => $orders->items(),
             ];
         } else {

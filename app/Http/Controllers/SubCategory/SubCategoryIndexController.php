@@ -28,6 +28,7 @@ class SubCategoryIndexController extends Controller
             return $this->response([
                 'current_page' => $subCategory->currentPage(),
                 'total' => $subCategory->total(),
+                'total_pages' => $subCategory->lastPage(),
                 'subCategory' => $subCategory->items(),
             ], 'Список подкатегорий успешно загружен!');
         }
