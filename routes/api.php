@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => '/auth'], function () {
     Route::post('/code', \App\Http\Controllers\Auth\AuthCodeController::class);
     Route::post('/login', \App\Http\Controllers\Auth\AuthLoginController::class);
+    Route::post('/admin-code', \App\Http\Controllers\Auth\AuthAdminCodeController::class);
+    Route::post('/admin-login', \App\Http\Controllers\Auth\AuthAdminLoginController::class);
 });
 
 Route::group(['prefix' => '/brand'], function () {

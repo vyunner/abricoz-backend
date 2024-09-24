@@ -7,8 +7,6 @@ use App\Interfaces\MobizonServiceInterface;
 use Illuminate\Http\Request;
 use App\Http\Requests\Auth\AuthCodeRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use App\Services\MobizonService;
 use Carbon\Carbon;
 
 /**
@@ -33,18 +31,19 @@ class AuthCodeController extends Controller
         //TODO $code = mt_rand(100000, 999999);
         $code = 123456;
 
-        $user = User::firstOrCreate([
-            'phone' => $data['phone']
-        ], [
-            'phone_verification_code' => $code,
-            'phone_verification_code_expires_at' => Carbon::now()->addMinutes(5),
-        ]);
+        $user = User::updateOrCreate(
+            ['phone' => $data['phone']],
+            [
+                'phone_verification_code' => $code,
+                'phone_verification_code_expires_at' => Carbon::now()->addMinutes(5),
+            ]
+        );
 
         $recipient = $data['phone'];
         $text = 'Спасибо за регистрацию на abricoz.kz! Ваш код подтверждения: ' . $code;
 
         //TODO Работает!!! Отправка смс
-//         $response = $this->mobizonService->sendSmsMessage($recipient, $text);
+        // $response = $this->mobizonService->sendSmsMessage($recipient, $text);
 
         $userData = $user->toArray();
         unset($userData['phone_verification_code']);
