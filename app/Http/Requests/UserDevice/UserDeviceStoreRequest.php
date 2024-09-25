@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\SubCategory;
+namespace App\Http\Requests\UserDevice;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubCategoryUpdateRequest extends FormRequest
+class UserDeviceStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,8 @@ class SubCategoryUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => 'nullable|int|exists:categories,id',
-            'image' => 'nullable|image|max:10000',
-            'name_ru' => 'nullable|string',
-            'name_kz' => 'nullable|string',
-            'name_en' => 'nullable|string',
+            'device_id' => 'required|string',
+            'fcm_token' => 'required|string',
         ];
     }
 }
