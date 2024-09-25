@@ -162,3 +162,9 @@ Route::group(['prefix' => '/district'], function () {
 Route::group(['prefix' => '/city'], function () {
     Route::get('/index', \App\Http\Controllers\City\CityIndexController::class);
 });
+
+Route::group(['prefix' => '/user-device'], function () {
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::post('/store', \App\Http\Controllers\UserDevice\UserDeviceStoreController::class);
+    });
+});
