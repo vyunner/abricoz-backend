@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+
 class FirebaseNotificationService
 {
     private function getServiceAccountCredentials($app)
@@ -24,7 +27,7 @@ class FirebaseNotificationService
     private function createJwt($credentials)
     {
         $now = time();
-        $exp = $now + 3600; // Токен действителен 1 час
+        $exp = $now + 3600;
 
         $payload = [
             'iss' => $credentials['client_email'],
@@ -46,7 +49,7 @@ class FirebaseNotificationService
         $signingInput = implode('.', $segments);
 
         $signature = '';
-        openssl_sign($signingInput, $signature, $credentials['private_key'], 'SHA256');
+        openssl_sign($signingInput, $signature, $credentials['private_key'], OPENSSL_ALGO_SHA256);
 
         $segments[] = $this->urlsafeB64Encode($signature);
 
@@ -58,8 +61,16 @@ class FirebaseNotificationService
         return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
     }
 
-    private function getAccessToken($jwt, $credentials)
+    private function getAccessToken($credentials)
     {
+        $cacheKey = 'firebase_access_token_' . md5($credentials['client_email']);
+
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
+
+        $jwt = $this->createJwt($credentials);
+
         $postFields = http_build_query([
             'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
             'assertion' => $jwt,
@@ -78,11 +89,11 @@ class FirebaseNotificationService
         }
 
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
         if ($httpCode !== 200) {
             throw new \Exception("Failed to get access token: HTTP $httpCode - $result");
         }
-
-        curl_close($ch);
 
         $response = json_decode($result, true);
 
@@ -90,14 +101,44 @@ class FirebaseNotificationService
             throw new \Exception('Access token not found in response.');
         }
 
-        return $response['access_token'];
+        $accessToken = $response['access_token'];
+
+        Cache::put($cacheKey, $accessToken, now()->addMinutes(55));
+
+        return $accessToken;
+    }
+
+    private function makeCurlRequest($url, $headers, $postData)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+
+        $result = curl_exec($ch);
+
+        if ($result === false) {
+            $error = curl_error($ch);
+            curl_close($ch);
+            throw new \Exception('Failed to send notification: ' . $error);
+        }
+
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        return [
+            'http_code' => $httpCode,
+            'result' => $result,
+        ];
     }
 
     public function sendNotification($app, $deviceToken, $messageData)
     {
         $credentials = $this->getServiceAccountCredentials($app);
-        $jwt = $this->createJwt($credentials);
-        $accessToken = $this->getAccessToken($jwt, $credentials);
+        $accessToken = $this->getAccessToken($credentials);
 
         $url = 'https://fcm.googleapis.com/v1/projects/' . $credentials['project_id'] . '/messages:send';
 
@@ -117,43 +158,39 @@ class FirebaseNotificationService
             ],
         ];
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Отключить проверку SSL сертификата для тестирования
-        curl_setopt($ch, CURLOPT_VERBOSE, true); // Включить подробный вывод
+        $maxRetries = 3;
+        $retryCount = 0;
+        $retryDelay = 1;
 
-        $verboseLog = fopen('php://temp', 'w+');
-        curl_setopt($ch, CURLOPT_STDERR, $verboseLog);
+        do {
+            $response = $this->makeCurlRequest($url, $headers, $postData);
 
-        $result = curl_exec($ch);
+            if ($response['http_code'] === 200) {
+                return json_decode($response['result'], true);
+            } elseif (in_array($response['http_code'], [500, 502, 503, 504])) {
+                sleep($retryDelay);
+                $retryDelay *= 2;
+                $retryCount++;
+            } elseif ($response['http_code'] === 401 || $response['http_code'] === 403) {
+                $cacheKey = 'firebase_access_token_' . md5($credentials['client_email']);
+                Cache::forget($cacheKey);
+                $accessToken = $this->getAccessToken($credentials);
+                $headers['Authorization'] = 'Bearer ' . $accessToken;
+                $retryCount++;
+            } else {
+                $responseData = json_decode($response['result'], true);
+                $errorMessage = $responseData['error']['message'] ?? 'Unknown error';
 
-        // Записываем подробный лог
-        rewind($verboseLog);
-        $verboseOutput = stream_get_contents($verboseLog);
-        \Log::info('cURL verbose output: ' . $verboseOutput);
+                Log::error('Failed to send notification', [
+                    'http_code' => $response['http_code'],
+                    'response' => $response['result'],
+                    'attempt' => $retryCount + 1,
+                ]);
 
-        if ($result === false) {
-            $error = curl_error($ch);
-            curl_close($ch);
-            throw new \Exception('Failed to send notification: ' . $error);
-        }
+                throw new \Exception("Failed to send notification: {$errorMessage}");
+            }
+        } while ($retryCount < $maxRetries);
 
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        \Log::info('FCM Response', [
-            'http_code' => $httpCode,
-            'response' => $result,
-        ]);
-
-        if ($httpCode !== 200) {
-            throw new \Exception("Failed to send notification: HTTP $httpCode - $result");
-        }
-
-        return json_decode($result, true);
+        throw new \Exception('Failed to send notification after multiple attempts.');
     }
 }
