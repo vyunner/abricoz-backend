@@ -49,7 +49,7 @@ class OrderStoreController extends Controller
             // Создаем заказ с учетом адресных полей
             $order = Order::create([
                 'user_id' => $user_id,
-                'order_status_id' => 1, // Например, статус "новый"
+                'order_status_id' => 2, // Например, статус "новый"
                 'delivery_interval_id' => $validatedData['delivery_interval_id'],
                 'payment_type_id' => $validatedData['payment_type_id'],
                 'city_id' => $address->city_id,
