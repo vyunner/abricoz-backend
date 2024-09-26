@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Notification;
 
+use App\Http\Controllers\Controller;
 use App\Services\NotificationService;
 use Illuminate\Http\Request;
 
