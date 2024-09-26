@@ -27,6 +27,7 @@ class NotificationController extends Controller
         if ($result) {
             return response()->json(['message' => 'Уведомление успешно отправлено']);
         } else {
+            \Log::error('Ошибка при отправке уведомления для токена: ' . $fcmToken);
             return response()->json(['message' => 'Ошибка при отправке уведомления'], 500);
         }
     }
