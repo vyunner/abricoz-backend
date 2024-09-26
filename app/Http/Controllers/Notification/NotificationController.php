@@ -30,22 +30,9 @@ class NotificationController extends Controller
                     ],
                 ]
             );
-
-<<<<<<< HEAD
-        $result = $this->notificationService->sendNotification($fcmToken, $title, $body, $data);
-
-        if ($result) {
-            return response()->json(['message' => 'Уведомление успешно отправлено']);
-        } else {
-            \Log::error('Ошибка при отправке уведомления для токена: ' . $fcmToken);
-            return response()->json(['message' => 'Ошибка при отправке уведомления'], 500);
-=======
-            // Обработка успешного ответа
-            dd($response);
+            return($response);
         } catch (\Exception $e) {
-            // Обработка ошибок
-            dd($e->getMessage());
->>>>>>> 1242a3c2c0fed2377ef7d3e97ea42b369ee6ac6f
+            \Log::error($e->getMessage());
         }
     }
 }
