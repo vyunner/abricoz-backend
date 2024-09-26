@@ -103,7 +103,7 @@ class FirebaseNotificationService
 
         $headers = [
             'Authorization: Bearer ' . $accessToken,
-            'Content-Type: application/json',
+            'Content-Type: application/json; UTF-8',
         ];
 
         $postData = [
@@ -123,19 +123,36 @@ class FirebaseNotificationService
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Отключить проверку SSL сертификата для тестирования
+        curl_setopt($ch, CURLOPT_VERBOSE, true); // Включить подробный вывод
+
+        $verboseLog = fopen('php://temp', 'w+');
+        curl_setopt($ch, CURLOPT_STDERR, $verboseLog);
 
         $result = curl_exec($ch);
 
+        // Записываем подробный лог
+        rewind($verboseLog);
+        $verboseOutput = stream_get_contents($verboseLog);
+        \Log::info('cURL verbose output: ' . $verboseOutput);
+
         if ($result === false) {
-            throw new \Exception('Failed to send notification: ' . curl_error($ch));
+            $error = curl_error($ch);
+            curl_close($ch);
+            throw new \Exception('Failed to send notification: ' . $error);
         }
 
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        \Log::info('FCM Response', [
+            'http_code' => $httpCode,
+            'response' => $result,
+        ]);
+
         if ($httpCode !== 200) {
             throw new \Exception("Failed to send notification: HTTP $httpCode - $result");
         }
-
-        curl_close($ch);
 
         return json_decode($result, true);
     }
