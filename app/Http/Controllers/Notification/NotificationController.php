@@ -30,12 +30,9 @@ class NotificationController extends Controller
                     ],
                 ]
             );
-
-            // Обработка успешного ответа
-            dd($response);
+            return($response);
         } catch (\Exception $e) {
-            // Обработка ошибок
-            dd($e->getMessage());
+            \Log::error($e->getMessage());
         }
     }
 }
