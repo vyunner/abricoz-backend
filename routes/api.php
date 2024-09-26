@@ -168,3 +168,9 @@ Route::group(['prefix' => '/user-device'], function () {
         Route::post('/store', \App\Http\Controllers\UserDevice\UserDeviceStoreController::class);
     });
 });
+
+Route::group(['prefix' => '/notification'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+        Route::post('/send', \App\Http\Controllers\Notification\NotificationController::class);
+    });
+});
