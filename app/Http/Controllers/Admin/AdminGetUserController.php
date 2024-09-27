@@ -28,6 +28,8 @@ class AdminGetUserController extends Controller
             return $this->response(null, 'Пользователь не найден', 404);
         }
 
+        $user['roles'] = $user->getRoleNames();
+
         return $this->response($user, 'Пользователь успешно получен!');
     }
 }
