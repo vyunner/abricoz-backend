@@ -180,5 +180,6 @@ Route::group(['prefix' => '/admin'], function () {
         Route::get('/get-roles', \App\Http\Controllers\Admin\AdminGetRolesController::class);
         Route::post('/set-roles', \App\Http\Controllers\Admin\AdminSetRolesController::class);
         Route::get('/get-user', \App\Http\Controllers\Admin\AdminGetUserController::class);
+        Route::get('/get-users-with-roles', \App\Http\Controllers\Admin\AdminGetUsersWithRolesController::class);
     });
 });
