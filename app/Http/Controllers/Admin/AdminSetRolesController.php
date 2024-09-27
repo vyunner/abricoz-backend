@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminSetRolesRequest;
-use App\Http\Requests\Auth\AuthAdminCodeRequest;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 /**
  * @group Admin
@@ -22,9 +21,16 @@ class AdminSetRolesController extends Controller
     public function __invoke(AdminSetRolesRequest $request)
     {
         $data = $request->validated();
-        // $code = mt_rand(100000, 999999);
-        $code = 123456;
 
-        return $this->response($userData, 'Код успешно отправлен!');
+        // Находим пользователя по ID
+        $user = User::findOrFail($data['user_id']);
+
+        // Получаем роли по их ID
+        $roles = Role::whereIn('id', $data['roles_ids'])->get();
+
+        // Синхронизируем роли пользователя
+        $user->syncRoles($roles);
+
+        return $this->response(null, 'Роли успешно обновлены!');
     }
 }
