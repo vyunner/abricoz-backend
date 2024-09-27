@@ -174,3 +174,11 @@ Route::group(['prefix' => '/notification'], function () {
         Route::post('/send', \App\Http\Controllers\Notification\NotificationController::class);
     });
 });
+
+Route::group(['prefix' => '/admin'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+        Route::get('/get-roles', \App\Http\Controllers\Admin\AdminGetRolesController::class);
+        Route::post('/set-roles', \App\Http\Controllers\Admin\AdminSetRolesController::class);
+        Route::get('/get-user', \App\Http\Controllers\Admin\AdminGetUserController::class);
+    });
+});
