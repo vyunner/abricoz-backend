@@ -9,6 +9,7 @@ use App\Models\DeliveryInterval;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Services\FirebaseNotificationService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -17,6 +18,13 @@ use Illuminate\Support\Facades\DB;
  */
 class OrderStoreController extends Controller
 {
+    protected $firebaseNotificationService;
+
+    public function __construct(FirebaseNotificationService $firebaseNotificationService)
+    {
+        $this->firebaseNotificationService = $firebaseNotificationService;
+    }
+
     /**
      * Создание
      * @param OrderStoreRequest $request
@@ -119,8 +127,20 @@ class OrderStoreController extends Controller
             // Фиксируем транзакцию
             DB::commit();
 
-            return $this->response($response, 'Заказ успешно создан!');
+            $this->firebaseNotificationService->sendNotification(
+                'app1', // Идентификатор приложения ('app1' или 'app2')
+                '', // Токен устройства получателя
+                [
+                    'title' => 'Соберите заказ!',
+                    'body' => '',
+                    'data' => [
+                        'key1' => 'value1',
+                        'key2' => 'value2',
+                    ],
+                ]
+            );
 
+            return $this->response($response, 'Заказ успешно создан!');
         } catch (\Exception $e) {
             // Откатываем транзакцию в случае ошибки
             DB::rollBack();
