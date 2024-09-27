@@ -23,8 +23,8 @@ class AdminSetRolesRequest extends FormRequest
     {
         return [
             'user_id' => 'int|required|exists:users,id',
-            'roles_ids' => 'array|required',
-            'roles_ids.*' => 'int|exists:roles,id',
+            'role_ids' => 'array|required',
+            'role_ids.*' => 'int|exists:roles,id',
         ];
     }
 }

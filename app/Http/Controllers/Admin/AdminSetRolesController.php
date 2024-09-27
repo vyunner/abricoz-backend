@@ -26,7 +26,7 @@ class AdminSetRolesController extends Controller
         $user = User::findOrFail($data['user_id']);
 
         // Получаем роли по их ID
-        $roles = Role::whereIn('id', $data['roles_ids'])->get();
+        $roles = Role::whereIn('id', $data['role_ids'])->get();
 
         // Синхронизируем роли пользователя
         $user->syncRoles($roles);
