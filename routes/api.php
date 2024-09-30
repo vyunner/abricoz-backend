@@ -20,7 +20,10 @@ Route::group(['prefix' => '/auth'], function () {
     Route::post('/login', \App\Http\Controllers\Auth\AuthLoginController::class);
     Route::post('/admin-code', \App\Http\Controllers\Auth\AuthAdminCodeController::class);
     Route::post('/admin-login', \App\Http\Controllers\Auth\AuthAdminLoginController::class);
-    Route::post('/set-name', \App\Http\Controllers\Auth\AuthSetNameController::class);
+
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::post('/set-name', \App\Http\Controllers\Auth\AuthSetNameController::class);
+    });
 });
 
 Route::group(['prefix' => '/brand'], function () {
