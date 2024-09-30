@@ -189,5 +189,5 @@ Route::group(['prefix' => '/admin'], function () {
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
-    Route::get('/test', \App\Http\Controllers\Test\TestController::class);
+    Route::post('/test', \App\Http\Controllers\Test\TestController::class);
 });
