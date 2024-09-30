@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->foreignId('country_id')->constrained('countries');
             $table->foreignId('brand_id')->constrained('brands')->nullable();
             $table->string('photo_url')->nullable();
+            $table->string('where')->nullable();
             $table->string('name_ru');
             $table->string('name_kz');
             $table->string('name_en');
