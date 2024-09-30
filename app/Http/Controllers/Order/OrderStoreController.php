@@ -161,6 +161,7 @@ class OrderStoreController extends Controller
         } catch (\Exception $e) {
             // Откатываем транзакцию в случае ошибки
             DB::rollBack();
+            \Log::error($e->getMessage());
             return $this->response(null, 'Ошибка при создании заказа.', 500);
         }
     }
