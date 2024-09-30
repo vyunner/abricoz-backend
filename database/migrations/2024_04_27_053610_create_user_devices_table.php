@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('fcm_token')->nullable();
+            $table->string('staff_fcm_token')->nullable();
             $table->string('device_id')->nullable();
             $table->timestamps();
         });

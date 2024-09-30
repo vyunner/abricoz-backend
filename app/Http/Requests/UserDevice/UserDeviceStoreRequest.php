@@ -23,7 +23,8 @@ class UserDeviceStoreRequest extends FormRequest
     {
         return [
             'device_id' => 'required|string',
-            'fcm_token' => 'required|string',
+            'fcm_token' => 'nullable|string',
+            'staff_fcm_token' => 'nullable|string',
         ];
     }
 }
