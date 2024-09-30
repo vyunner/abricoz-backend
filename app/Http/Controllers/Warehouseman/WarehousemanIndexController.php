@@ -20,10 +20,13 @@ class WarehousemanIndexController extends Controller
     public function __invoke(Request $request)
     {
         $orders = Order::whereIn('order_status_id', [1, 2])
-            ->with('deliveryInterval:id,name')
+            ->with([
+                'deliveryInterval:id,name',
+                'orderStatus:id,name'
+            ])
             ->orderBy('delivery_date', 'asc')
             ->orderBy('delivery_interval_id', 'asc')
-            ->get(['id', 'delivery_date', 'delivery_interval_id']);
+            ->get(['id', 'delivery_date', 'delivery_interval_id', 'order_status_id']);
 
         // Трансформируем коллекцию заказов
         $transformedOrders = $orders->map(function ($order) {
@@ -31,6 +34,7 @@ class WarehousemanIndexController extends Controller
                 'id' => $order->id,
                 'delivery_date' => $order->delivery_date,
                 'delivery_interval_name' => $order->deliveryInterval->name,
+                'order_status_name' => $order->orderStatus->name,
             ];
         });
 
