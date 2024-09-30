@@ -37,22 +37,6 @@ class WarehousemanIndexController extends Controller
         // Заменяем коллекцию в пагинаторе на преобразованную
         $orders->setCollection($transformedOrders);
 
-        // Выберите один из следующих вариантов возврата:
-
-        // Вариант 1: Возврат только данных заказов без метаданных пагинации
-        // return $this->response($orders->items(), 'Список заказов с статусом 1 и 2');
-
-        // Вариант 2: Возврат данных заказов с метаданными пагинации
-        return $this->response([
-            'data' => $orders->items(),
-            'pagination' => [
-                'current_page' => $orders->currentPage(),
-                'last_page' => $orders->lastPage(),
-                'per_page' => $orders->perPage(),
-                'total' => $orders->total(),
-                'next_page_url' => $orders->nextPageUrl(),
-                'prev_page_url' => $orders->previousPageUrl(),
-            ],
-        ], 'Список заказов с статусом 1 и 2');
+         return $this->response($orders->items(), 'Список заказов с статусом 1 и 2');
     }
 }
