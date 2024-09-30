@@ -32,6 +32,8 @@ class AuthSetNameController extends Controller
 
         $user->save();
 
+        $user['roles'] = $user->getRoleNames();
+
         return $this->response(['user' => $user], 'Имя и фамилия успешно обновлены!');
     }
 }
