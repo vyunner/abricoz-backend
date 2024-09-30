@@ -13,11 +13,11 @@ class OrderSatusesSeeder extends Seeder
      */
     public function run(): void
     {
-        OrderStatus::create(['name' => 'Отменен']);
         OrderStatus::create(['name' => 'В обработке']);
         OrderStatus::create(['name' => 'Собирается']);
         OrderStatus::create(['name' => 'Ожидает курьера']);
         OrderStatus::create(['name' => 'В пути']);
         OrderStatus::create(['name' => 'Доставлен']);
+        OrderStatus::create(['name' => 'Отменен']);
     }
 }

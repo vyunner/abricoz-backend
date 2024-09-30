@@ -61,7 +61,7 @@ class OrderStoreController extends Controller
             // Создаем заказ с учетом адресных полей
             $order = Order::create([
                 'user_id' => $user_id,
-                'order_status_id' => 2, // Например, статус "новый"
+                'order_status_id' => 1, // Например, статус "новый"
                 'delivery_interval_id' => $validatedData['delivery_interval_id'],
                 'payment_type_id' => $validatedData['payment_type_id'],
                 'city_id' => $address->city_id,
@@ -147,10 +147,10 @@ class OrderStoreController extends Controller
                         $device->staff_fcm_token, // Токен устройства
                         [
                             'title' => 'Соберите заказ!',
-                            'body' => '',
+                            'body' => 'Нажмите чтобы перейти в карточку заказа',
                             'data' => [
-                                'key1' => 'value1',
-                                'key2' => 'value2',
+                                'order_id' => $order->id,
+                                'order_status_id' => $order->order_status_id,
                             ],
                         ]
                     );
