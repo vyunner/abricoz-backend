@@ -149,8 +149,8 @@ class OrderStoreController extends Controller
                             'title' => 'Соберите заказ!',
                             'body' => 'Нажмите чтобы перейти в карточку заказа',
                             'data' => [
-                                'order_id' => $order->id,
-                                'order_status_id' => $order->order_status_id,
+                                'order_id' => (string)$order->id,
+                                'order_status_id' => (string)$order->order_status_id,
                             ],
                         ]
                     );
