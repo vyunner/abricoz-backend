@@ -193,6 +193,7 @@ Route::group(['prefix' => '/warehouseman'], function () {
         Route::get('/index', \App\Http\Controllers\Warehouseman\WarehousemanIndexController::class);
         Route::get('/show/{id}', \App\Http\Controllers\Warehouseman\WarehousemanShowController::class);
         Route::post('/accept', \App\Http\Controllers\Warehouseman\WarehousemanAcceptController::class);
+        Route::post('/complete', \App\Http\Controllers\Warehouseman\WarehousemanCompleteController::class);
     });
 });
 
