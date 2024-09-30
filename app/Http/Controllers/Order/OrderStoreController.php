@@ -9,9 +9,13 @@ use App\Models\DeliveryInterval;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Models\UserDevice;
 use App\Services\FirebaseNotificationService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use App\Models\User;
 
 /**
  * @group Order
@@ -127,18 +131,31 @@ class OrderStoreController extends Controller
             // Фиксируем транзакцию
             DB::commit();
 
-            $this->firebaseNotificationService->sendNotification(
-                'app1', // Идентификатор приложения ('app1' или 'app2')
-                '', // Токен устройства получателя
-                [
-                    'title' => 'Соберите заказ!',
-                    'body' => '',
-                    'data' => [
-                        'key1' => 'value1',
-                        'key2' => 'value2',
-                    ],
-                ]
-            );
+            // Получаем всех пользователей с ролью warehouseman
+            $warehousemen = User::role('warehouseman')->get();
+
+            foreach ($warehousemen as $warehouseman) {
+                // Получаем устройства пользователя с FCM токенами
+                $userDevices = UserDevice::where('user_id', $warehouseman->id)
+                    ->whereNotNull('staff_fcm_token')
+                    ->get();
+
+                foreach ($userDevices as $device) {
+                    // Отправляем уведомление на каждый FCM токен
+                    $this->firebaseNotificationService->sendNotification(
+                        'app2', // Идентификатор приложения ('app1' или 'app2')
+                        $device->staff_fcm_token, // Токен устройства
+                        [
+                            'title' => 'Соберите заказ!',
+                            'body' => '',
+                            'data' => [
+                                'key1' => 'value1',
+                                'key2' => 'value2',
+                            ],
+                        ]
+                    );
+                }
+            }
 
             return $this->response($response, 'Заказ успешно создан!');
         } catch (\Exception $e) {

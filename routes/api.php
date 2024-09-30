@@ -187,3 +187,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::get('/get-users-with-roles', \App\Http\Controllers\Admin\AdminGetUsersWithRolesController::class);
     });
 });
+
+Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+    Route::get('/test', \App\Http\Controllers\Test\TestController::class);
+});
