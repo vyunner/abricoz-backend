@@ -22,10 +22,11 @@ class WarehousemanIndexController extends Controller
         $orders = Order::whereIn('order_status_id', [1, 2])
             ->with('deliveryInterval:id,name')
             ->orderBy('delivery_date', 'asc')
-            ->orderBy('delivery_interval_id', 'asc');
+            ->orderBy('delivery_interval_id', 'asc')
+            ->get(['id', 'delivery_date', 'delivery_interval_id']);
 
-        // Преобразуем коллекцию заказов
-        $transformedOrders = $orders->getCollection()->transform(function ($order) {
+        // Трансформируем коллекцию заказов
+        $transformedOrders = $orders->map(function ($order) {
             return [
                 'id' => $order->id,
                 'delivery_date' => $order->delivery_date,
@@ -33,9 +34,6 @@ class WarehousemanIndexController extends Controller
             ];
         });
 
-        // Заменяем коллекцию в пагинаторе на преобразованную
-        $orders->setCollection($transformedOrders);
-
-        return $this->response($orders->items(), 'Список заказов с статусом 1 и 2');
+        return $this->response($transformedOrders, 'Список заказов с статусом 1 и 2');
     }
 }
