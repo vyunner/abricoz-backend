@@ -18,42 +18,25 @@ class WarehousemanIndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $orders = Order::whereIn('order_status_id', [1, 2])
-            ->with([
-                'deliveryInterval:id,name',
-                'orderStatus:id,name'
-            ])
-            ->orderBy('delivery_date', 'asc')
-            ->orderBy('delivery_interval_id', 'asc')
-            ->select([
-                'id',
-                'delivery_date',
-                'delivery_interval_id',
-                'order_status_id',
-            ])
-            ->addSelect([
-                'fullname' => function ($query) {
-                    $query->select(DB::raw("CONCAT(users.firstname, ' ', users.lastname)"))
-                        ->from('users')
-                        ->join('order_assignments', 'users.id', '=', 'order_assignments.user_id')
-                        ->whereColumn('order_assignments.order_id', 'orders.id')
-                        ->where('order_assignments.role_id', 2)
-                        ->limit(1);
-                }
-            ])
-            ->get();
+        $orders = Order::from('orders')
+            ->leftJoin('order_assignments', function ($join) {
+                $join->on('orders.id', '=', 'order_assignments.order_id')
+                    ->where('order_assignments.role_id', 2);
+            })
+            ->leftJoin('users', 'order_assignments.user_id', '=', 'users.id')
+            ->whereIn('orders.order_status_id', [1, 2])
+            ->leftJoin('delivery_intervals', 'orders.delivery_interval_id', '=', 'delivery_intervals.id')
+            ->leftJoin('order_statuses', 'orders.order_status_id', '=', 'order_statuses.id')
+            ->orderBy('orders.delivery_date', 'asc')
+            ->orderBy('orders.delivery_interval_id', 'asc')
+            ->get([
+                'orders.id',
+                'orders.delivery_date',
+                'delivery_intervals.name as delivery_interval_name',
+                'order_statuses.name as order_status_name',
+                DB::raw("CONCAT(users.firstname, ' ', users.lastname) as fullname"),
+            ]);
 
-        // Трансформируем коллекцию заказов
-        $transformedOrders = $orders->map(function ($order) {
-            return [
-                'id' => $order->id,
-                'delivery_date' => $order->delivery_date,
-                'delivery_interval_name' => $order->deliveryInterval->name,
-                'order_status_name' => $order->orderStatus->name,
-                'fullname' => $order->fullname,
-            ];
-        });
-
-        return $this->response($transformedOrders, 'Список заказов со статусом 1 и 2');
+        return $this->response($orders, 'Список заказов со статусом 1 и 2');
     }
 }
