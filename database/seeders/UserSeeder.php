@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $user = User::create([
-            'phone' => '77026207447',
+            'phone' => '+77026207447',
             'firstname' => 'Вячеслав',
             'lastname' => 'Цой',
             'phone_verification_code' => '123456',

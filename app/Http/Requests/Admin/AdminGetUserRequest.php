@@ -22,7 +22,7 @@ class AdminGetUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => 'int|required'
+            'phone' => 'string|required'
         ];
     }
 }
