@@ -23,28 +23,35 @@ class UserDeviceStoreController extends Controller
     public function __invoke(UserDeviceStoreRequest $request)
     {
         $validatedData = $request->validated();
-
         $user_id = $request->user()->id;
-        $device_id = $validatedData['device_id']; // Предполагается, что device_id присутствует в запросе
+        $device_id = $validatedData['device_id'];
 
         // Ищем устройство по device_id
         $userDevice = UserDevice::where('device_id', $device_id)->first();
 
         if ($userDevice) {
-            // Если устройство найдено, обновляем fcm_token
-            $userDevice->update([
-                'fcm_token' => $validatedData['fcm_token'],
-                'user_id' => $user_id, // Возможно, вы захотите обновить и user_id
-            ]);
+            // Если устройство найдено, обновляем fcm_token и/или staff_fcm_token
+            $updateData = [
+                'user_id' => $user_id, // Возможно, требуется обновление user_id
+            ];
 
-            $message = 'FCM токен успешно обновлен!';
+            if (!empty($validatedData['fcm_token'])) {
+                $updateData['fcm_token'] = $validatedData['fcm_token'];
+            }
+
+            if (!empty($validatedData['staff_fcm_token'])) {
+                $updateData['staff_fcm_token'] = $validatedData['staff_fcm_token'];
+            }
+
+            $userDevice->update($updateData);
+            $message = 'Данные устройства успешно обновлены!';
         } else {
             // Если устройство не найдено, создаем новую запись
             $userDevice = UserDevice::create([
                 'user_id' => $user_id,
                 'device_id' => $device_id,
-                'fcm_token' => $validatedData['fcm_token'],
-                // Добавьте другие поля, если они есть
+                'fcm_token' => $validatedData['fcm_token'] ?? null,
+                'staff_fcm_token' => $validatedData['staff_fcm_token'] ?? null,
             ]);
 
             $message = 'Устройство успешно зарегистрировано!';
