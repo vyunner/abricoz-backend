@@ -25,7 +25,8 @@ class WarehousemanIndexController extends Controller
             ->orderBy('delivery_interval_id', 'asc')
             ->paginate(15, ['id', 'delivery_date', 'delivery_interval_id']);
 
-        $orders->getCollection()->transform(function ($order) {
+        // Преобразуем коллекцию заказов
+        $transformedOrders = $orders->getCollection()->transform(function ($order) {
             return [
                 'id' => $order->id,
                 'delivery_date' => $order->delivery_date,
@@ -33,6 +34,23 @@ class WarehousemanIndexController extends Controller
             ];
         });
 
-        return $this->response($orders, 'Список заказов с статусом 1 и 2');
+        // Заменяем коллекцию в пагинаторе на преобразованную
+        $orders->setCollection($transformedOrders);
+
+        // Если вы хотите вернуть только данные заказов без метаданных пагинации:
+        return $this->response($orders->items(), 'Список заказов с статусом 1 и 2');
+
+        // Если вам нужны метаданные пагинации, но вы хотите изменить структуру ответа:
+        return $this->response([
+            'data' => $orders->items(),
+            'pagination' => [
+                'current_page' => $orders->currentPage(),
+                'last_page' => $orders->lastPage(),
+                'per_page' => $orders->perPage(),
+                'total' => $orders->total(),
+                'next_page_url' => $orders->nextPageUrl(),
+                'prev_page_url' => $orders->previousPageUrl(),
+            ],
+        ], 'Список заказов с статусом 1 и 2');
     }
 }
