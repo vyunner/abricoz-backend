@@ -42,4 +42,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderProduct::class);
     }
+
+    public function assignments()
+    {
+        return $this->hasMany(OrderAssignment::class, 'order_id');
+    }
 }
