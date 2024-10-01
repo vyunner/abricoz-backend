@@ -31,6 +31,7 @@ class WarehousemanIndexController extends Controller
             ->orderBy('orders.delivery_interval_id', 'asc')
             ->get([
                 'orders.id',
+                'orders.order_status_id',
                 'orders.delivery_date',
                 'delivery_intervals.name as delivery_interval_name',
                 'order_statuses.name as order_status_name',
