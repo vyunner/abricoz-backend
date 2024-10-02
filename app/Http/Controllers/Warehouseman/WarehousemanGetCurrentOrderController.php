@@ -71,6 +71,7 @@ class WarehousemanGetCurrentOrderController extends Controller
 
         // Prepare the data
         $data = [
+            'order_id' => $order->id,
             'delivery_date' => $order->delivery_date,
             'delivery_interval_name' => $order->deliveryInterval->name,
             'address' => $address,
