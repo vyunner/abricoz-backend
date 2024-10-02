@@ -74,13 +74,13 @@ class WarehousemanShowController extends Controller
 
         // Формируем итоговый массив данных
         $data = [
+            'fullname' => $fullname,
             'order_id' => $order->id,
             'order_status_id' => $order->order_status_id,
             'delivery_date' => $order->delivery_date,
             'delivery_interval_name' => $order->deliveryInterval->name,
             'address' => $address,
             'products' => $products,
-            'fullname' => $fullname,
         ];
 
         return $this->response($data, 'Заказ успешно отображен');
