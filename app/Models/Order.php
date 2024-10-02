@@ -47,4 +47,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderAssignment::class, 'order_id');
     }
+
+    public function warehousemanAssignment()
+    {
+        return $this->hasOne(OrderAssignment::class, 'order_id')->where('role_id', 2);
+    }
 }
