@@ -28,10 +28,12 @@ class WarehousemanShowController extends Controller
                 $query->select('id', 'name_ru', 'weight', 'where');
             },
             'deliveryInterval:id,name',
+            'warehousemanAssignment.user:id,firstname,lastname',
         ])->findOrFail($id, [
             'id',
             'delivery_date',
             'delivery_interval_id',
+            'order_status_id',
             'address_street_and_house',
             'address_apartment',
             'address_entrance',
@@ -64,12 +66,21 @@ class WarehousemanShowController extends Controller
             ];
         })->all();
 
+        // Получаем fullname сотрудника
+        $fullname = null;
+        if ($order->warehousemanAssignment && $order->warehousemanAssignment->user) {
+            $fullname = $order->warehousemanAssignment->user->firstname . ' ' . $order->warehousemanAssignment->user->lastname;
+        }
+
         // Формируем итоговый массив данных
         $data = [
+            'order_id' => $order->id,
+            'order_status_id' => $order->order_status_id,
             'delivery_date' => $order->delivery_date,
             'delivery_interval_name' => $order->deliveryInterval->name,
             'address' => $address,
             'products' => $products,
+            'fullname' => $fullname,
         ];
 
         return $this->response($data, 'Заказ успешно отображен');
