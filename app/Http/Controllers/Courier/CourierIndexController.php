@@ -26,7 +26,7 @@ class CourierIndexController extends Controller
                     ->where('order_assignments.role_id', 3);
             })
             ->leftJoin('users', 'order_assignments.user_id', '=', 'users.id')
-            ->where('orders.order_status_id', 3) // "Ожидает курьера"
+            ->whereIn('orders.order_status_id', [3, 4]) // "Ожидает курьера"
             ->leftJoin('delivery_intervals', 'orders.delivery_interval_id', '=', 'delivery_intervals.id')
             ->leftJoin('order_statuses', 'orders.order_status_id', '=', 'order_statuses.id')
             ->orderBy('orders.delivery_date', 'asc')
