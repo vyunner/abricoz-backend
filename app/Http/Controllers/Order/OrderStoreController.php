@@ -22,7 +22,7 @@ use App\Models\User;
  */
 class OrderStoreController extends Controller
 {
-    protected $firebaseNotificationService;
+    protected FirebaseNotificationService $firebaseNotificationService;
 
     public function __construct(FirebaseNotificationService $firebaseNotificationService)
     {
@@ -146,8 +146,8 @@ class OrderStoreController extends Controller
                         'app2', // Идентификатор приложения ('app1' или 'app2')
                         $device->staff_fcm_token, // Токен устройства
                         [
-                            'title' => 'Соберите заказ!',
-                            'body' => 'Нажмите чтобы перейти в карточку заказа',
+                            'title' => 'Уведомление складмену',
+                            'body' => 'Соберите заказ!',
                             'data' => [
                                 'order_id' => (string)$order->id,
                                 'order_status_id' => (string)$order->order_status_id,

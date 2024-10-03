@@ -52,4 +52,9 @@ class Order extends Model
     {
         return $this->hasOne(OrderAssignment::class, 'order_id')->where('role_id', 2);
     }
+
+    public function courierAssignment()
+    {
+        return $this->hasOne(OrderAssignment::class)->where('role_id', 3);
+    }
 }
