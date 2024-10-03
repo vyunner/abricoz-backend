@@ -51,7 +51,8 @@ class WarehousemanCompleteController extends Controller
             'order_status_id' => 3,
         ]);
 
-        $couriers = User::role('warehouseman')->get();
+        // ИЗМЕНЕНИЕ ЗДЕСЬ: выбираем курьеров вместо складских работников
+        $couriers = User::role('courier')->get();
 
         foreach ($couriers as $courier) {
             // Получаем устройства пользователя с FCM токенами
@@ -60,19 +61,26 @@ class WarehousemanCompleteController extends Controller
                 ->get();
 
             foreach ($userDevices as $device) {
-                // Отправляем уведомление на каждый FCM токен
-                $this->firebaseNotificationService->sendNotification(
-                    'app2', // Идентификатор приложения ('app1' или 'app2')
-                    $device->staff_fcm_token, // Токен устройства
-                    [
-                        'title' => 'Уведомление курьеру',
-                        'body' => 'Заберите заказ!',
-                        'data' => [
-                            'order_id' => (string)$orderId,
-                            'order_status_id' => '3',
-                        ],
-                    ]
-                );
+                if (!empty($device->staff_fcm_token)) {
+                    try {
+                        // Отправляем уведомление на каждый FCM токен
+                        $this->firebaseNotificationService->sendNotification(
+                            'app2', // Идентификатор приложения ('app1' или 'app2')
+                            $device->staff_fcm_token, // Токен устройства
+                            [
+                                'title' => 'Уведомление курьеру',
+                                'body' => 'Заберите заказ!',
+                                'data' => [
+                                    'order_id' => (string)$orderId,
+                                    'order_status_id' => '3',
+                                ],
+                            ]
+                        );
+                    } catch (\Exception $e) {
+                        // Логирование ошибки и продолжение цикла
+                        \Log::error('Ошибка при отправке уведомления курьеру ID ' . $courier->id . ': ' . $e->getMessage());
+                    }
+                }
             }
         }
 
