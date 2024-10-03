@@ -62,11 +62,13 @@ class WarehousemanCompleteController extends Controller
 
             foreach ($userDevices as $device) {
                 if (!empty($device->staff_fcm_token)) {
+                    // Логируем токен, чтобы увидеть сколько раз на одно и то же устройство отправляется уведомление
+                    \Log::info('Sending notification to staff_fcm_token: ' . $device->staff_fcm_token . ' for device_id: ' . $device->device_id);
+
                     try {
-                        // Отправляем уведомление на каждый FCM токен
                         $this->firebaseNotificationService->sendNotification(
-                            'app2', // Идентификатор приложения ('app1' или 'app2')
-                            $device->staff_fcm_token, // Токен устройства
+                            'app2',
+                            $device->staff_fcm_token,
                             [
                                 'title' => 'Уведомление курьеру',
                                 'body' => 'Заберите заказ!',
@@ -77,8 +79,7 @@ class WarehousemanCompleteController extends Controller
                             ]
                         );
                     } catch (\Exception $e) {
-                        // Логирование ошибки и продолжение цикла
-                        \Log::error('Ошибка при отправке уведомления курьеру ID ' . $courier->id . ': ' . $e->getMessage());
+                        \Log::error('Ошибка при отправке уведомления на токен ' . $device->staff_fcm_token . ': ' . $e->getMessage());
                     }
                 }
             }
