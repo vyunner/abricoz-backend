@@ -5,10 +5,20 @@ namespace App\Http\Controllers\Warehouseman;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Warehouseman\WarehousemanCompleteRequest;
 use App\Models\Order;
+use App\Models\User;
+use App\Models\UserDevice;
+use App\Services\FirebaseNotificationService;
 use Illuminate\Http\Request;
 
 class WarehousemanCompleteController extends Controller
 {
+    protected FirebaseNotificationService $firebaseNotificationService;
+
+    public function __construct(FirebaseNotificationService $firebaseNotificationService)
+    {
+        $this->firebaseNotificationService = $firebaseNotificationService;
+    }
+
     /**
      * Завершение заказа складским работником
      * @param WarehousemanCompleteRequest $request
@@ -40,6 +50,31 @@ class WarehousemanCompleteController extends Controller
         $orderAssigned->update([
             'order_status_id' => 3,
         ]);
+
+        $couriers = User::role('warehouseman')->get();
+
+        foreach ($couriers as $courier) {
+            // Получаем устройства пользователя с FCM токенами
+            $userDevices = UserDevice::where('user_id', $courier->id)
+                ->whereNotNull('staff_fcm_token')
+                ->get();
+
+            foreach ($userDevices as $device) {
+                // Отправляем уведомление на каждый FCM токен
+                $this->firebaseNotificationService->sendNotification(
+                    'app2', // Идентификатор приложения ('app1' или 'app2')
+                    $device->staff_fcm_token, // Токен устройства
+                    [
+                        'title' => 'Уведомление курьеру',
+                        'body' => 'Заберите заказ!',
+                        'data' => [
+                            'order_id' => (string)$orderId,
+                            'order_status_id' => '3',
+                        ],
+                    ]
+                );
+            }
+        }
 
         return $this->response([], 'Заказ успешно завершен.');
     }

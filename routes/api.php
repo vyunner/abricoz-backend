@@ -198,6 +198,16 @@ Route::group(['prefix' => '/warehouseman'], function () {
     });
 });
 
+Route::group(['prefix' => '/courier'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin|courier']], function () {
+        Route::get('/index', \App\Http\Controllers\Courier\CourierIndexController::class);
+        Route::get('/show/{id}', \App\Http\Controllers\Courier\CourierShowController::class);
+        Route::post('/accept', \App\Http\Controllers\Courier\CourierAcceptController::class);
+        Route::post('/complete', \App\Http\Controllers\Courier\CourierCompleteController::class);
+        Route::get('/get-current-order', \App\Http\Controllers\Courier\CourierGetCurrentOrderController::class);
+    });
+});
+
 Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
     Route::post('/test', \App\Http\Controllers\Test\TestController::class);
 });
