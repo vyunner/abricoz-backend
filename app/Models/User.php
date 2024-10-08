@@ -49,4 +49,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(OrderAssignment::class);
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_assignments', 'user_id', 'order_id')
+            ->where('role_id', 3) // Айди роли курьера
+            ->distinct();
+    }
 }
