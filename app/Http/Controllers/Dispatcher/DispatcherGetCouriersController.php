@@ -22,6 +22,17 @@ class DispatcherGetCouriersController extends Controller
             }])
             ->get(['id', 'firstname', 'lastname', 'phone']);
 
-        return $this->response($couriers, 'Список курьеров получен', 200);
+        // Формируем массив курьеров с необходимыми полями
+        $couriersArray = $couriers->map(function ($courier) {
+            return [
+                'id' => $courier->id,
+                'firstname' => $courier->firstname,
+                'lastname' => $courier->lastname,
+                'phone' => $courier->phone,
+                'orders_count' => $courier->orders_count,
+            ];
+        });
+
+        return $this->response($couriersArray, 'Список курьеров получен', 200);
     }
 }
