@@ -44,12 +44,8 @@ class DispatcherGetAssignedOrdersController extends Controller
                     return [
                         'id' => $order->id,
                         'order_status_id' => $order->order_status_id,
-                        'OrderStatus' => [
-                            'name' => $order->orderStatus->name,
-                        ],
-                        'City' => [
-                            'name' => $order->city->name,
-                        ],
+                        'order_status_name' => $order->orderStatus->name,
+                        'city_name' => $order->city->name,
                         'address_street_and_house' => $order->address_street_and_house,
                         'address_apartment' => $order->address_apartment,
                         'address_entrance' => $order->address_entrance,
@@ -64,7 +60,7 @@ class DispatcherGetAssignedOrdersController extends Controller
                             ];
                         }),
                     ];
-                }),
+                })->values(),
             ];
         });
 

@@ -29,25 +29,17 @@ class DispatcherGetUnassignedOrdersController extends Controller
         $ordersArray = $orders->map(function ($order) {
             return [
                 'id' => $order->id,
-                'User' => [
-                    'phone' => $order->user->phone,
-                ],
-                'City' => [
-                    'name' => $order->city->name,
-                ],
+                'phone' => $order->user->phone,
+                'city_name' => $order->city->name,
                 'address_street_and_house' => $order->address_street_and_house,
                 'address_apartment' => $order->address_apartment,
                 'address_entrance' => $order->address_entrance,
                 'address_floor' => $order->address_floor,
                 'address_comment' => $order->address_comment,
                 'delivery_date' => $order->delivery_date,
-                'DeliveryInterval' => [
-                    'name' => $order->deliveryInterval->name,
-                ],
+                'delivery_interval_name' => $order->deliveryInterval->name,
                 'order_status_id' => $order->order_status_id,
-                'OrderStatus' => [
-                    'name' => $order->orderStatus->name,
-                ],
+                'order_status_name' => $order->orderStatus->name,
                 'products' => $order->products->map(function ($product) {
                     return [
                         'id' => $product->id,

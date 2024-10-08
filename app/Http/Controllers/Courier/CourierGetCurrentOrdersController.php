@@ -13,6 +13,11 @@ class CourierGetCurrentOrdersController extends Controller
     {
         $courier = Auth::user();
 
+        // Проверяем, что пользователь имеет роль курьера
+        if (!$courier->hasRole('courier')) {
+            return $this->response(null, 'Доступ запрещен', 403);
+        }
+
         // Получаем заказы, назначенные этому курьеру, со статусами 1, 2, 3, 4
         $orders = Order::whereIn('order_status_id', [1, 2, 3, 4])
             ->whereHas('assignments', function ($query) use ($courier) {
@@ -40,26 +45,18 @@ class CourierGetCurrentOrdersController extends Controller
             return [
                 'id' => $order->id,
                 'order_status_id' => $order->order_status_id,
-                'User' => [
-                    'phone' => $order->user->phone,
-                    'firstname' => $order->user->firstname,
-                    'lastname' => $order->user->lastname,
-                ],
-                'DeliveryInterval' => [
-                    'name' => $order->deliveryInterval->name,
-                ],
-                'City' => [
-                    'name' => $order->city->name,
-                ],
+                'phone' => $order->user->phone,
+                'firstname' => $order->user->firstname,
+                'lastname' => $order->user->lastname,
+                'delivery_interval_name' => $order->deliveryInterval->name,
+                'city_name' => $order->city->name,
                 'address_street_and_house' => $order->address_street_and_house,
                 'address_apartment' => $order->address_apartment,
                 'address_entrance' => $order->address_entrance,
                 'address_floor' => $order->address_floor,
                 'address_comment' => $order->address_comment,
                 'delivery_date' => $order->delivery_date,
-                'OrderStatus' => [
-                    'name' => $order->orderStatus->name,
-                ],
+                'order_status_name' => $order->orderStatus->name,
                 'products' => $order->products->map(function ($product) {
                     return [
                         'id' => $product->id,
