@@ -200,11 +200,18 @@ Route::group(['prefix' => '/warehouseman'], function () {
 
 Route::group(['prefix' => '/courier'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin|courier']], function () {
-        Route::get('/index', \App\Http\Controllers\Courier\CourierIndexController::class);
-        Route::get('/show/{id}', \App\Http\Controllers\Courier\CourierShowController::class);
-        Route::post('/accept', \App\Http\Controllers\Courier\CourierAcceptController::class);
-        Route::post('/complete', \App\Http\Controllers\Courier\CourierCompleteController::class);
-        Route::get('/get-current-order', \App\Http\Controllers\Courier\CourierGetCurrentOrderController::class);
+        Route::get('/get-current-orders', \App\Http\Controllers\Courier\CourierGetCurrentOrdersController::class);
+    });
+});
+
+
+Route::group(['prefix' => '/dispatcher'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin|dispatcher']], function () {
+        Route::get('/get-unassigned-orders', \App\Http\Controllers\Dispatcher\DispatcherGetUnassignedOrdersController::class);
+        Route::get('/get-assigned-orders', \App\Http\Controllers\Dispatcher\DispatcherGetAssignedOrdersController::class);
+        Route::get('/get-couriers', \App\Http\Controllers\Dispatcher\DispatcherGetCouriersController::class);
+        Route::post('/assign-orders', \App\Http\Controllers\Dispatcher\DispatcherAssignOrdersController::class);
+        Route::post('/unassign-orders', \App\Http\Controllers\Dispatcher\DispatcherUnassignOrdersController::class);
     });
 });
 
