@@ -7,6 +7,7 @@ use App\Http\Requests\Dispatcher\DispatcherAssignOrderRequest;
 use Illuminate\Support\Facades\DB;
 use App\Models\OrderAssignment;
 use App\Models\User;
+use App\Models\Order;
 
 class DispatcherAssignOrdersController extends Controller
 {
@@ -23,12 +24,28 @@ class DispatcherAssignOrdersController extends Controller
                 $orderId = $item['order_id'];
                 $userId = $item['user_id'];
 
-                // Проверяем, что пользователь имеет роль курьера
+                // Проверяем, что пользователь существует и имеет роль курьера
                 $user = User::find($userId);
                 if (!$user || !$user->hasRole('courier')) {
                     DB::rollBack();
                     return $this->response(null, "Пользователь ID $userId не является курьером", 400);
                 }
+
+                // Проверяем, что заказ существует и не имеет статус доставленного
+                $order = Order::find($orderId);
+                if (!$order) {
+                    DB::rollBack();
+                    return $this->response(null, "Заказ ID $orderId не найден", 404);
+                }
+
+                // Статусы
+                $invalidStatuses = [5, 6];
+
+                if (in_array($order->order_status_id, $invalidStatuses)) {
+                    DB::rollBack();
+                    return $this->response(null, "Нельзя назначить курьера на заказ ID $orderId со статусом {$order->order_status_id}", 400);
+                }
+
 
                 // Проверяем, что заказ не назначен другому курьеру
                 $existingAssignment = OrderAssignment::where('order_id', $orderId)
