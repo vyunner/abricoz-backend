@@ -3,24 +3,31 @@
 namespace App\Http\Controllers\Dispatcher;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Dispatcher\DispatcherUnassignOrderRequest;
 use App\Models\OrderAssignment;
 
 class DispatcherUnassignOrdersController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(DispatcherUnassignOrderRequest $request)
     {
-        $validated = $request->validate([
-            'order_id' => 'required|exists:orders,id',
-            'courier_id' => 'required|exists:users,id',
-        ]);
+        $data = $request->validated();
 
-        // Удаляем назначение заказа курьеру
-        OrderAssignment::where('order_id', $validated['order_id'])
-            ->where('user_id', $validated['courier_id'])
-            ->where('role_id', 3) // Айди роли курьера
-            ->delete();
+        $userId = $data['user_id'];
+        $orderIds = $data['order_ids'];
 
-        return response()->json(['message' => 'Заказ успешно снят с курьера']);
+        foreach ($orderIds as $orderId) {
+            $assignment = OrderAssignment::where('order_id', $orderId)
+                ->where('user_id', $userId)
+                ->where('role_id', 3) // Айди роли курьера
+                ->first();
+
+            if (!$assignment) {
+                return $this->response(null, "Назначение заказа ID $orderId на курьера ID $userId не найдено", 400);
+            }
+
+            $assignment->delete();
+        }
+
+        return $this->response(null, 'Заказы успешно сняты с курьера', 200);
     }
 }

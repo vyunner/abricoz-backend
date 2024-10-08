@@ -201,6 +201,7 @@ Route::group(['prefix' => '/warehouseman'], function () {
 Route::group(['prefix' => '/courier'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin|courier']], function () {
         Route::get('/get-current-orders', \App\Http\Controllers\Courier\CourierGetCurrentOrdersController::class);
+        Route::post('/complete-order', \App\Http\Controllers\Courier\CourierCompleteOrderController::class);
     });
 });
 

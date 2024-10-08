@@ -3,26 +3,25 @@
 namespace App\Http\Controllers\Dispatcher;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
 
 class DispatcherGetCouriersController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke()
     {
         $courierRoleId = 3; // Айди роли курьера
 
-        // Получаем всех курьеров
         $couriers = User::whereHas('roles', function ($query) use ($courierRoleId) {
             $query->where('id', $courierRoleId);
         })
             ->withCount(['assignments as orders_count' => function ($query) {
                 $query->whereHas('order', function ($query) {
                     $query->whereIn('order_status_id', [1, 2, 3, 4]);
-                });
+                })
+                    ->where('role_id', 3); // Айди роли курьера
             }])
-            ->get();
+            ->get(['id', 'firstname', 'lastname', 'phone']);
 
-        return response()->json($couriers);
+        return $this->response($couriers, 'Список курьеров получен', 200);
     }
 }
