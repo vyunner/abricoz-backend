@@ -14,21 +14,16 @@ class DispatcherGetAssignedOrdersController extends Controller
         $couriers = User::whereHas('roles', function ($query) use ($courierRoleId) {
             $query->where('id', $courierRoleId);
         })
-            ->with(['assignments' => function ($query) {
-                $query->whereHas('order', function ($query) {
-                    $query->whereIn('order_status_id', [1, 2, 3, 4]);
-                })
-                    ->where('role_id', 3)
-                    ->with(['order' => function ($query) {
-                        $query->with([
-                            'orderStatus:id,name',
-                            'city:id,name',
-                            'products' => function ($query) {
-                                $query->select('products.id', 'name_ru', 'weight')
-                                    ->withPivot('product_quantity');
-                            }
-                        ]);
-                    }]);
+            ->with(['orders' => function ($query) {
+                $query->whereIn('order_status_id', [1, 2, 3, 4])
+                    ->with([
+                        'orderStatus:id,name',
+                        'city:id,name',
+                        'products' => function ($query) {
+                            $query->select('products.id', 'name_ru', 'weight')
+                                ->withPivot('product_quantity');
+                        }
+                    ]);
             }])
             ->get(['id', 'firstname', 'lastname', 'phone']);
 
@@ -39,8 +34,7 @@ class DispatcherGetAssignedOrdersController extends Controller
                 'firstname' => $courier->firstname,
                 'lastname' => $courier->lastname,
                 'phone' => $courier->phone,
-                'orders' => $courier->assignments->map(function ($assignment) {
-                    $order = $assignment->order;
+                'orders' => $courier->orders->map(function ($order) {
                     return [
                         'id' => $order->id,
                         'order_status_id' => $order->order_status_id,
