@@ -14,9 +14,9 @@ class DispatcherAssignOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'order_user_ids' => 'required|array|min:1',
-            'order_user_ids.*.order_id' => 'required|exists:orders,id',
-            'order_user_ids.*.user_id' => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id', // проверяем наличие и существование user_id
+            'order_ids' => 'required|array|min:1', // проверяем, что передан массив order_ids
+            'order_ids.*' => 'required|exists:orders,id', // проверяем, что каждый элемент массива существует
         ];
     }
 }
