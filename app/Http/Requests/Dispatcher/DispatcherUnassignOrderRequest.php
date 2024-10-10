@@ -15,9 +15,9 @@ class DispatcherUnassignOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|exists:users,id',
-            'order_ids' => 'required|array|min:1',
-            'order_ids.*' => 'required|exists:orders,id',
+            'order_user_ids' => 'required|array|min:1', // Ожидаем массив объектов
+            'order_user_ids.*.user_id' => 'required|exists:users,id', // Проверяем, что каждый user_id существует
+            'order_user_ids.*.order_id' => 'required|exists:orders,id', // Проверяем, что каждый order_id существует
         ];
     }
 }
