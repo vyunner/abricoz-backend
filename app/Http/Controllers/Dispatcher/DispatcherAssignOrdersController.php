@@ -19,18 +19,18 @@ class DispatcherAssignOrdersController extends Controller
 
         try {
             $assignments = [];
+            $userId = $data['user_id']; // получаем user_id
+            $orderIds = $data['order_ids']; // получаем массив order_ids
 
-            foreach ($data['order_user_ids'] as $item) {
-                $orderId = $item['order_id'];
-                $userId = $item['user_id'];
+            // Проверяем, что пользователь существует и имеет роль курьера
+            $user = User::find($userId);
+            if (!$user || !$user->hasRole('courier')) {
+                DB::rollBack();
+                return $this->response(null, "Пользователь ID $userId не является курьером", 400);
+            }
 
-                // Проверяем, что пользователь существует и имеет роль курьера
-                $user = User::find($userId);
-                if (!$user || !$user->hasRole('courier')) {
-                    DB::rollBack();
-                    return $this->response(null, "Пользователь ID $userId не является курьером", 400);
-                }
-
+            // Проходим по каждому заказу
+            foreach ($orderIds as $orderId) {
                 // Проверяем, что заказ существует и не имеет статус доставленного
                 $order = Order::find($orderId);
                 if (!$order) {
@@ -38,7 +38,7 @@ class DispatcherAssignOrdersController extends Controller
                     return $this->response(null, "Заказ ID $orderId не найден", 404);
                 }
 
-                // Статусы
+                // Статусы, при которых нельзя назначить курьера
                 $invalidStatuses = [5, 6];
 
                 if (in_array($order->order_status_id, $invalidStatuses)) {
@@ -46,10 +46,9 @@ class DispatcherAssignOrdersController extends Controller
                     return $this->response(null, "Нельзя назначить курьера на заказ ID $orderId со статусом {$order->order_status_id}", 400);
                 }
 
-
                 // Проверяем, что заказ не назначен другому курьеру
                 $existingAssignment = OrderAssignment::where('order_id', $orderId)
-                    ->where('role_id', 3)
+                    ->where('role_id', 3) // роль курьера
                     ->first();
 
                 if ($existingAssignment) {
@@ -69,7 +68,7 @@ class DispatcherAssignOrdersController extends Controller
 
             DB::commit();
 
-            return $this->response($assignments, 'Заказы успешно назначены курьерам', 200);
+            return $this->response($assignments, 'Заказы успешно назначены курьеру', 200);
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->response(null, 'Произошла ошибка при назначении заказов', 500);
