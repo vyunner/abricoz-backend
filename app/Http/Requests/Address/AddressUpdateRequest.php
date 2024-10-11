@@ -29,6 +29,8 @@ class AddressUpdateRequest extends FormRequest
             'address_entrance' => 'nullable|string',
             'address_floor' => 'nullable|string',
             'address_comment' => 'nullable|string',
+            'longitude' => 'nullable|string',
+            'latitude' => 'nullable|string',
         ];
     }
 }

@@ -22,7 +22,6 @@ class   AddressIndexController extends Controller
 
         $addresses = Address::where('user_id', $user_id)->with(['district'])->get();
 
-
         return $this->response(['addresses' => $addresses], 'Список адрессов успешно загружен!');
     }
 }
