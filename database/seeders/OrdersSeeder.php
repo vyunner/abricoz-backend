@@ -27,6 +27,8 @@ class OrdersSeeder extends Seeder
                 'address_entrance' => '2',
                 'address_floor' => '3',
                 'address_comment' => 'Код от домофона 2580, второй подъезд, на третьем этаже.',
+                'longitude' => '57.189045',
+                'latitude' => '50.281586',
                 'delivery_date' => Carbon::now(),
             ],
             [
@@ -40,6 +42,8 @@ class OrdersSeeder extends Seeder
                 'address_entrance' => '1',
                 'address_floor' => '2',
                 'address_comment' => 'Дом за магазином “Жибек Жолы”, парковка сзади. Позвоните, когда приедете.',
+                'longitude' => '57.189045',
+                'latitude' => '50.281586',
                 'delivery_date' => Carbon::now(),
             ],
             [
@@ -53,6 +57,8 @@ class OrdersSeeder extends Seeder
                 'address_entrance' => '1',
                 'address_floor' => '1',
                 'address_comment' => 'Белый забор, третий дом от угла. Собака во дворе не кусается.',
+                'longitude' => '57.189045',
+                'latitude' => '50.281586',
                 'delivery_date' => Carbon::now(),
             ],
             [
@@ -66,6 +72,8 @@ class OrdersSeeder extends Seeder
                 'address_entrance' => '3',
                 'address_floor' => '5',
                 'address_comment' => 'Подъезд с кодовым замком, код 3344. Звоните на мобильный при прибытии.',
+                'longitude' => '57.189045',
+                'latitude' => '50.281586',
                 'delivery_date' => Carbon::now(),
             ],
             [
@@ -79,6 +87,8 @@ class OrdersSeeder extends Seeder
                 'address_entrance' => '4',
                 'address_floor' => '7',
                 'address_comment' => 'Офисный центр "Глобус", вход со стороны улицы. Охранник проводит.',
+                'longitude' => '57.189045',
+                'latitude' => '50.281586',
                 'delivery_date' => Carbon::now(),
             ],
         ];

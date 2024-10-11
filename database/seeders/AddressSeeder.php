@@ -21,7 +21,9 @@ class AddressSeeder extends Seeder
             'address_apartment' => 'Apt 4B', // Реальная квартира
             'address_entrance' => 'Entrance B', // Реальный вход
             'address_floor' => '4', // Реальный этаж
-            'address_comment' => 'Please ring the doorbell labeled "Smith".' // Реальный комментарий
+            'address_comment' => 'Please ring the doorbell labeled "Smith".', // Реальный комментарий
+            'longitude' => '57.189045',
+            'latitude' => '50.281586',
         ]);
     }
 }
