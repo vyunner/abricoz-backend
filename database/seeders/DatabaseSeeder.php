@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             FavoriteProductsSeeder::class,
             BannersSeeder::class,
             AddressSeeder::class,
+            PointsSeeder::class,
         ]);
     }
 }
