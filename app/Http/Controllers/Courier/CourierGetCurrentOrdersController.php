@@ -55,6 +55,7 @@ class CourierGetCurrentOrdersController extends Controller
                 'address_entrance' => $order->address_entrance,
                 'address_floor' => $order->address_floor,
                 'address_comment' => $order->address_comment,
+                '2gis_url' => "https://2gis.ru/geo/{$order->longitude},{$order->latitude}",
                 'delivery_date' => $order->delivery_date,
                 'order_status_name' => $order->orderStatus->name,
                 'products' => $order->products->map(function ($product) {
