@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Dispatcher;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Illuminate\Http\Request;
 
 class DispatcherGetUnassignedOrdersController extends Controller
 {
-    public function __invoke()
+    public function __invoke(Request $request)
     {
         $orders = Order::whereIn('order_status_id', [1, 2, 3, 4])
             ->whereDoesntHave('assignments', function ($query) {

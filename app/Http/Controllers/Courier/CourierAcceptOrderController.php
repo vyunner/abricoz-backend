@@ -7,7 +7,7 @@ use App\Http\Requests\Courier\CourierCompleteOrderRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 
-class CourierCompleteOrderController extends Controller
+class CourierAcceptOrderController extends Controller
 {
     public function __invoke(CourierCompleteOrderRequest $request)
     {
@@ -27,14 +27,14 @@ class CourierCompleteOrderController extends Controller
         }
 
         // Проверяем статус заказа
-        if (!in_array($order->order_status_id, [4])) {
-            return $this->response(null, 'Статус заказа не позволяет его завершить', 400);
+        if (!in_array($order->order_status_id, [3])) {
+            return $this->response(null, 'Статус заказа не позволяет его взять', 400);
         }
 
-        // Меняем статус заказа на 5
-        $order->order_status_id = 5;
+        // Меняем статус заказа на 4
+        $order->order_status_id = 4;
         $order->save();
 
-        return $this->response(null, 'Заказ успешно завершен', 200);
+        return $this->response(null, 'Статус изменен', 200);
     }
 }
