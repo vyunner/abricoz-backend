@@ -23,12 +23,13 @@ class AddressStoreRequest extends FormRequest
     {
         return [
             'city_id' => 'required|int|exists:cities,id',
-            'district_id' => 'required|int|exists:districts,id',
             'address_street_and_house' => 'required|string',
             'address_apartment' => 'required|string',
             'address_entrance' => 'required|string',
             'address_floor' => 'required|string',
             'address_comment' => 'nullable|string',
+            'latitude' => 'nullable|string',
+            'longitude' => 'nullable|string',
         ];
     }
 }
