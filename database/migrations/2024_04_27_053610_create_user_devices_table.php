@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('user_devices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('fcm_token')->nullable();
             $table->string('staff_fcm_token')->nullable();
             $table->string('device_id')->nullable();
