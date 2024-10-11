@@ -105,13 +105,6 @@ class CategoriesSeeder extends Seeder
             'mobile_image_url' => '/storage/categories/sweets_mobile.png',
         ]);
         Category::create([
-            'name_ru' => 'К празднику',
-            'name_kz' => 'Мереке үшін',
-            'name_en' => 'For the holiday',
-            'desktop_image_url' => '',
-            'mobile_image_url' => '/storage/categories/for_the_holiday_mobile.png',
-        ]);
-        Category::create([
             'name_ru' => 'Хозтовары',
             'name_kz' => 'Тұрмыстық тауарлар',
             'name_en' => 'Household goods',

@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Dispatcher;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
+
 
 class DispatcherGetCouriersController extends Controller
 {
-    public function __invoke()
+    public function __invoke(Request $request)
     {
         $courierRoleId = 3; // Айди роли курьера
 
