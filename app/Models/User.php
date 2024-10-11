@@ -56,4 +56,9 @@ class User extends Authenticatable
             ->where('role_id', 3) // Айди роли курьера
             ->distinct();
     }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
 }
