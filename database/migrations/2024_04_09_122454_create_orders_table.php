@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->foreignId('delivery_interval_id')->constrained('delivery_intervals');
             $table->foreignId('payment_type_id')->constrained('payment_types');
             $table->foreignId('city_id')->constrained('cities');
-            $table->foreignId('district_id')->constrained('districts');
             $table->text('address_street_and_house');
             $table->text('address_apartment');
             $table->text('address_entrance');

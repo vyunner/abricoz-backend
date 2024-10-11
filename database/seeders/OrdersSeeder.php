@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\District;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -23,7 +22,6 @@ class OrdersSeeder extends Seeder
                 'delivery_interval_id' => 1,
                 'payment_type_id' => 1,
                 'city_id' => 1,
-                'district_id' => 1,
                 'address_street_and_house' => 'ул. Гоголя, 15',
                 'address_apartment' => '5',
                 'address_entrance' => '2',
@@ -37,7 +35,6 @@ class OrdersSeeder extends Seeder
                 'delivery_interval_id' => 2,
                 'payment_type_id' => 1,
                 'city_id' => 1,
-                'district_id' => 1,
                 'address_street_and_house' => 'проспект Назарбаева, 88',
                 'address_apartment' => '12',
                 'address_entrance' => '1',
@@ -51,7 +48,6 @@ class OrdersSeeder extends Seeder
                 'delivery_interval_id' => 3,
                 'payment_type_id' => 1,
                 'city_id' => 1,
-                'district_id' => 1,
                 'address_street_and_house' => 'ул. Толе би, 59',
                 'address_apartment' => '3',
                 'address_entrance' => '1',
@@ -65,7 +61,6 @@ class OrdersSeeder extends Seeder
                 'delivery_interval_id' => 4,
                 'payment_type_id' => 1,
                 'city_id' => 1,
-                'district_id' => 1,
                 'address_street_and_house' => 'пер. Макатаева, 123',
                 'address_apartment' => '14',
                 'address_entrance' => '3',
@@ -79,7 +74,6 @@ class OrdersSeeder extends Seeder
                 'delivery_interval_id' => 3,
                 'payment_type_id' => 1,
                 'city_id' => 1,
-                'district_id' => 1,
                 'address_street_and_house' => 'пр. Сейфуллина, 501',
                 'address_apartment' => '22',
                 'address_entrance' => '4',
@@ -112,12 +106,9 @@ class OrdersSeeder extends Seeder
                 $productsPrice += $priceWithDiscount * $product_quantity;
             }
 
-            $deliveryPrice = District::find($order->district_id)->delivery_price;
-
             $order->update([
                 'products_price' => $productsPrice,
-                'delivery_price' => $deliveryPrice,
-                'total_price' => $productsPrice + $deliveryPrice,
+                'total_price' => $productsPrice,
             ]);
         }
     }

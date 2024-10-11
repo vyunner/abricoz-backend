@@ -65,7 +65,6 @@ class OrderStoreController extends Controller
                 'delivery_interval_id' => $validatedData['delivery_interval_id'],
                 'payment_type_id' => $validatedData['payment_type_id'],
                 'city_id' => $address->city_id,
-                'district_id' => $address->district_id,
                 'address_street_and_house' => $address->address_street_and_house,
                 'address_apartment' => $address->address_apartment,
                 'address_entrance' => $address->address_entrance,
