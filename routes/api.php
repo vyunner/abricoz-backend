@@ -220,3 +220,7 @@ Route::group(['prefix' => '/dispatcher'], function () {
 Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
     Route::post('/test', \App\Http\Controllers\Test\TestController::class);
 });
+
+Route::group(['prefix' => '/point'], function () {
+    Route::get('/index', \App\Http\Controllers\Point\PointIndexController::class);
+});
