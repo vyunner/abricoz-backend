@@ -12,6 +12,8 @@ class UserDeleteController extends Controller
     {
         $user = $request->user();
 
+        $user->addresses()->delete();
+
         $user->delete();
 
         return $this->response(null, 'Ваш аккаунт был успешно удален.');
