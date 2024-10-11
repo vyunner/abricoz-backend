@@ -220,3 +220,9 @@ Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
 Route::group(['prefix' => '/point'], function () {
     Route::get('/index', \App\Http\Controllers\Point\PointIndexController::class);
 });
+
+Route::group(['prefix' => '/user'], function () {
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::delete('/delete', \App\Http\Controllers\User\UserDeleteController::class);
+    });
+});
