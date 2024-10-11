@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('order_status_id')->constrained('order_statuses');
             $table->foreignId('delivery_interval_id')->constrained('delivery_intervals');
             $table->foreignId('payment_type_id')->constrained('payment_types');
