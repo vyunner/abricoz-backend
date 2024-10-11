@@ -70,6 +70,8 @@ class OrderStoreController extends Controller
                 'address_entrance' => $address->address_entrance,
                 'address_floor' => $address->address_floor,
                 'address_comment' => $address->address_comment,
+                'longitude' => $address->longitude,
+                'latitude' => $address->latitude,
                 'delivery_date' => Carbon::today()->toDateString(), // Устанавливаем сегодняшнюю дату
                 'products_price' => 0, // Будет рассчитано позже
                 'delivery_price' => 0, // Можно рассчитать отдельно или фиксировать
