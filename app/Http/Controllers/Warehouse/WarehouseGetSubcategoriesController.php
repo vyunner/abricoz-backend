@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Warehouse;
 
 use App\Http\Controllers\Controller;
-use App\Models\Subcategory;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class WarehouseGetSubcategoriesController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $query = Subcategory::query();
+        $query = SubCategory::query();
 
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
