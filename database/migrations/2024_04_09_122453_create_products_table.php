@@ -32,6 +32,7 @@ return new class extends Migration {
             $table->integer('discount')->default(0);
             $table->integer('price_with_discount')->nullable();
             $table->integer('total_sales')->default(0);
+            $table->integer('amount')->default(0);
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
