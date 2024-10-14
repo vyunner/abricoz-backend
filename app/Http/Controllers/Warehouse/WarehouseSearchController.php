@@ -15,26 +15,13 @@ class WarehouseSearchController extends Controller
         // Приводим поисковый запрос к нижнему регистру
         $name = mb_strtolower($name);
 
-        // Получаем продукты с подгруженными связями
-        $products = Product::with(['subcategory', 'brand', 'country'])->get();
+        // Выполняем поиск в базе данных
+        $products = Product::with(['subcategory', 'brand', 'country'])
+            ->whereRaw('LOWER(name_ru) LIKE ?', ['%' . $name . '%'])
+            ->orWhereRaw('LOWER(name_kz) LIKE ?', ['%' . $name . '%'])
+            ->orWhereRaw('LOWER(name_en) LIKE ?', ['%' . $name . '%'])
+            ->get();
 
-        // Фильтруем продукты по сходству
-        $filteredProducts = $products->filter(function ($product) use ($name) {
-            $maxSimilarity = 0;
-
-            foreach (['name_ru', 'name_kz', 'name_en'] as $field) {
-                // Приводим название продукта к нижнему регистру
-                $productName = mb_strtolower($product->$field);
-                similar_text($name, $productName, $percent);
-
-                if ($percent > $maxSimilarity) {
-                    $maxSimilarity = $percent;
-                }
-            }
-
-            return $maxSimilarity >= 50;
-        });
-
-        return $this->response($filteredProducts->values(), 'Продукты успешно получены');
+        return $this->response($products, 'Продукты успешно получены');
     }
 }
