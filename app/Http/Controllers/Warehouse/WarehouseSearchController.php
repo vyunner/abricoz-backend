@@ -12,27 +12,29 @@ class WarehouseSearchController extends Controller
     {
         $name = $request->input('name');
 
-        // Retrieve products where any name field matches approximately 70%
-        $products = Product::where(function ($query) use ($name) {
-            $query->where('name_ru', 'LIKE', "%{$name}%")
-                ->orWhere('name_kz', 'LIKE', "%{$name}%")
-                ->orWhere('name_en', 'LIKE', "%{$name}%");
-        })->get();
+        // Приводим поисковый запрос к нижнему регистру
+        $name = mb_strtolower($name);
 
-        // Filter results based on similarity percentage
+        // Получаем продукты с подгруженными связями
+        $products = Product::with(['subcategory', 'brand', 'country'])->get();
+
+        // Фильтруем продукты по сходству
         $filteredProducts = $products->filter(function ($product) use ($name) {
-            $similarity = 0;
+            $maxSimilarity = 0;
 
             foreach (['name_ru', 'name_kz', 'name_en'] as $field) {
-                similar_text($name, $product->$field, $percent);
-                if ($percent > $similarity) {
-                    $similarity = $percent;
+                // Приводим название продукта к нижнему регистру
+                $productName = mb_strtolower($product->$field);
+                similar_text($name, $productName, $percent);
+
+                if ($percent > $maxSimilarity) {
+                    $maxSimilarity = $percent;
                 }
             }
 
-            return $similarity >= 70;
+            return $maxSimilarity >= 50;
         });
 
-        return $this->response($filteredProducts->values(), 'Products retrieved successfully');
+        return $this->response($filteredProducts->values(), 'Продукты успешно получены');
     }
 }

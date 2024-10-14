@@ -243,5 +243,10 @@ Route::group(['prefix' => '/warehouse'], function () {
         Route::delete('/delete-subcategory/{id}', \App\Http\Controllers\Warehouse\WarehouseDeleteSubcategoryController::class);
         Route::delete('/delete-brand/{id}', \App\Http\Controllers\Warehouse\WarehouseDeleteBrandController::class);
         Route::delete('/delete-country/{id}', \App\Http\Controllers\Warehouse\WarehouseDeleteCountryController::class);
+
+        Route::post('/create-category', \App\Http\Controllers\Warehouse\WarehouseCreateCategoryController::class);
+        Route::get('/get-categories', \App\Http\Controllers\Warehouse\WarehouseGetCategoriesController::class);
+        Route::put('/update-category/{id}', \App\Http\Controllers\Warehouse\WarehouseUpdateCategoryController::class);
+        Route::delete('/delete-category/{id}', \App\Http\Controllers\Warehouse\WarehouseDeleteCategoryController::class);
     });
 });
