@@ -7,7 +7,7 @@ use App\Models\Country;
 
 class WarehouseGetCountriesController extends Controller
 {
-    public function index()
+    public function __invoke()
     {
         $countries = Country::all();
 
