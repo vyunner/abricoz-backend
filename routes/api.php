@@ -226,3 +226,22 @@ Route::group(['prefix' => '/user'], function () {
         Route::delete('/delete', \App\Http\Controllers\User\UserDeleteController::class);
     });
 });
+
+Route::group(['prefix' => '/warehouse'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin|head-warehouse']], function () {
+        Route::get('/search', \App\Http\Controllers\Warehouse\WarehouseSearchController::class);
+        Route::post('/create-product', \App\Http\Controllers\Warehouse\WarehouseCreateProductController::class);
+        Route::get('/get-products', \App\Http\Controllers\Warehouse\WarehouseGetProductsController::class);
+        Route::put('/update-product/{id}', \App\Http\Controllers\Warehouse\WarehouseUpdateProductController::class);
+        Route::delete('/delete-product/{id}', \App\Http\Controllers\Warehouse\WarehouseDeleteProductController::class);
+        Route::post('/create-country', \App\Http\Controllers\Warehouse\WarehouseCreateCountryController::class);
+        Route::get('/get-countries', \App\Http\Controllers\Warehouse\WarehouseGetCountriesController::class);
+        Route::post('/create-brand', \App\Http\Controllers\Warehouse\WarehouseCreateBrandController::class);
+        Route::get('/get-brands', \App\Http\Controllers\Warehouse\WarehouseGetBrandsController::class);
+        Route::get('/get-subcategories', \App\Http\Controllers\Warehouse\WarehouseGetSubcategoriesController::class);
+        Route::post('/create-subcategory', \App\Http\Controllers\Warehouse\WarehouseCreateSubcategoryController::class);
+        Route::delete('/delete-subcategory/{id}', \App\Http\Controllers\Warehouse\WarehouseDeleteSubcategoryController::class);
+        Route::delete('/delete-brand/{id}', \App\Http\Controllers\Warehouse\WarehouseDeleteBrandController::class);
+        Route::delete('/delete-country/{id}', \App\Http\Controllers\Warehouse\WarehouseDeleteCountryController::class);
+    });
+});
