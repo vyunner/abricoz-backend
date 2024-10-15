@@ -21,12 +21,11 @@ class WarehouseUpdateProductController extends Controller
             }
         }
 
-        if ($request->hasFile('photo_url')) {
+        if ($request->hasFile('photo')) {
             if ($product->photo_url) {
-                $oldPath = str_replace('/storage', 'public', $product->photo_url);
-                Storage::delete($oldPath);
+                Storage::delete($product->photo_url);  // Удаление старого фото напрямую
             }
-            $path = $request->file('photo_url')->store('public/products');
+            $path = $request->file('photo')->store('public/products');
             $data['photo_url'] = Storage::url($path);
         }
 
