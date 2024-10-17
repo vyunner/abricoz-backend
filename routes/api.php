@@ -26,16 +26,6 @@ Route::group(['prefix' => '/auth'], function () {
     });
 });
 
-Route::group(['prefix' => '/brand'], function () {
-    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
-        Route::delete('/delete/{id}', \App\Http\Controllers\Brand\BrandDestroyController::class);
-        Route::post('/update/{id}', \App\Http\Controllers\Brand\BrandUpdateController::class);
-        Route::post('/store', \App\Http\Controllers\Brand\BrandStoreController::class);
-    });
-
-    Route::get('/index', \App\Http\Controllers\Brand\BrandIndexController::class);
-});
-
 Route::group(['prefix' => '/category'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::delete('/delete/{id}', \App\Http\Controllers\Category\CategoryDestroyController::class);
@@ -45,16 +35,6 @@ Route::group(['prefix' => '/category'], function () {
 
     Route::get('/index', \App\Http\Controllers\Category\CategoryIndexController::class);
     Route::get('/show/{id}', \App\Http\Controllers\Category\CategoryShowController::class);
-});
-
-Route::group(['prefix' => '/country'], function () {
-    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
-        Route::delete('/delete/{id}', \App\Http\Controllers\Country\CountryDestroyController::class);
-        Route::post('/store', \App\Http\Controllers\Country\CountryStoreController::class);
-        Route::post('/update/{id}', \App\Http\Controllers\Country\CountryUpdateController::class);
-    });
-
-    Route::get('/index', \App\Http\Controllers\Country\CountryIndexController::class);
 });
 
 Route::group(['prefix' => '/delivery-interval'], function () {
@@ -234,15 +214,10 @@ Route::group(['prefix' => '/warehouse'], function () {
         Route::get('/get-products', \App\Http\Controllers\Warehouse\WarehouseGetProductsController::class);
         Route::put('/update-product/{id}', \App\Http\Controllers\Warehouse\WarehouseUpdateProductController::class);
         Route::delete('/delete-product/{id}', \App\Http\Controllers\Warehouse\WarehouseDeleteProductController::class);
-        Route::post('/create-country', \App\Http\Controllers\Warehouse\WarehouseCreateCountryController::class);
-        Route::get('/get-countries', \App\Http\Controllers\Warehouse\WarehouseGetCountriesController::class);
-        Route::post('/create-brand', \App\Http\Controllers\Warehouse\WarehouseCreateBrandController::class);
-        Route::get('/get-brands', \App\Http\Controllers\Warehouse\WarehouseGetBrandsController::class);
         Route::get('/get-subcategories', \App\Http\Controllers\Warehouse\WarehouseGetSubcategoriesController::class);
         Route::post('/create-subcategory', \App\Http\Controllers\Warehouse\WarehouseCreateSubcategoryController::class);
+
         Route::delete('/delete-subcategory/{id}', \App\Http\Controllers\Warehouse\WarehouseDeleteSubcategoryController::class);
-        Route::delete('/delete-brand/{id}', \App\Http\Controllers\Warehouse\WarehouseDeleteBrandController::class);
-        Route::delete('/delete-country/{id}', \App\Http\Controllers\Warehouse\WarehouseDeleteCountryController::class);
 
         Route::post('/create-category', \App\Http\Controllers\Warehouse\WarehouseCreateCategoryController::class);
         Route::get('/get-categories', \App\Http\Controllers\Warehouse\WarehouseGetCategoriesController::class);

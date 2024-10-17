@@ -15,9 +15,8 @@ class WarehouseCreateProductRequest extends FormRequest
     {
         return [
             'subcategory_id' => 'required|exists:subcategories,id',
-            'country_id' => 'required|exists:countries,id',
-            'brand_id' => 'required|exists:brands,id',
-            'photo_url' => 'nullable|image|max:2048',
+            'manufacturer' => 'nullable|string',
+            'photo' => 'nullable|image|max:2048',
             'where' => 'nullable|string',
             'name_ru' => 'required|string',
             'name_kz' => 'required|string',

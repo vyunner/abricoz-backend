@@ -15,8 +15,7 @@ class WarehouseUpdateProductRequest extends FormRequest
     {
         return [
             'subcategory_id' => 'nullable|exists:subcategories,id',
-            'country_id' => 'nullable|exists:countries,id',
-            'brand_id' => 'nullable|exists:brands,id',
+            'manufacturer' => 'nullable|string',
             'photo' => 'nullable|image|max:2048',
             'where' => 'nullable|string',
             'name_ru' => 'nullable|string',

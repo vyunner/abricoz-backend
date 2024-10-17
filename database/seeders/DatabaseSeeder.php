@@ -15,8 +15,6 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             CitiesSeeder::class,
             UserSeeder::class,
-            CountriesSeeder::class,
-            BrandsSeeder::class,
             CategoriesSeeder::class,
             SubCategoriesSeeder::class,
             ProductsSeeder::class,

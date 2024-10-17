@@ -19,7 +19,7 @@ class ProductShowController extends Controller
      */
     public function __invoke(Request $request, $id)
     {
-        $product = Product::with(['subcategory', 'brand', 'country'])->findOrFail($id);
+        $product = Product::with(['subcategory'])->findOrFail($id);
         $similarProducts = Product::where('id', '!=', $id)
             ->where(['subcategory_id' => $product->subcategory_id])
             ->with(['subcategory', 'brand', 'country'])

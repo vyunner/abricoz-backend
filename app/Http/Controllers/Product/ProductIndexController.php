@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\ProductIndexRequest;
-use App\Models\Brand;
-use App\Models\Country;
 use App\Models\Product;
 use App\Models\SubCategory;
 
@@ -22,7 +20,7 @@ class ProductIndexController extends Controller
     public function __invoke(ProductIndexRequest $request)
     {
         $user = $request->user();
-        $query = Product::with(['subcategory', 'brand', 'country']);
+        $query = Product::with(['subcategory']);
 
         if (!$user || !$user->hasRole('admin')) {
             $query->where('is_active', 1);
@@ -35,14 +33,6 @@ class ProductIndexController extends Controller
                     ->orWhere('name_kz', 'like', '%' . $name . '%')
                     ->orWhere('name_en', 'like', '%' . $name . '%');
             });
-        }
-
-        if ($request->filled('country_id')) {
-            $query->whereIn('country_id', $request->country_id);
-        }
-
-        if ($request->filled('brand_id')) {
-            $query->whereIn('brand_id', $request->brand_id);
         }
 
         if ($request->filled('subcategory_id')) {
