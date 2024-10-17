@@ -67,14 +67,9 @@ Route::group(['prefix' => '/order', 'middleware' => 'auth:sanctum'], function ()
 
 Route::group(['prefix' => '/product'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
-        Route::post('/update/{id}', \App\Http\Controllers\Product\ProductUpdateController::class);
-        Route::post('/store', \App\Http\Controllers\Product\ProductStoreController::class);
-        Route::delete('/delete/{id}', \App\Http\Controllers\Product\ProductDestroyController::class);
     });
 
     Route::get('/index', \App\Http\Controllers\Product\ProductIndexController::class);
-    Route::get('/get-top-selling', \App\Http\Controllers\Product\ProductGetTopSellingController::class);
-    Route::get('/get-discounts', \App\Http\Controllers\Product\ProductGetDiscountsController::class);
     Route::get('/show/{id}', \App\Http\Controllers\Product\ProductShowController::class);
     Route::get('/search', \App\Http\Controllers\Product\ProductSearchController::class);
 });
