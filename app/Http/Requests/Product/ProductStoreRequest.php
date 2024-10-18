@@ -23,8 +23,7 @@ class ProductStoreRequest extends FormRequest
     {
         return [
             'subcategory_id' => 'required|int|exists:subcategories,id',
-            'country_id' => 'required|int|exists:countries,id',
-            'brand_id' => 'required|int|exists:brands,id',
+
             'name_ru' => 'required|string',
             'name_kz' => 'required|string',
             'name_en' => 'required|string',

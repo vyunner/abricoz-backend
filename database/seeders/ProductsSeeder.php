@@ -15,8 +15,7 @@ class ProductsSeeder extends Seeder
     {
         Product::create([
             'subcategory_id' => 1,
-            'country_id' => rand(1, 10),
-            'brand_id' => 1,
+            'manufacturer' => 'ТОО "Abricoz", Казахстан',
             'name_ru' => 'Яблоки',
             'name_kz' => 'Алмалар',
             'name_en' => 'Apples',
@@ -35,8 +34,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 1,
-            'country_id' => rand(1, 10),
-            'brand_id' => 1,
+            'manufacturer' => 'ТОО "Abricoz", Казахстан',
             'name_ru' => 'Апельсины',
             'name_kz' => 'Апельсиндер',
             'name_en' => 'Oranges',
@@ -55,8 +53,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 1,
-            'country_id' => rand(1, 10),
-            'brand_id' => 1,
+            'manufacturer' => 'ТОО "Abricoz", Казахстан',
             'name_ru' => 'Персики',
             'name_kz' => 'Шөпшіндер',
             'name_en' => 'Peaches',
@@ -75,8 +72,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 1,
-            'country_id' => rand(1, 10),
-            'brand_id' => 1,
+            'manufacturer' => 'ТОО "Abricoz", Казахстан',
             'name_ru' => 'Груши',
             'name_kz' => 'Анар',
             'name_en' => 'Pears',
@@ -95,8 +91,7 @@ class ProductsSeeder extends Seeder
 
         Product::create([
             'subcategory_id' => 1,
-            'country_id' => rand(1, 10),
-            'brand_id' => 1,
+            'manufacturer' => 'ТОО "Abricoz", Казахстан',
             'name_ru' => 'Абрикосы',
             'name_kz' => 'Қаймақтар',
             'name_en' => 'Apricots',

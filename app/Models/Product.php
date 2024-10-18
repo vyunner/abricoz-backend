@@ -16,16 +16,6 @@ class Product extends Model
         return $this->belongsTo(SubCategory::class);
     }
 
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
-    }
-
-    public function brand()
-    {
-        return $this->belongsTo(Brand::class);
-    }
-
     public function orderProducts()
     {
         return $this->hasMany(OrderProduct::class);
