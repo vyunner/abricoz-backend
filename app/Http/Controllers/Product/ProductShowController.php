@@ -22,7 +22,7 @@ class ProductShowController extends Controller
         $product = Product::with(['subcategory'])->findOrFail($id);
         $similarProducts = Product::where('id', '!=', $id)
             ->where(['subcategory_id' => $product->subcategory_id])
-            ->with(['subcategory', 'brand', 'country'])
+            ->with(['subcategory'])
             ->take(15)
             ->get();
 
