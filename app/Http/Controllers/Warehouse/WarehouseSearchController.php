@@ -16,7 +16,7 @@ class WarehouseSearchController extends Controller
         $name = mb_strtolower($name);
 
         // Выполняем поиск в базе данных
-        $products = Product::with(['subcategory', 'brand', 'country'])
+        $products = Product::with(['subcategory'])
             ->whereRaw('LOWER(name_ru) LIKE ?', ['%' . $name . '%'])
             ->orWhereRaw('LOWER(name_kz) LIKE ?', ['%' . $name . '%'])
             ->orWhereRaw('LOWER(name_en) LIKE ?', ['%' . $name . '%'])
