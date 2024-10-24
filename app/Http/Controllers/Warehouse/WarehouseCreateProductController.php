@@ -13,13 +13,6 @@ class WarehouseCreateProductController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/products');
-            $data['photo_url'] = Storage::url($path);
-        }
-
-        unset($data['image']);
-
         $product = Product::create($data);
 
         return $this->response($product, 'Product created successfully');
