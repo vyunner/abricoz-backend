@@ -18,6 +18,8 @@ class WarehouseCreateProductController extends Controller
             $data['photo_url'] = Storage::url($path);
         }
 
+        unset($data['image']);
+
         $product = Product::create($data);
 
         return $this->response($product, 'Product created successfully');
