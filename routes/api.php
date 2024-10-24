@@ -219,6 +219,6 @@ Route::group(['prefix' => '/warehouse'], function () {
         Route::put('/update-category/{id}', \App\Http\Controllers\Warehouse\WarehouseUpdateCategoryController::class);
         Route::delete('/delete-category/{id}', \App\Http\Controllers\Warehouse\WarehouseDeleteCategoryController::class);
 
-        Route::post('/add-photo-product/{id}', \App\Http\Controllers\Warehouseman\WarehousemanGetCurrentOrderController::class);
+        Route::post('/add-photo-product/{id}', \App\Http\Controllers\Warehouse\WarehouseAddPhotoProductController::class);
     });
 });
