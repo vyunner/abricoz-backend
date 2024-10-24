@@ -21,14 +21,6 @@ class WarehouseUpdateProductController extends Controller
             }
         }
 
-        if ($request->hasFile('photo')) {
-            if ($product->photo_url) {
-                Storage::delete($product->photo_url);  // Удаление старого фото напрямую
-            }
-            $path = $request->file('photo')->store('public/products');
-            $data['photo_url'] = Storage::url($path);
-        }
-
         $product->update($data);
 
         return $this->response($product, 'Product updated successfully');
