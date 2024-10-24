@@ -25,7 +25,7 @@ class WarehouseAddPhotoProductController extends Controller
         }
 
         // Сохранение нового фото в папку storage/app/public/products
-        $path = $request->file('photo')->store('products', 'public');
+        $path = $request->file('photo')->store('products/public');
 
         // Обновление записи продукта с новым URL фото
         $product->update([
