@@ -34,7 +34,6 @@ class WarehouseCreateProductRequest extends FormRequest
             'price_with_discount' => 'nullable|integer',
             'total_sales' => 'nullable|integer',
             'amount' => 'required|integer|min:0',
-            'is_active' => 'required|boolean',
         ];
     }
 }
