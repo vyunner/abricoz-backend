@@ -7,7 +7,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
-class WarehousemanAddPhotoProductController extends Controller
+class WarehouseAddPhotoProductController extends Controller
 {
     public function __invoke(Request $request, $id)
     {
