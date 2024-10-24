@@ -13,9 +13,8 @@ use Illuminate\Http\Request;
 class CartCheckController extends Controller
 {
     /**
-     * Проверка корзины
+     * Cart Check
      * @param CartCheckRequest $request
-     * @param $id
      * @return mixed
      */
     public function __invoke(CartCheckRequest $request)
