@@ -29,7 +29,8 @@ class ProductsSeeder extends Seeder
             'calories' => 52,
             'proteins' => 0.3,
             'fats' => 0.2,
-            'carbohydrates' => 14
+            'carbohydrates' => 14,
+            'is_active' => 1,
         ]);
 
         Product::create([
@@ -48,7 +49,8 @@ class ProductsSeeder extends Seeder
             'calories' => 47,
             'proteins' => 0.9,
             'fats' => 0.1,
-            'carbohydrates' => 12
+            'carbohydrates' => 12,
+            'is_active' => 1,
         ]);
 
         Product::create([
@@ -67,7 +69,8 @@ class ProductsSeeder extends Seeder
             'calories' => 39,
             'proteins' => 0.9,
             'fats' => 0.3,
-            'carbohydrates' => 10
+            'carbohydrates' => 10,
+            'is_active' => 1,
         ]);
 
         Product::create([
@@ -86,7 +89,8 @@ class ProductsSeeder extends Seeder
             'calories' => 57,
             'proteins' => 0.4,
             'fats' => 0.1,
-            'carbohydrates' => 15
+            'carbohydrates' => 15,
+            'is_active' => 1,
         ]);
 
         Product::create([
@@ -105,7 +109,8 @@ class ProductsSeeder extends Seeder
             'calories' => 48,
             'proteins' => 1.4,
             'fats' => 0.4,
-            'carbohydrates' => 11
+            'carbohydrates' => 11,
+            'is_active' => 1,
         ]);
 
         $products = Product::all();
