@@ -45,7 +45,7 @@ class AuthCodeController extends Controller
         //TODO Работает!!! Отправка смс
          $response = $this->mobizonService->sendSmsMessage($recipient, $text);
 
-         return env('MOBIZON_API_KEY');
+        dd(env('MOBIZON_API_KEY'));
 
         $userData = $user->toArray();
         unset($userData['phone_verification_code']);
