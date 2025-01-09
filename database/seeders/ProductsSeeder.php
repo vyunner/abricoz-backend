@@ -364,7 +364,7 @@ class ProductsSeeder extends Seeder
             'description_en' => 'Sorrel is a tangy green with a refreshing flavor, often used in soups (green borscht), salads, and sauces.',
             'price'          => 350,
             'discount'       => 0,
-            'photo_url'      => '/storage/products/shavel.web',
+            'photo_url'      => '/storage/products/shavel.webp',
             'weight'         => '1 кг',
             'calories'       => 22,
             'proteins'       => 2.0,
