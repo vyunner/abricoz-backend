@@ -23,6 +23,24 @@ class AuthAdminLoginRequest extends FormRequest
     {
         return [
             'phone' => 'required|exists:users,phone',
-            'code' => 'required|exists:users,phone_verification_code',        ];
+            'code' => 'required|exists:users,phone_verification_code',
+            ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $phone = $this->input('phone');
+            $code = $this->input('code');
+
+            // Проверяем, соответствует ли код телефону
+            $user = \App\Models\User::where('phone', $phone)
+                ->where('phone_verification_code', $code)
+                ->first();
+
+            if (!$user) {
+                $validator->errors()->add('code', 'Код подтверждения неверен.');
+            }
+        });
     }
 }
