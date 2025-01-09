@@ -46,7 +46,7 @@ class AuthCodeController extends Controller
          $response = $this->mobizonService->sendSmsMessage($recipient, $text);
 
 
-         return 0;
+//         return 0;
          return config('mobizon.api_key');
 
         $userData = $user->toArray();
