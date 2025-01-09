@@ -12,7 +12,7 @@ class MobizonService implements MobizonServiceInterface
 
     public function __construct()
     {
-        $this->apiKey = env('MOBIZON_API_KEY');
+        $this->apiKey = config('mobizon.api_key');
     }
 
     public function sendSmsMessage($recipient, $text, $from = null, $params = []): array
