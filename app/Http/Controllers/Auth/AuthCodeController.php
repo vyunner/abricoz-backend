@@ -28,8 +28,8 @@ class AuthCodeController extends Controller
     public function __invoke(AuthCodeRequest $request)
     {
         $data = $request->validated();
-        //TODO $code = mt_rand(100000, 999999);
-        $code = 123456;
+        $code = mt_rand(100000, 999999);
+//        $code = 123456;
 
         $user = User::updateOrCreate(
             ['phone' => $data['phone']],
@@ -43,7 +43,7 @@ class AuthCodeController extends Controller
         $text = 'Спасибо за регистрацию на abricoz.kz! Ваш код подтверждения: ' . $code;
 
         //TODO Работает!!! Отправка смс
-        // $response = $this->mobizonService->sendSmsMessage($recipient, $text);
+         $response = $this->mobizonService->sendSmsMessage($recipient, $text);
 
         $userData = $user->toArray();
         unset($userData['phone_verification_code']);
