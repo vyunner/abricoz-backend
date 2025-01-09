@@ -47,7 +47,7 @@ class AuthAdminCodeController extends Controller
         ]);
 
         $recipient = $data['phone'];
-        $text = 'Ваш код подтверждения: ' . $code;
+        $text = 'Вы пытатесь войти в аккаунт приложения Abricoz! Ваш код подтверждения: ' . $code;
 
         // Отправка СМС
          $response = $this->mobizonService->sendSmsMessage($recipient, $text);
