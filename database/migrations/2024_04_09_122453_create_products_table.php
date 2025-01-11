@@ -23,10 +23,10 @@ return new class extends Migration {
             $table->text('description_kz');
             $table->text('description_en');
             $table->string('weight');
-            $table->float('calories');
-            $table->float('proteins');
-            $table->float('fats');
-            $table->float('carbohydrates');
+            $table->float('calories')->nullable();
+            $table->float('proteins')->nullable();
+            $table->float('fats')->nullable();
+            $table->float('carbohydrates')->nullable();
             $table->integer('price');
             $table->integer('discount')->default(0);
             $table->integer('price_with_discount')->nullable();

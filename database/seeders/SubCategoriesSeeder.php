@@ -158,12 +158,20 @@ class SubCategoriesSeeder extends Seeder
             'name_en' => 'Bread',
         ]);
         SubCategory::create([
-            'id' => 20,
+            'id' => 19,
             'category_id' => 5,
             'image_url' => '/storage/subcategories/vipechka.png',
             'name_ru' => 'Выпечка',
             'name_kz' => 'Нан өнімдері',
             'name_en' => 'Bakery products',
+        ]);
+        SubCategory::create([
+            'id' => 20,
+            'category_id' => 14,
+            'image_url' => '/storage/subcategories/household_goods_mobile.png',
+            'name_ru' => 'Хоз товары',
+            'name_kz' => 'Тұрмыстық тауарлар',
+            'name_en' => 'Household goods',
         ]);
     }
 }
