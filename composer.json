@@ -16,6 +16,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/telescope": "^5.0",
         "laravel/tinker": "^2.8",
+        "phpoffice/phpspreadsheet": "^3.7",
         "spatie/laravel-permission": "^6.4"
     },
     "require-dev": {
