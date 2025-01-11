@@ -25,7 +25,7 @@ class ProductsSeeder extends Seeder
             'price'          => 380,
             'discount'       => 0,
             'photo_url'      => '/storage/products/gribi.webp',
-            'weight'         => '1 кг',
+            'weight'         => '350 г',
             'calories'       => 37,
             'proteins'       => 2.7,
             'fats'           => 0.2,
