@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             BannersSeeder::class,
             AddressSeeder::class,
             PointsSeeder::class,
+            ProductXlsxSeeder::class,
         ]);
     }
 }
