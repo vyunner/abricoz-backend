@@ -45,7 +45,7 @@ class ProductsSeeder extends Seeder
             'price'          => 400,
             'discount'       => 0,
             'photo_url'      => '/storage/products/iceberg.webp',
-            'weight'         => '1 кг',
+            'weight'         => '130 г',
             'calories'       => 14,
             'proteins'       => 0.9,
             'fats'           => 0.1,
