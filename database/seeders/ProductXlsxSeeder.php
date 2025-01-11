@@ -4,29 +4,37 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class ProductXlsxSeeder extends Seeder
 {
     public function run()
     {
-        // Path to the Excel file
-        $filePath = base_path('database/seeders/2.xlsx');
+        // Путь к файлу Excel
+        $filePath = base_path('database/seeders/xlsx/2.xlsx');
 
-        // Load the Excel file
-        $data = Excel::toArray([], $filePath);
+        // Загружаем файл Excel
+        try {
+            $spreadsheet = IOFactory::load($filePath);
+        } catch (\Exception $e) {
+            echo 'Ошибка загрузки файла: ', $e->getMessage();
+            return;
+        }
 
-        // Assuming the data is in the first sheet
-        $rows = $data[0];
+        // Получаем активный лист
+        $worksheet = $spreadsheet->getActiveSheet();
 
-        // Get the header row
+        // Преобразуем лист в массив
+        $rows = $worksheet->toArray();
+
+        // Первая строка - заголовки
         $headers = array_shift($rows);
 
         foreach ($rows as $row) {
-            // Combine headers with row values
+            // Сопоставляем заголовки с данными
             $productData = array_combine($headers, $row);
 
-            // Insert the data into the database
+            // Добавляем в базу данных
             DB::table('products')->insert([
                 'subcategory_id' => $productData['subcategory_id'],
                 'manufacturer' => $productData['manufacturer'],
