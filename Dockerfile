@@ -1,34 +1,37 @@
 FROM php:8.1-fpm
 
-# Установка временной зоны
-RUN ln -snf /usr/share/zoneinfo/Asia/Karachi /etc/localtime && echo "Asia/Karachi" > /etc/timezone
-
-# Установка системных зависимостей
+# Установка зависимостей
 RUN apt-get update && apt-get install -y \
-    curl \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
     libzip-dev \
     zip \
     unzip \
-    git && \
-    docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Установка Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Установка Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
-    apt-get install -y nodejs
+# Настройка рабочей директории
+WORKDIR /var/www
 
-# Настройка php.ini
-COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
+# Копирование кода приложения
+COPY . /var/www
+
+# Создание .env из примера и генерация ключа
+COPY .env.example /var/www/.env
+
+# Установка зависимостей через composer
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Установка прав
-RUN chmod -R 777 .
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 755 /var/www \
+    && chmod -R 777 /var/www/storage /var/www/bootstrap/cache
 
-# Установка рабочей директории
-WORKDIR /var/www
+EXPOSE 9000
+
+CMD ["php-fpm"]
