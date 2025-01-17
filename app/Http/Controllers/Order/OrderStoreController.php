@@ -53,7 +53,6 @@ class OrderStoreController extends Controller
 
         // Начало транзакции для обеспечения атомарности операции
         DB::beginTransaction();
-
         try {
             // Находим адрес по его ID
             $address = Address::findOrFail($validatedData['address_id']);
@@ -124,7 +123,7 @@ class OrderStoreController extends Controller
                         'name_kz' => $orderProduct->product->name_kz,
                         'price' => $orderProduct->product_price,
                         'price_with_discount' => $orderProduct->product_price_with_discount,
-                        'weight' => $orderProduct->product->weight
+                        'weight' => $orderProduct->product->weight,
                     ];
                 }),
             ];
@@ -163,6 +162,7 @@ class OrderStoreController extends Controller
             // Откатываем транзакцию в случае ошибки
             DB::rollBack();
             \Log::error($e->getMessage());
+
             return $this->response(null, 'Ошибка при создании заказа.', 500);
         }
     }
