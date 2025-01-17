@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\MobizonServiceInterface;
-use Illuminate\Http\Request;
 use App\Http\Requests\Auth\AuthCodeRequest;
 use App\Models\User;
 use Carbon\Carbon;
@@ -15,7 +14,7 @@ use Carbon\Carbon;
 class AuthCodeController extends Controller
 {
     public function __construct(
-        protected MobizonServiceInterface $mobizonService
+        protected MobizonServiceInterface $mobizonService,
     )
     {
     }
@@ -28,10 +27,10 @@ class AuthCodeController extends Controller
     public function __invoke(AuthCodeRequest $request)
     {
         $data = $request->validated();
-        $code = mt_rand(100000, 999999);
-//        $code = 123456;
 
-        $user = User::updateOrCreate(
+        $code = mt_rand(100000, 999999);
+
+        User::updateOrCreate(
             ['phone' => $data['phone']],
             [
                 'phone_verification_code' => $code,
@@ -39,16 +38,11 @@ class AuthCodeController extends Controller
             ]
         );
 
-        $recipient = $data['phone'];
         $text = 'Спасибо за регистрацию на abricoz.kz! Ваш код подтверждения: ' . $code;
 
-        //TODO Работает!!! Отправка смс
-         $response = $this->mobizonService->sendSmsMessage($recipient, $text);
-         return $response;
+        // Отправка смс
+        $response = $this->mobizonService->sendSmsMessage($data['phone'], $text);
 
-        $userData = $user->toArray();
-        unset($userData['phone_verification_code']);
-
-        return $this->response($userData, 'Аккаунт успешно зарегистрирован!');
+        return $response;
     }
 }

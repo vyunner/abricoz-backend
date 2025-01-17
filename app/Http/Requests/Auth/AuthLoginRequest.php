@@ -39,7 +39,12 @@ class AuthLoginRequest extends FormRequest
                 ->first();
 
             if (!$user) {
-                $validator->errors()->add('code', 'Код подтверждения неверен.');
+                $validator->errors()->add('code', __('validation.verification_code_invalid'));
+            }
+
+            // Проверяем, не истек ли срок действия кода
+            if ($user->phone_verification_code_expires_at < now()) {
+                $validator->errors()->add('code', __('validation.verification_code_expired'));
             }
         });
     }
