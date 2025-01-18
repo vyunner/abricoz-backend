@@ -4,35 +4,36 @@ namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Models\UserDevice;
 use App\Services\FirebaseNotificationService;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @group Order
  */
 class OrderCancelController extends Controller
 {
-    protected FirebaseNotificationService $firebaseNotificationService;
-
-    public function __construct(FirebaseNotificationService $firebaseNotificationService)
+    public function __construct(
+        protected FirebaseNotificationService $firebaseNotificationService
+    )
     {
-        $this->firebaseNotificationService = $firebaseNotificationService;
     }
 
     /**
      * Отмена заказа
      * @param Request $request
-     * @param $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request, $id)
+    public function __invoke(Request $request, int $id)
     {
         $user = $request->user();
         $order = Order::findOrFail($id);
 
-        if ($user->hasRole('admin') || $order->user_id == $user->id) {
-            $order->update(['order_status_id' => 6]);
+        if ($user->hasRole('admin') || $order->user_id === $user->id) {
+            $order->update(['order_status_id' => OrderStatus::CANCELLED]);
 
             $userDevices = UserDevice::where('user_id', $user->id)
                 ->whereNotNull('fcm_token')
@@ -51,8 +52,8 @@ class OrderCancelController extends Controller
                                 'title' => 'Уведомление курьеру',
                                 'body' => 'Заберите заказ!',
                                 'data' => [
-                                    'order_id' => (string)$orderId,
-                                    'order_status_id' => '3',
+                                    'order_id' => (string) $order->id,
+                                    'order_status_id' => (string) OrderStatus::WAITING_FOR_COURIER,
                                 ],
                             ]
                         );
@@ -61,9 +62,10 @@ class OrderCancelController extends Controller
                     }
                 }
             }
+
             return $this->response($order, 'Заказ успешно отменен!');
         }
 
-        return $this->response([], 'Вы не имеете доступа к этому заказу!', 403);
+        return $this->response([], 'Вы не имеете доступа к этому заказу!', Response::HTTP_FORBIDDEN);
     }
 }

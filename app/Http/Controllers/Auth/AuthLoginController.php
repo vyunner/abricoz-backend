@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
-use Carbon\Carbon;
 use App\Http\Requests\Auth\AuthLoginRequest;
-use Illuminate\Support\Facades\Log;
 
 /**
  * @group Auth

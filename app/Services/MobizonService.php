@@ -15,7 +15,7 @@ class MobizonService implements MobizonServiceInterface
         $this->apiKey = config('mobizon.api_key');
     }
 
-    public function sendSmsMessage($recipient, $text, $from = null, $params = []): array
+    public function sendSmsMessage(string $recipient, string $text, mixed $from = null, $params = []): array
     {
         $url = $this->baseUrl . 'Message/SendSmsMessage';
         $data = [
@@ -34,7 +34,7 @@ class MobizonService implements MobizonServiceInterface
         return $this->makeRequest($url, $data);
     }
 
-    public function getSmsStatus($ids): array
+    public function getSmsStatus(array|string $ids): array
     {
         $url = $this->baseUrl . 'Message/GetSMSStatus';
         $data = [
@@ -44,7 +44,7 @@ class MobizonService implements MobizonServiceInterface
         return $this->makeRequest($url, $data);
     }
 
-    public function listMessages($criteria = [], $pagination = [], $sort = [], $withNumberInfo = 0): array
+    public function listMessages(array $criteria = [], array $pagination = [], array $sort = [], int $withNumberInfo = 0): array
     {
         $url = $this->baseUrl . 'Message/List';
         $data = [
@@ -57,12 +57,12 @@ class MobizonService implements MobizonServiceInterface
         return $this->makeRequest($url, $data);
     }
 
-    protected function makeRequest($url, $data)
+    protected function makeRequest(string $url, array $data): array
     {
         $response = Http::withHeaders([
-            'cache-control' => 'no-cache',
-            'content-type' => 'application/x-www-form-urlencoded',
-        ])
+                'cache-control' => 'no-cache',
+                'content-type' => 'application/x-www-form-urlencoded',
+            ])
             ->withOptions(['query' => [
                     'output' => 'json',
                     'api' => 'v1',
