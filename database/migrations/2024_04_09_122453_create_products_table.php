@@ -18,10 +18,8 @@ return new class extends Migration {
             $table->string('manufacturer')->nullable();
             $table->string('name_ru');
             $table->string('name_kz')->nullable();
-            $table->string('name_en')->nullable();
             $table->text('description_ru')->nullable();
             $table->text('description_kz')->nullable();
-            $table->text('description_en')->nullable();
             $table->string('weight');
             $table->float('calories')->nullable();
             $table->float('proteins')->nullable();

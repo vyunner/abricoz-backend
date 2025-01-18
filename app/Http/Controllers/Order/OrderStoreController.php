@@ -48,7 +48,7 @@ class OrderStoreController extends Controller
 
         // Проверяем, что интервал начинается после текущего времени
         if (!$current_time->lt($start_time)) {
-            return $this->response(null, 'Неправильно выбранный временной интервал', 500);
+            return $this->response(null, 'НеЫправильно выбранный временной интервал', 500);
         }
 
         // Начало транзакции для обеспечения атомарности операции
@@ -120,7 +120,6 @@ class OrderStoreController extends Controller
                         'product_id' => $orderProduct->product_id,
                         'photo_url' => $orderProduct->product->photo_url,
                         'name_ru' => $orderProduct->product->name_ru,
-                        'name_en' => $orderProduct->product->name_en,
                         'name_kz' => $orderProduct->product->name_kz,
                         'price' => $orderProduct->product_price,
                         'price_with_discount' => $orderProduct->product_price_with_discount,

@@ -26,10 +26,8 @@ class ProductStoreRequest extends FormRequest
 
             'name_ru' => 'required|string',
             'name_kz' => 'required|string',
-            'name_en' => 'required|string',
             'description_ru' => 'required|string',
             'description_kz' => 'required|string',
-            'description_en' => 'required|string',
             'price' => 'required|int',
             'discount' => 'required|int',
             'is_active' => 'required|bool',

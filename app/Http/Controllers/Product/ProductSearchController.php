@@ -24,11 +24,10 @@ class ProductSearchController extends Controller
         // Выполняем поиск по всем языковым полям, фильтруем по is_active и возвращаем только 10 записей
         $products = Product::where(function($query) use ($term) {
             $query->where('name_ru', 'like', '%' . $term . '%')
-                ->orWhere('name_kz', 'like', '%' . $term . '%')
-                ->orWhere('name_en', 'like', '%' . $term . '%');
+                ->orWhere('name_kz', 'like', '%' . $term . '%');
         })
             ->where('is_active', 1) // Условие для активных продуктов
-            ->select('id', 'name_ru', 'name_kz', 'name_en') // Только нужные поля
+            ->select('id', 'name_ru', 'name_kz') // Только нужные поля
             ->limit(10) // Ограничиваем результат до 10 записей
             ->get();
 

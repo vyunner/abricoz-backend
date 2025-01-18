@@ -26,7 +26,6 @@ class SubCategoryStoreRequest extends FormRequest
             'image' => 'nullable|image|max:10000',
             'name_ru' => 'required|string',
             'name_kz' => 'required|string',
-            'name_en' => 'required|string',
         ];
     }
 }

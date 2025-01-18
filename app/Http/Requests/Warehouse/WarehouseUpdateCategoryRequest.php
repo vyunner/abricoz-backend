@@ -16,7 +16,6 @@ class WarehouseUpdateCategoryRequest extends FormRequest
         return [
             'name_ru' => 'sometimes|required|string|unique:categories,name_ru,' . $this->route('id'),
             'name_kz' => 'sometimes|required|string|unique:categories,name_kz,' . $this->route('id'),
-            'name_en' => 'sometimes|required|string|unique:categories,name_en,' . $this->route('id'),
             // Добавьте другие поля, если необходимо
         ];
     }

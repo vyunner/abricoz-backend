@@ -31,17 +31,14 @@ class OrderResource extends JsonResource
                     'subcategory' => [
                         'ru' => $product->subcategory->name_ru,
                         'kz' => $product->subcategory->name_kz,
-                        'en' => $product->subcategory->name_en,
                     ],
                     'name' => [
                         'ru' => $product->name_ru,
                         'kz' => $product->name_kz,
-                        'en' => $product->name_en,
                     ],
                     'description' => [
                         'ru' => $product->description_ru,
                         'kz' => $product->description_kz,
-                        'en' => $product->description_en,
                     ],
                     'price' => $product->price,
                     'discount' => $product->discount,

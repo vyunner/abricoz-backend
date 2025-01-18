@@ -31,7 +31,6 @@ class ProductIndexController extends Controller
             $query->where(function ($query) use ($name) {
                 $query->where('name_ru', 'like', '%' . $name . '%')
                     ->orWhere('name_kz', 'like', '%' . $name . '%')
-                    ->orWhere('name_en', 'like', '%' . $name . '%');
             });
         }
 

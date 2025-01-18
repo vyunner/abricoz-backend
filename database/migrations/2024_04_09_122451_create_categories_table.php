@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->string('mobile_image_url')->nullable();
             $table->string('name_ru');
             $table->string('name_kz');
-            $table->string('name_en');
             $table->timestamps();
         });
     }
