@@ -39,6 +39,7 @@ class OrderStoreController extends Controller
 
         $interval = DeliveryInterval::findOrFail($data['delivery_interval_id']);
 
+        // Проверка количества заказов
         $orders_count = Order::where('user_id', $request->user()->id)
             ->whereNotIn('order_status_id', [
                 OrderStatus::DELIVERED,
@@ -51,6 +52,22 @@ class OrderStoreController extends Controller
                 null,
                 __('response.order.error.limit'),
                 Response::HTTP_UNPROCESSABLE_ENTITY,
+            );
+        }
+
+        // Проверка суммы заказа
+        $products_price = 0;
+
+        foreach ($data['products'] as $product_data) {
+            $product = Product::findOrFail($product_data['product_id']);
+            $products_price += $product->price_with_discount * ($product_data['product_quantity'] ?? 1);
+        }
+
+        if ($products_price < Order::MIN_SUM) {
+            return $this->response(
+                null,
+                __('response.order.error.min_sum', ['curr_sum' => $products_price]),
+                Response::HTTP_UNPROCESSABLE_ENTITY,  
             );
         }
 
