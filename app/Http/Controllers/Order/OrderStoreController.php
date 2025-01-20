@@ -47,12 +47,8 @@ class OrderStoreController extends Controller
             ])
             ->count();
 
-        if ($orders_count >= 3) {
-            return $this->response(
-                null,
-                __('response.order.error.limit'),
-                Response::HTTP_UNPROCESSABLE_ENTITY,
-            );
+        if ($orders_count >= Order::MAX_COUNT) {
+            return $this->response(null, __('response.order.error.limit'), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         // Проверка суммы заказа
@@ -64,11 +60,7 @@ class OrderStoreController extends Controller
         }
 
         if ($products_price < Order::MIN_SUM) {
-            return $this->response(
-                null,
-                __('response.order.error.min_sum', ['curr_sum' => $products_price]),
-                Response::HTTP_UNPROCESSABLE_ENTITY,  
-            );
+            return $this->response(null, __('response.order.error.min_sum', ['curr_sum' => $products_price]), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         // Попытка парсинга временного интервала
@@ -78,22 +70,14 @@ class OrderStoreController extends Controller
         } catch (\Exception $e) {
             \Log::error('delivery_interval_incorrect_format', ['exception' => $e]);
 
-            return $this->response(
-                [],
-                __('response.error.internal_server_error'),
-                Response::HTTP_INTERNAL_SERVER_ERROR,
-            );
+            return $this->response(null, __('response.error.internal_server_error'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         $start_datetime = Carbon::parse("{$data['delivery_date']} {$start_time}");
 
         // Проверяем, что интервал начинается после текущего времени
         if (!now()->lessThan($start_datetime)) {
-            return $this->response(
-                [],
-                __('response.delivery_interval.error.unknown'),
-                Response::HTTP_UNPROCESSABLE_ENTITY,
-            );
+            return $this->response(null, __('response.delivery_interval.error.unknown'), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         DB::beginTransaction();
