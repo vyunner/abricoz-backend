@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\DeliveryInterval;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DeliveryInterval\DeliveryIntervalIndexRequest;
 use App\Models\DeliveryInterval;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @group DeliveryInterval
@@ -15,26 +14,58 @@ class DeliveryIntervalIndexController extends Controller
 {
     /**
      * Список
-     * @param DeliveryIntervalIndexRequest $request
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(DeliveryIntervalIndexRequest $request)
+    public function __invoke()
     {
-        $current_time = Carbon::now();
+        $available_intervals = [];
+        $current_time = now();
         $intervals = DeliveryInterval::all();
 
-        $available_intervals = $intervals->filter(function ($interval) use ($current_time) {
-            $time_range = explode(' - ', $interval->name);
-            $start_time = Carbon::createFromFormat('H:i', $time_range[0]);
-            $end_time = Carbon::createFromFormat('H:i', $time_range[1]);
+        $dates = [
+            today()->addDays(1),
+            today()->addDays(2),
+            // Если текущее время больше 19:00, то вместо сегодняшнего дня дается на выбор после-после-завтра
+            $current_time->copy()->format('H') > 19 ? today()->addDays(3) : today(),
+        ];
 
-            // Exclude intervals that have already passed or are within the current time
-            return $current_time->lt($start_time);
+        // Преобразование временных интервалов в отформатированный массив
+        $intervals = $intervals->map(function ($interval) {
+            // Попытка парсинга временных интервалов
+            try {
+                $time_range = explode(' - ', $interval->name);
+            } catch (\Exception $e) {
+                \Log::error('delivery_interval_incorrect_format', ['exception' => $e]);
+
+                return $this->response(null, __('response.internal_server_error'), Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+
+            return [
+                'id' => $interval->id,
+                'name' => $interval->name,
+                'start_time' => $time_range[0],
+                'end_time' => $time_range[1],
+            ];
         });
 
-        return $this->response([
-            'delivery_intervals' => $available_intervals->values(),
-            'current_time' => $current_time->toDateTimeString()
-        ], 'Список временных интервалов успешно загружен!');
+        // Поиск доступных временных интервалов по датам
+        foreach ($intervals as $interval) {
+            foreach ($dates as $date) {
+                $date = $date->format('Y-m-d');
+                $start_datetime = Carbon::createFromFormat('Y-m-d H:i', $date . $interval['start_time']);
+
+                if ($current_time->lessThan($start_datetime)) {
+                    $available_intervals[$date][] = $interval;
+                }
+            }
+        }
+
+        return $this->response(
+            [
+                'delivery_intervals' => collect($available_intervals)->sortKeys()->toArray(),
+                'current_time' => $current_time->toDateTimeString(),
+            ],
+            __('response.delivery_interval.success.index'),
+        );
     }
 }
