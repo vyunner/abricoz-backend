@@ -58,14 +58,17 @@ class OrderCancelController extends Controller
                             ]
                         );
                     } catch (\Exception $e) {
-                        \Log::error('Ошибка при отправке уведомления на токен ' . $device->staff_fcm_token . ': ' . $e->getMessage());
+                        \Log::error(
+                            "FCM sending error to staff_fcm_token {$device->staff_fcm_token}: {$e->getMessage()}",
+                            ['exception' => $e],
+                        );
                     }
                 }
             }
 
-            return $this->response($order, 'Заказ успешно отменен!');
+            return $this->response($order, __('response.order.success.cancel'));
         }
 
-        return $this->response([], 'Вы не имеете доступа к этому заказу!', Response::HTTP_FORBIDDEN);
+        return $this->response(null, __('response.order.error.forbidden'), Response::HTTP_FORBIDDEN);
     }
 }

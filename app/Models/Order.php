@@ -9,6 +9,9 @@ class Order extends Model
 {
     use HasFactory;
 
+    public const MIN_SUM = 5000;
+    public const MAX_COUNT = 3;
+
     protected $guarded = [];
 
     public function orderStatus()
