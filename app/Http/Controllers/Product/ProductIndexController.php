@@ -30,8 +30,7 @@ class ProductIndexController extends Controller
             $name = $request->input('name');
             $query->where(function ($query) use ($name) {
                 $query->where('name_ru', 'like', '%' . $name . '%')
-                    ->orWhere('name_kz', 'like', '%' . $name . '%')
-                    ->orWhere('name_en', 'like', '%' . $name . '%');
+                    ->orWhere('name_kz', 'like', '%' . $name . '%');
             });
         }
 

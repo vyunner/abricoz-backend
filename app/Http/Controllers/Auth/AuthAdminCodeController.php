@@ -29,7 +29,7 @@ class AuthAdminCodeController extends Controller
     {
         $data = $request->validated();
          $code = mt_rand(100000, 999999);
-//        $code = 123456;
+        $code = 123456;
 
         $user = User::where('phone', $data['phone'])->first();
 
@@ -50,7 +50,7 @@ class AuthAdminCodeController extends Controller
         $text = 'Спасибо за регистрацию на abricoz.kz! Ваш код подтверждения: ' . $code;
 
         // Отправка СМС
-         $response = $this->mobizonService->sendSmsMessage($recipient, $text);
+//         $response = $this->mobizonService->sendSmsMessage($recipient, $text);
 
         $userData = $user->toArray();
         unset($userData['phone_verification_code']);

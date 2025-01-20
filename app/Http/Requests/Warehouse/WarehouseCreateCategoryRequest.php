@@ -16,7 +16,6 @@ class WarehouseCreateCategoryRequest extends FormRequest
         return [
             'name_ru' => 'required|string|unique:categories,name_ru',
             'name_kz' => 'required|string|unique:categories,name_kz',
-            'name_en' => 'required|string|unique:categories,name_en',
             // Добавьте другие поля, если необходимо
         ];
     }

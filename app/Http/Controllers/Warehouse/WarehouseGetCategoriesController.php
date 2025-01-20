@@ -15,8 +15,7 @@ class WarehouseGetCategoriesController extends Controller
         if ($request->filled('search')) {
             $search = $request->input('search');
             $query->where('name_ru', 'LIKE', "%{$search}%")
-                ->orWhere('name_kz', 'LIKE', "%{$search}%")
-                ->orWhere('name_en', 'LIKE', "%{$search}%");
+                ->orWhere('name_kz', 'LIKE', "%{$search}%");
         }
 
         $categories = $query->get();

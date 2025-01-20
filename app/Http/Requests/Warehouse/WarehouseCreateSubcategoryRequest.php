@@ -18,7 +18,6 @@ class WarehouseCreateSubcategoryRequest extends FormRequest
             'image_url' => 'nullable|image|max:2048',
             'name_ru' => 'required|string',
             'name_kz' => 'required|string',
-            'name_en' => 'required|string',
         ];
     }
 }

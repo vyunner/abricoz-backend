@@ -19,7 +19,6 @@ class WarehouseSearchController extends Controller
         $products = Product::with(['subcategory'])
             ->whereRaw('LOWER(name_ru) LIKE ?', ['%' . $name . '%'])
             ->orWhereRaw('LOWER(name_kz) LIKE ?', ['%' . $name . '%'])
-            ->orWhereRaw('LOWER(name_en) LIKE ?', ['%' . $name . '%'])
             ->get();
 
         return $this->response($products, 'Продукты успешно получены');

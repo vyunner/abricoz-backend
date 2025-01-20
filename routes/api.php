@@ -51,6 +51,7 @@ Route::group(['prefix' => '/order', 'middleware' => 'auth:sanctum'], function ()
     Route::get('/show/{id}', Controllers\Order\OrderShowController::class);
     Route::get('/cancel/{id}', Controllers\Order\OrderCancelController::class);
     Route::get('/status', Controllers\Order\OrderLastStatusController::class);
+    Route::get('/active-orders', Controllers\Order\OrderActiveOrdersController::class);
 });
 
 Route::group(['prefix' => '/product'], function () {
