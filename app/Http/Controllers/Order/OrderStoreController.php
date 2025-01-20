@@ -39,6 +39,21 @@ class OrderStoreController extends Controller
 
         $interval = DeliveryInterval::findOrFail($data['delivery_interval_id']);
 
+        $orders_count = Order::where('user_id', $request->user()->id)
+            ->whereNotIn('order_status_id', [
+                OrderStatus::DELIVERED,
+                OrderStatus::CANCELLED,
+            ])
+            ->count();
+
+        if ($orders_count >= 3) {
+            return $this->response(
+                null,
+                __('response.order.error.limit'),
+                Response::HTTP_UNPROCESSABLE_ENTITY,
+            );
+        }
+
         // Попытка парсинга временного интервала
         try {
             $time_range = explode(' - ', $interval->name);
