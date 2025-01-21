@@ -24,6 +24,14 @@ return [
         ],
     ],
 
+    'product' => [
+        'success' => [],
+        'error' => [
+            'inactive' => 'Продукт :name не активен.',
+            'quantity' => 'Продукт :name не имеет достаточного количества.',
+        ],
+    ],
+
     'error' => [
         'unknown' => 'Неизвестная ошибка!',
         'internal_server_error' => 'Внутренняя ошибка сервера!',

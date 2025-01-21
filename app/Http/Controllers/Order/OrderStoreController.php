@@ -57,6 +57,16 @@ class OrderStoreController extends Controller
         foreach ($data['products'] as $product_data) {
             $product = Product::findOrFail($product_data['product_id']);
             $products_price += $product->price_with_discount * ($product_data['product_quantity'] ?? 1);
+
+            // Проверка на активность
+            if ($product->inactive) {
+                return $this->response(null, __('response.product.error.inactive', ['name' => $product->name_ru]), Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            // Проверка на количество
+            if ($product->quantity < $product_data['product_quantity']) {
+                return $this->response(null, __('response.product.error.quantity', ['name' => $product->name_ru]), Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
         }
 
         if ($products_price < Order::MIN_SUM) {
