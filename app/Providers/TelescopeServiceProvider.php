@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Telescope\IncomingEntry;
 use Laravel\Telescope\Telescope;
@@ -55,10 +56,17 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      */
     protected function gate(): void
     {
-        Gate::define('viewTelescope', function ($user) {
-            return in_array($user->email, [
-                //
+        Gate::define('viewTelescope', function () {
+            return in_array(request()->ip(), [
+                '127.0.0.1',
+                '209.38.245.246',
             ]);
         });
     }
+
+    // protected function authorization()
+    // {
+    //     Auth::setDefaultDriver('web');
+    //     parent::authorization();
+    // }
 }
