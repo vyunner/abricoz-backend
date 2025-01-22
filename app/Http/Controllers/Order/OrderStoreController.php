@@ -134,6 +134,8 @@ class OrderStoreController extends Controller
 
                 // Суммируем стоимость продуктов
                 $products_price += $product->price_with_discount * $quantity;
+                $product->amount -= $quantity;
+                $product->save();
             }
 
             // Обновляем цены заказа
