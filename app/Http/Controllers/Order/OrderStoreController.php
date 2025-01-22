@@ -83,7 +83,7 @@ class OrderStoreController extends Controller
             return $this->response(null, __('response.error.internal_server_error'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $start_datetime = Carbon::parse("{$data['delivery_date']} {$start_time}");
+        $start_datetime = Carbon::parse($data['delivery_date'])->setTimeFromTimeString($start_time);
 
         // Проверяем, что интервал начинается после текущего времени
         if (!now()->lessThan($start_datetime)) {
