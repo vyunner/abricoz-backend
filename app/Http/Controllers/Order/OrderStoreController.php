@@ -64,7 +64,7 @@ class OrderStoreController extends Controller
             }
 
             // Проверка на количество
-            if ($product->quantity < $product_data['product_quantity']) {
+            if ($product->amount < $product_data['product_quantity']) {
                 return $this->response(null, __('response.product.error.quantity', ['name' => $product->name_ru]), Response::HTTP_UNPROCESSABLE_ENTITY);
             }
         }
