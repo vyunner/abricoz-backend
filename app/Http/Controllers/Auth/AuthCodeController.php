@@ -69,6 +69,7 @@ class AuthCodeController extends Controller
         return in_array($phone, [
             '+77714424343',
             '+77022363206',
+            '+77026207447',
         ]);
     }
 }
