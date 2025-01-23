@@ -28,7 +28,12 @@ class AuthCodeController extends Controller
     {
         $data = $request->validated();
 
-        $code = mt_rand(100000, 999999);
+        // На этот номер смс не отправляем
+        if ($this->dontSendSms($data['phone'])) {
+            $code = 123456;
+        } else {
+            $code = mt_rand(100000, 999999);
+        }
 
         User::updateOrCreate(
             ['phone' => $data['phone']],
@@ -40,9 +45,31 @@ class AuthCodeController extends Controller
 
         $text = 'Спасибо за регистрацию на abricoz.kz! Ваш код подтверждения: ' . $code;
 
+        // На этот номер смс не отправляем
+        if ($this->dontSendSms($data['phone'])) {
+            return response()->json([
+                'code' => 0,
+                'data' => [
+                    'campaignId' => '',
+                    'messageId' => '',
+                    'status' => 2,
+                ],
+                'message' => $text,
+            ]);
+        }
+
         // Отправка смс
         $response = $this->mobizonService->sendSmsMessage($data['phone'], $text);
 
-        return $response;
+        return response()->json($response);
+    }
+
+    private function dontSendSms(string $phone): bool
+    {
+        return in_array($phone, [
+            '+77714424343',
+            '+77022363206',
+            '+77026207447',
+        ]);
     }
 }
