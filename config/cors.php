@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://abricoz.kz', 'https://api.abricoz.kz'],
 
     'allowed_origins_patterns' => [],
 
