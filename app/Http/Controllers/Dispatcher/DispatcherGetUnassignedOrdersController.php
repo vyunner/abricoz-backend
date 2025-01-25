@@ -41,6 +41,8 @@ class DispatcherGetUnassignedOrdersController extends Controller
                 'delivery_interval_name' => $order->deliveryInterval->name,
                 'order_status_id' => $order->order_status_id,
                 'order_status_name' => $order->orderStatus->name,
+                'longitude' => $order->longitude,
+                'latitude' => $order->latitude,
                 'products' => $order->products->map(function ($product) {
                     return [
                         'id' => $product->id,
