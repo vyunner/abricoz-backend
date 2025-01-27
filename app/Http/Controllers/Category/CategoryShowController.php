@@ -13,11 +13,10 @@ class CategoryShowController extends Controller
 {
     /**
      * Элемент
-     * @param Request $request
-     * @param $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request, $id)
+    public function __invoke(int $id)
     {
         $category = Category::with('subcategories')->findOrFail($id);
 

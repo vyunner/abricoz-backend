@@ -5,7 +5,6 @@ namespace App\Http\Controllers\SubCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategory\SubCategoryStoreRequest;
 use App\Models\SubCategory;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -20,16 +19,16 @@ class SubCategoryStoreController extends Controller
      */
     public function __invoke(SubCategoryStoreRequest $request)
     {
-        $validatedData = $request->validated();
+        $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/subcategories');
-            unset($validatedData['image']);
-            $validatedData['image_url'] = Storage::url($path);
+            $path = Storage::disk('s3')->put('subcategories', $request->file('image'), 'public');
+            $data['image_url'] = Storage::disk('s3')->url($path);
+            unset($data['image']);
         }
 
-        $subCategory = SubCategory::create($validatedData);
+        $sub_category = SubCategory::create($data);
 
-        return $this->response($subCategory, 'Подкатегория успешно создана!');
+        return $this->response($sub_category, 'Подкатегория успешно создана!');
     }
 }

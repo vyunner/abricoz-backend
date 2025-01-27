@@ -15,15 +15,16 @@ class DeliveryIntervalUpdateController extends Controller
     /**
      * Обновление
      * @param DeliveryIntervalUpdateRequest $request
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(DeliveryIntervalUpdateRequest $request)
+    public function __invoke(DeliveryIntervalUpdateRequest $request, int $id)
     {
-        $validatedData = $request->validated();
-        $deliveryInterval = DeliveryInterval::findOrFail($id);
+        $data = $request->validated();
+        $delivery_interval = DeliveryInterval::findOrFail($id);
 
-        $deliveryInterval->fill($validatedData)->save();
+        $delivery_interval->fill($data)->save();
 
-        return $this->response($deliveryInterval, 'Данные временного интервала успешно изменены!');
+        return $this->response($delivery_interval, 'Данные временного интервала успешно изменены!');
     }
 }

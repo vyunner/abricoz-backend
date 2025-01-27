@@ -12,9 +12,8 @@ class WarehouseDeleteSubcategoryController extends Controller
     {
         $subcategory = SubCategory::findOrFail($id);
 
-        if ($subcategory->image_url) {
-            $path = str_replace('/storage', 'public', $subcategory->image_url);
-            Storage::delete($path);
+        if ($subcategory->image_url && Storage::disk('s3')->exists($subcategory->image_url)) {
+            Storage::disk('s3')->delete($subcategory->image_url);
         }
 
         $subcategory->delete();

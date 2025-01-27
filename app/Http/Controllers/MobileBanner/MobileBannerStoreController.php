@@ -5,7 +5,6 @@ namespace App\Http\Controllers\MobileBanner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MobileBanner\MobileBannerStoreRequest;
 use App\Models\MobileBanner;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -20,21 +19,18 @@ class MobileBannerStoreController extends Controller
      */
     public function __invoke(MobileBannerStoreRequest $request)
     {
-        $validatedData = $request->validated();
+        $data = $request->validated();
 
-        $paths = [];
+        $last_banner = MobileBanner::orderBy('number', 'desc')->first();
+        $data['number'] = $last_banner?->number + 1 ?? 1;
+
         foreach (['ru', 'kz', 'en'] as $locale) {
-            $paths[$locale] = $request->file("image_{$locale}")->store('public/mobile-banners');
+            $path = Storage::disk('s3')->put('mobile_banners', $data["image_{$locale}"]);
+            $data["image_url_{$locale}"] = Storage::disk('s3')->url($path);
+            unset($data["image_{$locale}"]);
         }
 
-        $lastBanner = MobileBanner::orderBy('number', 'desc')->first();
-
-        $banner = new MobileBanner();
-        foreach (['ru', 'kz', 'en'] as $locale) {
-            $banner->{"image_url_{$locale}"} = Storage::url($paths[$locale]);
-        }
-        $banner->number = $lastBanner ? $lastBanner->number + 1 : 1;
-        $banner->save();
+        $banner = MobileBanner::create($data);
 
         return $this->response($banner, 'Баннер успешно добавлен!');
     }

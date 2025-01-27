@@ -14,18 +14,16 @@ class DesktopBannerDestroyController extends Controller
 {
     /**
      * Удаление
-     * @param Request $request
-     * @param $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request, $id)
+    public function __invoke(int $id)
     {
         $banner = DesktopBanner::findOrFail($id);
 
         foreach (['ru_image_url', 'kz_image_url', 'en_image_url'] as $locale) {
-            $filePath = 'public' . str_replace('/storage', '', $banner->$locale);
-            if (Storage::exists($filePath)) {
-                Storage::delete($filePath);
+            if ($banner->$locale && Storage::disk('s3')->exists($banner->$locale)) {
+                Storage::disk('s3')->delete($banner->$locale);
             }
         }
 

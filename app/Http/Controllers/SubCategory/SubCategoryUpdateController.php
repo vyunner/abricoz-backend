@@ -5,7 +5,6 @@ namespace App\Http\Controllers\SubCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategory\SubCategoryUpdateRequest;
 use App\Models\SubCategory;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -16,29 +15,26 @@ class SubCategoryUpdateController extends Controller
     /**
      * Обновление
      * @param SubCategoryUpdateRequest $request
-     * @param $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(SubCategoryUpdateRequest $request, $id)
+    public function __invoke(SubCategoryUpdateRequest $request, int $id)
     {
-        $validatedData = $request->validated();
-        $subCategory = SubCategory::findOrFail($id);
+        $data = $request->validated();
+        $sub_category = SubCategory::findOrFail($id);
 
         if ($request->hasFile('image')) {
-            if ($subCategory->image_url) {
-                $oldPath = 'public' . str_replace('/storage', '', $subCategory->image_url);
-                if (Storage::exists($oldPath)) {
-                    Storage::delete($oldPath);
-                }
+            if ($sub_category->image_url && Storage::disk('s3')->exists($sub_category->image_url)) {
+                Storage::disk('s3')->delete($sub_category->image_url);
             }
 
-            $newPath = $request->file('image')->store('public/subcategories');
-            unset($validatedData['image']);
-            $validatedData['image_url'] = Storage::url($newPath);
+            $path = Storage::disk('s3')->put('subcategories', $request->file('image'), 'public');
+            $data['image_url'] = Storage::disk('s3')->url($path);
+            unset($data['image']);
         }
 
-        $subCategory->fill($validatedData)->save();
+        $sub_category->fill($data)->save();
 
-        return $this->response($subCategory, 'Данные подкатегории успешно изменены!');
+        return $this->response($sub_category, 'Данные подкатегории успешно изменены!');
     }
 }

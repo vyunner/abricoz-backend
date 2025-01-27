@@ -14,8 +14,8 @@ class WarehouseCreateSubcategoryController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('image_url')) {
-            $path = $request->file('image_url')->store('public/subcategories');
-            $data['image_url'] = Storage::url($path);
+            $path = Storage::disk('s3')->put('subcategories', $request->file('image_url'), 'public');
+            $data['image_url'] = Storage::disk('s3')->url($path);
         }
 
         $subcategory = SubCategory::create($data);
