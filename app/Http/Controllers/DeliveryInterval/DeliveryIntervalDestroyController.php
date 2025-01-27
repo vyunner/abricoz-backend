@@ -4,7 +4,6 @@ namespace App\Http\Controllers\DeliveryInterval;
 
 use App\Http\Controllers\Controller;
 use App\Models\DeliveryInterval;
-use Illuminate\Http\Request;
 
 /**
  * @group DeliveryInterval
@@ -13,14 +12,13 @@ class DeliveryIntervalDestroyController extends Controller
 {
     /**
      * Удаление
-     * @param Request $request
-     * @param $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request, $id)
+    public function __invoke(int $id)
     {
-        $deliveryInterval = DeliveryInterval::findOrFail($id);
-        $deliveryInterval->delete();
+        $delivery_interval = DeliveryInterval::findOrFail($id);
+        $delivery_interval->delete();
 
         return $this->response([], 'Временной интервал успешно удален!');
     }

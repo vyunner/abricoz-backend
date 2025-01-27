@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CategoryStoreRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -20,22 +19,21 @@ class CategoryStoreController extends Controller
      */
     public function __invoke(CategoryStoreRequest $request)
     {
-        $validatedData = $request->validated();
+        $data = $request->validated();
 
         if ($request->hasFile('desktop_image')) {
-            $path = $request->file('desktop_image')->store('public/categories');
-            unset($validatedData['desktop_image']);
-            $validatedData['desktop_image_url'] = Storage::url($path);
+            $path = Storage::disk('s3')->put('desktopimages', $request->file('desktop_image'), 'public');
+            $data['desktop_image_url'] = Storage::disk('s3')->url($path);
+            unset($data['desktop_image']);
         }
 
         if ($request->hasFile('mobile_image')) {
-            $path = $request->file('mobile_image')->store('public/categories');
-            unset($validatedData['mobile_image']);
-            $validatedData['mobile_image_url'] = Storage::url($path);
+            $path = Storage::disk('s3')->put('mobileimages', $request->file('mobile_image'), 'public');
+            $data['mobile_image_url'] = Storage::disk('s3')->url($path);
+            unset($data['mobile_image']);
         }
 
-
-        $category = Category::create($validatedData);
+        $category = Category::create($data);
 
         return $this->response($category, 'Категория успешно создана!');
     }

@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Courier;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 
 class CourierGetCurrentOrdersController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke()
     {
         $courier = Auth::user();
 

@@ -13,9 +13,8 @@ class WarehouseDeleteProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        if ($product->photo_url) {
-            $path = str_replace('/storage', 'public', $product->photo_url);
-            Storage::delete($path);
+        if ($product->photo_url && Storage::disk('s3')->exists($product->photo_url)) {
+            Storage::disk('s3')->delete($product->photo_url);
         }
 
         FavoriteProduct::where('product_id', $id)->delete();

@@ -41,9 +41,11 @@ class OrderStoreController extends Controller
 
         // Проверка количества заказов
         $orders_count = Order::where('user_id', $request->user()->id)
-            ->whereNotIn('order_status_id', [
-                OrderStatus::DELIVERED,
-                OrderStatus::CANCELLED,
+            ->whereIn('order_status_id', [
+                OrderStatus::IN_PROCESS,
+                OrderStatus::ASSEMBLING,
+                OrderStatus::WAITING_FOR_COURIER,
+                OrderStatus::ON_THE_WAY,
             ])
             ->count();
 

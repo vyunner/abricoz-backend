@@ -5,7 +5,6 @@ namespace App\Http\Controllers\DesktopBanner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DesktopBanner\DesktopBannerStoreRequest;
 use App\Models\DesktopBanner;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -20,21 +19,19 @@ class DesktopBannerStoreController extends Controller
      */
     public function __invoke(DesktopBannerStoreRequest $request)
     {
-        $validatedData = $request->validated();
+        $data = $request->validated();
 
-        $paths = [];
+        $last_banner = DesktopBanner::orderBy('number', 'desc')->first();
+
+        $data['number'] = $last_banner?->number + 1 ?? 1;
+
         foreach (['ru', 'kz', 'en'] as $locale) {
-            $paths[$locale] = $request->file("image_{$locale}")->store('public/desktop-banners');
-        }
+            $path = Storage::disk('s3')->put('desktopbanners', $request->file("{$locale}_image"), 'public');
+            $data["image_url_{$locale}"] = Storage::disk('s3')->url($path);
+            unset($data["{$locale}_image"]);
+        };
 
-        $lastBanner = DesktopBanner::orderBy('number', 'desc')->first();
-
-        $banner = new DesktopBanner();
-        foreach (['ru', 'kz', 'en'] as $locale) {
-            $banner->{"image_url_{$locale}"} = Storage::url($paths[$locale]);
-        }
-        $banner->number = $lastBanner ? $lastBanner->number + 1 : 1;
-        $banner->save();
+        $banner = DesktopBanner::create($data);
 
         return $this->response($banner, 'Баннер успешно добавлен!');
     }
