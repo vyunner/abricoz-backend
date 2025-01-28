@@ -210,3 +210,9 @@ Route::group(['prefix' => '/warehouse'], function () {
         Route::post('/add-photo-product/{id}', Controllers\Warehouse\WarehouseAddPhotoProductController::class);
     });
 });
+
+Route::group(['prefix' => '/head-warehouse'], function () {
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin|head-warehouse']], function () {
+        Route::delete('/delete-order/{id}', Controllers\HeadWarehouse\HeadWarehouseDeleteOrderController::class);
+    });
+});
