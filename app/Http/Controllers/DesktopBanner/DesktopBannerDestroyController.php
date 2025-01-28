@@ -4,7 +4,6 @@ namespace App\Http\Controllers\DesktopBanner;
 
 use App\Http\Controllers\Controller;
 use App\Models\DesktopBanner;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -21,9 +20,9 @@ class DesktopBannerDestroyController extends Controller
     {
         $banner = DesktopBanner::findOrFail($id);
 
-        foreach (['ru_image_url', 'kz_image_url', 'en_image_url'] as $locale) {
-            if ($banner->$locale && Storage::disk('s3')->exists($banner->$locale)) {
-                Storage::disk('s3')->delete($banner->$locale);
+        foreach (['kz', 'en', 'ru'] as $locale) {
+            if ($banner->{"image_url_{$locale}"} && Storage::disk('s3')->exists($banner->{"image_path_{$locale}"})) {
+                Storage::disk('s3')->delete($banner->{"image_path_{$locale}"});
             }
         }
 

@@ -5,11 +5,20 @@ namespace App\Http\Controllers\Warehouse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Warehouse\WarehouseUpdateProductRequest;
 use App\Models\Product;
-use Illuminate\Support\Facades\Storage;
 
+/**
+ * @group Warehouse
+ */
 class WarehouseUpdateProductController extends Controller
 {
-    public function __invoke(WarehouseUpdateProductRequest $request, $id)
+    /**
+     * Изменение продукта
+     * 
+     * @param WarehouseUpdateProductRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function __invoke(WarehouseUpdateProductRequest $request, int $id)
     {
         $product = Product::findOrFail($id);
         $data = $request->validated();

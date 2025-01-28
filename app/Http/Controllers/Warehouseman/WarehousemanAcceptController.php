@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Warehouseman\WarehousemanAcceptRequest;
 use App\Models\Order;
 use App\Models\OrderAssignment;
-use Illuminate\Http\Request;
 
+/**
+ * @group Warehouseman
+ */
 class WarehousemanAcceptController extends Controller
 {
     /**

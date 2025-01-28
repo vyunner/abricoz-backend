@@ -7,14 +7,22 @@ use App\Models\FavoriteProduct;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @group Warehouse
+ */
 class WarehouseDeleteProductController extends Controller
 {
-    public function __invoke($id)
+    /**
+     * Удаление продукта
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function __invoke(int $id)
     {
         $product = Product::findOrFail($id);
 
-        if ($product->photo_url && Storage::disk('s3')->exists($product->photo_url)) {
-            Storage::disk('s3')->delete($product->photo_url);
+        if ($product->photo_url && Storage::disk('s3')->exists($product->photo_path)) {
+            Storage::disk('s3')->delete($product->photo_path);
         }
 
         FavoriteProduct::where('product_id', $id)->delete();

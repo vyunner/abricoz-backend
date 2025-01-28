@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Warehouseman;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
 use App\Models\OrderAssignment;
 use Illuminate\Http\Request;
 
@@ -13,7 +12,7 @@ use Illuminate\Http\Request;
 class WarehousemanGetCurrentOrderController extends Controller
 {
     /**
-     * Display the current assigned order for the warehouseman
+     * Отображение текущего заказа складским работником
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

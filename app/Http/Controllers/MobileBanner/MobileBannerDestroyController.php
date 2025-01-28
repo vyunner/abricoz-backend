@@ -20,10 +20,8 @@ class MobileBannerDestroyController extends Controller
     {
         $banner = MobileBanner::findOrFail($id);
 
-        foreach (['ru_image_url', 'kz_image_url', 'en_image_url'] as $locale) {
-            if (Storage::disk('s3')->exists($banner->$locale)) {
-                Storage::disk('s3')->delete($banner->$locale);
-            }
+        if ($banner->image_url && Storage::disk('s3')->exists($banner->image_path)) {
+            Storage::disk('s3')->delete($banner->image_path);
         }
 
         $banner->delete();

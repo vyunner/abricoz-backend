@@ -8,15 +8,15 @@ use App\Models\Order;
 use App\Models\User;
 use App\Models\UserDevice;
 use App\Services\FirebaseNotificationService;
-use Illuminate\Http\Request;
 
+/**
+ * @group Warehouseman
+ */
 class WarehousemanCompleteController extends Controller
 {
-    protected FirebaseNotificationService $firebaseNotificationService;
-
-    public function __construct(FirebaseNotificationService $firebaseNotificationService)
-    {
-        $this->firebaseNotificationService = $firebaseNotificationService;
+    public function __construct(
+        private FirebaseNotificationService $firebaseNotificationService,
+    ) {
     }
 
     /**

@@ -24,8 +24,8 @@ class SubCategoryUpdateController extends Controller
         $sub_category = SubCategory::findOrFail($id);
 
         if ($request->hasFile('image')) {
-            if ($sub_category->image_url && Storage::disk('s3')->exists($sub_category->image_url)) {
-                Storage::disk('s3')->delete($sub_category->image_url);
+            if ($sub_category->image_url && Storage::disk('s3')->exists($sub_category->image_path)) {
+                Storage::disk('s3')->delete($sub_category->image_path);
             }
 
             $path = Storage::disk('s3')->put('subcategories', $request->file('image'), 'public');
