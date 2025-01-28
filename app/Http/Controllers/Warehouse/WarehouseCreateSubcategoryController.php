@@ -7,8 +7,17 @@ use App\Models\SubCategory;
 use App\Http\Requests\Warehouse\WarehouseCreateSubcategoryRequest;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @group Warehouse
+ */
 class WarehouseCreateSubcategoryController extends Controller
 {
+    /**
+     * Создание подкатегории
+     *
+     * @param WarehouseCreateSubcategoryRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(WarehouseCreateSubcategoryRequest $request)
     {
         $data = $request->validated();

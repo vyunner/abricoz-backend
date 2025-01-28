@@ -24,8 +24,8 @@ class CategoryUpdateController extends Controller
         $category = Category::findOrFail($id);
 
         if ($request->hasFile('desktop_image')) {
-            if ($category->desktop_image_url && Storage::disk('s3')->exists($category->desktop_image_url)) {
-                Storage::disk('s3')->delete($category->desktop_image_url);
+            if ($category->desktop_image_url && Storage::disk('s3')->exists($category->desktop_image_apth)) {
+                Storage::disk('s3')->delete($category->desktop_image_apth);
             }
 
             $path = Storage::disk('s3')->put('desktopimages', $request->file('desktop_image'), 'public');
@@ -34,8 +34,8 @@ class CategoryUpdateController extends Controller
         }
 
         if ($request->hasFile('mobile_image')) {
-            if ($category->mobile_image_url && Storage::disk('s3')->exists($category->mobile_image_url)) {
-                Storage::disk('s3')->delete($category->mobile_image_url);
+            if ($category->mobile_image_url && Storage::disk('s3')->exists($category->mobile_image_path)) {
+                Storage::disk('s3')->delete($category->mobile_image_path);
             }
 
             $path = Storage::disk('s3')->put('mobileimages', $request->file('mobile_image'), 'public');

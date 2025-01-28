@@ -3,12 +3,21 @@
 namespace App\Http\Controllers\Warehouse;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Warehouse\WarehouseGetProductsRequest;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
+/**
+ * @group Warehouse
+ */
 class WarehouseGetProductsController extends Controller
 {
-    public function __invoke(WarehouseGetProductsRequest $request)
+    /**
+     * Получение списка товаров
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function __invoke(Request $request)
     {
         $query = Product::query();
 

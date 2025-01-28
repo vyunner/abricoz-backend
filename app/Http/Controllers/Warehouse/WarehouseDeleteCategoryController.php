@@ -5,9 +5,17 @@ namespace App\Http\Controllers\Warehouse;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 
+/**
+ * @group Warehouse
+ */
 class WarehouseDeleteCategoryController extends Controller
 {
-    public function __invoke($id)
+    /**
+     * Удаление категории
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function __invoke(int $id)
     {
         $category = Category::findOrFail($id);
         $category->delete();
