@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\OrderIndexRequest;
-use App\Http\Resources\OrderResource;
 use App\Models\Order;
-use Illuminate\Http\Request;
 
 /**
  * @group Order
@@ -25,10 +23,11 @@ class OrderIndexController extends Controller
 
         if (!$user || !$user->hasRole('admin')) {
             $query->where('user_id', $user->id);
-        }
-        else {
+        } else {
             $query->with('user');
         }
+
+        $query->orderBy('created_at', 'desc');
 
         if ($request->has('perPage')) {
             $perPage = $request->query('perPage', 10);
