@@ -90,7 +90,7 @@ class DispatcherAssignOrdersController extends Controller
                         $device->fcm_token,
                         [
                             'title' => 'Уведомление курьеру',
-                            'body' => 'Диспетчер назначил вам заказ',
+                            'body' => "Диспетчер назначил вам заказ #{$order->id}",
                             'data' => [
                                 'order_id' => (string)$orderId,
                                 'order_status_id' => (string)$order->order_status_id,
