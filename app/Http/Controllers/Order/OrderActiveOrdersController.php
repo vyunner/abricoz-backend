@@ -24,10 +24,11 @@ class OrderActiveOrdersController extends Controller
         $query = Order::with(['orderStatus', 'deliveryInterval', 'products', 'paymentType'])
             ->whereIn('order_status_id', [1, 2, 3, 4]);
 
-        if (!$user || !$user->hasRole('admin')) {
+        if ($user) {
             $query->where('user_id', $user->id);
-        } else {
-            $query->with('user');
+        }
+        else {
+            $this->response([], 'Отсутствует user', 500);
         }
 
         if ($request->has('perPage')) {

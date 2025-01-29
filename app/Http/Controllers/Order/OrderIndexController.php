@@ -21,10 +21,11 @@ class OrderIndexController extends Controller
         $user = $request->user();
         $query = Order::with(['orderStatus', 'deliveryInterval', 'products', 'paymentType']);
 
-        if (!$user || !$user->hasRole('admin')) {
+        if ($user) {
             $query->where('user_id', $user->id);
-        } else {
-            $query->with('user');
+        }
+        else {
+            $this->response([], 'Отсутствует user', 500);
         }
 
         $query->orderBy('created_at', 'desc');
