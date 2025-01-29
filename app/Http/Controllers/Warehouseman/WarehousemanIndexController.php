@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\DB;
 class WarehousemanIndexController extends Controller
 {
     /**
-     * @param Request $request
-     * @return mixed
+     * Отображение списка заказов со статусом 1 и 2
+     * 
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke()
     {
         $orders = Order::from('orders')
             ->leftJoin('order_assignments', function ($join) {

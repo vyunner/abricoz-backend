@@ -3,20 +3,30 @@
 namespace App\Http\Controllers\Warehouse;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Warehouse\AddProductRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Request;
 
+/**
+ * @group Warehouse
+ */
 class WarehouseAddPhotoProductController extends Controller
 {
-    public function __invoke(Request $request, $id)
+    /**
+     * Добавление фото товара
+     *
+     * @param AddProductRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function __invoke(AddProductRequest $request, int $id)
     {
-        $request->validate(['photo' => 'required|image|max:2048']);
+        $request->validated();
 
         $product = Product::findOrFail($id);
 
-        if ($product->photo_url && Storage::disk('s3')->exists($product->photo_url)) {
-            Storage::disk('s3')->delete($product->photo_url);
+        if ($product->photo_url && Storage::disk('s3')->exists($product->photo_path)) {
+            Storage::disk('s3')->delete($product->photo_path);
         }
 
         $path = Storage::disk('s3')->put('products', $request->file('photo'), 'public');

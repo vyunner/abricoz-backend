@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Warehouseman;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use Illuminate\Http\Request;
 
 /**
  * @group Warehouseman
@@ -14,11 +13,10 @@ class WarehousemanShowController extends Controller
     /**
      * Отображение информации о заказе
      *
-     * @param Request $request
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request, $id)
+    public function __invoke(int $id)
     {
         $order = Order::with([
             'orderProducts' => function ($query) {

@@ -6,8 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+/**
+ * @group Warehouse
+ */
 class WarehouseGetCategoriesController extends Controller
 {
+    /**
+     * Получение категорий
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(Request $request)
     {
         $query = Category::query();
