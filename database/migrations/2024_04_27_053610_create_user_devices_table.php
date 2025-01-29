@@ -12,11 +12,22 @@ return new class extends Migration {
     {
         Schema::create('user_devices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('fcm_token_type_id')->constrained('fcm_token_types')->onDelete('set null');
-            $table->foreignId('user_id')->constrained('users')->onDelete('set null');
+            $table->unsignedBigInteger('fcm_token_type_id')->nullable(); // Должно быть nullable
+            $table->unsignedBigInteger('user_id')->nullable(); // Должно быть nullable
             $table->string('fcm_token');
             $table->string('device_id');
             $table->timestamps();
+
+            // Внешние ключи
+            $table->foreign('fcm_token_type_id')
+                ->references('id')
+                ->on('fcm_token_types')
+                ->onDelete('set null');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
         });
     }
 
