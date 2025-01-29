@@ -19,12 +19,7 @@ class ProductIndexController extends Controller
      */
     public function __invoke(ProductIndexRequest $request)
     {
-        $user = $request->user();
-        $query = Product::with(['subcategory']);
-
-        if (!$user || !$user->hasRole('admin')) {
-            $query->where('is_active', 1);
-        }
+        $query = Product::with(['subcategory'])->where('is_active', 1);
 
         if ($request->has('name')) {
             $name = $request->input('name');
