@@ -4,14 +4,33 @@ namespace App\Http\Controllers\Courier;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Courier\CourierCompleteOrderRequest;
+use App\Models\User;
+use App\Models\UserDevice;
+use App\Services\FirebaseNotificationService;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 
+/**
+ * @group Courier
+ */
 class CourierAcceptOrderController extends Controller
 {
+    protected FirebaseNotificationService $firebaseNotificationService;
+
+    public function __construct(FirebaseNotificationService $firebaseNotificationService)
+    {
+        $this->firebaseNotificationService = $firebaseNotificationService;
+    }
+
+    /**
+     * Принятие заказа курьером
+     * @param CourierCompleteOrderRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function __invoke(CourierCompleteOrderRequest $request)
     {
-        $courier = Auth::user();
+        $courier = $request->user();
         $orderId = $request->validated()['order_id'];
 
         // Проверяем, что заказ назначен этому курьеру
@@ -34,6 +53,28 @@ class CourierAcceptOrderController extends Controller
         // Меняем статус заказа на 4
         $order->order_status_id = 4;
         $order->save();
+
+
+        $userDevices = UserDevice::where('user_id', $order->user_id)
+            ->where('fcm_token_type_id', 2)
+            ->get();
+
+        foreach ($userDevices as $device) {
+            // Отправляем уведомление на каждый FCM токен
+            $this->firebaseNotificationService->sendNotification(
+                'app1', // Идентификатор приложения ('app1' или 'app2')
+                $device->fcm_token, // Токен устройства
+                [
+                    'title' => 'Abricoz',
+                    'body' => 'Курьер забрал заказ и направляется к вам',
+                    'data' => [
+                        'order_id' => (string)$order->id,
+                        'order_status_id' => (string)$order->order_status_id,
+                    ],
+                ]
+            );
+        }
+
 
         return $this->response(null, 'Статус изменен', 200);
     }

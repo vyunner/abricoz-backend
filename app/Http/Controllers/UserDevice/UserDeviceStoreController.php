@@ -25,38 +25,33 @@ class UserDeviceStoreController extends Controller
         $validatedData = $request->validated();
         $user_id = $request->user()->id;
         $device_id = $validatedData['device_id'];
+        $fcm_token_type_id = $validatedData['fcm_token_type_id'];
+        $fcm_token = $validatedData['fcm_token'];
 
-        // Ищем устройство по device_id
-        $userDevice = UserDevice::where('device_id', $device_id)->first();
+        // Проверяем, существует ли идентичная запись
+        $existingDevice = UserDevice::where('device_id', $device_id)
+            ->where('fcm_token_type_id', $fcm_token_type_id)
+            ->where('fcm_token', $fcm_token)
+            ->first();
 
-        if ($userDevice) {
-            // Если устройство найдено, обновляем fcm_token и/или staff_fcm_token
-            $updateData = [
-                'user_id' => $user_id, // Возможно, требуется обновление user_id
-            ];
-
-            if (!empty($validatedData['fcm_token'])) {
-                $updateData['fcm_token'] = $validatedData['fcm_token'];
+        if ($existingDevice) {
+            if ($existingDevice->user_id === $user_id) {
+                // Если идентичная запись уже существует, ничего не делаем
+                return $this->response($existingDevice, 'Запись уже существует');
+            } else {
+                // Если device_id, fcm_token, fcm_token_type_id совпадают, но user_id разные, удаляем старую запись
+                $existingDevice->delete();
             }
-
-            if (!empty($validatedData['staff_fcm_token'])) {
-                $updateData['staff_fcm_token'] = $validatedData['staff_fcm_token'];
-            }
-
-            $userDevice->update($updateData);
-            $message = 'Данные устройства успешно обновлены!';
-        } else {
-            // Если устройство не найдено, создаем новую запись
-            $userDevice = UserDevice::create([
-                'user_id' => $user_id,
-                'device_id' => $device_id,
-                'fcm_token' => $validatedData['fcm_token'] ?? null,
-                'staff_fcm_token' => $validatedData['staff_fcm_token'] ?? null,
-            ]);
-
-            $message = 'Устройство успешно зарегистрировано!';
         }
 
-        return $this->response($userDevice, $message);
+        // Создаем новую запись
+        $newDevice = UserDevice::create([
+            'user_id' => $user_id,
+            'fcm_token_type_id' => $fcm_token_type_id,
+            'fcm_token' => $fcm_token,
+            'device_id' => $device_id,
+        ]);
+
+        return $this->response($newDevice, 'Запись успешно создана');
     }
 }

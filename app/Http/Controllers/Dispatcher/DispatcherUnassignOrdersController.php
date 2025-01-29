@@ -7,6 +7,9 @@ use App\Http\Requests\Dispatcher\DispatcherUnassignOrderRequest;
 use Illuminate\Support\Facades\DB;
 use App\Models\OrderAssignment;
 
+/**
+ * @group Список незакрепленных заказов
+ */
 class DispatcherUnassignOrdersController extends Controller
 {
     public function __invoke(DispatcherUnassignOrderRequest $request)

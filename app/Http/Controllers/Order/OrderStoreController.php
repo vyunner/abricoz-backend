@@ -173,19 +173,19 @@ class OrderStoreController extends Controller
             DB::commit();
 
             // Получаем всех пользователей с ролью warehouseman
-            $warehousemen = User::role('warehouseman')->get();
+            $warehousemans = User::role('warehouseman')->get();
 
-            foreach ($warehousemen as $warehouseman) {
+            foreach ($warehousemans as $warehouseman) {
                 // Получаем устройства пользователя с FCM токенами
                 $userDevices = UserDevice::where('user_id', $warehouseman->id)
-                    ->whereNotNull('staff_fcm_token')
+                    ->where('fcm_token_type_id', 2)
                     ->get();
 
                 foreach ($userDevices as $device) {
                     // Отправляем уведомление на каждый FCM токен
                     $this->firebaseNotificationService->sendNotification(
                         'app2', // Идентификатор приложения ('app1' или 'app2')
-                        $device->staff_fcm_token, // Токен устройства
+                        $device->fcm_token, // Токен устройства
                         [
                             'title' => 'Уведомление складмену',
                             'body' => 'Соберите заказ!',

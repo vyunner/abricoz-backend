@@ -6,8 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+/**
+ * @group Dispatcher
+ */
 class DispatcherGetAssignedOrdersController extends Controller
 {
+    /**
+     * Гет закрепленных заказов
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(Request $request)
     {
         $courierRoleId = 3; // Айди роли курьера

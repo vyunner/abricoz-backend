@@ -4,13 +4,30 @@ namespace App\Http\Controllers\Dispatcher;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dispatcher\DispatcherAssignOrderRequest;
+use App\Models\UserDevice;
+use App\Services\FirebaseNotificationService;
 use Illuminate\Support\Facades\DB;
 use App\Models\OrderAssignment;
 use App\Models\User;
 use App\Models\Order;
 
+/**
+ * @group Dispatcher
+ */
 class DispatcherAssignOrdersController extends Controller
 {
+    protected FirebaseNotificationService $firebaseNotificationService;
+
+    public function __construct(FirebaseNotificationService $firebaseNotificationService)
+    {
+        $this->firebaseNotificationService = $firebaseNotificationService;
+    }
+
+    /**
+     * Назначение курьеров
+     * @param DispatcherAssignOrderRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(DispatcherAssignOrderRequest $request)
     {
         $data = $request->validated();
@@ -62,6 +79,24 @@ class DispatcherAssignOrdersController extends Controller
                     'user_id' => $userId,
                     'role_id' => 3, // Айди роли курьера
                 ]);
+
+                $userDevices = UserDevice::where('user_id', $userId)
+                    ->where('fcm_token_type_id', 2)
+                    ->get();
+
+                foreach ($userDevices as $device) {
+                    $this->firebaseNotificationService->sendNotification(
+                        'app2',
+                        $device->fcm_token,
+                        [
+                            'title' => 'Уведомление курьеру',
+                            'body' => 'Диспетчер назначил вам заказ',
+                            'data' => [
+                                'order_id' => (string)$orderId,
+                            ],
+                        ]
+                    );
+                }
 
                 $assignments[] = $assignment;
             }

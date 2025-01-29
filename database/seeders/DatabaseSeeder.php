@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             AddressSeeder::class,
             PointsSeeder::class,
             ProductXlsxSeeder::class,
+            FcmTokenTypesSeeder::class,
         ]);
     }
 }

@@ -22,9 +22,9 @@ class UserDeviceStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'fcm_token_type_id' => 'required|exists:fcm_token_types,id',
             'device_id' => 'required|string',
-            'fcm_token' => 'nullable|string',
-            'staff_fcm_token' => 'nullable|string',
+            'fcm_token' => 'required|string',
         ];
     }
 }

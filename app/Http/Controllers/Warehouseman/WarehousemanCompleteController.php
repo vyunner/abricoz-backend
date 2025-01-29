@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Warehouseman;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Warehouseman\WarehousemanCompleteRequest;
 use App\Models\Order;
+use App\Models\OrderAssignment;
 use App\Models\User;
 use App\Models\UserDevice;
 use App\Services\FirebaseNotificationService;
@@ -51,38 +52,28 @@ class WarehousemanCompleteController extends Controller
             'order_status_id' => 3,
         ]);
 
-        // ИЗМЕНЕНИЕ ЗДЕСЬ: выбираем курьеров вместо складских работников
-        $couriers = User::role('courier')->get();
+        $courier_id = OrderAssignment::where('order_id', $orderId)
+            ->where('role_id', 3)
+            ->value('user_id');
 
-        foreach ($couriers as $courier) {
-            // Получаем устройства пользователя с FCM токенами
-            $userDevices = UserDevice::where('user_id', $courier->id)
-                ->whereNotNull('staff_fcm_token')
-                ->get();
 
-            foreach ($userDevices as $device) {
-                if (!empty($device->staff_fcm_token)) {
-                    // Логируем токен, чтобы увидеть сколько раз на одно и то же устройство отправляется уведомление
-                    \Log::info('Sending notification to staff_fcm_token: ' . $device->staff_fcm_token . ' for device_id: ' . $device->device_id);
+        $userDevices = UserDevice::where('user_id', $courier_id)
+            ->where('fcm_token_type_id', 2)
+            ->get();
 
-                    try {
-                        $this->firebaseNotificationService->sendNotification(
-                            'app2',
-                            $device->staff_fcm_token,
-                            [
-                                'title' => 'Уведомление курьеру',
-                                'body' => 'Заберите заказ!',
-                                'data' => [
-                                    'order_id' => (string)$orderId,
-                                    'order_status_id' => '3',
-                                ],
-                            ]
-                        );
-                    } catch (\Exception $e) {
-                        \Log::error('Ошибка при отправке уведомления на токен ' . $device->staff_fcm_token . ': ' . $e->getMessage());
-                    }
-                }
-            }
+        foreach ($userDevices as $device) {
+            $this->firebaseNotificationService->sendNotification(
+                'app2',
+                $device->fcm_token,
+                [
+                    'title' => 'Уведомление курьеру',
+                    'body' => 'Складмен собрал заказ',
+                    'data' => [
+                        'order_id' => (string)$orderId,
+                        'order_status_id' => '3',
+                    ],
+                ]
+            );
         }
 
         return $this->response([], 'Заказ успешно завершен.');

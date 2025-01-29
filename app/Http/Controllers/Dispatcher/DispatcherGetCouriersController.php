@@ -7,8 +7,16 @@ use App\Models\User;
 use Illuminate\Http\Request;
 
 
+/**
+ * @group Dispatcher
+ */
 class DispatcherGetCouriersController extends Controller
 {
+    /**
+     * Список курьеров
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(Request $request)
     {
         $courierRoleId = 3; // Айди роли курьера

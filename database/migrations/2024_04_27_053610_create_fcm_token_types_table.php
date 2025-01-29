@@ -10,12 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('user_devices', function (Blueprint $table) {
+        Schema::create('fcm_token_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('fcm_token_type_id')->constrained('fcm_token_types')->onDelete('set null');
-            $table->foreignId('user_id')->constrained('users')->onDelete('set null');
-            $table->string('fcm_token');
-            $table->string('device_id');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -25,6 +22,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_devices');
+        Schema::dropIfExists('fcm_token_types');
     }
 };

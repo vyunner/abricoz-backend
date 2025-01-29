@@ -6,8 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
+/**
+ * @group
+ */
 class DispatcherGetUnassignedOrdersController extends Controller
 {
+    /**
+     * Гет незакрепленных заказов
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function __invoke(Request $request)
     {
         $orders = Order::whereIn('order_status_id', [1, 2, 3, 4])
