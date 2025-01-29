@@ -17,7 +17,6 @@ class Category extends Model
         'desktop_image_url',
         'mobile_image_url',
         'name_kz',
-        'name_en',
         'name_ru',
     ];
 

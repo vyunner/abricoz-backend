@@ -18,7 +18,6 @@ class SubCategory extends Model
         'category_id',
         'image_url',
         'name_kz',
-        'name_en',
         'name_ru',
     ];
 

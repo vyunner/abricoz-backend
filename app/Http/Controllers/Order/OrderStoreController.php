@@ -161,7 +161,6 @@ class OrderStoreController extends Controller
                         'product_id' => $order_product->product_id,
                         'photo_url' => $order_product->product->photo_url,
                         'name_ru' => $order_product->product->name_ru,
-                        'name_en' => $order_product->product->name_en,
                         'name_kz' => $order_product->product->name_kz,
                         'price' => $order_product->product_price,
                         'price_with_discount' => $order_product->product_price_with_discount,
