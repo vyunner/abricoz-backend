@@ -56,7 +56,7 @@ class CourierAcceptOrderController extends Controller
 
 
         $userDevices = UserDevice::where('user_id', $order->user_id)
-            ->where('fcm_token_type_id', 2)
+            ->where('fcm_token_type_id', 1)
             ->get();
 
         foreach ($userDevices as $device) {

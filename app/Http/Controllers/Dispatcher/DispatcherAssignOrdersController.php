@@ -93,6 +93,7 @@ class DispatcherAssignOrdersController extends Controller
                             'body' => 'Диспетчер назначил вам заказ',
                             'data' => [
                                 'order_id' => (string)$orderId,
+                                'order_status_id' => (string)$order->order_status_id,
                             ],
                         ]
                     );
