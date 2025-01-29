@@ -13,13 +13,13 @@ class WarehouseGetProductsController extends Controller
 {
     /**
      * Получение списка товаров
-     * 
+     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(Request $request)
     {
-        $query = Product::query();
+        $query = Product::query()->with('subcategory');
 
         if ($request->filled('category_id')) {
             $query->whereHas('subcategory', function ($q) use ($request) {
