@@ -202,7 +202,7 @@ class ProductsSeeder extends Seeder
             'description_kz' => 'Салат миксі — түрлі салаттар мен хош иісті шөптердің қосындысы, тағамның дәмі мен көрінісін әрлейді.',
             'price'          => 700,
             'discount'       => 0,
-            'photo_url'      => 'https://abricoz-eu.s3.eu-central-1.amazonaws.com/products/preGeb2AYcEYKwndBXY8KlCve8eoEg1q4qPVduWU.webp',
+            'photo_url'      => 'https://abricoz-eu.s3.eu-central-1.amazonaws.com/products/NUIvJ0LMjQFUzhQPaptz0HV9irLDgtW4QeN3csMY.webp',
             'weight'         => '130 г',
             'calories'       => 25,
             'proteins'       => 1.8,
