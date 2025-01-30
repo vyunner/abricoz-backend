@@ -65,7 +65,7 @@ Route::group(['prefix' => '/product'], function () {
 
 Route::group(['prefix' => '/sub-category'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
-        Route::post('/update', Controllers\SubCategory\SubCategoryUpdateController::class);
+        Route::post('/update/{id}', Controllers\SubCategory\SubCategoryUpdateController::class);
         Route::post('/store', Controllers\SubCategory\SubCategoryStoreController::class);
         Route::delete('/delete/{id}', Controllers\SubCategory\SubCategoryDestroyController::class);
     });
