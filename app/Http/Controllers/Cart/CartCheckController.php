@@ -32,6 +32,7 @@ class CartCheckController extends Controller
                     'id' => $product->id,
                     'is_active' => $product->is_active,
                     'product_quantity' => $productData['product_quantity'],
+                    'available_quantity' => $product->amount,
                     'photo_url' => $product->photo_url,
                     'name_ru' => $product->name_ru,
                     'name_kz' => $product->name_kz,
@@ -49,7 +50,7 @@ class CartCheckController extends Controller
                 $shortaged_products[] = [
                     'id' => $product->id,
                     'requested_quantity' => $productData['product_quantity'], // Запрашиваемое количество
-                    'available_quantity' => $product->amount, // Доступное количество на складе
+                    'available_quantity' => $product->amount,
                     'photo_url' => $product->photo_url,
                     'name_ru' => $product->name_ru,
                     'name_kz' => $product->name_kz,
@@ -69,6 +70,7 @@ class CartCheckController extends Controller
                 'id' => $product->id,
                 'is_active' => $product->is_active,
                 'product_quantity' => $productData['product_quantity'],
+                'available_quantity' => $product->amount,
                 'photo_url' => $product->photo_url,
                 'name_ru' => $product->name_ru,
                 'name_kz' => $product->name_kz,
