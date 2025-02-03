@@ -411,5 +411,11 @@ class ProductsSeeder extends Seeder
             'carbohydrates' => 3.6,
             'is_active' => 1,
         ]);
+
+        $products = Product::all();
+        foreach ($products as $product) {
+            $product->amount = 1000;
+            $product->save();
+        }
     }
 }
