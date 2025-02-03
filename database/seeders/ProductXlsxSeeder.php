@@ -100,7 +100,7 @@ class ProductXlsxSeeder extends Seeder
                 'fats' => $productData['fats'],
                 'carbohydrates' => $productData['carbohydrates'],
                 'is_active' => $productData['is_active'],
-                'amount' => $productData['amount'],
+                'amount' => 1000,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
