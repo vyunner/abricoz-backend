@@ -27,7 +27,7 @@ return new class extends Migration {
             $table->float('carbohydrates')->nullable();
             $table->integer('price');
             $table->integer('discount')->default(0);
-            $table->integer('price_with_discount')->nullable();
+            $table->integer('price_with_discount');
             $table->integer('total_sales')->default(0);
             $table->integer('amount')->default(0);
             $table->boolean('is_active')->default(0);
