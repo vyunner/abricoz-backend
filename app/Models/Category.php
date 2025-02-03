@@ -14,7 +14,6 @@ class Category extends Model
     protected $table = 'categories';
 
     protected $fillable = [
-        'desktop_image_url',
         'mobile_image_url',
         'name_kz',
         'name_ru',
@@ -25,12 +24,6 @@ class Category extends Model
         return $this->hasMany(SubCategory::class, 'category_id');
     }
 
-    public function desktopImagePath(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => parse_url($this->desktop_image_url, PHP_URL_PATH)
-        );
-    }
 
     public function mobileImagePath(): Attribute
     {

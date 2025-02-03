@@ -16,85 +16,71 @@ class CategoriesSeeder extends Seeder
         Category::create([
             'name_ru' => 'Фрукты и овощи',
             'name_kz' => 'Жеміс және тамақтық нәрселер',
-            'desktop_image_url' => '/storage/categories/apple.svg',
             'mobile_image_url' => '/storage/categories/fruits_and_vegetables_mobile.png',
         ]);
         Category::create([
             'name_ru' => 'Мясная продукция',
             'name_kz' => 'Мақта өнімдері',
-            'desktop_image_url' => '/storage/categories/drumstick.svg',
             'mobile_image_url' => '/storage/categories/meat_products_mobile.png',
         ]);
         Category::create([
             'name_ru' => 'Рыба и морепродукты',
             'name_kz' => 'Балық және деуінділер',
-            'desktop_image_url' => '/storage/categories/fish.svg',
             'mobile_image_url' => '/storage/categories/fish_and_seafood_mobile.png',
         ]);
         Category::create([
             'name_ru' => 'Молоко, сыр, масло, яйца',
             'name_kz' => 'Сүт, сыр, мас, жұмыртқа',
-            'desktop_image_url' => '/storage/categories/milk.svg',
             'mobile_image_url' => '/storage/categories/milk_cheese_butter_eggs_mobile.png',
         ]);
         Category::create([
             'name_ru' => 'Хлеб и выпечка',
             'name_kz' => 'Нан, нан өнімдері',
-            'desktop_image_url' => '/storage/categories/bagguette.svg',
             'mobile_image_url' => '/storage/categories/bread_and_pastries_mobile.png',
         ]);
         Category::create([
             'name_ru' => 'Напитки и соки',
             'name_kz' => 'Сусындар және шырындар',
-            'desktop_image_url' => '/storage/categories/drink.svg',
             'mobile_image_url' => '/storage/categories/drinks_and_juices_mobile.png',
         ]);
         Category::create([
             'name_ru' => 'Крупы и консервы',
             'name_kz' => 'Жармалар мен консервілер',
-            'desktop_image_url' => '',
             'mobile_image_url' => '/storage/categories/cereals_and_canned_foods_mobile.png',
         ]);
         Category::create([
             'name_ru' => 'Зелень',
             'name_kz' => 'Көкөністер',
-            'desktop_image_url' => '',
             'mobile_image_url' => '/storage/categories/greens_mobile.png',
         ]);
         Category::create([
             'name_ru' => 'Готовая еда и снэки',
             'name_kz' => 'Дайын тағамдар мен снэктер',
-            'desktop_image_url' => '',
             'mobile_image_url' => '/storage/categories/ready_meals_and_snacks_mobile.png',
         ]);
         Category::create([
             'name_ru' => 'Кулинария',
             'name_kz' => 'Аспаздық өнімдер',
-            'desktop_image_url' => '',
             'mobile_image_url' => '/storage/categories/culinary_mobile.png',
         ]);
         Category::create([
             'name_ru' => 'Колбасы и сосиски',
             'name_kz' => 'Шұжықтар мен сосискалар',
-            'desktop_image_url' => '',
             'mobile_image_url' => '/storage/categories/sausages_and_hot_dogs_mobile.png',
         ]);
         Category::create([
             'name_ru' => 'Замороженная продукция',
             'name_kz' => 'Мұздатылған өнімдер',
-            'desktop_image_url' => '',
             'mobile_image_url' => '/storage/categories/frozen_products_mobile.png',
         ]);
         Category::create([
             'name_ru' => 'Сладости',
             'name_kz' => 'Тәттілер',
-            'desktop_image_url' => '',
             'mobile_image_url' => '/storage/categories/sweets_mobile.png',
         ]);
         Category::create([
             'name_ru' => 'Хозтовары',
             'name_kz' => 'Тұрмыстық тауарлар',
-            'desktop_image_url' => '',
             'mobile_image_url' => '/storage/categories/household_goods_mobile.png',
         ]);
     }

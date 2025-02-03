@@ -20,10 +20,6 @@ class CategoryDestroyController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        if ($category->desktop_image_url && Storage::disk('s3')->exists($category->desktop_image_path)) {
-            Storage::disk('s3')->delete($category->desktop_image_path);
-        }
-
         if ($category->mobile_image_url && Storage::disk('s3')->exists($category->mobile_image_path)) {
             Storage::disk('s3')->delete($category->mobile_image_path);
         }

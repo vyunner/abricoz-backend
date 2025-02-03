@@ -21,12 +21,6 @@ class CategoryStoreController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->hasFile('desktop_image')) {
-            $path = Storage::disk('s3')->put('desktopimages', $request->file('desktop_image'), 'public');
-            $data['desktop_image_url'] = Storage::disk('s3')->url($path);
-            unset($data['desktop_image']);
-        }
-
         if ($request->hasFile('mobile_image')) {
             $path = Storage::disk('s3')->put('mobileimages', $request->file('mobile_image'), 'public');
             $data['mobile_image_url'] = Storage::disk('s3')->url($path);
