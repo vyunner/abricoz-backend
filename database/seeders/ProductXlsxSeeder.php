@@ -92,7 +92,7 @@ class ProductXlsxSeeder extends Seeder
                 'description_kz' => $productData['description_kz'],
                 'price' => $productData['price'],
                 'discount' => $productData['discount'],
-                $productData['price'] - ($productData['price'] * $productData['discount'] / 100),
+                'price_with_discount' => $productData['price'] - ($productData['price'] * $productData['discount'] / 100),
                 'photo_url' => $productData['photo_url'],
                 'weight' => $productData['weight'],
                 'calories' => $productData['calories'],
