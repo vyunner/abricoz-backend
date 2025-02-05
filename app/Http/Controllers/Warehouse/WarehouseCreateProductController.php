@@ -21,6 +21,11 @@ class WarehouseCreateProductController extends Controller
     {
         $data = $request->validated();
 
+        // Устанавливаем 'photo_url' в "null", если оно отсутствует
+        if (!array_key_exists('photo_url', $data)) {
+            $data['photo_url'] = 'null';
+        }
+
         $product = Product::create($data);
 
         return $this->response($product, 'Product created successfully');
