@@ -9,6 +9,7 @@ use App\Models\DeliveryInterval;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\OrderStatus;
+use App\Models\PaymentType;
 use App\Models\Product;
 use App\Models\UserDevice;
 use App\Services\FirebaseNotificationService;
@@ -92,6 +93,16 @@ class OrderStoreController extends Controller
             return $this->response(null, __('response.delivery_interval.error.unknown'), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
+        if ($data['payment_type_id'] === PaymentType::CASH) {
+            // Если оплата наличными, то заказ берется в обработку
+            $order_status = OrderStatus::IN_PROCESS;
+        } else if ($data['payment_type_id'] === PaymentType::BANK_CARD) {
+            // Если оплата картой, то ждем оплату
+            $order_status = OrderStatus::WAITING_FOR_PAYMENT;
+        } else {
+            return $this->response(null, __('response.payment_type.error.unknown'), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         DB::beginTransaction();
         try {
             // Находим адрес по его ID
@@ -100,7 +111,7 @@ class OrderStoreController extends Controller
             // Создаем заказ с учетом адресных полей
             $order = Order::create([
                 'user_id' => $request->user()->id,
-                'order_status_id' => OrderStatus::IN_PROCESS,
+                'order_status_id' => $order_status,
                 'delivery_interval_id' => $data['delivery_interval_id'],
                 'delivery_date' => $start_datetime->toDateString(),
                 'payment_type_id' => $data['payment_type_id'],

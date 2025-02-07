@@ -15,6 +15,5 @@ class OrderStatus extends Model
     public const ON_THE_WAY = 4;
     public const DELIVERED = 5;
     public const CANCELLED = 6;
-
-    protected $guarded = [];
+    public const WAITING_FOR_PAYMENT = 7;
 }

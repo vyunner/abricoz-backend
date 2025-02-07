@@ -9,5 +9,6 @@ class PaymentType extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    public const CASH = 1;
+    public const BANK_CARD = 2;
 }

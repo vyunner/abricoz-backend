@@ -17,6 +17,7 @@
         "laravel/telescope": "^5.3",
         "laravel/tinker": "^2.8",
         "league/flysystem-aws-s3-v3": "^3.0",
+        "opcodesio/log-viewer": "^3.14",
         "phpoffice/phpspreadsheet": "^3.7",
         "spatie/laravel-permission": "^6.4"
     },
