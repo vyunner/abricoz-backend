@@ -25,6 +25,7 @@ COPY . /var/www
 COPY .env.example /var/www/.env
 
 # Установка зависимостей через composer
+RUN composer update
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Установка прав

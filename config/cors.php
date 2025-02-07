@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://abricoz.kz', 'https://api.abricoz.kz', 'http://localhost:8080'],
+    'allowed_origins' => ['https://abricoz.kz', 'https://api.abricoz.kz', 'http://localhost:8080','http://localhost:8081',],
 
     'allowed_origins_patterns' => [],
 
