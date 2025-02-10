@@ -25,8 +25,7 @@ class OrderStoreController extends Controller
 {
     public function __construct(
         protected FirebaseNotificationService $firebaseNotificationService,
-    )
-    {
+    ) {
     }
 
     /**
