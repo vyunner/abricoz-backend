@@ -211,7 +211,7 @@ class OrderStoreController extends Controller
             DB::rollBack();
             \Log::error('order_create_error', ['exception' => $e]);
 
-            return $this->response(null, __('response.internal_server_error'), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->response(null, $e, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return $this->response($response, __('response.order.success.create'));
