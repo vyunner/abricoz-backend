@@ -43,7 +43,7 @@ class AuthLoginRequest extends FormRequest
             }
 
             // Проверяем, не истек ли срок действия кода
-            if ($user->phone_verification_code_expires_at < now()) {
+            if ($user->phone_verification_code_expires_at && $user->phone_verification_code_expires_at < now()) {
                 $validator->errors()->add('code', __('validation.verification_code_expired'));
             }
         });
