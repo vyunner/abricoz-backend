@@ -105,6 +105,8 @@ class EpayService
             'currency' => 'KZT',
             'post_link' => config('app.url') . '/api/epay/success',
             'failure_post_link' => config('app.url') . '/api/epay/failure',
+            'back_link' => 'abricos-success-pay.kz',
+            'failure_back_link' => 'abricos-success-pay.kz',
         ]);
 
         $data = $response->json();
