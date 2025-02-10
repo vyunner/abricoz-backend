@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Validator;
 
 class AuthLoginRequest extends FormRequest
 {
@@ -27,7 +28,7 @@ class AuthLoginRequest extends FormRequest
         ];
     }
 
-    public function withValidator($validator)
+    public function withValidator(Validator $validator)
     {
         $validator->after(function ($validator) {
             $phone = $this->input('phone');
@@ -38,13 +39,13 @@ class AuthLoginRequest extends FormRequest
                 ->where('phone_verification_code', $code)
                 ->first();
 
-            if (!$user) {
+            if (isset($user)) {
+                // Проверяем, не истек ли срок действия кода
+                if ($user->phone_verification_code_expires_at && $user->phone_verification_code_expires_at < now()) {
+                    $validator->errors()->add('code', __('validation.verification_code_expired'));
+                }
+            } else {
                 $validator->errors()->add('code', __('validation.verification_code_invalid'));
-            }
-
-            // Проверяем, не истек ли срок действия кода
-            if ($user->phone_verification_code_expires_at && $user->phone_verification_code_expires_at < now()) {
-                $validator->errors()->add('code', __('validation.verification_code_expired'));
             }
         });
     }
