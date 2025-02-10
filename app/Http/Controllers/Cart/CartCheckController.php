@@ -18,20 +18,20 @@ class CartCheckController extends Controller
      */
     public function __invoke(CartCheckRequest $request)
     {
-        $validatedData = $request->validated();
+        $data = $request->validated();
 
         $products = [];
         $total_price = 0;
 
-        foreach ($validatedData['products'] as $productData) {
-            $product = Product::findOrFail($productData['product_id']);
+        foreach ($data['products'] as $product_data) {
+            $product = Product::findOrFail($product_data['product_id']);
 
             // Проверка на активность
             if ($product->inactive) {
                 $inactivated_products[] = [
                     'id' => $product->id,
                     'is_active' => $product->is_active,
-                    'product_quantity' => $productData['product_quantity'],
+                    'product_quantity' => $product_data['product_quantity'],
                     'available_quantity' => $product->amount,
                     'photo_url' => $product->photo_url,
                     'name_ru' => $product->name_ru,
@@ -46,10 +46,10 @@ class CartCheckController extends Controller
             }
 
             // Проверка достаточности количества товаров на складе
-            if ($product->amount < $productData['product_quantity']) {
+            if ($product->amount < $product_data['product_quantity']) {
                 $shortaged_products[] = [
                     'id' => $product->id,
-                    'requested_quantity' => $productData['product_quantity'], // Запрашиваемое количество
+                    'requested_quantity' => $product_data['product_quantity'], // Запрашиваемое количество
                     'available_quantity' => $product->amount,
                     'photo_url' => $product->photo_url,
                     'name_ru' => $product->name_ru,
@@ -61,15 +61,15 @@ class CartCheckController extends Controller
                 ];
 
                 // Устанавливаем количество продуктов равное количеству на складе
-                $productData['product_quantity'] = $product->amount;
+                $product_data['product_quantity'] = $product->amount;
             }
 
-            $total_product_price = $product->price_with_discount * $productData['product_quantity'];
+            $total_product_price = $product->price_with_discount * $product_data['product_quantity'];
 
             $products[] = [
                 'id' => $product->id,
                 'is_active' => $product->is_active,
-                'product_quantity' => $productData['product_quantity'],
+                'product_quantity' => $product_data['product_quantity'],
                 'available_quantity' => $product->amount,
                 'photo_url' => $product->photo_url,
                 'name_ru' => $product->name_ru,

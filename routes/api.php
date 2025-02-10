@@ -41,6 +41,11 @@ Route::group(['prefix' => '/favorite-product', 'middleware' => 'auth:sanctum'], 
     Route::get('/index', Controllers\FavoriteProduct\FavoriteProductIndexController::class);
 });
 
+Route::group(['prefix' => '/epay'], function () {
+    Route::post('/success', Controllers\Epay\EpaySuccessController::class)->name('epay.success');
+    Route::post('/failure', Controllers\Epay\EpayFailureController::class)->name('epay.failure');
+});
+
 Route::group(['prefix' => '/order', 'middleware' => 'auth:sanctum'], function () {
     Route::group(['middleware' => 'role:admin'], function () {
         Route::post('/update/{id}', Controllers\Order\OrderUpdateController::class);
@@ -50,14 +55,12 @@ Route::group(['prefix' => '/order', 'middleware' => 'auth:sanctum'], function ()
     Route::get('/index', Controllers\Order\OrderIndexController::class);
     Route::get('/show/{id}', Controllers\Order\OrderShowController::class);
     Route::get('/cancel/{id}', Controllers\Order\OrderCancelController::class);
+    Route::get('/payment-link/{id}', Controllers\Order\OrderCreatePaymentLinkController::class);
     Route::get('/status', Controllers\Order\OrderLastStatusController::class);
     Route::get('/active-orders', Controllers\Order\OrderActiveOrdersController::class);
 });
 
 Route::group(['prefix' => '/product'], function () {
-    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
-    });
-
     Route::get('/index', Controllers\Product\ProductIndexController::class);
     Route::get('/show/{id}', Controllers\Product\ProductShowController::class);
     Route::get('/search', Controllers\Product\ProductSearchController::class);
