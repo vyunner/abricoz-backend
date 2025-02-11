@@ -61,18 +61,23 @@ class CourierAcceptOrderController extends Controller
 
         foreach ($userDevices as $device) {
             // Отправляем уведомление на каждый FCM токен
-            $this->firebaseNotificationService->sendNotification(
-                'app1', // Идентификатор приложения ('app1' или 'app2')
-                $device->fcm_token, // Токен устройства
-                [
-                    'title' => 'Abricoz',
-                    'body' => 'Курьер забрал заказ и направляется к вам',
-                    'data' => [
-                        'order_id' => (string)$order->id,
-                        'order_status_id' => (string)$order->order_status_id,
-                    ],
-                ]
-            );
+            try {
+                $this->firebaseNotificationService->sendNotification(
+                    'app1', // Идентификатор приложения ('app1' или 'app2')
+                    $device->fcm_token, // Токен устройства
+                    [
+                        'title' => 'Abricoz',
+                        'body' => 'Курьер забрал заказ и направляется к вам',
+                        'data' => [
+                            'order_id' => (string)$order->id,
+                            'order_status_id' => (string)$order->order_status_id,
+                        ],
+                    ]
+                );
+            } catch (\Exception $e) {
+                // Логируем ошибку и продолжаем выполнение цикла
+                Log::error("Ошибка отправки уведомления для пользователя {$warehouseman->id} (токен: {$device->fcm_token}): " . $e->getMessage());
+            }
         }
 
 

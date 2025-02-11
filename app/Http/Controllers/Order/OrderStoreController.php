@@ -25,7 +25,8 @@ class OrderStoreController extends Controller
 {
     public function __construct(
         protected FirebaseNotificationService $firebaseNotificationService,
-    ) {
+    )
+    {
     }
 
     /**
@@ -197,21 +198,27 @@ class OrderStoreController extends Controller
                 ->get();
 
             foreach ($userDevices as $device) {
-                // Отправляем уведомление на каждый FCM токен
-                $this->firebaseNotificationService->sendNotification(
-                    'app2', // Идентификатор приложения ('app1' или 'app2')
-                    $device->fcm_token, // Токен устройства
-                    [
-                        'title' => 'Уведомление складмену',
-                        'body' => 'Соберите заказ!',
-                        'data' => [
-                            'order_id' => (string)$order->id,
-                            'order_status_id' => (string)$order->order_status_id,
-                        ],
-                    ]
-                );
+                try {
+                    // Отправляем уведомление на каждый FCM токен
+                    $this->firebaseNotificationService->sendNotification(
+                        'app2', // Идентификатор приложения ('app1' или 'app2')
+                        $device->fcm_token, // Токен устройства
+                        [
+                            'title' => 'Уведомление складмену',
+                            'body' => 'Соберите заказ!',
+                            'data' => [
+                                'order_id' => (string)$order->id,
+                                'order_status_id' => (string)$order->order_status_id,
+                            ],
+                        ]
+                    );
+                } catch (\Exception $e) {
+                    // Логируем ошибку и продолжаем выполнение цикла
+                    Log::error("Ошибка отправки уведомления для пользователя {$warehouseman->id} (токен: {$device->fcm_token}): " . $e->getMessage());
+                }
             }
         }
+
 
         return $this->response($response, __('response.order.success.create'));
     }

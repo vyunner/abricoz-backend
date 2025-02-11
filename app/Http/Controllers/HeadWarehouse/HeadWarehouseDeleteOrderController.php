@@ -40,17 +40,22 @@ class HeadWarehouseDeleteOrderController extends Controller
             ->get();
 
         foreach ($userDevices as $device) {
-            $this->firebaseNotificationService->sendNotification(
-                'app1',
-                $device->fcm_token,
-                [
-                    'title' => 'Abricoz',
-                    'body' => 'Ваш заказ был отменен сотрудником склада',
-                    'data' => [
-                        'order_id' => (string)$order->id,
-                    ],
-                ]
-            );
+            try {
+                $this->firebaseNotificationService->sendNotification(
+                    'app1',
+                    $device->fcm_token,
+                    [
+                        'title' => 'Abricoz',
+                        'body' => 'Ваш заказ был отменен сотрудником склада',
+                        'data' => [
+                            'order_id' => (string)$order->id,
+                        ],
+                    ]
+                );
+            } catch (\Exception $e) {
+                // Логируем ошибку и продолжаем выполнение цикла
+                Log::error("Ошибка отправки уведомления для пользователя {$warehouseman->id} (токен: {$device->fcm_token}): " . $e->getMessage());
+            }
         }
 
         return $this->response($order, __('response.order.success.cancel'));

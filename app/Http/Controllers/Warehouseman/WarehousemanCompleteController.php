@@ -17,7 +17,8 @@ class WarehousemanCompleteController extends Controller
 {
     public function __construct(
         private FirebaseNotificationService $firebaseNotificationService,
-    ) {
+    )
+    {
     }
 
     /**
@@ -62,18 +63,23 @@ class WarehousemanCompleteController extends Controller
             ->get();
 
         foreach ($userDevices as $device) {
-            $this->firebaseNotificationService->sendNotification(
-                'app2',
-                $device->fcm_token,
-                [
-                    'title' => 'Уведомление курьеру',
-                    'body' => 'Складмен собрал заказ',
-                    'data' => [
-                        'order_id' => (string)$orderId,
-                        'order_status_id' => '3',
-                    ],
-                ]
-            );
+            try {
+                $this->firebaseNotificationService->sendNotification(
+                    'app2',
+                    $device->fcm_token,
+                    [
+                        'title' => 'Уведомление курьеру',
+                        'body' => 'Складмен собрал заказ',
+                        'data' => [
+                            'order_id' => (string)$orderId,
+                            'order_status_id' => '3',
+                        ],
+                    ]
+                );
+            } catch (\Exception $e) {
+                // Логируем ошибку и продолжаем выполнение цикла
+                Log::error("Ошибка отправки уведомления для пользователя {$warehouseman->id} (токен: {$device->fcm_token}): " . $e->getMessage());
+            }
         }
 
         return $this->response([], 'Заказ успешно завершен.');

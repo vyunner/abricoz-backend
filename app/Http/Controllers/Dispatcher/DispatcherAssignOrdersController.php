@@ -85,18 +85,23 @@ class DispatcherAssignOrdersController extends Controller
                     ->get();
 
                 foreach ($userDevices as $device) {
-                    $this->firebaseNotificationService->sendNotification(
-                        'app2',
-                        $device->fcm_token,
-                        [
-                            'title' => 'Уведомление курьеру',
-                            'body' => "Диспетчер назначил вам заказ #{$order->id}",
-                            'data' => [
-                                'order_id' => (string)$orderId,
-                                'order_status_id' => (string)$order->order_status_id,
-                            ],
-                        ]
-                    );
+                    try {
+                        $this->firebaseNotificationService->sendNotification(
+                            'app2',
+                            $device->fcm_token,
+                            [
+                                'title' => 'Уведомление курьеру',
+                                'body' => "Диспетчер назначил вам заказ #{$order->id}",
+                                'data' => [
+                                    'order_id' => (string)$orderId,
+                                    'order_status_id' => (string)$order->order_status_id,
+                                ],
+                            ]
+                        );
+                    } catch (\Exception $e) {
+                        // Логируем ошибку и продолжаем выполнение цикла
+                        Log::error("Ошибка отправки уведомления для пользователя {$warehouseman->id} (токен: {$device->fcm_token}): " . $e->getMessage());
+                    }
                 }
 
                 $assignments[] = $assignment;
