@@ -138,6 +138,9 @@ class FirebaseNotificationService
     public function sendNotification($app, $deviceToken, $messageData)
     {
         $credentials = $this->getServiceAccountCredentials($app);
+
+        Log::debug('Firebase credentials loaded:', $credentials);
+
         $accessToken = $this->getAccessToken($credentials);
 
         $url = 'https://fcm.googleapis.com/v1/projects/' . $credentials['project_id'] . '/messages:send';
