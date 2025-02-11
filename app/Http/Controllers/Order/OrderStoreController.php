@@ -180,37 +180,37 @@ class OrderStoreController extends Controller
             ];
 
             DB::commit();
-
-            // Получаем всех пользователей с ролью warehouseman
-            $warehousemans = User::role('warehouseman')->get();
-
-            foreach ($warehousemans as $warehouseman) {
-                // Получаем устройства пользователя с FCM токенами
-                $userDevices = UserDevice::where('user_id', $warehouseman->id)
-                    ->where('fcm_token_type_id', 2)
-                    ->get();
-
-                foreach ($userDevices as $device) {
-                    // Отправляем уведомление на каждый FCM токен
-                    $this->firebaseNotificationService->sendNotification(
-                        'app2', // Идентификатор приложения ('app1' или 'app2')
-                        $device->fcm_token, // Токен устройства
-                        [
-                            'title' => 'Уведомление складмену',
-                            'body' => 'Соберите заказ!',
-                            'data' => [
-                                'order_id' => (string)$order->id,
-                                'order_status_id' => (string)$order->order_status_id,
-                            ],
-                        ]
-                    );
-                }
-            }
         } catch (\Exception $e) {
             DB::rollBack();
             \Log::error('order_create_error', ['exception' => $e]);
 
             return $this->response(null, $e, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        // Получаем всех пользователей с ролью warehouseman
+        $warehousemans = User::role('warehouseman')->get();
+
+        foreach ($warehousemans as $warehouseman) {
+            // Получаем устройства пользователя с FCM токенами
+            $userDevices = UserDevice::where('user_id', $warehouseman->id)
+                ->where('fcm_token_type_id', 2)
+                ->get();
+
+            foreach ($userDevices as $device) {
+                // Отправляем уведомление на каждый FCM токен
+                $this->firebaseNotificationService->sendNotification(
+                    'app2', // Идентификатор приложения ('app1' или 'app2')
+                    $device->fcm_token, // Токен устройства
+                    [
+                        'title' => 'Уведомление складмену',
+                        'body' => 'Соберите заказ!',
+                        'data' => [
+                            'order_id' => (string)$order->id,
+                            'order_status_id' => (string)$order->order_status_id,
+                        ],
+                    ]
+                );
+            }
         }
 
         return $this->response($response, __('response.order.success.create'));
