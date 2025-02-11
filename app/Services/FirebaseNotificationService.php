@@ -165,6 +165,12 @@ class FirebaseNotificationService
         do {
             $response = $this->makeCurlRequest($url, $headers, $postData);
 
+            Log::info('FCM request attempt', [
+                'attempt'   => $retryCount + 1,
+                'http_code' => $response['http_code'],
+                'response'  => $response['result'],
+            ]);
+
             if ($response['http_code'] === 200) {
                 return json_decode($response['result'], true);
             } elseif (in_array($response['http_code'], [500, 502, 503, 504])) {
