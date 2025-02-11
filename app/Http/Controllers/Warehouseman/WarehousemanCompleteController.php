@@ -9,6 +9,7 @@ use App\Models\OrderAssignment;
 use App\Models\User;
 use App\Models\UserDevice;
 use App\Services\FirebaseNotificationService;
+use Illuminate\Support\Facades\Log;
 
 /**
  * @group Warehouseman

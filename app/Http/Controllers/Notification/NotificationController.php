@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Notification;
 use App\Http\Controllers\Controller;
 use App\Services\FirebaseNotificationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class NotificationController extends Controller
 {
