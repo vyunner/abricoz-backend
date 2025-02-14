@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Epay;
 
-use App\Enums\OrderPaymentStatus;
 use App\Http\Controllers\Controller;
-use App\Models\OrderPayment;
 use App\Services\EpayService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -32,8 +30,6 @@ class EpayGetSaveCardToken extends Controller
         try {
             $config = config('epay');
 
-            return $this->epayService->getIpInfo();
-
             $invoice_id = $this->epayService->generateInvoiceId($order_id);
 
             $token = $this->epayService->getToken([
@@ -47,24 +43,12 @@ class EpayGetSaveCardToken extends Controller
                 'terminal' => $config['terminal_id'],
             ]);
 
+            $ip_info = $this->epayService->getIpInfo($request->ip());
 
-            $response = Http::asForm()->post('https://epay-oauth.homebank.kz/oauth2/token', $data);
-
-            // Логируем ответ
-            Log::info('Epay Token Response:', $response->json());
-
-            // Возвращаем ответ API
-            return response()->json([
-                'success' => $response->successful(),
-                'data' => $response->json()
-            ], $response->status());
-
+            return $this->response(['invoice_id' => $invoice_id, 'ip_info' => $ip_info, 'token' => $token], 'Успешно');
         } catch (\Exception $e) {
-            Log::error('Epay Token Request Failed:', ['error' => $e->getMessage()]);
-            return response()->json([
-                'success' => false,
-                'message' => 'Ошибка при получении токена'
-            ], 500);
+            Log::error('EpayGetSaveCardToken error:', ['error' => $e->getMessage()]);
+            return $this->response([], $e->getMessage(), 500);
         }
     }
 }
