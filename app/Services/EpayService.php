@@ -36,6 +36,13 @@ class EpayService
         return $response->json();
     }
 
+    public function getIpInfo()
+    {
+        $ip = request()->ip(); // Получаем IP пользователя
+        $response = Http::get("https://ipinfo.io/{$ip}/json");
+        return $response->json();
+    }
+
     /**
      * @return array <string, mixed> {
      *    id: string("498331aa-b69f-41ec-b9f5-8e1c3d6b5db1"),
