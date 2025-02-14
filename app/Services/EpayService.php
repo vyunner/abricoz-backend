@@ -25,36 +25,15 @@ class EpayService
         return $this->config['test_mode'] ? 'https://testepay.homebank.kz/api/invoice' : 'https://epay-api.homebank.kz/invoice';
     }
 
-    private function getToken(): string
+    public function generateInvoiceId($order_id): string
     {
-        $response = Http::asForm()->post($this->config['oauth_url'], [
-            'grant_type' => 'password',
-            'username' => $this->config['email'],
-            'password' => $this->config['password'],
-            'scope' => 'webapi usermanagement email_send verification statement statistics payment',
-            'client_id' => $this->config['client_id'],
-            'client_secret' => $this->config['client_secret'],
-            'secret_hash' => $this->config['secret_hash'],
-        ]);
+        return $order_id . '-'. time();
+    }
 
-        $data = $response->json();
-
-        if (false === $response->successful()) {
-            \Log::error('Error while getting access token', ['response' => $data]);
-
-            throw new \Exception('Error while getting access token');
-        }
-
-        try {
-            $this->access_token = $data['access_token'];
-            $this->refresh_token = $data['refresh_token'];
-        } catch (\Exception $e) {
-            \Log::error('Error while getting access token', ['response' => $data, 'error' => $e->getMessage()]);
-
-            throw new \Exception('Error while getting access token');
-        }
-
-        return $this->access_token;
+    public function getToken(array $params)
+    {
+        $response = Http::asForm()->post('https://epay-oauth.homebank.kz/oauth2/token', $params);
+        return $response->json();
     }
 
     /**
