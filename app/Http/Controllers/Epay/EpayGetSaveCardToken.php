@@ -25,12 +25,12 @@ class EpayGetSaveCardToken extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, $user_id)
     {
         try {
             $config = config('epay');
 
-            $invoice_id = $this->epayService->generateInvoiceId(0);
+            $invoice_id = $this->epayService->generateInvoiceId($user_id);
 
             $token = $this->epayService->getToken([
                 'grant_type' => 'client_credentials',

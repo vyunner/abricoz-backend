@@ -25,9 +25,9 @@ class EpayService
         return $this->config['test_mode'] ? 'https://testepay.homebank.kz/api/invoice' : 'https://epay-api.homebank.kz/invoice';
     }
 
-    public function generateInvoiceId($order_id): string
+    public function generateInvoiceId($number): string
     {
-        return $order_id . '-' . substr(time(), -5);
+        return $number . '-' . substr(time(), -5);
     }
 
     public function getToken(array $params)
