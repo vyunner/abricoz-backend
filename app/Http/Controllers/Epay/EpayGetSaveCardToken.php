@@ -42,7 +42,7 @@ class EpayGetSaveCardToken extends Controller
                 'invoiceID' => $invoice_id,
                 'amount' => 0,
                 'currency' => 'USD',
-                'terminal' => $config['terminal'],
+                'terminal' => $config['terminal_id'],
             ]);
 
             return $token;
