@@ -27,7 +27,7 @@ class EpayService
 
     public function generateInvoiceId($order_id): string
     {
-        return $order_id . '-'. time();
+        return $order_id . '-' . substr(time(), -5);
     }
 
     public function getToken(array $params)

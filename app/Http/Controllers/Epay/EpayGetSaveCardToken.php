@@ -32,20 +32,21 @@ class EpayGetSaveCardToken extends Controller
         try {
             $config = config('epay');
 
-            return $this->epayService->generateInvoiceId($order_id);
+            $invoice_id = $this->epayService->generateInvoiceId($order_id);
 
             $token = $this->epayService->getToken([
                 'grant_type' => 'client_credentials',
                 'scope' => 'webapi usermanagement email_send verification statement statistics payment',
                 'client_id' => $config['client_id'],
                 'client_secret' => $config['client_secret'],
-                'invoiceID' => '111113',
+                'invoiceID' => $invoice_id,
                 'amount' => 0,
                 'currency' => 'USD',
                 'terminal' => $config['terminal'],
             ]);
 
-            // Отправляем POST-запрос
+            return $token;
+
             $response = Http::asForm()->post('https://epay-oauth.homebank.kz/oauth2/token', $data);
 
             // Логируем ответ
