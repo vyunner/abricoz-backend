@@ -43,6 +43,17 @@ class EpayGetSaveCardToken extends Controller
                 'terminal' => $config['terminal_id'],
             ]);
 
+            return [
+                'grant_type' => 'client_credentials',
+                'scope' => 'webapi usermanagement email_send verification statement statistics payment',
+                'client_id' => $config['client_id'],
+                'client_secret' => $config['client_secret'],
+                'invoiceID' => $invoice_id,
+                'amount' => 0,
+                'currency' => 'USD',
+                'terminal' => $config['terminal_id'],
+            ];
+
             $ip_info = $this->epayService->getIpInfo($request->ip());
 
             return $this->response(['invoice_id' => $invoice_id, 'ip_info' => $ip_info, 'token' => $token], 'Успешно');
