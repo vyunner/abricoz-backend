@@ -31,9 +31,6 @@ class EpaySaveCardSuccessController extends Controller
     public function __invoke(Request $request)
     {
         try {
-            // Логируем полученный запрос
-            Log::info('Epay post_link response', ['data' => $request->all()]);
-
             $data = $request->input('data');
 
             // Проверяем, передан ли invoiceId
@@ -57,8 +54,6 @@ class EpaySaveCardSuccessController extends Controller
 
             // Проверяем, успешно ли получен токен
             if (!isset($tokenResponse['access_token'])) {
-                Log::error('Failed to retrieve Epay API token', ['response' => $tokenResponse]);
-
                 return response()->json([
                     'resultCode' => '500',
                     'resultMessage' => 'Failed to retrieve Epay API token',
@@ -77,12 +72,6 @@ class EpaySaveCardSuccessController extends Controller
 
             // Проверяем успешность запроса
             if (!$response->successful()) {
-                Log::error('Epay API request failed', [
-                    'invoiceId' => $invoiceId,
-                    'status' => $response->status(),
-                    'body' => $response->body(),
-                ]);
-
                 return response()->json([
                     'resultCode' => '502',
                     'resultMessage' => 'Epay API request failed',
@@ -93,15 +82,9 @@ class EpaySaveCardSuccessController extends Controller
 
             // Проверяем успешность ответа
             if (!isset($responseData['resultCode']) || $responseData['resultCode'] !== '100') {
-                Log::warning('Epay API returned unsuccessful response', [
-                    'invoiceId' => $invoiceId,
-                    'response' => $responseData,
-                ]);
-
                 return response()->json([
                     'resultCode' => '400',
                     'resultMessage' => 'Epay API returned unsuccessful response',
-                    'data' => $responseData,
                 ], 400);
             }
 
@@ -126,27 +109,16 @@ class EpaySaveCardSuccessController extends Controller
                     'issuer' => $transaction['issuer'],
                     'cardID' => $transaction['cardID'],
                 ]);
-
-                Log::info('UserCard updated successfully', ['user_card' => $userCard]);
             } else {
                 // Если записи нет, можно просто логировать или создать новую запись (если нужно)
-                Log::warning('UserCard with invoiceID not found, skipping update', ['invoiceID' => $transaction['invoiceID']]);
             }
-
-            Log::info('UserCard saved successfully', ['user_card' => $userCard]);
 
             return response()->json([
                 'resultCode' => '100',
                 'resultMessage' => 'SUCCESS',
-                'transaction' => $transaction,
             ], 200);
 
         } catch (\Exception $e) {
-            Log::error('Error in EpaySaveCardSuccessController', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ]);
-
             return response()->json([
                 'resultCode' => '500',
                 'resultMessage' => 'Internal Server Error',
