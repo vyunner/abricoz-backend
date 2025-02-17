@@ -26,7 +26,7 @@ class EpaySaveCardSuccessController extends Controller
     /**
      * Сохранение карты Epay
      * @param Request $request
-     * @return array
+     * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(Request $request)
     {
@@ -70,7 +70,7 @@ class EpaySaveCardSuccessController extends Controller
             // Отправляем запрос в Epay API с токеном
             $url = "https://epay-api.homebank.kz/check-status/payment/transaction/{$invoiceId}";
 
-            return $tokenResponse;
+            return ['token' => $tokenResponse, 'url' => $url];
 
             $response = Http::withHeaders([
                 'Authorization' => "Bearer {$accessToken}",
