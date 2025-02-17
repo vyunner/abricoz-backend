@@ -43,7 +43,7 @@ Route::group(['prefix' => '/favorite-product', 'middleware' => 'auth:sanctum'], 
 
 Route::group(['prefix' => '/epay'], function () {
     Route::get('/get-save-card-token/{user_id}', Controllers\Epay\EpayGetSaveCardToken::class);
-    Route::post('/success', Controllers\Epay\EpaySuccessController::class)->name('epay.success');
+    Route::post('/save-card-success', Controllers\Epay\EpaySaveCardSuccessController::class);
     Route::post('/failure', Controllers\Epay\EpayFailureController::class)->name('epay.failure');
 });
 
