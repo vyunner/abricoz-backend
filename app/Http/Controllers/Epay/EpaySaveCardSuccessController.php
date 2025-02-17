@@ -74,7 +74,7 @@ class EpaySaveCardSuccessController extends Controller
                 'Authorization' => "Bearer {$accessToken}",
             ])->post($url);
 
-            return $response;
+            return $response->json();
 
             // Проверяем успешность запроса
             if (!$response->successful()) {
