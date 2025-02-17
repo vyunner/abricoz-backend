@@ -47,6 +47,11 @@ Route::group(['prefix' => '/epay'], function () {
     Route::post('/failure', Controllers\Epay\EpayFailureController::class)->name('epay.failure');
 });
 
+Route::group(['prefix' => '/user-card', 'middleware' => 'auth:sanctum'], function () {
+    Route::get('/index', Controllers\UserCard\UserCardIndexController::class);
+});
+
+
 Route::group(['prefix' => '/order', 'middleware' => 'auth:sanctum'], function () {
     Route::group(['middleware' => 'role:admin'], function () {
         Route::post('/update/{id}', Controllers\Order\OrderUpdateController::class);
