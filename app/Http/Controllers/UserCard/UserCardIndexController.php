@@ -32,7 +32,14 @@ class UserCardIndexController extends Controller
         $user_id = $request->user()->id;
 
         // Получаем токен для Epay API
-        $tokenResponse = $this->epayService->getToken();
+        $tokenResponse = $this->epayService->getToken([
+            'grant_type' => 'client_credentials',
+            'scope' => 'webapi usermanagement email_send verification statement statistics payment',
+            'client_id' => $config['client_id'],
+            'client_secret' => $config['client_secret'],
+            'terminal' => $config['terminal_id'],
+        ]);
+
         if (!isset($tokenResponse['access_token'])) {
             return response()->json([
                 'resultCode' => '500',
