@@ -26,7 +26,7 @@ class EpaySaveCardSuccessController extends Controller
     /**
      * Сохранение карты Epay
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
     public function __invoke(Request $request)
     {
