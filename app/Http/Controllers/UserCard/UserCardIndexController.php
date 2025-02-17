@@ -16,7 +16,7 @@ class UserCardIndexController extends Controller
     /**
      * Список
      * @param SubCategoryIndexRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
     public function __invoke(Request $request)
     {
