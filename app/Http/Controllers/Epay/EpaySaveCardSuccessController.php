@@ -70,28 +70,28 @@ class EpaySaveCardSuccessController extends Controller
             // Отправляем запрос в Epay API с токеном
             $url = "https://epay-api.homebank.kz/check-status/payment/transaction/{$invoiceId}";
 
+            return ['token' => $tokenResponse, 'url' => $url];
+
             $response = Http::withHeaders([
                 'Authorization' => "Bearer {$accessToken}",
                 'Accept' => 'application/json',
             ])->post($url);
 
-//            // Проверяем успешность запроса
-//            if (!$response->successful()) {
-//                Log::error('Epay API request failed', [
-//                    'invoiceId' => $invoiceId,
-//                    'status' => $response->status(),
-//                    'body' => $response->body(),
-//                ]);
-//
-//                return response()->json([
-//                    'resultCode' => '502',
-//                    'resultMessage' => 'Epay API request failed',
-//                ], 502);
-//            }
+            // Проверяем успешность запроса
+            if (!$response->successful()) {
+                Log::error('Epay API request failed', [
+                    'invoiceId' => $invoiceId,
+                    'status' => $response->status(),
+                    'body' => $response->body(),
+                ]);
+
+                return response()->json([
+                    'resultCode' => '502',
+                    'resultMessage' => 'Epay API request failed',
+                ], 502);
+            }
 
             $responseData = $response->json();
-
-            return $responseData;
 
             // Проверяем успешность ответа
             if (!isset($responseData['resultCode']) || $responseData['resultCode'] !== '100') {
