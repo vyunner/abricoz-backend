@@ -30,6 +30,7 @@ class UserCardIndexController extends Controller
     public function __invoke(SubCategoryIndexRequest $request)
     {
         $user_id = $request->user()->id;
+        $config = config('epay');
 
         // Получаем токен для Epay API
         $tokenResponse = $this->epayService->getToken([
