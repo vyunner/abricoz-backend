@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_cards', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('orders')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('invoiceID');
             $table->string('cardMask')->nullable();
             $table->string('issuer')->nullable();
