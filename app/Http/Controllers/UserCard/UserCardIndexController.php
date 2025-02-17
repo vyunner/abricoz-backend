@@ -23,7 +23,7 @@ class UserCardIndexController extends Controller
     }
 
     /**
-     * Получить список карт пользователя
+     * Список карт пользователя
      * @param SubCategoryIndexRequest $request
      * @return JsonResponse
      */
