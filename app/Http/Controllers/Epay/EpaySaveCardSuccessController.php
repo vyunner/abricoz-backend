@@ -91,6 +91,8 @@ class EpaySaveCardSuccessController extends Controller
 
             $responseData = $response->json();
 
+            return $responseData;
+
             // Проверяем успешность ответа
             if (!isset($responseData['resultCode']) || $responseData['resultCode'] !== '100') {
                 Log::warning('Epay API returned unsuccessful response', [
