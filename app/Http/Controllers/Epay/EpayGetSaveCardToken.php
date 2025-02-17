@@ -35,7 +35,7 @@ class EpayGetSaveCardToken extends Controller
 
             UserCard::create([
                 'user_id' => $user_id,
-                'invoice_id' => $invoice_id,
+                'invoiceID' => $invoice_id,
             ]);
 
             $token = $this->epayService->getToken([
