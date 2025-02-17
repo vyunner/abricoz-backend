@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('orders')->cascadeOnDelete();
             $table->string('invoiceID');
-            $table->string('cardMask');
-            $table->string('issuer');
-            $table->text('cardID');
+            $table->string('cardMask')->nullable();
+            $table->string('issuer')->nullable();
+            $table->text('cardID')->nullable();
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Epay;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserCard;
 use App\Services\EpayService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -31,6 +32,11 @@ class EpayGetSaveCardToken extends Controller
             $config = config('epay');
 
             $invoice_id = $this->epayService->generateInvoiceId($user_id);
+
+            UserCard::create([
+                'user_id' => $user_id,
+                'invoice_id' => $invoice_id,
+            ]);
 
             $token = $this->epayService->getToken([
                 'grant_type' => 'client_credentials',

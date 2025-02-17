@@ -39,28 +39,52 @@ class EpaySaveCardSuccessController extends Controller
             // Проверяем, передан ли invoiceId
             if (!isset($data['invoiceId']) || empty($data['invoiceId'])) {
                 return response()->json([
-                    'resultCode'    => '400',
+                    'resultCode' => '400',
                     'resultMessage' => 'Missing invoiceId',
                 ], 400);
             }
 
             $invoiceId = $data['invoiceId'];
+            $config = config('epay');
 
-            // Отправляем запрос в Epay API
+            $tokenResponse = $this->epayService->getToken([
+                'grant_type' => 'client_credentials',
+                'scope' => 'webapi usermanagement email_send verification statement statistics payment',
+                'client_id' => $config['client_id'],
+                'client_secret' => $config['client_secret'],
+                'terminal' => $config['terminal_id'],
+            ]);
+
+            // Проверяем, успешно ли получен токен
+            if (!isset($tokenResponse['access_token'])) {
+                Log::error('Failed to retrieve Epay API token', ['response' => $tokenResponse]);
+
+                return response()->json([
+                    'resultCode' => '500',
+                    'resultMessage' => 'Failed to retrieve Epay API token',
+                ], 500);
+            }
+
+            $accessToken = $tokenResponse['access_token'];
+
+            // Отправляем запрос в Epay API с токеном
             $url = "https://epay-api.homebank.kz/check-status/payment/transaction/{$invoiceId}";
 
-            $response = Http::post($url);
+            $response = Http::withHeaders([
+                'Authorization' => "Bearer {$accessToken}",
+                'Accept' => 'application/json',
+            ])->post($url);
 
             // Проверяем успешность запроса
             if (!$response->successful()) {
                 Log::error('Epay API request failed', [
                     'invoiceId' => $invoiceId,
-                    'status'    => $response->status(),
-                    'body'      => $response->body(),
+                    'status' => $response->status(),
+                    'body' => $response->body(),
                 ]);
 
                 return response()->json([
-                    'resultCode'    => '502',
+                    'resultCode' => '502',
                     'resultMessage' => 'Epay API request failed',
                 ], 502);
             }
@@ -71,13 +95,13 @@ class EpaySaveCardSuccessController extends Controller
             if (!isset($responseData['resultCode']) || $responseData['resultCode'] !== '100') {
                 Log::warning('Epay API returned unsuccessful response', [
                     'invoiceId' => $invoiceId,
-                    'response'  => $responseData,
+                    'response' => $responseData,
                 ]);
 
                 return response()->json([
-                    'resultCode'    => '400',
+                    'resultCode' => '400',
                     'resultMessage' => 'Epay API returned unsuccessful response',
-                    'data'          => $responseData,
+                    'data' => $responseData,
                 ], 400);
             }
 
@@ -87,29 +111,34 @@ class EpaySaveCardSuccessController extends Controller
             // Проверяем наличие нужных данных
             if (!isset($transaction['invoiceID'], $transaction['cardMask'], $transaction['issuer'], $transaction['cardID'])) {
                 return response()->json([
-                    'resultCode'    => '400',
+                    'resultCode' => '400',
                     'resultMessage' => 'Missing required transaction fields',
                 ], 400);
             }
 
-            // Получаем user_id (предполагаем, что пользователь аутентифицирован)
-            $userId = Auth::id(); // Или можно передавать user_id в запросе, если это внешний сервис
+            // Проверяем, существует ли запись с таким invoiceID
+            $userCard = UserCard::where('invoiceID', $transaction['invoiceID'])->first();
 
-            // Создаём запись в таблице user_cards
-            $userCard = UserCard::create([
-                'user_id'   => $userId,
-                'invoiceID' => $transaction['invoiceID'],
-                'cardMask'  => $transaction['cardMask'],
-                'issuer'    => $transaction['issuer'],
-                'cardID'    => $transaction['cardID'],
-            ]);
+            if ($userCard) {
+                // Обновляем запись, если она найдена
+                $userCard->update([
+                    'cardMask' => $transaction['cardMask'],
+                    'issuer' => $transaction['issuer'],
+                    'cardID' => $transaction['cardID'],
+                ]);
+
+                Log::info('UserCard updated successfully', ['user_card' => $userCard]);
+            } else {
+                // Если записи нет, можно просто логировать или создать новую запись (если нужно)
+                Log::warning('UserCard with invoiceID not found, skipping update', ['invoiceID' => $transaction['invoiceID']]);
+            }
 
             Log::info('UserCard saved successfully', ['user_card' => $userCard]);
 
             return response()->json([
-                'resultCode'    => '100',
+                'resultCode' => '100',
                 'resultMessage' => 'SUCCESS',
-                'transaction'   => $transaction,
+                'transaction' => $transaction,
             ], 200);
 
         } catch (\Exception $e) {
@@ -119,7 +148,7 @@ class EpaySaveCardSuccessController extends Controller
             ]);
 
             return response()->json([
-                'resultCode'    => '500',
+                'resultCode' => '500',
                 'resultMessage' => 'Internal Server Error',
             ], 500);
         }
