@@ -67,6 +67,8 @@ class EpaySaveCardSuccessController extends Controller
 
             $accessToken = $tokenResponse['access_token'];
 
+            return $accessToken;
+
             // Отправляем запрос в Epay API с токеном
             $url = "https://epay-api.homebank.kz/check-status/payment/transaction/{$invoiceId}";
 
