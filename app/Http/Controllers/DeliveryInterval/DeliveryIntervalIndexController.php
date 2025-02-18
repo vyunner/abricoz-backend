@@ -20,6 +20,7 @@ class DeliveryIntervalIndexController extends Controller
     {
         $available_intervals = [];
         $current_time = now();
+        return $current_time;
         $intervals = DeliveryInterval::all();
 
         $dates = [
