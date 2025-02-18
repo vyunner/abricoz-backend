@@ -20,14 +20,13 @@ class DeliveryIntervalIndexController extends Controller
     {
         $available_intervals = [];
         $current_time = now();
-        return $current_time;
         $intervals = DeliveryInterval::all();
 
         $dates = [
             today()->addDays(1),
             today()->addDays(2),
             // Если текущее время больше 19:00, то вместо сегодняшнего дня дается на выбор после-после-завтра
-            $current_time->copy()->format('H') > 19 ? today()->addDays(3) : today(),
+//            $current_time->copy()->format('H') > 19 ? today()->addDays(3) : today(),
         ];
 
         // Преобразование временных интервалов в отформатированный массив
