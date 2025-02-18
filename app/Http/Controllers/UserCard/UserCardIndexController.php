@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\UserCard;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SubCategory\SubCategoryIndexRequest;
 use App\Models\UserCard;
 use App\Services\EpayService;
 use Carbon\Carbon;
+use http\Client\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
@@ -24,10 +24,10 @@ class UserCardIndexController extends Controller
 
     /**
      * Список карт пользователя
-     * @param SubCategoryIndexRequest $request
+     * @param Request $request
      * @return JsonResponse
      */
-    public function __invoke(SubCategoryIndexRequest $request)
+    public function __invoke(Request $request)
     {
         $user_id = $request->user()->id;
         $config = config('epay');

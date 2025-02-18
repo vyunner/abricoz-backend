@@ -49,6 +49,7 @@ Route::group(['prefix' => '/epay'], function () {
 
 Route::group(['prefix' => '/user-card', 'middleware' => 'auth:sanctum'], function () {
     Route::get('/index', Controllers\UserCard\UserCardIndexController::class);
+    Route::delete('/index/{id}', Controllers\UserCard\UserCardDeleteController::class);
 });
 
 
