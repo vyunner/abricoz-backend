@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Notification;
 use App\Http\Controllers\Controller;
 use App\Services\FirebaseNotificationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class NotificationController extends Controller
 {
@@ -19,7 +20,7 @@ class NotificationController extends Controller
     {
         try {
             $response = $this->firebaseNotificationService->sendNotification(
-                'app1', // Идентификатор приложения ('app1' или 'app2')
+                'app2', // Идентификатор приложения ('app1' или 'app2')
                 $request->input('fcm_token'), // Токен устройства получателя
                 [
                     'title' => $request->input('title'),

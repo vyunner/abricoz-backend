@@ -138,6 +138,9 @@ class FirebaseNotificationService
     public function sendNotification($app, $deviceToken, $messageData)
     {
         $credentials = $this->getServiceAccountCredentials($app);
+
+        Log::debug('Firebase credentials loaded:', $credentials);
+
         $accessToken = $this->getAccessToken($credentials);
 
         $url = 'https://fcm.googleapis.com/v1/projects/' . $credentials['project_id'] . '/messages:send';
@@ -164,6 +167,12 @@ class FirebaseNotificationService
 
         do {
             $response = $this->makeCurlRequest($url, $headers, $postData);
+
+            Log::info('FCM request attempt', [
+                'attempt'   => $retryCount + 1,
+                'http_code' => $response['http_code'],
+                'response'  => $response['result'],
+            ]);
 
             if ($response['http_code'] === 200) {
                 return json_decode($response['result'], true);

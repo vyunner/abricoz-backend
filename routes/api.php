@@ -42,9 +42,16 @@ Route::group(['prefix' => '/favorite-product', 'middleware' => 'auth:sanctum'], 
 });
 
 Route::group(['prefix' => '/epay'], function () {
-    Route::post('/success', Controllers\Epay\EpaySuccessController::class)->name('epay.success');
+    Route::get('/get-save-card-token/{user_id}', Controllers\Epay\EpayGetSaveCardToken::class);
+    Route::post('/save-card-success', Controllers\Epay\EpaySaveCardSuccessController::class);
     Route::post('/failure', Controllers\Epay\EpayFailureController::class)->name('epay.failure');
 });
+
+Route::group(['prefix' => '/user-card', 'middleware' => 'auth:sanctum'], function () {
+    Route::get('/index', Controllers\UserCard\UserCardIndexController::class);
+    Route::delete('/delete/{id}', Controllers\UserCard\UserCardDeleteController::class);
+});
+
 
 Route::group(['prefix' => '/order', 'middleware' => 'auth:sanctum'], function () {
     Route::group(['middleware' => 'role:admin'], function () {

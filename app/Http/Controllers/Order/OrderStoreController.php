@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Log;
 
 /**
  * @group Order
@@ -25,7 +26,8 @@ class OrderStoreController extends Controller
 {
     public function __construct(
         protected FirebaseNotificationService $firebaseNotificationService,
-    ) {
+    )
+    {
     }
 
     /**
@@ -180,17 +182,24 @@ class OrderStoreController extends Controller
             ];
 
             DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('order_create_error', ['exception' => $e]);
 
-            // Получаем всех пользователей с ролью warehouseman
-            $warehousemans = User::role('warehouseman')->get();
+            return $this->response(null, $e, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
-            foreach ($warehousemans as $warehouseman) {
-                // Получаем устройства пользователя с FCM токенами
-                $userDevices = UserDevice::where('user_id', $warehouseman->id)
-                    ->where('fcm_token_type_id', 2)
-                    ->get();
+        // Получаем всех пользователей с ролью warehouseman
+        $warehousemans = User::role('warehouseman')->get();
 
-                foreach ($userDevices as $device) {
+        foreach ($warehousemans as $warehouseman) {
+            // Получаем устройства пользователя с FCM токенами
+            $userDevices = UserDevice::where('user_id', $warehouseman->id)
+                ->where('fcm_token_type_id', 2)
+                ->get();
+
+            foreach ($userDevices as $device) {
+                try {
                     // Отправляем уведомление на каждый FCM токен
                     $this->firebaseNotificationService->sendNotification(
                         'app2', // Идентификатор приложения ('app1' или 'app2')
@@ -204,14 +213,13 @@ class OrderStoreController extends Controller
                             ],
                         ]
                     );
+                } catch (\Exception $e) {
+                    // Логируем ошибку и продолжаем выполнение цикла
+                    Log::error("Ошибка отправки уведомления для пользователя {$warehouseman->id} (токен: {$device->fcm_token}): " . $e->getMessage());
                 }
             }
-        } catch (\Exception $e) {
-            DB::rollBack();
-            \Log::error('order_create_error', ['exception' => $e]);
-
-            return $this->response(null, $e, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+
 
         return $this->response($response, __('response.order.success.create'));
     }
