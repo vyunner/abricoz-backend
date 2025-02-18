@@ -11,6 +11,6 @@ class TestController extends Controller
 {
     public function __invoke(Request $request)
     {
-        return User::role('courier')->get();
+        return now();
     }
 }
