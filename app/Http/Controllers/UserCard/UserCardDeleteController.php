@@ -26,7 +26,7 @@ class UserCardDeleteController extends Controller
         $userCard = UserCard::where('id', $id)->where('user_id', $user_id)->first();
 
         if (!$userCard) {
-            $this->response(null, 'Карта не найдена или не принадлежит вам.', 404);
+            return $this->response(null, 'Карта не найдена или не принадлежит вам.', 404);
         }
 
         // Удаляем карту
