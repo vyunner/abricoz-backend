@@ -197,7 +197,7 @@ class OrderStoreController extends Controller
                     'terminalId' => $config['terminal_id'],
                     'invoiceId' => $invoice_id,
                     'invoiceIdAlt' => $invoice_id,
-                    'description' => "Оплата заказа №$order->id",
+                    'description' => "Оплата заказа №$order->id-$invoice_id",
                     'accountId' => $invoice_id,
                     'backLink' => 'https://abricoz.kz/success-payment',
                     'failureBackLink' => 'https://abricoz.kz/failure-payment',
@@ -206,7 +206,7 @@ class OrderStoreController extends Controller
                     'paymentType' => 'cardId',
                     'cardId' => "$userCard->cardID",
                 ];
-                return $postData;
+//                return $postData;
 
                 // Отправляем запрос в Epay API с токеном
                 $url = "https://epay-api.homebank.kz/payments/cards/auth";
