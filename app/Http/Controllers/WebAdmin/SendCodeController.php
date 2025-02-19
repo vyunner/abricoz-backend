@@ -27,7 +27,7 @@ final class SendCodeController extends Controller
             '+77022363206',
         ];
 
-        if (in_array($request->phone, $phones)) {
+        if (false === in_array($request->phone, $phones)) {
             return response()->json(['error' => 'Invalid phone number'], 422);
         }
 
