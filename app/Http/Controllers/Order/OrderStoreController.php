@@ -72,6 +72,7 @@ class OrderStoreController extends Controller
                 return response()->json(['message' => 'Карта не найдена или не принадлежит пользователю.'], 422);
             }
 
+            return $userCard;
             $cardMask = $userCard->cardMask;
             $issuer = $userCard->issuer;
         }
