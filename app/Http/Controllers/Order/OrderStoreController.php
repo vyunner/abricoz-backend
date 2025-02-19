@@ -72,7 +72,6 @@ class OrderStoreController extends Controller
                 return response()->json(['message' => 'Карта не найдена или не принадлежит пользователю.'], 422);
             }
 
-            return $userCard->cardMask;
             $cardMask = $userCard->cardMask;
             $issuer = $userCard->issuer;
         }
@@ -115,6 +114,7 @@ class OrderStoreController extends Controller
 
         try {
             // Создание заказа
+            return $cardMask;
             $order = Order::create([
                 'user_id' => $user->id,
                 'order_status_id' => OrderStatus::IN_PROCESS,
