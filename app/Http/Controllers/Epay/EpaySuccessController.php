@@ -23,7 +23,6 @@ class EpaySuccessController extends Controller
 
     /**
      * Успешная оплата через Epay
-     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
