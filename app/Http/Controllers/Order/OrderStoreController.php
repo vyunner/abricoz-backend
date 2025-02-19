@@ -114,7 +114,6 @@ class OrderStoreController extends Controller
 
         try {
             // Создание заказа
-            return $cardMask;
             $order = Order::create([
                 'user_id' => $user->id,
                 'order_status_id' => OrderStatus::IN_PROCESS,
