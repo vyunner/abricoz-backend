@@ -32,6 +32,8 @@ class Order extends Model
         'products_price',
         'delivery_price',
         'total_price',
+        'issuer',
+        'cardMask'
     ];
 
     public function orderStatus(): BelongsTo
