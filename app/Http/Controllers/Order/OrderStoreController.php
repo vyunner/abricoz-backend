@@ -78,7 +78,7 @@ class OrderStoreController extends Controller
         $issuer = null;
 
         if ($data['payment_type_id'] === PaymentType::EPAY) {
-            if (!isset($data['user_card_id'])){
+            if (!isset($data['user_card_id'])) {
                 return response()->json(['message' => 'user_card_id отсутствует'], 422);
             }
 
@@ -204,7 +204,7 @@ class OrderStoreController extends Controller
                     'postLink' => 'https://api.abricoz.kz/epay/success',
                     'failurePostLink' => 'https://api.abricoz.kz/epay/failure',
                     'paymentType' => 'cardId',
-                    'cardId' => "$userCard->cardID",
+                    'cardId' => ['id' => $userCard->cardID],
                 ];
 //                return $postData;
 
