@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\OrderProduct;
 use App\Models\DeliveryInterval;
 use App\Models\Address;
+use App\Models\UserCard;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -30,22 +31,19 @@ class OrderStoreController extends Controller
         }
 
 //        ✅ 1. Постоянное условие: запрещает даты раньше сегодня
-        if ($deliveryDate->lt(Carbon::today())) {
-            return response()->json(['message' => 'Дата доставки не может быть раньше сегодняшней.'], 422);
-        }
-
-//        🕒 2. Временное условие(закомментируй при необходимости): запрещает доставку в день заказа
-//        if (Carbon::today()->gte($deliveryDate)) {
-//            return response()->json(['message' => 'Доставка должна оформляться минимум за день до даты доставки.'], 422);
+//        if ($deliveryDate->lt(Carbon::today())) {
+//            return response()->json(['message' => 'Дата доставки не может быть раньше сегодняшней.'], 422);
 //        }
 
+//        🕒 2. Временное условие(закомментируй при необходимости): запрещает доставку в день заказа
+        if (Carbon::today()->gte($deliveryDate)) {
+            return response()->json(['message' => 'Доставка должна оформляться минимум за день до даты доставки.'], 422);
+        }
 
         // Проверка временного интервала, если дата доставки сегодня
         if ($deliveryDate->isToday()) {
             [$start, $end] = explode(' - ', $deliveryInterval->name);
-            $currentTime = Carbon::now();
-
-            if ($currentTime->gt(Carbon::createFromFormat('H:i', $start))) {
+            if (Carbon::now()->gt(Carbon::createFromFormat('H:i', $start))) {
                 return response()->json(['message' => 'Выбранный временной интервал недоступен.'], 422);
             }
         }
@@ -61,6 +59,21 @@ class OrderStoreController extends Controller
 
         if ($activeOrdersCount >= 3) {
             return response()->json(['message' => 'Вы не можете иметь более 3 активных заказов.'], 422);
+        }
+
+        // Проверка карты пользователя, если выбран способ оплаты банковской картой
+        $cardMask = null;
+        $issuer = null;
+
+        if ($data['payment_type_id'] === PaymentType::EPAY) {
+            $userCard = UserCard::find($data['user_card_id']);
+
+            if (!$userCard || $userCard->user_id !== $user->id) {
+                return response()->json(['message' => 'Карта не найдена или не принадлежит пользователю.'], 422);
+            }
+
+            $cardMask = $userCard->card_mask;
+            $issuer = $userCard->issuer;
         }
 
         // Проверка товаров и подсчет общей суммы
@@ -118,6 +131,8 @@ class OrderStoreController extends Controller
                 'products_price' => $totalPrice,
                 'delivery_price' => 0, // Добавить расчет стоимости доставки, если необходимо
                 'total_price' => $totalPrice,
+                'cardMask' => $cardMask,
+                'issuer' => $issuer,
             ]);
 
             // Создание записей для купленных товаров и обновление остатков
