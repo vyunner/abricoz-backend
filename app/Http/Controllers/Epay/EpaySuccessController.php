@@ -23,17 +23,15 @@ class EpaySuccessController extends Controller
 
     /**
      * Успешная оплата через Epay
-     * 
+     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(Request $request)
     {
-        Log::info('Epay post_link response', ['data' => $request->all()]);
-
         /**
          * EXAMPLE:
-         * 
+         *
          * "accountId": "7026207447",
          * "amount": 0,
          * "approvalCode": null,

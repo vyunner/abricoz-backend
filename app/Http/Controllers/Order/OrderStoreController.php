@@ -12,11 +12,23 @@ use App\Models\OrderProduct;
 use App\Models\DeliveryInterval;
 use App\Models\Address;
 use App\Models\UserCard;
+use App\Services\EpayService;
+use App\Services\FirebaseNotificationService;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class OrderStoreController extends Controller
 {
+    protected EpayService $epayService;
+    protected FirebaseNotificationService $firebaseNotificationService;
+
+    public function __construct(EpayService $epayService, FirebaseNotificationService $firebaseNotificationService)
+    {
+        $this->epayService = $epayService;
+        $this->firebaseNotificationService = $firebaseNotificationService;
+    }
+
     public function __invoke(OrderStoreRequest $request)
     {
         $data = $request->validated();
@@ -155,7 +167,61 @@ class OrderStoreController extends Controller
 
             // Обработка оплаты
             if ($data['payment_type_id'] === PaymentType::EPAY) {
-                // TODO: Реализовать ePay оплату
+                $config = config('epay');
+
+                $invoice_id = $this->epayService->generateInvoiceId($order->id);
+
+                $tokenResponse = $this->epayService->getToken([
+                    'grant_type' => 'client_credentials',
+                    'scope' => 'webapi usermanagement email_send verification statement statistics payment',
+                    'client_id' => $config['client_id'],
+                    'client_secret' => $config['client_secret'],
+                    'invoiceID' => $invoice_id,
+                    'amount' => 100,
+                    'currency' => 'KZT',
+                    'terminal' => $config['terminal_id']
+                ]);
+
+                if (!isset($tokenResponse['access_token'])) {
+                    return response()->json([
+                        'resultCode' => '500',
+                        'resultMessage' => 'Failed to retrieve Epay API token',
+                    ], 500);
+                }
+
+                $accessToken = $tokenResponse['access_token'];
+
+                $postData = [
+                    'amount' => 100,
+                    'currency' => 'KZT',
+                    'terminalId' => $config['terminal_id'],
+                    'invoiceId' => $invoice_id,
+                    'invoiceIdAlt' => $invoice_id,
+                    'description' => "Оплата заказа №$order->id",
+                    'accountId' => $invoice_id,
+                    'backLink' => 'https://abricoz.kz/success-payment',
+                    'failureBackLink' => 'https://abricoz.kz/failure-payment',
+                    'postLink' => 'https://api.abricoz.kz/epay/success',
+                    'failurePostLink' => 'https://api.abricoz.kz/epay/failure',
+                    'paymentType' => 'cardId',
+                    'cardId' => "$userCard->cardID",
+                ];
+                // Отправляем запрос в Epay API с токеном
+                $url = "https://epay-api.homebank.kz/payments/cards/auth";
+
+                $response = Http::withHeaders([
+                    'Authorization' => "Bearer {$accessToken}",
+                ])->post($url, $postData);
+
+                if (!$response->successful()) {
+                    DB::rollBack(); // ⬅️ Откат транзакции при ошибке запроса
+
+                    return response()->json([
+                        'resultCode' => $response->status(),
+                        'resultMessage' => 'Ошибка при отправке запроса в Epay',
+                        'error' => $response->json() ?? $response->body(), // Возвращаем тело ответа от Epay для диагностики
+                    ], $response->status());
+                }
             }
 
             DB::commit();
