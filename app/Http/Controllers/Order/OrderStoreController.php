@@ -66,6 +66,10 @@ class OrderStoreController extends Controller
         $issuer = null;
 
         if ($data['payment_type_id'] === PaymentType::EPAY) {
+            if (!isset($data['user_card_id'])){
+                return response()->json(['message' => 'user_card_id отсутствует'], 422);
+            }
+
             $userCard = UserCard::find($data['user_card_id']);
 
             if (!$userCard || $userCard->user_id !== $user->id) {
