@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UserCard;
 use App\Services\EpayService;
 use Carbon\Carbon;
-use http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 
