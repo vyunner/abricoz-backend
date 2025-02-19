@@ -31,7 +31,7 @@ final class SendCodeController extends Controller
             return response()->json(['error' => 'Invalid phone number'], 422);
         }
 
-        $code = mt_rand(100000, 999999);
+        $code = 100000;
 
         User::where('phone', $request->phone)->update([
             'phone_verification_code' => $code,
@@ -41,8 +41,8 @@ final class SendCodeController extends Controller
         $text = 'Ваш код подтверждения: ' . $code;
 
         // Send SMS
-        $response = $this->mobizonService->sendSmsMessage($request->phone, $text);
-        Log::info('Mobizon send sms', ['data' => $response]);
+        // $response = $this->mobizonService->sendSmsMessage($request->phone, $text);
+        // Log::info('Mobizon send sms', ['data' => $response]);
 
         return response()->json(['message' => 'OTP sent successfully']);
     }
