@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Telescope\IncomingEntry;
@@ -56,8 +57,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
      */
     protected function gate(): void
     {
-        Gate::define('viewTelescope', function () {
-            $user = auth('web')->user();
+        Gate::define('viewTelescope', function (User $user) {
             $phones = [
                 '+77026207447',
                 '+77022363206',
@@ -69,7 +69,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 
     protected function authorization()
     {
-        Auth::setDefaultDriver('web');
+        auth()->shouldUse('web');
         parent::authorization();
     }
 }
