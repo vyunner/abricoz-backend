@@ -206,6 +206,8 @@ class OrderStoreController extends Controller
                     'paymentType' => 'cardId',
                     'cardId' => "$userCard->cardID",
                 ];
+                return $postData;
+
                 // Отправляем запрос в Epay API с токеном
                 $url = "https://epay-api.homebank.kz/payments/cards/auth";
 
