@@ -57,12 +57,13 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
     protected function gate(): void
     {
         Gate::define('viewTelescope', function () {
-            // return in_array(request()->ip(), [
-            //     '127.0.0.1',
-            //     '209.38.245.246',
-            // ]);
+            $user = auth('web')->user();
+            $phones = [
+                '+77026207447',
+                '+77022363206',
+            ];
 
-            return auth('web')->user()->phone === '+77022363206';
+            return isset($user) && in_array($user->phone, $phones);
         });
     }
 

@@ -22,7 +22,12 @@ final class SendCodeController extends Controller
             'phone' => ['required', 'string', 'exists:users,phone', 'regex:/^\+77\d{9}$/'],
         ]);
 
-        if ($request->phone !== '+77026207447') {
+        $phones = [
+            '+77026207447',
+            '+77022363206',
+        ];
+
+        if (in_array($request->phone, $phones)) {
             return response()->json(['error' => 'Invalid phone number'], 422);
         }
 

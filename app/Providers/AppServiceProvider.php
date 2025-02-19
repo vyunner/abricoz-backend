@@ -20,7 +20,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         LogViewer::auth(function ($request) {
-            return auth('web')->user()->phone === '+77026207447';
+            $user = auth('web')->user();
+            $phones = [
+                '+77026207447',
+                '+77022363206',
+            ];
+
+            return isset($user) && in_array($user->phone, $phones);
         });
     }
 }
