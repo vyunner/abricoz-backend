@@ -10,5 +10,5 @@ class PaymentType extends Model
     use HasFactory;
 
     public const CASH = 1;
-    public const BANK_CARD = 2;
+    public const EPAY = 2;
 }
