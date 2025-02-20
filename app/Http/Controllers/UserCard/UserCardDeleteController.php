@@ -5,9 +5,9 @@ namespace App\Http\Controllers\UserCard;
 use App\Http\Controllers\Controller;
 use App\Models\UserCard;
 use App\Services\EpayService;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 /**
  * @group UserCard
@@ -48,11 +48,9 @@ class UserCardDeleteController extends Controller
         ]);
 
         $url = "https://epay-api.homebank.kz/card/deactivate/{$userCard->cardID}";
-        $response = Http::withHeaders([
+        Http::withHeaders([
             'Authorization' => "Bearer {$token['access_token']}",
         ])->post($url);
-
-        return $response;
 
         // Удаляем карту
         $userCard->delete();
