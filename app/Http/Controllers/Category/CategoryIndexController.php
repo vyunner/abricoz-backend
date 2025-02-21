@@ -19,7 +19,7 @@ class CategoryIndexController extends Controller
      */
     public function __invoke(CategoryIndexRequest $request)
     {
-        $excludedIds = [21, 22, 23, 24, 13, 19, 8]; // ID категорий, которые нужно исключить
+        $excludedIds = [21, 22, 23, 24, 13, 19, 8, 20, 12]; // ID категорий, которые нужно исключить
 
         if ($request->has('perPage')) {
             $perPage = $request->query('perPage', 10);
