@@ -19,13 +19,11 @@ class CategoryIndexController extends Controller
      */
     public function __invoke(CategoryIndexRequest $request)
     {
-        $excludedIds = [21, 22, 23, 24, 13, 19, 8, 20, 12]; // ID категорий, которые нужно исключить
-
         if ($request->has('perPage')) {
             $perPage = $request->query('perPage', 10);
             $page = $request->query('page', 1);
 
-            $categories = Category::whereNotIn('id', $excludedIds)
+            $categories = Category::where('is_active', true)
                 ->paginate($perPage, ['*'], 'page', $page);
 
             return $this->response([
@@ -36,7 +34,7 @@ class CategoryIndexController extends Controller
             ], 'Список категорий успешно загружен!');
         }
 
-        $categories = Category::whereNotIn('id', $excludedIds)->get();
+        $categories = Category::where('is_active', true)->get();
 
         return $this->response($categories, 'Список категорий успешно загружен!');
     }

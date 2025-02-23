@@ -23,7 +23,8 @@ class SubCategoryIndexController extends Controller
             $perPage = $request->query('perPage', 10);
             $page = $request->query('page', 1);
 
-            $subCategory = SubCategory::paginate($perPage, ['*'], 'page', $page);
+            $subCategory = SubCategory::where('is_active', true)
+                ->paginate($perPage, ['*'], 'page', $page);
 
             return $this->response([
                 'current_page' => $subCategory->currentPage(),
@@ -33,6 +34,6 @@ class SubCategoryIndexController extends Controller
             ], 'Список подкатегорий успешно загружен!');
         }
 
-        return $this->response(SubCategory::all(), 'Список подкатегорий успешно загружен!');
+        return $this->response(SubCategory::where('is_active', true)->get(), 'Список подкатегорий успешно загружен!');
     }
 }
