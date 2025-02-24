@@ -17,6 +17,7 @@ class Category extends Model
         'mobile_image_url',
         'name_kz',
         'name_ru',
+        'is_active',
     ];
 
     public function subcategories(): HasMany

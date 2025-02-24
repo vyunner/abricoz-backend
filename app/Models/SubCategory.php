@@ -19,6 +19,7 @@ class SubCategory extends Model
         'image_url',
         'name_kz',
         'name_ru',
+        'is_active',
     ];
 
     public function category(): BelongsTo
