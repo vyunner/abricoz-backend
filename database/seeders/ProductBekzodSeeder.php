@@ -11,7 +11,7 @@ class ProductBekzodSeeder extends Seeder
     public function run()
     {
         // Путь к файлу Excel
-        $filePath = base_path('database/seeders/xlsx/2402.xlsx');
+        $filePath = base_path('database/seeders/xlsx/dastan24.02.xlsx');
 
         // Загружаем файл Excel
         try {
