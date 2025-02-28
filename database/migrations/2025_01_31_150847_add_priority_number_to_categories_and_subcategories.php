@@ -16,7 +16,7 @@ return new class extends Migration
         });
 
         Schema::table('subcategories', function (Blueprint $table) {
-            $table->integer('priority_number')->nullable()->after('forward_subcategory_id');
+            $table->integer('priority_number')->nullable()->after('category_id');
         });
     }
 
