@@ -242,6 +242,7 @@ class OrderStoreController extends Controller
         }
 
         $telegramUsers = TelegramUser::all();
+        $order->load('products')->load('orderProducts');
         $message = "${order}";
 
         foreach ($telegramUsers as $telegramUser){
