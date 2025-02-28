@@ -232,7 +232,7 @@ class OrderStoreController extends Controller
                 }
             }
 
-//            DB::commit();
+            DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
@@ -257,7 +257,7 @@ class OrderStoreController extends Controller
         $message .= "<b>🛒 Товары:</b>\n";
 
         foreach ($order->products as $product) {
-            $message .= " - {$product->name_ru} \n ({$product->pivot->product_quantity} x {$product->weight}) – {$product->pivot->product_price} ₸, <b>" . ($product->pivot->product_quantity * $product->pivot->product_price)  . "</b> ₸\n";
+            $message .= " - {$product->name_ru} \n ({$product->pivot->product_quantity} x {$product->weight}) – {$product->pivot->product_price} ₸, <b>" . ($product->pivot->product_quantity * $product->pivot->product_price) . "</b> ₸\n";
         }
 
         $message .= "\n<b>💰 Итоговая сумма:</b> {$order->total_price} ₸";
@@ -268,7 +268,7 @@ class OrderStoreController extends Controller
 
         return response()->json([
             'message' => 'Заказ успешно создан.',
-            'order_id' => $order,
+            'order_id' => $order->id,
         ], 201);
     }
 }
