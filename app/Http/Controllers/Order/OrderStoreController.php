@@ -257,8 +257,8 @@ class OrderStoreController extends Controller
             $message .= " - {$product->name_ru} \n ({$product->pivot->product_quantity} x {$product->weight}) – {$product->pivot->product_price} ₸\n";
         }
 
-        $message .= "<b>💰 Итоговая сумма:</b> {$order->total_price} ₸\n";
-        $message .= "\n<b>📌 Комментарий:</b> " . ($order->address_comment ?? "Нет");
+        $message .= "\n<b>💰 Итоговая сумма:</b> {$order->total_price} ₸\n";
+        $message .= "<b>📌 Комментарий:</b> " . ($order->address_comment ?? "Нет");
 
         foreach ($telegramUsers as $telegramUser) {
             $this->telegramService->sendMessage($telegramUser->chat_id, $message, "HTML");
