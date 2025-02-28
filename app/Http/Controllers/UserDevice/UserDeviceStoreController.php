@@ -5,6 +5,7 @@ namespace App\Http\Controllers\UserDevice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserDevice\UserDeviceStoreRequest;
 use App\Models\UserDevice;
+use Illuminate\Database\QueryException;
 
 /**
  * @group UserDevice
@@ -24,27 +25,33 @@ class UserDeviceStoreController extends Controller
         $fcm_token_type_id = $validatedData['fcm_token_type_id'];
         $fcm_token = $validatedData['fcm_token'];
 
-        // Проверяем, существует ли уже эта запись
-        $existingDevice = UserDevice::where('fcm_token', $fcm_token)->first();
+        // Проверяем, существует ли уже такая запись
+        $existingDevice = UserDevice::where('fcm_token', $fcm_token)
+            ->where('device_id', $device_id)
+            ->where('user_id', $user_id)
+            ->where('fcm_token_type_id', $fcm_token_type_id)
+            ->first();
 
         if ($existingDevice) {
-            if ($existingDevice->device_id === $device_id && $existingDevice->user_id === $user_id) {
-                // Если устройство уже зарегистрировано для этого пользователя, возвращаем его
-                return $this->response($existingDevice, 'Устройство уже зарегистрировано');
-            } else {
-                // Если токен есть, но с другим устройством — удаляем старую запись
-                $existingDevice->delete();
-            }
+            // Если запись уже существует, просто возвращаем её без изменений
+            return $this->response($existingDevice, 'Устройство уже зарегистрировано');
         }
 
-        // Создаем новую запись
-        $newDevice = UserDevice::create([
-            'user_id' => $user_id,
-            'fcm_token_type_id' => $fcm_token_type_id,
-            'fcm_token' => $fcm_token,
-            'device_id' => $device_id,
-        ]);
+        UserDevice::where('fcm_token', $fcm_token)->delete();
 
-        return $this->response($newDevice, 'Запись успешно создана');
+        try {
+            // Создаем новую запись
+            $newDevice = UserDevice::create([
+                'user_id' => $user_id,
+                'fcm_token_type_id' => $fcm_token_type_id,
+                'fcm_token' => $fcm_token,
+                'device_id' => $device_id,
+            ]);
+
+            return $this->response($newDevice, 'Запись успешно создана');
+
+        } catch (QueryException $e) {
+            return $this->response(null, 'Ошибка: Дубликат FCM-токена', 400);
+        }
     }
 }
