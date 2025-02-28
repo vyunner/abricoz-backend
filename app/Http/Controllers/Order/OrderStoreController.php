@@ -244,21 +244,21 @@ class OrderStoreController extends Controller
         $telegramUsers = TelegramUser::all();
         $order->load('products')->load('user');
 
-        $message = "<b>📦 Новый заказ #{$order->id}</b><br><br>";
-        $message .= "<b>👤 Клиент:</b> {$order->user->firstname} {$order->user->lastname} {$order->user->phone}<br>";
-        $message .= "<b>📍 Адрес:</b> {$order->address_street_and_house}, {$order->address_apartment}, подъезд {$order->address_entrance}, этаж {$order->address_floor}<br>";
-        $message .= "<b>📅 Дата доставки:</b> {$order->delivery_date}<br>";
-        $message .= "<b>💰 Итоговая сумма:</b> {$order->total_price} ₸<br><br>";
-        $message .= "<b>🛒 Товары:</b><br>";
+        $message = "<b>📦 Новый заказ #{$order->id}</b>\n\n";
+        $message .= "<b>👤 Клиент:</b> {$order->user->firstname} {$order->user->lastname} {$order->user->phone}\n";
+        $message .= "<b>📍 Адрес:</b> {$order->address_street_and_house}, {$order->address_apartment}, подъезд {$order->address_entrance}, этаж {$order->address_floor}\n";
+        $message .= "<b>📅 Дата доставки:</b> {$order->delivery_date}\n";
+        $message .= "<b>💰 Итоговая сумма:</b> {$order->total_price} ₸\n\n";
+        $message .= "<b>🛒 Товары:</b>\n";
 
         foreach ($order->products as $product) {
-            $message .= " - {$product->name_ru} ({$product->pivot->product_quantity} шт) – {$product->pivot->product_price} ₸<br>";
+            $message .= " - {$product->name_ru} ({$product->pivot->product_quantity} шт) – {$product->pivot->product_price} ₸\n";
         }
 
-        $message .= "<br><b>📌 Комментарий:</b> " . ($order->address_comment ?? "Нет");
+        $message .= "\n<b>📌 Комментарий:</b> " . ($order->address_comment ?? "Нет");
 
         foreach ($telegramUsers as $telegramUser) {
-            $this->telegramService->sendMessage($telegramUser->chat_id, $message);
+            $this->telegramService->sendMessage($telegramUser->chat_id, $message, "HTML");
         }
 
         return response()->json([
