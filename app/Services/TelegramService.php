@@ -11,7 +11,7 @@ class TelegramService
         return Telegram::bot('mybot')->sendMessage([
             'chat_id' => $chatId,
             'text' => $message,
-            'parse_mode' => 'MarkdownV2',
+            'parse_mode' => 'HTML',
         ]);
     }
 }
