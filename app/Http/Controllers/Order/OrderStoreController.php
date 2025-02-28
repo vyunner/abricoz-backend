@@ -251,15 +251,16 @@ class OrderStoreController extends Controller
         $message .= "<b>👤 ФИО:</b> {$order->user->firstname} {$order->user->lastname}\n";
         $message .= "<b>📞 Телефон:</b> {$order->user->phone}\n";
         $message .= "<b>📍 Адрес:</b> {$order->address_street_and_house}, {$order->address_apartment}, подъезд {$order->address_entrance}, этаж {$order->address_floor}\n";
-        $message .= "<b>📅 Дата доставки:</b> {$deliveryDate} {$order->deliveryInterval->name}\n\n";
+        $message .= "<b>📅 Дата доставки:</b> {$deliveryDate}\n";
+        $message .= "<b>🕘 Время доставки:</b> {$order->deliveryInterval->name}\n";
+        $message .= "<b>📌 Комментарий:</b> " . ($order->address_comment ?? "Нет") . "\n\n";
         $message .= "<b>🛒 Товары:</b>\n";
 
         foreach ($order->products as $product) {
             $message .= " - {$product->name_ru} \n ({$product->pivot->product_quantity} x {$product->weight}) – {$product->pivot->product_price} ₸\n";
         }
 
-        $message .= "\n<b>💰 Итоговая сумма:</b> {$order->total_price} ₸\n";
-        $message .= "<b>📌 Комментарий:</b> " . ($order->address_comment ?? "Нет");
+        $message .= "\n<b>💰 Итоговая сумма:</b> {$order->total_price} ₸";
 
         foreach ($telegramUsers as $telegramUser) {
             $this->telegramService->sendMessage($telegramUser->chat_id, $message, "HTML");
