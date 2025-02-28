@@ -242,12 +242,15 @@ class OrderStoreController extends Controller
         }
 
         $telegramUsers = TelegramUser::all();
-        $order->load('products')->load('user');
+
+        $order->load('products')->load('user')->load('deliveryInterval');
+
+        $deliveryDate = Carbon::parse($order->delivery_date)->format('d.m.Y');
 
         $message = "<b>📦 Новый заказ #{$order->id}</b>\n\n";
         $message .= "<b>👤 Клиент:</b> {$order->user->firstname} {$order->user->lastname} {$order->user->phone}\n";
         $message .= "<b>📍 Адрес:</b> {$order->address_street_and_house}, {$order->address_apartment}, подъезд {$order->address_entrance}, этаж {$order->address_floor}\n";
-        $message .= "<b>📅 Дата доставки:</b> {$order->delivery_date}\n";
+        $message .= "<b>📅 Дата доставки:</b> {$deliveryDate} {$order->deliveryInterval->name}\n";
         $message .= "<b>💰 Итоговая сумма:</b> {$order->total_price} ₸\n\n";
         $message .= "<b>🛒 Товары:</b>\n";
 
@@ -263,7 +266,7 @@ class OrderStoreController extends Controller
 
         return response()->json([
             'message' => 'Заказ успешно создан.',
-            'order_id' => $order->id,
+            'order_id' => $order,
         ], 201);
     }
 }
