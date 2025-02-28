@@ -243,10 +243,21 @@ class OrderStoreController extends Controller
 
         $telegramUsers = TelegramUser::all();
         $order->load('products')->load('orderProducts');
-        $message = "${order}";
+        $message = "📦 *Новый заказ #{$order->id}*\n\n";
+        $message .= "👤 *Клиент:* ID {$order->user_id}\n";
+        $message .= "📍 *Адрес:* {$order->address_street_and_house}, {$order->address_apartment}, подъезд {$order->address_entrance}, этаж {$order->address_floor}\n";
+        $message .= "📅 *Дата доставки:* {$order->delivery_date}\n";
+        $message .= "💰 *Итоговая сумма:* {$order->total_price} ₸\n\n";
+        $message .= "🛒 *Товары:*\n";
 
-        foreach ($telegramUsers as $telegramUser){
-            $this->telegramService->sendMessage($telegramUser->chat_id, $message);
+        foreach ($order->products as $product) {
+            $message .= " - {$product->name_ru} ({$product->pivot->product_quantity} шт) – {$product->pivot->product_price} ₸\n";
+        }
+
+        $message .= "\n📌 *Комментарий:* " . ($order->address_comment ?? "Нет");
+
+        foreach ($telegramUsers as $telegramUser) {
+            $this->telegramService->sendMessage($telegramUser->chat_id, $message, "MarkdownV2");
         }
 
         return response()->json([
