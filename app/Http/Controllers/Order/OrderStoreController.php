@@ -244,21 +244,21 @@ class OrderStoreController extends Controller
         $telegramUsers = TelegramUser::all();
         $order->load('products')->load('user');
 
-        $message = "📦 *Новый заказ #{$order->id}*\n\n";
-        $message .= "👤 *Клиент:* {$order->user->firstname} {$order->user->lastname} {$order->user->phone}\n";
-        $message .= "📍 *Адрес:* {$order->address_street_and_house}, {$order->address_apartment}, подъезд {$order->address_entrance}, этаж {$order->address_floor}\n";
-        $message .= "📅 *Дата доставки:* {$order->delivery_date}\n";
-        $message .= "💰 *Итоговая сумма:* {$order->total_price} ₸\n\n";
-        $message .= "🛒 *Товары:*\n";
+        $message = "<b>📦 Новый заказ #{$order->id}</b><br><br>";
+        $message .= "<b>👤 Клиент:</b> {$order->user->firstname} {$order->user->lastname} {$order->user->phone}<br>";
+        $message .= "<b>📍 Адрес:</b> {$order->address_street_and_house}, {$order->address_apartment}, подъезд {$order->address_entrance}, этаж {$order->address_floor}<br>";
+        $message .= "<b>📅 Дата доставки:</b> {$order->delivery_date}<br>";
+        $message .= "<b>💰 Итоговая сумма:</b> {$order->total_price} ₸<br><br>";
+        $message .= "<b>🛒 Товары:</b><br>";
 
         foreach ($order->products as $product) {
-            $message .= " - {$product->name_ru} ({$product->pivot->product_quantity} шт) – {$product->pivot->product_price} ₸\n";
+            $message .= " - {$product->name_ru} ({$product->pivot->product_quantity} шт) – {$product->pivot->product_price} ₸<br>";
         }
 
-        $message .= "\n📌 *Комментарий:* " . ($order->address_comment ?? "Нет");
+        $message .= "<br><b>📌 Комментарий:</b> " . ($order->address_comment ?? "Нет");
 
         foreach ($telegramUsers as $telegramUser) {
-            $this->telegramService->sendMessage($telegramUser->chat_id, $message, "MarkdownV2");
+            $this->telegramService->sendMessage($telegramUser->chat_id, $message);
         }
 
         return response()->json([
