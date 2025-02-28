@@ -257,7 +257,7 @@ class OrderStoreController extends Controller
         $message .= "<b>🛒 Товары:</b>\n";
 
         foreach ($order->products as $product) {
-            $message .= " - {$product->name_ru} \n ({$product->pivot->product_quantity} x {$product->weight}) – {$product->pivot->product_price} ₸, " . ($product->pivot->product_quantity * $product->pivot->product_price)  . " ₸\n";
+            $message .= " - {$product->name_ru} \n ({$product->pivot->product_quantity} x {$product->weight}) – {$product->pivot->product_price} ₸, <b>" . ($product->pivot->product_quantity * $product->pivot->product_price)  . "</b> ₸\n";
         }
 
         $message .= "\n<b>💰 Итоговая сумма:</b> {$order->total_price} ₸";
