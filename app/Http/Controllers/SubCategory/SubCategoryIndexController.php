@@ -17,23 +17,25 @@ class SubCategoryIndexController extends Controller
      * @param SubCategoryIndexRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(SubCategoryIndexRequest $request)
+    public function __invoke(Request $request)
     {
+        $query = Subcategory::where('is_active', true)
+            ->orderByRaw('priority_number IS NULL, priority_number ASC');
+
         if ($request->has('perPage')) {
             $perPage = $request->query('perPage', 10);
             $page = $request->query('page', 1);
 
-            $subCategory = SubCategory::where('is_active', true)
-                ->paginate($perPage, ['*'], 'page', $page);
+            $subcategories = $query->paginate($perPage, ['*'], 'page', $page);
 
-            return $this->response([
-                'current_page' => $subCategory->currentPage(),
-                'total' => $subCategory->total(),
-                'total_pages' => $subCategory->lastPage(),
-                'subCategory' => $subCategory->items(),
-            ], 'Список подкатегорий успешно загружен!');
+            return response()->json([
+                'current_page' => $subcategories->currentPage(),
+                'total' => $subcategories->total(),
+                'total_pages' => $subcategories->lastPage(),
+                'subcategories' => $subcategories->items(),
+            ]);
         }
 
-        return $this->response(SubCategory::where('is_active', true)->get(), 'Список подкатегорий успешно загружен!');
+        return response()->json($query->get());
     }
 }

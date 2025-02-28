@@ -19,12 +19,14 @@ class CategoryIndexController extends Controller
      */
     public function __invoke(CategoryIndexRequest $request)
     {
+        $query = Category::where('is_active', true)
+            ->orderByRaw('priority_number IS NULL, priority_number ASC'); // NULL в конец, остальное по возрастанию
+
         if ($request->has('perPage')) {
             $perPage = $request->query('perPage', 10);
             $page = $request->query('page', 1);
 
-            $categories = Category::where('is_active', true)
-                ->paginate($perPage, ['*'], 'page', $page);
+            $categories = $query->paginate($perPage, ['*'], 'page', $page);
 
             return $this->response([
                 'current_page' => $categories->currentPage(),
@@ -34,8 +36,6 @@ class CategoryIndexController extends Controller
             ], 'Список категорий успешно загружен!');
         }
 
-        $categories = Category::where('is_active', true)->get();
-
-        return $this->response($categories, 'Список категорий успешно загружен!');
+        return $this->response($query->get(), 'Список категорий успешно загружен!');
     }
 }
