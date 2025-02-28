@@ -11,9 +11,11 @@ use App\Models\Product;
 use App\Models\OrderProduct;
 use App\Models\DeliveryInterval;
 use App\Models\Address;
+use App\Models\TelegramUser;
 use App\Models\UserCard;
 use App\Services\EpayService;
 use App\Services\FirebaseNotificationService;
+use App\Services\TelegramService;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
@@ -22,11 +24,15 @@ class OrderStoreController extends Controller
 {
     protected EpayService $epayService;
     protected FirebaseNotificationService $firebaseNotificationService;
+    protected TelegramService $telegramService;
 
-    public function __construct(EpayService $epayService, FirebaseNotificationService $firebaseNotificationService)
+    public function __construct(EpayService                 $epayService,
+                                FirebaseNotificationService $firebaseNotificationService,
+                                TelegramService             $telegramService)
     {
         $this->epayService = $epayService;
         $this->firebaseNotificationService = $firebaseNotificationService;
+        $this->telegramService = $telegramService;
     }
 
     public function __invoke(OrderStoreRequest $request)
@@ -227,14 +233,6 @@ class OrderStoreController extends Controller
             }
 
             DB::commit();
-
-            // TODO: Реализовать уведомление складмену
-
-            return response()->json([
-                'message' => 'Заказ успешно создан.',
-                'order_id' => $order->id,
-            ], 201);
-
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
@@ -242,5 +240,15 @@ class OrderStoreController extends Controller
                 'error' => $e->getMessage(),
             ], 500);
         }
+
+        $telegramUsers = TelegramUser::all();
+        foreach ($telegramUsers as $telegramUser){
+            $this->telegramService->sendMessage($telegramUser->chat_id, 'Заказ');
+        }
+
+        return response()->json([
+            'message' => 'Заказ успешно создан.',
+            'order_id' => $order->id,
+        ], 201);
     }
 }
