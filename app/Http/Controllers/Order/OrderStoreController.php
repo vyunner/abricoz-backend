@@ -242,9 +242,10 @@ class OrderStoreController extends Controller
         }
 
         $telegramUsers = TelegramUser::all();
-        $order->load('products')->load('orderProducts');
+        $order->load('products')->load('user');
+
         $message = "📦 *Новый заказ #{$order->id}*\n\n";
-        $message .= "👤 *Клиент:* ID {$order->user_id}\n";
+        $message .= "👤 *Клиент:* {$order->user->firstname} {$order->user->lastname} {$order->user->phone}\n";
         $message .= "📍 *Адрес:* {$order->address_street_and_house}, {$order->address_apartment}, подъезд {$order->address_entrance}, этаж {$order->address_floor}\n";
         $message .= "📅 *Дата доставки:* {$order->delivery_date}\n";
         $message .= "💰 *Итоговая сумма:* {$order->total_price} ₸\n\n";
