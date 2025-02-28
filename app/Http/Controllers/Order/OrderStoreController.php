@@ -242,8 +242,10 @@ class OrderStoreController extends Controller
         }
 
         $telegramUsers = TelegramUser::all();
+        $message = "${order}";
+
         foreach ($telegramUsers as $telegramUser){
-            $this->telegramService->sendMessage($telegramUser->chat_id, 'Заказ');
+            $this->telegramService->sendMessage($telegramUser->chat_id, $message);
         }
 
         return response()->json([
