@@ -20,7 +20,7 @@ class NotificationController extends Controller
     {
         try {
             $response = $this->firebaseNotificationService->sendNotification(
-                'app2', // Идентификатор приложения ('app1' или 'app2')
+                strval($request->input('app')), // Идентификатор приложения ('app1' или 'app2')
                 $request->input('fcm_token'), // Токен устройства получателя
                 [
                     'title' => $request->input('title'),
@@ -31,7 +31,7 @@ class NotificationController extends Controller
                     ],
                 ]
             );
-            return($response);
+            return ($response);
         } catch (\Exception $e) {
             \Log::error($e->getMessage());
         }

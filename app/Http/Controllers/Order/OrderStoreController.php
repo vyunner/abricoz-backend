@@ -169,6 +169,7 @@ class OrderStoreController extends Controller
                 ]);
 
                 $productData['product']->decrement('amount', $productData['quantity']);
+                $productData['product']->increment('total_sales', $productData['quantity']);
             }
 
             // Обработка оплаты
@@ -212,7 +213,6 @@ class OrderStoreController extends Controller
                     'paymentType' => 'cardId',
                     'cardId' => ['id' => $userCard->cardID],
                 ];
-//                return $postData;
 
                 // Отправляем запрос в Epay API с токеном
                 $url = "https://epay-api.homebank.kz/payments/cards/auth";
