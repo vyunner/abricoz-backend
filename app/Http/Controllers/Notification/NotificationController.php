@@ -18,6 +18,7 @@ class NotificationController extends Controller
 
     public function __invoke(Request $request)
     {
+        return strval($request->input('app'));
         try {
             $response = $this->firebaseNotificationService->sendNotification(
                 strval($request->input('app')), // Идентификатор приложения ('app1' или 'app2')
