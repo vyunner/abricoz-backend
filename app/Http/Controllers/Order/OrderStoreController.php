@@ -232,7 +232,7 @@ class OrderStoreController extends Controller
                 }
             }
 
-            DB::commit();
+//            DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
