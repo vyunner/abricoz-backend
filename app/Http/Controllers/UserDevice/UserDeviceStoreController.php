@@ -3,12 +3,8 @@
 namespace App\Http\Controllers\UserDevice;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SubCategory\SubCategoryStoreRequest;
 use App\Http\Requests\UserDevice\UserDeviceStoreRequest;
-use App\Models\SubCategory;
 use App\Models\UserDevice;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 /**
  * @group UserDevice
@@ -17,7 +13,7 @@ class UserDeviceStoreController extends Controller
 {
     /**
      * Создание
-     * @param SubCategoryStoreRequest $request
+     * @param UserDeviceStoreRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(UserDeviceStoreRequest $request)
@@ -28,18 +24,15 @@ class UserDeviceStoreController extends Controller
         $fcm_token_type_id = $validatedData['fcm_token_type_id'];
         $fcm_token = $validatedData['fcm_token'];
 
-        // Проверяем, существует ли идентичная запись
-        $existingDevice = UserDevice::where('device_id', $device_id)
-            ->where('fcm_token_type_id', $fcm_token_type_id)
-            ->where('fcm_token', $fcm_token)
-            ->first();
+        // Проверяем, существует ли уже эта запись
+        $existingDevice = UserDevice::where('fcm_token', $fcm_token)->first();
 
         if ($existingDevice) {
-            if ($existingDevice->user_id === $user_id) {
-                // Если идентичная запись уже существует, ничего не делаем
-                return $this->response($existingDevice, 'Запись уже существует');
+            if ($existingDevice->device_id === $device_id && $existingDevice->user_id === $user_id) {
+                // Если устройство уже зарегистрировано для этого пользователя, возвращаем его
+                return $this->response($existingDevice, 'Устройство уже зарегистрировано');
             } else {
-                // Если device_id, fcm_token, fcm_token_type_id совпадают, но user_id разные, удаляем старую запись
+                // Если токен есть, но с другим устройством — удаляем старую запись
                 $existingDevice->delete();
             }
         }
