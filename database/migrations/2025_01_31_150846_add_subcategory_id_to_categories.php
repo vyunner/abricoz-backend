@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->unsignedBigInteger('forward_subcategory_id')->nullable()->after('id');
-            $table->foreign('forward_subcategory_id')->references('id')->on('categories')->onDelete('set null');
+            $table->integer('forward_subcategory_id')->nullable()->after('id');
         });
     }
 
@@ -23,7 +22,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->dropForeign(['forward_subcategory_id']);
             $table->dropColumn('forward_subcategory_id');
         });
     }
