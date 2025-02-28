@@ -5,7 +5,8 @@ namespace App\Http\Controllers\HeadWarehouse;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderStatus;
-use App\Models\User;
+use App\Models\OrderProduct;
+use App\Models\Product;
 use App\Models\UserDevice;
 use App\Services\FirebaseNotificationService;
 use Illuminate\Http\Request;
@@ -34,29 +35,39 @@ class HeadWarehouseDeleteOrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
+        // Обновляем статус заказа на "Отменён"
         $order->update(['order_status_id' => OrderStatus::CANCELLED]);
 
+        // Возвращаем товары на склад
+        $orderProducts = OrderProduct::where('order_id', $order->id)->get();
+
+        foreach ($orderProducts as $orderProduct) {
+            $product = Product::find($orderProduct->product_id);
+
+            if ($product) {
+                $product->amount += $orderProduct->product_quantity;
+                $product->total_sales = max(0, $product->total_sales - $orderProduct->product_quantity);
+                $product->save();
+            }
+        }
+
+        // Отправка FCM-уведомлений пользователю
         $userDevices = UserDevice::where('user_id', $order->user_id)
             ->where('fcm_token_type_id', 1)
             ->get();
 
         foreach ($userDevices as $device) {
-            try {
-                $this->firebaseNotificationService->sendNotification(
-                    'app1',
-                    $device->fcm_token,
-                    [
-                        'title' => 'Abricoz',
-                        'body' => 'Ваш заказ был отменен сотрудником склада',
-                        'data' => [
-                            'order_id' => (string)$order->id,
-                        ],
-                    ]
-                );
-            } catch (\Exception $e) {
-                // Логируем ошибку и продолжаем выполнение цикла
-                Log::error("Ошибка отправки уведомления для пользователя {$warehouseman->id} (токен: {$device->fcm_token}): " . $e->getMessage());
-            }
+            $this->firebaseNotificationService->sendNotification(
+                'app1',
+                $device->fcm_token,
+                [
+                    'title' => 'Abricoz',
+                    'body' => 'Ваш заказ был отменен сотрудником склада',
+                    'data' => [
+                        'order_id' => (string)$order->id,
+                    ],
+                ]
+            );
         }
 
         return $this->response($order, __('response.order.success.cancel'));
