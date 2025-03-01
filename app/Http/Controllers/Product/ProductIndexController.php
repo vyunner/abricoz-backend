@@ -19,6 +19,7 @@ class ProductIndexController extends Controller
      */
     public function __invoke(ProductIndexRequest $request)
     {
+        return 1;
         $query = Product::with(['subcategory'])->where('is_active', 1);
 
         if ($request->has('name')) {
