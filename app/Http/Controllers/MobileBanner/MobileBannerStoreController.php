@@ -19,6 +19,8 @@ class MobileBannerStoreController extends Controller
      */
     public function __invoke(Request $request)
     {
+        return $request->all();
+
         // Валидация данных
         $validated = $request->validate([
             'image' => 'required|image|max:10000',
