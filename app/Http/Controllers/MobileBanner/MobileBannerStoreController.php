@@ -24,10 +24,10 @@ class MobileBannerStoreController extends Controller
         $last_banner = MobileBanner::orderBy('number', 'desc')->first();
         $data['number'] = $last_banner?->number + 1 ?? 1;
 
-        foreach (['ru', 'kz', 'en'] as $locale) {
-            $path = Storage::disk('s3')->put('mobile_banners', $data["image_{$locale}"]);
-            $data["image_url_{$locale}"] = Storage::disk('s3')->url($path);
-            unset($data["image_{$locale}"]);
+        if ($request->hasFile('image')) {
+            $path = Storage::disk('s3')->put('mobile_banners', $request->file('image'), 'public');
+            $data['image_url'] = Storage::disk('s3')->url($path);
+            unset($data['image']);
         }
 
         $banner = MobileBanner::create($data);
