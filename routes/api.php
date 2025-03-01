@@ -112,7 +112,7 @@ Route::group(['prefix' => '/desktop-banner'], function () {
 Route::group(['prefix' => '/mobile-banner'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
         Route::post('/store', Controllers\MobileBanner\MobileBannerStoreController::class);
-    }
+    });
 
     Route::get('/index', Controllers\MobileBanner\MobileBannerIndexController::class);
 });
