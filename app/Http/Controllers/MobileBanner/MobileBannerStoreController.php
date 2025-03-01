@@ -5,7 +5,6 @@ namespace App\Http\Controllers\MobileBanner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MobileBanner\MobileBannerStoreRequest;
 use App\Models\MobileBanner;
-use http\Env\Request;
 use Illuminate\Support\Facades\Storage;
 
 /**
