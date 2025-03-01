@@ -21,7 +21,7 @@ class MobileBannerStoreController extends Controller
     {
         // Валидация данных
         $validated = $request->validate([
-            'image' => 'required|image|max:10000',
+            'image' => 'required|image|max:20000',
             'title_ru' => 'nullable|string|max:10000',
             'title_kz' => 'nullable|string|max:10000',
         ]);
