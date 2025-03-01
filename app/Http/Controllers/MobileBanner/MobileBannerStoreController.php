@@ -19,31 +19,15 @@ class MobileBannerStoreController extends Controller
      */
     public function __invoke(Request $request)
     {
-//        return $request->all();
+        dd('Before validation', $request->all()); // Должен показать входные данные
 
-//        // Валидация данных
         $validated = $request->validate([
             'image' => 'required|image|max:10000',
             'title_ru' => 'nullable|string|max:10000',
             'title_kz' => 'nullable|string|max:10000',
         ]);
-////
-////        // Загружаем изображение в S3
-////        if ($request->hasFile('image')) {
-////            $path = Storage::disk('s3')->put('mobile_banners', $request->file('image'), 'public');
-////            $validated['image_url'] = Storage::disk('s3')->url($path);
-////        }
-//
-//        // Определяем номер нового баннера
-//        $lastBanner = MobileBanner::orderBy('number', 'desc')->first();
-//        $validated['number'] = $lastBanner ? $lastBanner->number + 1 : 1;
-//
-//        // Сохраняем новый баннер
-//        $banner = MobileBanner::create($validated);
-//
-//        return response()->json([
-//            'message' => 'Баннер успешно добавлен!',
-//            'data' => $banner
-//        ], 201);
+
+        dd('After validation', $validated); // Должен показать данные после валидации
     }
+
 }
