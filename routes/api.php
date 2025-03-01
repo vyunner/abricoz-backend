@@ -111,7 +111,7 @@ Route::group(['prefix' => '/desktop-banner'], function () {
 
 Route::group(['prefix' => '/mobile-banner'], function () {
     Route::post('/update', Controllers\MobileBanner\MobileBannerUpdateController::class);
-    Route::post('/storewww', Controllers\MobileBanner\MobileBannerStoreController::class);
+    Route::post('/store', Controllers\MobileBanner\MobileBannerStoreController::class);
     Route::delete('/delete/{id}', Controllers\MobileBanner\MobileBannerDestroyController::class);
 
     Route::get('/index', Controllers\MobileBanner\MobileBannerIndexController::class);

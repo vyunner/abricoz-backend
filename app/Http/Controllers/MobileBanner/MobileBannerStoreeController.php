@@ -3,19 +3,17 @@
 namespace App\Http\Controllers\MobileBanner;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MobileBanner\MobileBannerStoreRequest;
 use App\Models\MobileBanner;
-use http\Env\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 /**
  * @group MobileBanner
  */
-class MobileBannerStoreController extends Controller
+class MobileBannerStoreeController extends Controller
 {
     /**
-     * Создание
-     * @param MobileBannerStoreRequest $request
+     * Список
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(Request $request)
