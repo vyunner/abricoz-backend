@@ -110,9 +110,9 @@ Route::group(['prefix' => '/desktop-banner'], function () {
 });
 
 Route::group(['prefix' => '/mobile-banner'], function () {
-    Route::post('/update', Controllers\MobileBanner\MobileBannerUpdateController::class);
-    Route::post('/store', Controllers\MobileBanner\MobileBannerStoreController::class);
-    Route::delete('/delete/{id}', Controllers\MobileBanner\MobileBannerDestroyController::class);
+    Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+        Route::post('/store', Controllers\MobileBanner\MobileBannerStoreController::class);
+    }
 
     Route::get('/index', Controllers\MobileBanner\MobileBannerIndexController::class);
 });
