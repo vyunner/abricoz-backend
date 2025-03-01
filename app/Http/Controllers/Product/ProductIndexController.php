@@ -39,6 +39,10 @@ class ProductIndexController extends Controller
             });
         }
 
+        if ($request->boolean('is_discount')) { // Проверяем, что is_discount == true
+            $query->where('discount', '>', 0);
+        }
+
         $priceRangeQuery = clone $query;
 
         if ($request->has('min_price')) {
