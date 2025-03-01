@@ -26,10 +26,10 @@ class MobileBannerStoreController extends Controller
             'title_kz' => 'nullable|string|max:10000',
         ]);
 
-        // Загружаем изображение в S3
+        // Загружаем изображение в `public/storage/mobile_banners/`
         if ($request->hasFile('image')) {
-            $path = Storage::disk('s3')->put('mobile_banners', $request->file('image'), 'public');
-            $validated['image_url'] = Storage::disk('s3')->url($path);
+            $path = $request->file('image')->store('mobile_banners', 'public');
+            $validated['image_url'] = Storage::url($path); // Генерация URL для доступа
         }
 
         // Определяем номер нового баннера
