@@ -22,11 +22,12 @@ class CategoryShowController extends Controller
         $category = Category::with('subcategories')->findOrFail($id);
 
         if ($id === 27) {
-            $subcategoriesWithDiscounts = Subcategory::select('subcategories.*')
-                ->join('products', 'products.subcategory_id', '=', 'subcategories.id')
-                ->whereNotNull('products.discount')
-                ->distinct()
-                ->get();
+            $subcategoriesWithDiscounts = Subcategory::whereExists(function ($query) {
+                $query->select(DB::raw(1))
+                    ->from('products')
+                    ->whereRaw('products.subcategory_id = subcategories.id')
+                    ->where('products.discount', '>', 0);
+            })->get();
 
             $category->setRelation('subcategories', $subcategoriesWithDiscounts);
         }
