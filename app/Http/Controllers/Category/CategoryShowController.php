@@ -20,7 +20,10 @@ class CategoryShowController extends Controller
      */
     public function __invoke(int $id)
     {
-        $category = Category::with('subcategories')->findOrFail($id);
+        // Загружаем категорию с подкатегориями, отсортированными по `priority_number`
+        $category = Category::with(['subcategories' => function ($query) {
+            $query->orderByRaw('priority_number IS NULL, priority_number ASC'); // NULL в конец
+        }])->findOrFail($id);
 
         if ($id === 27) {
             $subcategoriesWithDiscounts = Subcategory::whereExists(function ($query) {
@@ -28,7 +31,14 @@ class CategoryShowController extends Controller
                     ->from('products')
                     ->whereRaw('products.subcategory_id = subcategories.id')
                     ->where('products.discount', '>', 0);
-            })->get();
+            })->orderByRaw('priority_number IS NULL, priority_number ASC') // Сортировка
+            ->get();
+
+            // Добавляем `is_discount: true` только к нужным подкатегориям
+            $subcategoriesWithDiscounts->transform(function ($subcategory) {
+                $subcategory->is_discount = true;
+                return $subcategory;
+            });
 
             $category->setRelation('subcategories', $subcategoriesWithDiscounts);
         }
