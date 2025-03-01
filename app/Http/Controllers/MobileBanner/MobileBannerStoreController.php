@@ -22,11 +22,11 @@ class MobileBannerStoreController extends Controller
 //        return $request->all();
 
 //        // Валидация данных
-//        $validated = $request->validate([
-//            'image' => 'required|image|max:10000',
-//            'title_ru' => 'nullable|string|max:10000',
-//            'title_kz' => 'nullable|string|max:10000',
-//        ]);
+        $validated = $request->validate([
+            'image' => 'required|image|max:10000',
+            'title_ru' => 'nullable|string|max:10000',
+            'title_kz' => 'nullable|string|max:10000',
+        ]);
 ////
 ////        // Загружаем изображение в S3
 ////        if ($request->hasFile('image')) {
