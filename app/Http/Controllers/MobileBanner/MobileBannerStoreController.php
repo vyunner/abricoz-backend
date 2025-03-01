@@ -18,7 +18,7 @@ class MobileBannerStoreController extends Controller
      * @param MobileBannerStoreRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(MobileBannerStoreRequest $request)
     {
         $data = $request->validated();
 
