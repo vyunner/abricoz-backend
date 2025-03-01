@@ -30,12 +30,14 @@ class CategoryShowController extends Controller
                     ->where('products.discount', '>', 0);
             })->get();
 
-            // Добавляем "d" в id подкатегорий
-            $subcategoriesWithDiscounts->transform(function ($subcategory) {
-                $subcategory->id = (string) $subcategory->id . 'd';
-                return $subcategory;
+            // Преобразуем коллекцию в массив и добавляем "d" к id
+            $subcategoriesWithDiscounts = $subcategoriesWithDiscounts->map(function ($subcategory) {
+                $subcategoryArray = $subcategory->toArray(); // Преобразуем в массив
+                $subcategoryArray['id'] = (string) $subcategoryArray['id'] . 'd'; // Добавляем "d"
+                return $subcategoryArray;
             });
 
+            // Подменяем subcategories в объекте Category
             $category->setRelation('subcategories', $subcategoriesWithDiscounts);
         }
 
