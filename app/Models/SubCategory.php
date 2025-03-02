@@ -20,6 +20,7 @@ class SubCategory extends Model
         'name_kz',
         'name_ru',
         'is_active',
+        'priority_number',
     ];
 
     public function category(): BelongsTo
