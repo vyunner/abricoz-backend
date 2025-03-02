@@ -24,7 +24,7 @@ class Category extends Model
     public function subcategories(): HasMany
     {
         return $this->hasMany(SubCategory::class, 'category_id')
-            ->orderByRaw('priority_number IS NULL, priority_number ASC');
+            ->orderBy('priority_number', 'DESC');
     }
 
     public function mobileImagePath(): Attribute

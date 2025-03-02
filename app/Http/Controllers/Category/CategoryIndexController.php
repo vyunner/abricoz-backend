@@ -20,7 +20,7 @@ class CategoryIndexController extends Controller
     public function __invoke(CategoryIndexRequest $request)
     {
         $query = Category::where('is_active', true)
-            ->orderByRaw('priority_number IS NULL, priority_number ASC'); // NULL в конец, остальное по возрастанию
+            ->orderBy('priority_number', 'DESC');
 
         if ($request->has('perPage')) {
             $perPage = $request->query('perPage', 10);

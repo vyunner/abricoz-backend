@@ -22,7 +22,7 @@ class CategoryShowController extends Controller
     {
         // Загружаем категорию с подкатегориями, отсортированными по `priority_number`
         $category = Category::with(['subcategories' => function ($query) {
-            $query->orderByRaw('priority_number IS NULL, priority_number ASC'); // NULL в конец
+            $query->orderBy('priority_number', 'DESC');
         }])->findOrFail($id);
 
         if ($id === 27) {
@@ -31,8 +31,8 @@ class CategoryShowController extends Controller
                     ->from('products')
                     ->whereRaw('products.subcategory_id = subcategories.id')
                     ->where('products.discount', '>', 0);
-            })->orderByRaw('priority_number IS NULL, priority_number ASC') // Сортировка
-            ->get();
+            })->orderBy('priority_number', 'DESC')
+                ->get();
 
             // Добавляем `is_discount: true` только к нужным подкатегориям
             $subcategoriesWithDiscounts->transform(function ($subcategory) {
