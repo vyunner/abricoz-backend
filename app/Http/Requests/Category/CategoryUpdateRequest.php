@@ -27,6 +27,7 @@ class CategoryUpdateRequest extends FormRequest
             'name_ru' => 'nullable|string',
             'name_kz' => 'nullable|string',
             'is_active' => 'nullable|boolean',
+            'priority_number' => 'nullable|int',
         ];
     }
 }

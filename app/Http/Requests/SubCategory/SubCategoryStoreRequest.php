@@ -27,6 +27,7 @@ class SubCategoryStoreRequest extends FormRequest
             'name_ru' => 'required|string',
             'name_kz' => 'required|string',
             'is_active' => 'nullable|boolean',
+            'priority_number' => 'nullable|int',
         ];
     }
 }
