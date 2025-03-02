@@ -27,7 +27,7 @@ class CategoryStoreRequest extends FormRequest
             'name_ru' => ['required', 'string'],
             'name_kz' => ['required', 'string'],
             'is_active' => ['nullable', 'boolean'],
-            'priority_number' => 'nullable|integer',
+            'priority_number' => 'nullable',
         ];
     }
 }
