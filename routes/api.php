@@ -224,3 +224,7 @@ Route::group(['prefix' => '/head-warehouse'], function () {
         Route::delete('/delete-order/{id}', Controllers\HeadWarehouse\HeadWarehouseDeleteOrderController::class);
     });
 });
+
+Route::group(['prefix' => '/app'], function () {
+    Route::get('/status', Controllers\App\AppStatusController::class);
+});
