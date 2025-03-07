@@ -24,6 +24,7 @@ class AuthSetNameRequest extends FormRequest
         return [
             'firstname' => 'required|string',
             'lastname' => 'required|string',
+            'email' => 'required|string|email',
         ];
     }
 }

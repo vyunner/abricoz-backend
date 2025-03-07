@@ -23,10 +23,15 @@ class AuthSetNameController extends Controller
 
         $user->firstname = $data['firstname'] ?? $user->firstname;
         $user->lastname = $data['lastname'] ?? $user->lastname;
+
+        if (!empty($data['email']) && $data['email'] !== $user->email) {
+            $user->email = $data['email'];
+        }
+
         $user->save();
 
         $user['roles'] = $user->getRoleNames();
 
-        return $this->response(['user' => $user], 'Имя и фамилия успешно обновлены!');
+        return $this->response(['user' => $user], 'Имя, фамилия и email успешно обновлены!');
     }
 }
