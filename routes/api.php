@@ -227,4 +227,5 @@ Route::group(['prefix' => '/head-warehouse'], function () {
 
 Route::group(['prefix' => '/app'], function () {
     Route::get('/status', Controllers\App\AppStatusController::class);
+    Route::get('/get-min-cart-price', Controllers\App\AppGetMinCartPriceController::class);
 });
