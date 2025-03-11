@@ -35,5 +35,8 @@ RUN chown -R www-data:www-data /var/www \
 
 EXPOSE 9000
 
-# Запускаем и веб-сервер, и очередь в одном контейнере
-CMD ["sh", "-c", "php-fpm & php artisan queue:work --queue=webkassa --tries=3 & wait"]
+# Запускаем php-fpm и очередь в фоне через скрипт
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+CMD ["/start.sh"]
