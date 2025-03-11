@@ -35,8 +35,5 @@ RUN chown -R www-data:www-data /var/www \
 
 EXPOSE 9000
 
-# Запускаем php-fpm и очередь в фоне через скрипт
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
-
-CMD ["/start.sh"]
+# Запускаем и php-fpm, и Laravel Queue
+CMD ["sh", "-c", "php-fpm & php artisan queue:work --queue=webkassa --tries=3"]
