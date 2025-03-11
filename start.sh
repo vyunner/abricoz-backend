@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "🔥 Старт скрипта start.sh!" >> /var/www/storage/logs/queue.log
 
 # Запускаем php-fpm в фоне
 php-fpm &
