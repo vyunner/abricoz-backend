@@ -1,14 +1,9 @@
 #!/bin/sh
-echo "🔥 Старт скрипта start.sh!" >> /var/www/storage/logs/queue.log
 
-# Запускаем php-fpm в фоне
+echo "🔥 Запуск PHP-FPM..." >> /var/www/storage/logs/queue.log
 php-fpm &
 
-# Ожидание перед запуском очереди (даём php-fpm стартануть)
-sleep 5
+sleep 5  # Даем серверу Laravel запуститься
 
-# Запускаем очередь и не даем контейнеру завершиться
-while true; do
-    php artisan queue:work --queue=webkassa --tries=3
-    sleep 5
-done
+echo "🔥 Запуск Laravel Queue..." >> /var/www/storage/logs/queue.log
+php /var/www/artisan queue:work --queue=webkassa --tries=3 >> /var/www/storage/logs/queue.log 2>&1
