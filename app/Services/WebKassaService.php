@@ -116,7 +116,7 @@ class WebKassaService
                 $payload['CustomerPhone'] = $customerPhone;
             }
             if ($customerEmail) {
-                $payload['CustomerEmail'] = $customerEmail;
+                $payload['CustomerEmail'] = $customerEmail; // WebKassa сама отправит чек
             }
 
             $response = Http::post("$this->apiUrl/Check", $payload);
@@ -133,6 +133,16 @@ class WebKassaService
                     throw new Exception("Ошибка WebKassa: " . json_encode($errors));
                 }
             }
+
+            // ✅ Сохраняем чек в БД
+            Receipt::create([
+                'order_id' => $orderId,
+                'check_number' => $response->json('Data.CheckNumber'),
+                'ticket_print_url' => $response->json('Data.TicketPrintUrl')
+            ]);
+
+            // ✅ Обновляем статус заказа, что чек пробит
+            Order::where('id', $orderId)->update(['is_receipt_generated' => true]);
 
             return [
                 'CheckNumber' => $response->json('Data.CheckNumber'),

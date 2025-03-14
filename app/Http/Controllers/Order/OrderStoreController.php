@@ -19,20 +19,26 @@ use App\Services\TelegramService;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
+use App\Services\WebKassaService;
+use Illuminate\Support\Facades\Log;
 
 class OrderStoreController extends Controller
 {
     protected EpayService $epayService;
     protected FirebaseNotificationService $firebaseNotificationService;
     protected TelegramService $telegramService;
+    protected WebKassaService $webKassaService;
 
-    public function __construct(EpayService                 $epayService,
-                                FirebaseNotificationService $firebaseNotificationService,
-                                TelegramService             $telegramService)
-    {
+    public function __construct(
+        EpayService $epayService,
+        FirebaseNotificationService $firebaseNotificationService,
+        TelegramService $telegramService,
+        WebKassaService $webKassaService
+    ) {
         $this->epayService = $epayService;
         $this->firebaseNotificationService = $firebaseNotificationService;
         $this->telegramService = $telegramService;
+        $this->webKassaService = $webKassaService;
     }
 
     public function __invoke(OrderStoreRequest $request)
@@ -102,29 +108,31 @@ class OrderStoreController extends Controller
         $totalPrice = 0;
         $productsData = [];
 
+        $positions = [];
         foreach ($data['products'] as $productItem) {
             $product = Product::find($productItem['product_id']);
 
             if (!$product || !$product->is_active) {
-                return response()->json(['message' => "Товар {$product->name_ru} недоступен для продажи."], 422);
+                return response()->json(['message' => "Товар недоступен: {$product->name_ru}."], 422);
             }
 
             if ($product->amount < $productItem['product_quantity']) {
-                return response()->json(['message' => "Недостаточно товара: {$product->name_ru}. Доступно: {$product->amount}"], 422);
+                return response()->json(['message' => "Недостаточно товара: {$product->name_ru}."], 422);
             }
 
             $linePrice = $product->price_with_discount * $productItem['product_quantity'];
-
-            $productsData[] = [
-                'product' => $product,
-                'quantity' => $productItem['product_quantity'],
-                'price' => $product->price,
-                'discount' => $product->discount,
-                'price_with_discount' => $product->price_with_discount,
-                'line_price' => $linePrice,
-            ];
-
             $totalPrice += $linePrice;
+
+            $positions[] = [
+                'PositionName' => $product->name_ru,
+                'PositionCode' => (string) $product->id,
+                'Price' => $product->price_with_discount,
+                'Count' => $productItem['product_quantity'],
+                'TaxPercent' => 12,
+                'UnitCode' => 796,
+                'Discount' => 0,
+                'Markup' => 0
+            ];
         }
 
         // Проверка минимальной суммы заказа (5000 тенге)
@@ -235,6 +243,9 @@ class OrderStoreController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
+
+            Log::error("Ошибка WebKassa при создании чека: " . $e->getMessage());
+
             return response()->json([
                 'message' => 'Произошла ошибка при создании заказа.',
                 'error' => $e->getMessage(),
@@ -243,25 +254,54 @@ class OrderStoreController extends Controller
 
         $telegramUsers = TelegramUser::all();
 
-        $order->load('products')->load('user')->load('deliveryInterval');
+    // ✅ Отправляем чек в WebKassa после успешного сохранения заказа
+        try {
+            $this->webKassaService->createCheck(
+                $order->id,
+                $positions,
+                $totalPrice,
+                2, // 2 - Продажа
+                null,
+                $user->phone,
+                $user->email
+            );
+
+            $order->update(['is_receipt_generated' => true]);
+        } catch (\Exception $e) {
+            Log::error("Ошибка WebKassa при создании чека: " . $e->getMessage());
+
+            // ❗ Уведомляем администраторов в Telegram
+            foreach ($telegramUsers as $telegramUser) {
+                $this->telegramService->sendMessage($telegramUser->chat_id, "🚨 Ошибка WebKassa: {$e->getMessage()}");
+            }
+        }
+
+    // ✅ Загружаем связанные модели одним запросом
+        $order->load(['products', 'user', 'deliveryInterval']);
 
         $deliveryDate = Carbon::parse($order->delivery_date)->format('d.m.Y');
 
-        $message = "<b>📦 Новый заказ #{$order->id}</b>\n\n";
-        $message .= "<b>👤 ФИО:</b> {$order->user->firstname} {$order->user->lastname}\n";
-        $message .= "<b>📞 Телефон:</b> {$order->user->phone}\n";
-        $message .= "<b>📍 Адрес:</b> {$order->address_street_and_house}, {$order->address_apartment}, подъезд {$order->address_entrance}, этаж {$order->address_floor}\n";
-        $message .= "<b>📅 Дата доставки:</b> {$deliveryDate}\n";
-        $message .= "<b>🕘 Время доставки:</b> {$order->deliveryInterval->name}\n";
-        $message .= "<b>📌 Комментарий:</b> " . ($order->address_comment ?? "Нет") . "\n\n";
-        $message .= "<b>🛒 Товары:</b>\n";
+    // ✅ Формируем сообщение
+        $message = "<b>📦 Новый заказ #{$order->id}</b>\n\n"
+            . "<b>👤 ФИО:</b> {$order->user->firstname} {$order->user->lastname}\n"
+            . "<b>📞 Телефон:</b> {$order->user->phone}\n"
+            . "<b>📍 Адрес:</b> {$order->address_street_and_house}, {$order->address_apartment}, "
+            . "подъезд {$order->address_entrance}, этаж {$order->address_floor}\n"
+            . "<b>📅 Дата доставки:</b> {$deliveryDate}\n"
+            . "<b>🕘 Время доставки:</b> {$order->deliveryInterval->name}\n"
+            . "<b>📌 Комментарий:</b> " . ($order->address_comment ?? "Нет") . "\n\n"
+            . "<b>🛒 Товары:</b>\n";
 
+    // ✅ Формируем список товаров
         foreach ($order->products as $product) {
-            $message .= " - {$product->name_ru} \n ({$product->pivot->product_quantity} x {$product->weight}) – {$product->pivot->product_price} ₸, <b>" . ($product->pivot->product_quantity * $product->pivot->product_price) . "</b> ₸\n";
+            $message .= " - {$product->name_ru} \n ({$product->pivot->product_quantity} x {$product->weight}) – "
+                . "{$product->pivot->product_price} ₸, <b>" . ($product->pivot->product_quantity * $product->pivot->product_price)
+                . "</b> ₸\n";
         }
 
         $message .= "\n<b>💰 Итоговая сумма:</b> {$order->total_price} ₸";
 
+    // ✅ Отправляем уведомление всем администраторам одним циклом
         foreach ($telegramUsers as $telegramUser) {
             $this->telegramService->sendMessage($telegramUser->chat_id, $message, "HTML");
         }
