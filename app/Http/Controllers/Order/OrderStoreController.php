@@ -133,7 +133,7 @@ class OrderStoreController extends Controller
             ];
 
             $positions[] = [
-                'PositionName' => $product->name_ru,
+                'PositionName' => $product->name_ru . ' ' . $product->weight,
                 'PositionCode' => (string) $product->id,
                 'Price' => $product->price_with_discount,
                 'Count' => $productItem['product_quantity'],
