@@ -19,6 +19,6 @@ class AppGetMinCartPriceController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return 5000;
+        return 3000;
     }
 }
