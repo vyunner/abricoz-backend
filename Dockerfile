@@ -34,15 +34,18 @@ RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www \
     && chmod -R 777 /var/www/storage /var/www/bootstrap/cache
 
+# Определяем путь к php (нужно для crontab)
+RUN which php > /etc/php_path
+
 # Копируем crontab файл
 COPY crontab /etc/cron.d/laravel-cron
 RUN chmod 0644 /etc/cron.d/laravel-cron
 RUN crontab /etc/cron.d/laravel-cron
 
-# Запуск cron
-RUN service cron start
+# Делаем /var/log/cron.log доступным для записи
+RUN touch /var/log/cron.log && chmod 777 /var/log/cron.log
 
 EXPOSE 9000
 
-# Запускаем php-fpm, Laravel Queue и cron в фоновом режиме
+# Запускаем php-fpm, Laravel Queue и cron в фоне
 CMD ["sh", "-c", "cron && php-fpm & php artisan queue:work --queue=webkassa --tries=3"]
