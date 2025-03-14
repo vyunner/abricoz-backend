@@ -123,6 +123,15 @@ class OrderStoreController extends Controller
             $linePrice = $product->price_with_discount * $productItem['product_quantity'];
             $totalPrice += $linePrice;
 
+            $productsData[] = [
+                'product' => $product,
+                'quantity' => $productItem['product_quantity'],
+                'price' => $product->price,
+                'discount' => $product->discount,
+                'price_with_discount' => $product->price_with_discount,
+                'line_price' => $linePrice,
+            ];
+
             $positions[] = [
                 'PositionName' => $product->name_ru,
                 'PositionCode' => (string) $product->id,
