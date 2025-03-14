@@ -49,7 +49,7 @@ class WebKassaService
 
             if (isset($responseData['Errors']) && !empty($responseData['Errors'])) {
                 Log::channel('webkassa')->error("Ошибка при получении токена WebKassa", ['errors' => $responseData['Errors']]);
-                throw new Exception("Ошибка авторизации WebKassa: " . json_encode($responseData['Errors']));
+                throw new Exception("Ошибка авторизации WebKassa: " . $responseData['Errors']);
             }
 
             Log::channel('webkassa')->info('Токен WebKassa успешно получен.');
@@ -125,7 +125,7 @@ class WebKassaService
                 'TicketPrintUrl' => $responseData['Data']['TicketPrintUrl']
             ];
         } catch (\Exception $e) {
-            Log::channel('webkassa')->error("Ошибка при пробитии чека", ['message' => $e->getMessage()]);
+            Log::channel('webkassa')->error("Ошибка при пробитии чека", ['message' => $responseData]);
             throw $e;
         }
     }
