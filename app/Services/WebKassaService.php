@@ -121,7 +121,9 @@ class WebKassaService
                 $payload['CustomerEmail'] = $customerEmail; // WebKassa сама отправит чек
             }
 
-            $response = Http::post("$this->apiUrl/Check", $payload);
+            $response = Http::withHeaders([
+                'X-API-KEY' => $this->apiKey
+            ])->post("$this->apiUrl/Check", $payload);
 
             if ($response->failed()) {
                 $errors = $response->json('Errors') ?? [];
@@ -181,7 +183,9 @@ class WebKassaService
             'CashboxUniqueNumber' => $this->cashboxNumber
         ];
 
-        $response = Http::post("$this->apiUrl/ZReport", $payload);
+        $response = Http::withHeaders([
+            'X-API-KEY' => $this->apiKey
+        ])->post("$this->apiUrl/ZReport", $payload);
 
         if ($response->failed()) {
             throw new Exception("Ошибка WebKassa при закрытии смены: " . json_encode($response->json('Errors')));
