@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Services\WebKassaService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,6 +16,10 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             \Log::info('Scheduler работает!');
         })->everyMinute();
+
+        $schedule->call(function () {
+            app(WebKassaService::class)->closeShift();
+        })->dailyAt('23:59');
 //        $schedule->call(function () {
 //            app(\App\Services\WebKassaService::class)->closeShift();
 //        })->dailyAt('23:59'); // Закрываем смену каждый день в 23:59
