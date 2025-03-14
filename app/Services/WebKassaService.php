@@ -125,7 +125,10 @@ class WebKassaService
                 'TicketPrintUrl' => $responseData['Data']['TicketPrintUrl']
             ];
         } catch (\Exception $e) {
-            Log::channel('webkassa')->error("Ошибка при пробитии чека", ['message' => $e]);
+            Log::channel('webkassa')->error("Ошибка при пробитии чека", [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
             throw $e;
         }
     }
