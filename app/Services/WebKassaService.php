@@ -116,42 +116,38 @@ class WebKassaService
                 'X-API-KEY' => $this->apiKey
             ])->post("$this->apiUrl/Check", $payload);
 
-            if ($response->failed()) {
-                $errors = $response->json('Errors') ?? [];
+            $responseData = $response->json();
 
-                if (empty($errors)) {
-                    Log::error("WebKassa: Пустой или некорректный ответ", ['response' => $response->json()]);
-                    throw new Exception("Ошибка WebKassa: Пустой ответ или чек не создан");
-                }
-
-                foreach ($errors as $error) {
-                    if ($error['Code'] == 2 && $attempt < 3) { // Повторная попытка не более 2 раз
+// ✅ Проверяем не HTTP-код, а наличие `Errors` в JSON
+            if (isset($responseData['Errors']) && !empty($responseData['Errors'])) {
+                foreach ($responseData['Errors'] as $error) {
+                    if ($error['Code'] == 2 && $attempt < 3) {
                         Cache::forget('webkassa_token');
                         return $this->createCheck($orderId, $positions, $totalSum, $operationType, $customerXin, $customerPhone, $customerEmail, $attempt + 1);
                     }
 
-                    throw new Exception("Ошибка WebKassa: " . json_encode($errors));
+                    throw new Exception("Ошибка WebKassa: " . json_encode($responseData['Errors']));
                 }
             }
 
-            $checkNumber = $response->json('Data.CheckNumber');
-
-            if (!$checkNumber) {
-                Log::error("WebKassa не вернула CheckNumber!", ['response' => $response->json()]);
+// ✅ Проверяем, вернула ли WebKassa `CheckNumber`
+            if (empty($responseData['Data']['CheckNumber'])) {
+                Log::error("WebKassa не вернула CheckNumber!", ['response' => $responseData]);
                 throw new Exception("Ошибка WebKassa: CheckNumber отсутствует");
             }
 
+// ✅ Сохраняем чек в БД
             Receipt::create([
                 'order_id' => $orderId,
-                'check_number' => $response->json('Data.CheckNumber'),
-                'ticket_print_url' => $response->json('Data.TicketPrintUrl')
+                'check_number' => $responseData['Data']['CheckNumber'],
+                'ticket_print_url' => $responseData['Data']['TicketPrintUrl']
             ]);
 
             Order::where('id', $orderId)->update(['is_receipt_generated' => true]);
 
             return [
-                'CheckNumber' => $response->json('Data.CheckNumber'),
-                'TicketPrintUrl' => $response->json('Data.TicketPrintUrl')
+                'CheckNumber' => $responseData['Data']['CheckNumber'],
+                'TicketPrintUrl' => $responseData['Data']['TicketPrintUrl']
             ];
         } finally {
             $lock->release();
