@@ -87,14 +87,8 @@ class WebKassaService
      */
     public function createCheck(int $orderId, array $positions, float $totalSum, int $operationType, ?string $customerXin = null, ?string $customerPhone = null, ?string $customerEmail = null, int $attempt = 1): array
     {
-////        $lock = Cache::lock('webkassa_lock', 10);
-//
-//        if (!$lock->get()) {
-//            throw new Exception("Очередь WebKassa заблокирована, попробуйте позже.");
-//        }
-
         try {
-            $token = $this->getToken();
+            $token = $this->getToken(); // Берем токен
             $externalCheckNumber = $this->generateCheckNumber($orderId);
 
             $payload = [
@@ -118,16 +112,15 @@ class WebKassaService
 
             $responseData = $response->json();
 
-            // ✅ Проверяем не HTTP-код, а наличие `Errors` в JSON
+            // ✅ Проверяем ошибки от WebKassa
             if (isset($responseData['Errors']) && !empty($responseData['Errors'])) {
                 foreach ($responseData['Errors'] as $error) {
                     if ($error['Code'] == 2 && $attempt < 3) {
-                        Cache::forget('webkassa_token');
+                        Cache::forget('webkassa_token'); // ❗ Удаляем токен и пробуем снова
                         return $this->createCheck($orderId, $positions, $totalSum, $operationType, $customerXin, $customerPhone, $customerEmail, $attempt + 1);
                     }
 
-                    $errorMessages = collect($responseData['Errors'])->map(fn($e) => "{$e['Code']}: {$e['Text']}")->implode("\n");
-                    throw new Exception("Ошибка WebKassa:\n" . $errorMessages);
+                    throw new Exception("Ошибка WebKassa: {$error['Code']} - {$error['Text']}");
                 }
             }
 
@@ -150,8 +143,9 @@ class WebKassaService
                 'CheckNumber' => $responseData['Data']['CheckNumber'],
                 'TicketPrintUrl' => $responseData['Data']['TicketPrintUrl']
             ];
-        } finally {
-//            $lock->release();
+        } catch (\Exception $e) {
+            Log::error("Ошибка WebKassa: " . $e->getMessage());
+            throw $e;
         }
     }
 
