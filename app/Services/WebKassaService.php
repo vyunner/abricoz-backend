@@ -118,7 +118,7 @@ class WebKassaService
 
             $responseData = $response->json();
 
-// ✅ Проверяем не HTTP-код, а наличие `Errors` в JSON
+            // ✅ Проверяем не HTTP-код, а наличие `Errors` в JSON
             if (isset($responseData['Errors']) && !empty($responseData['Errors'])) {
                 foreach ($responseData['Errors'] as $error) {
                     if ($error['Code'] == 2 && $attempt < 3) {
@@ -126,17 +126,18 @@ class WebKassaService
                         return $this->createCheck($orderId, $positions, $totalSum, $operationType, $customerXin, $customerPhone, $customerEmail, $attempt + 1);
                     }
 
-                    throw new Exception("Ошибка WebKassa: " . json_encode($responseData['Errors']));
+                    $errorMessages = collect($responseData['Errors'])->map(fn($e) => "{$e['Code']}: {$e['Text']}")->implode("\n");
+                    throw new Exception("Ошибка WebKassa:\n" . $errorMessages);
                 }
             }
 
-// ✅ Проверяем, вернула ли WebKassa `CheckNumber`
+            // ✅ Проверяем, вернула ли WebKassa `CheckNumber`
             if (empty($responseData['Data']['CheckNumber'])) {
                 Log::error("WebKassa не вернула CheckNumber!", ['response' => $responseData]);
                 throw new Exception("Ошибка WebKassa: CheckNumber отсутствует");
             }
 
-// ✅ Сохраняем чек в БД
+            // ✅ Сохраняем чек в БД
             Receipt::create([
                 'order_id' => $orderId,
                 'check_number' => $responseData['Data']['CheckNumber'],
