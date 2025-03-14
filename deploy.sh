@@ -3,4 +3,4 @@
 git pull
 git add .
 git commit -m"$1 $(git status -s)"
-git pushяя
+git push
