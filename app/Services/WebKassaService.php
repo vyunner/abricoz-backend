@@ -128,6 +128,11 @@ class WebKassaService
             if ($response->failed()) {
                 $errors = $response->json('Errors') ?? [];
 
+                if (empty($errors)) {
+                    Log::error("WebKassa: Пустой или некорректный ответ", ['response' => $response->json()]);
+                    throw new Exception("Ошибка WebKassa: Пустой ответ или чек не создан");
+                }
+
                 foreach ($errors as $error) {
                     if ($error['Code'] == 2) {
                         Cache::forget('webkassa_token');
@@ -136,6 +141,14 @@ class WebKassaService
 
                     throw new Exception("Ошибка WebKassa: " . json_encode($errors));
                 }
+            }
+
+            // ✅ Проверяем, вернулся ли `CheckNumber`
+            $checkNumber = $response->json('Data.CheckNumber');
+
+            if (!$checkNumber) {
+                Log::error("WebKassa не вернула CheckNumber!", ['response' => $response->json()]);
+                throw new Exception("Ошибка WebKassa: CheckNumber отсутствует");
             }
 
             // ✅ Сохраняем чек в БД
