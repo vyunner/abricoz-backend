@@ -7,7 +7,6 @@ use App\Models\Receipt;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Contracts\Cache\LockTimeoutException;
 use Carbon\Carbon;
 use Exception;
 
@@ -36,6 +35,8 @@ class WebKassaService
      */
     public function getToken(): string
     {
+        Log::channel('webkassa')->info('Запрос токена WebKassa.');
+
         return Cache::remember('webkassa_token', Carbon::now()->addHours(24), function () {
             $response = Http::withHeaders([
                 'X-API-KEY' => $this->apiKey
@@ -44,51 +45,28 @@ class WebKassaService
                 'Password' => $this->password
             ]);
 
+            $responseData = $response->json();
+
             if (isset($responseData['Errors']) && !empty($responseData['Errors'])) {
-                $errors = $response->json('Errors') ?? [];
-
-                foreach ($errors as $error) {
-                    if ($error['Code'] == 1) {
-                        throw new Exception("Ошибка WebKassa: Неверный логин/пароль.");
-                    }
-                }
-
-                throw new Exception("Ошибка авторизации WebKassa: {$error['Code']} - {$error['Text']}");
+                Log::channel('webkassa')->error("Ошибка при получении токена WebKassa", ['errors' => $responseData['Errors']]);
+                throw new Exception("Ошибка авторизации WebKassa: " . json_encode($responseData['Errors']));
             }
 
-            return $response->json('Data.Token');
+            Log::channel('webkassa')->info('Токен WebKassa успешно получен.');
+
+            return $responseData['Data']['Token'];
         });
     }
 
     /**
      * Пробитие чека в WebKassa.
-     *
-     * @param int $orderId ID заказа
-     * @param array $positions Массив позиций чека. Пример:
-     * [
-     *     [
-     *         "PositionName" => "Яблоки 1 кг",
-     *         "PositionCode" => "12345",
-     *         "Price" => 1000.00,
-     *         "Count" => 2,
-     *         "TaxPercent" => 12,
-     *         "UnitCode" => 796,
-     *         "Discount" => 0,
-     *         "Markup" => 0
-     *     ]
-     * ]
-     * @param float $totalSum Итоговая сумма чека
-     * @param int $operationType Тип операции (2 - продажа, 3 - возврат продажи, 4 - покупка, 5 - возврат покупки)
-     * @param string|null $customerXin ИИН/БИН покупателя (если нужен)
-     * @param string|null $customerPhone Телефон покупателя (если нужен)
-     * @param string|null $customerEmail Email покупателя (если нужен)
-     * @return array Ответ WebKassa с номером чека и ссылкой на печать
-     * @throws Exception Если ошибка WebKassa
      */
     public function createCheck(int $orderId, array $positions, float $totalSum, int $operationType, ?string $customerXin = null, ?string $customerPhone = null, ?string $customerEmail = null, int $attempt = 1): array
     {
         try {
-            $token = $this->getToken(); // Берем токен
+            Log::channel('webkassa')->info("Начало пробития чека", compact('orderId', 'totalSum', 'operationType'));
+
+            $token = $this->getToken();
             $externalCheckNumber = $this->generateCheckNumber($orderId);
 
             $payload = [
@@ -96,9 +74,7 @@ class WebKassaService
                 'CashboxUniqueNumber' => $this->cashboxNumber,
                 'OperationType' => $operationType,
                 'Positions' => $positions,
-                'Payments' => [
-                    ['Sum' => $totalSum, 'PaymentType' => 1]
-                ],
+                'Payments' => [['Sum' => $totalSum, 'PaymentType' => 1]],
                 'ExternalCheckNumber' => $externalCheckNumber
             ];
 
@@ -106,31 +82,31 @@ class WebKassaService
             if ($customerPhone) $payload['CustomerPhone'] = $customerPhone;
             if ($customerEmail) $payload['CustomerEmail'] = $customerEmail;
 
-            $response = Http::withHeaders([
-                'X-API-KEY' => $this->apiKey
-            ])->post("$this->apiUrl/Check", $payload);
+            $response = Http::withHeaders(['X-API-KEY' => $this->apiKey])
+                ->post("$this->apiUrl/Check", $payload);
 
             $responseData = $response->json();
 
-            // ✅ Проверяем ошибки от WebKassa
+            Log::channel('webkassa')->info("Ответ WebKassa", ['response' => $responseData]);
+
             if (isset($responseData['Errors']) && !empty($responseData['Errors'])) {
                 foreach ($responseData['Errors'] as $error) {
                     if ($error['Code'] == 2 && $attempt < 3) {
-                        Cache::forget('webkassa_token'); // ❗ Удаляем токен и пробуем снова
+                        Cache::forget('webkassa_token');
+                        Log::channel('webkassa')->warning("Токен истёк. Повторная попытка {$attempt}/3.");
                         return $this->createCheck($orderId, $positions, $totalSum, $operationType, $customerXin, $customerPhone, $customerEmail, $attempt + 1);
                     }
 
+                    Log::channel('webkassa')->error("Ошибка WebKassa", ['code' => $error['Code'], 'message' => $error['Text']]);
                     throw new Exception("Ошибка WebKassa: {$error['Code']} - {$error['Text']}");
                 }
             }
 
-            // ✅ Проверяем, вернула ли WebKassa `CheckNumber`
             if (empty($responseData['Data']['CheckNumber'])) {
-                Log::error("WebKassa не вернула CheckNumber!", ['response' => $responseData]);
+                Log::channel('webkassa')->error("WebKassa не вернула CheckNumber", ['response' => $responseData]);
                 throw new Exception("Ошибка WebKassa: CheckNumber отсутствует");
             }
 
-            // ✅ Сохраняем чек в БД
             Receipt::create([
                 'order_id' => $orderId,
                 'check_number' => $responseData['Data']['CheckNumber'],
@@ -139,21 +115,23 @@ class WebKassaService
 
             Order::where('id', $orderId)->update(['is_receipt_generated' => true]);
 
+            Log::channel('webkassa')->info("Чек успешно пробит", [
+                'CheckNumber' => $responseData['Data']['CheckNumber'],
+                'TicketPrintUrl' => $responseData['Data']['TicketPrintUrl']
+            ]);
+
             return [
                 'CheckNumber' => $responseData['Data']['CheckNumber'],
                 'TicketPrintUrl' => $responseData['Data']['TicketPrintUrl']
             ];
         } catch (\Exception $e) {
-            Log::error("Ошибка WebKassa: " . $e->getMessage());
+            Log::channel('webkassa')->error("Ошибка при пробитии чека", ['message' => $e->getMessage()]);
             throw $e;
         }
     }
 
     /**
      * Генерация номера чека.
-     *
-     * @param int $orderId ID заказа
-     * @return string Номер чека в формате "$orderId + последние 6 цифр времени"
      */
     private function generateCheckNumber(int $orderId): string
     {
@@ -162,27 +140,35 @@ class WebKassaService
 
     /**
      * Закрытие смены (Z-отчет).
-     *
-     * @return array Ответ WebKassa
-     * @throws Exception Если ошибка WebKassa
      */
     public function closeShift(): array
     {
-        $token = $this->getToken();
+        try {
+            Log::channel('webkassa')->info("Закрытие смены WebKassa.");
 
-        $payload = [
-            'Token' => $token,
-            'CashboxUniqueNumber' => $this->cashboxNumber
-        ];
+            $token = $this->getToken();
 
-        $response = Http::withHeaders([
-            'X-API-KEY' => $this->apiKey
-        ])->post("$this->apiUrl/ZReport", $payload);
+            $payload = [
+                'Token' => $token,
+                'CashboxUniqueNumber' => $this->cashboxNumber
+            ];
 
-        if ($response->failed()) {
-            throw new Exception("Ошибка WebKassa при закрытии смены: " . json_encode($response->json('Errors')));
+            $response = Http::withHeaders(['X-API-KEY' => $this->apiKey])
+                ->post("$this->apiUrl/ZReport", $payload);
+
+            $responseData = $response->json();
+
+            if ($response->failed()) {
+                Log::channel('webkassa')->error("Ошибка при закрытии смены", ['response' => $responseData]);
+                throw new Exception("Ошибка WebKassa при закрытии смены: " . json_encode($responseData['Errors']));
+            }
+
+            Log::channel('webkassa')->info("Смена успешно закрыта", ['response' => $responseData]);
+
+            return $responseData;
+        } catch (\Exception $e) {
+            Log::channel('webkassa')->error("Ошибка при закрытии смены", ['message' => $e->getMessage()]);
+            throw $e;
         }
-
-        return $response->json();
     }
 }
