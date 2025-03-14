@@ -151,7 +151,7 @@ class WebKassaService
                 'TicketPrintUrl' => $responseData['Data']['TicketPrintUrl']
             ];
         } finally {
-            $lock->release();
+//            $lock->release();
         }
     }
 
