@@ -12,7 +12,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('telescope:prune')->weekly();
+        $schedule->call(function () {
+            \Log::info('Scheduler работает!');
+        })->everyMinute();
+//        $schedule->call(function () {
+//            app(\App\Services\WebKassaService::class)->closeShift();
+//        })->dailyAt('23:59'); // Закрываем смену каждый день в 23:59
+//        $schedule->command('telescope:prune')->weekly();
         // $schedule->command('inspire')->hourly();
     }
 

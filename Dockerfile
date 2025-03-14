@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     zip \
     unzip \
+    cron \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -33,7 +34,15 @@ RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www \
     && chmod -R 777 /var/www/storage /var/www/bootstrap/cache
 
+# Копируем crontab файл
+COPY crontab /etc/cron.d/laravel-cron
+RUN chmod 0644 /etc/cron.d/laravel-cron
+RUN crontab /etc/cron.d/laravel-cron
+
+# Запуск cron
+RUN service cron start
+
 EXPOSE 9000
 
-# Запускаем и php-fpm, и Laravel Queue
-CMD ["sh", "-c", "php-fpm & php artisan queue:work --queue=webkassa --tries=3"]
+# Запускаем php-fpm, Laravel Queue и cron в фоновом режиме
+CMD ["sh", "-c", "cron && php-fpm & php artisan queue:work --queue=webkassa --tries=3"]
