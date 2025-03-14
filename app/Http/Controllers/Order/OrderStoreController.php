@@ -265,8 +265,6 @@ class OrderStoreController extends Controller
                 $user->phone,
                 $user->email
             );
-
-            $order->update(['is_receipt_generated' => true]);
         } catch (\Exception $e) {
             Log::error("Ошибка WebKassa при создании чека: " . $e->getMessage());
 
