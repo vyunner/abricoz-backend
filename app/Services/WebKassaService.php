@@ -85,7 +85,7 @@ class WebKassaService
      * @return array Ответ WebKassa с номером чека и ссылкой на печать
      * @throws Exception Если ошибка WebKassa
      */
-    public function createCheck(int $orderId, array $positions, float $totalSum, int $operationType, ?string $customerXin = null, ?string $customerPhone = null, ?string $customerEmail = null): array
+    public function createCheck(int $orderId, array $positions, float $totalSum, int $operationType, ?string $customerXin = null, ?string $customerPhone = null, ?string $customerEmail = null, int $attempt = 1): array
     {
         $lock = Cache::lock('webkassa_lock', 10);
 
@@ -103,23 +103,14 @@ class WebKassaService
                 'OperationType' => $operationType,
                 'Positions' => $positions,
                 'Payments' => [
-                    [
-                        'Sum' => $totalSum,
-                        'PaymentType' => 1
-                    ]
+                    ['Sum' => $totalSum, 'PaymentType' => 1]
                 ],
                 'ExternalCheckNumber' => $externalCheckNumber
             ];
 
-            if ($customerXin) {
-                $payload['CustomerXin'] = $customerXin;
-            }
-            if ($customerPhone) {
-                $payload['CustomerPhone'] = $customerPhone;
-            }
-            if ($customerEmail) {
-                $payload['CustomerEmail'] = $customerEmail; // WebKassa сама отправит чек
-            }
+            if ($customerXin) $payload['CustomerXin'] = $customerXin;
+            if ($customerPhone) $payload['CustomerPhone'] = $customerPhone;
+            if ($customerEmail) $payload['CustomerEmail'] = $customerEmail;
 
             $response = Http::withHeaders([
                 'X-API-KEY' => $this->apiKey
@@ -134,16 +125,15 @@ class WebKassaService
                 }
 
                 foreach ($errors as $error) {
-                    if ($error['Code'] == 2) {
+                    if ($error['Code'] == 2 && $attempt < 3) { // Повторная попытка не более 2 раз
                         Cache::forget('webkassa_token');
-                        return $this->createCheck($orderId, $positions, $totalSum, $operationType, $customerXin, $customerPhone, $customerEmail);
+                        return $this->createCheck($orderId, $positions, $totalSum, $operationType, $customerXin, $customerPhone, $customerEmail, $attempt + 1);
                     }
 
                     throw new Exception("Ошибка WebKassa: " . json_encode($errors));
                 }
             }
 
-            // ✅ Проверяем, вернулся ли `CheckNumber`
             $checkNumber = $response->json('Data.CheckNumber');
 
             if (!$checkNumber) {
@@ -151,14 +141,12 @@ class WebKassaService
                 throw new Exception("Ошибка WebKassa: CheckNumber отсутствует");
             }
 
-            // ✅ Сохраняем чек в БД
             Receipt::create([
                 'order_id' => $orderId,
                 'check_number' => $response->json('Data.CheckNumber'),
                 'ticket_print_url' => $response->json('Data.TicketPrintUrl')
             ]);
 
-            // ✅ Обновляем статус заказа, что чек пробит
             Order::where('id', $orderId)->update(['is_receipt_generated' => true]);
 
             return [
