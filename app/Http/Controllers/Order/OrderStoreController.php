@@ -137,7 +137,9 @@ class OrderStoreController extends Controller
                 'PositionCode' => (string) $product->id,
                 'Price' => $product->price_with_discount,
                 'Count' => $productItem['product_quantity'],
-                'TaxPercent' => 12,
+                'TaxPercent' => 0,
+                'Tax' => 0,
+                'TaxType' => 0,
                 'UnitCode' => 796,
                 'Discount' => 0,
                 'Markup' => 0
