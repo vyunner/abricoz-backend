@@ -44,7 +44,7 @@ class WebKassaService
                 'Password' => $this->password
             ]);
 
-            if ($response->failed()) {
+            if (isset($responseData['Errors']) && !empty($responseData['Errors'])) {
                 $errors = $response->json('Errors') ?? [];
 
                 foreach ($errors as $error) {
@@ -53,7 +53,7 @@ class WebKassaService
                     }
                 }
 
-                throw new Exception("Ошибка авторизации WebKassa: " . json_encode($errors));
+                throw new Exception("Ошибка авторизации WebKassa: {$error['Code']} - {$error['Text']}");
             }
 
             return $response->json('Data.Token');
