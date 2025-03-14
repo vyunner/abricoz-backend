@@ -49,7 +49,7 @@ class WebKassaService
 
             if (isset($responseData['Errors']) && !empty($responseData['Errors'])) {
                 Log::channel('webkassa')->error("Ошибка при получении токена WebKassa", ['errors' => $responseData['Errors']]);
-                throw new Exception("Ошибка авторизации WebKassa: " . $responseData['Errors']);
+                throw new Exception("Ошибка авторизации WebKassa: " . json_encode($responseData['Errors'], JSON_UNESCAPED_UNICODE));
             }
 
             Log::channel('webkassa')->info('Токен WebKassa успешно получен.');
