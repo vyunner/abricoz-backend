@@ -87,11 +87,11 @@ class WebKassaService
      */
     public function createCheck(int $orderId, array $positions, float $totalSum, int $operationType, ?string $customerXin = null, ?string $customerPhone = null, ?string $customerEmail = null, int $attempt = 1): array
     {
-        $lock = Cache::lock('webkassa_lock', 10);
-
-        if (!$lock->get()) {
-            throw new Exception("Очередь WebKassa заблокирована, попробуйте позже.");
-        }
+////        $lock = Cache::lock('webkassa_lock', 10);
+//
+//        if (!$lock->get()) {
+//            throw new Exception("Очередь WebKassa заблокирована, попробуйте позже.");
+//        }
 
         try {
             $token = $this->getToken();
