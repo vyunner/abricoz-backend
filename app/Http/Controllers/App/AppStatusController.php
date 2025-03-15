@@ -19,6 +19,6 @@ class AppStatusController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return 0;
+        return 1;
     }
 }
