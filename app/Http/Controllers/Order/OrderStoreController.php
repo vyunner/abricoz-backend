@@ -203,7 +203,7 @@ class OrderStoreController extends Controller
                     'client_id' => $config['client_id'],
                     'client_secret' => $config['client_secret'],
                     'invoiceID' => $invoice_id,
-                    'amount' => 100,
+                    'amount' => $totalPrice,
                     'currency' => 'KZT',
                     'terminal' => $config['terminal_id']
                 ]);
@@ -218,7 +218,7 @@ class OrderStoreController extends Controller
                 $accessToken = $tokenResponse['access_token'];
 
                 $postData = [
-                    'amount' => 100,
+                    'amount' => $totalPrice,
                     'currency' => 'KZT',
                     'terminalId' => $config['terminal_id'],
                     'invoiceId' => $invoice_id,
@@ -265,7 +265,7 @@ class OrderStoreController extends Controller
 
         $telegramUsers = TelegramUser::all();
 
-    // ✅ Отправляем чек в WebKassa после успешного сохранения заказа
+        // ✅ Отправляем чек в WebKassa после успешного сохранения заказа
         try {
             $this->webKassaService->createCheck(
                 $order->id,
@@ -285,12 +285,12 @@ class OrderStoreController extends Controller
             }
         }
 
-    // ✅ Загружаем связанные модели одним запросом
+        // ✅ Загружаем связанные модели одним запросом
         $order->load(['products', 'user', 'deliveryInterval']);
 
         $deliveryDate = Carbon::parse($order->delivery_date)->format('d.m.Y');
 
-    // ✅ Формируем сообщение
+        // ✅ Формируем сообщение
         $message = "<b>📦 Новый заказ #{$order->id}</b>\n\n"
             . "<b>👤 ФИО:</b> {$order->user->firstname} {$order->user->lastname}\n"
             . "<b>📞 Телефон:</b> {$order->user->phone}\n"
@@ -301,7 +301,7 @@ class OrderStoreController extends Controller
             . "<b>📌 Комментарий:</b> " . ($order->address_comment ?? "Нет") . "\n\n"
             . "<b>🛒 Товары:</b>\n";
 
-    // ✅ Формируем список товаров
+        // ✅ Формируем список товаров
         foreach ($order->products as $product) {
             $message .= " - {$product->name_ru} \n ({$product->pivot->product_quantity} x {$product->weight}) – "
                 . "{$product->pivot->product_price} ₸, <b>" . ($product->pivot->product_quantity * $product->pivot->product_price)
@@ -310,7 +310,7 @@ class OrderStoreController extends Controller
 
         $message .= "\n<b>💰 Итоговая сумма:</b> {$order->total_price} ₸";
 
-    // ✅ Отправляем уведомление всем администраторам одним циклом
+        // ✅ Отправляем уведомление всем администраторам одним циклом
         foreach ($telegramUsers as $telegramUser) {
             $this->telegramService->sendMessage($telegramUser->chat_id, $message, "HTML");
         }

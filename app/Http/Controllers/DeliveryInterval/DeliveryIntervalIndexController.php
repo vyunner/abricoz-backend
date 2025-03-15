@@ -20,7 +20,9 @@ class DeliveryIntervalIndexController extends Controller
     {
         $available_intervals = [];
         $current_time = now();
-        $intervals = DeliveryInterval::all();
+        $intervals = DeliveryInterval::where('is_active', true)
+            ->orderByRaw("STR_TO_DATE(SUBSTRING_INDEX(name, ' - ', 1), '%H:%i')")
+            ->get();
 
         $dates = [
             today()->addDays(1),
