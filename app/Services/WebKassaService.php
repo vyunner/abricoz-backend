@@ -36,6 +36,7 @@ class WebKassaService
     public function getToken(): string
     {
         Log::channel('webkassa')->info('Запрос токена WebKassa.');
+        Log::channel('webkassa')->info($this->apiUrl, $this->apiKey, $this->cashboxNumber, $this->login, $this->password);
 
         return Cache::remember('webkassa_token', Carbon::now()->addHours(24), function () {
             $response = Http::withHeaders([
