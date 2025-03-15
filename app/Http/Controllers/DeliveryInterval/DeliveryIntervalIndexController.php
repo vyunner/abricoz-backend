@@ -20,6 +20,8 @@ class DeliveryIntervalIndexController extends Controller
     {
         $available_intervals = [];
         $current_time = now();
+        $onlyEvening = $current_time->format('H') < 12; // Проверяем, утро ли сейчас
+
         $intervals = DeliveryInterval::where('is_active', true)
             ->orderByRaw("STR_TO_DATE(SUBSTRING_INDEX(name, ' - ', 1), '%H:%i')")
             ->get();
@@ -27,18 +29,14 @@ class DeliveryIntervalIndexController extends Controller
         $dates = [
             today()->addDays(1),
             today()->addDays(2),
-            // Если текущее время больше 19:00, то вместо сегодняшнего дня дается на выбор после-после-завтра
-//            $current_time->copy()->format('H') > 19 ? today()->addDays(3) : today(),
         ];
 
-        // Преобразование временных интервалов в отформатированный массив
+        // Преобразуем интервалы в удобный формат
         $intervals = $intervals->map(function ($interval) {
-            // Попытка парсинга временных интервалов
             try {
                 $time_range = explode(' - ', $interval->name);
             } catch (\Exception $e) {
                 \Log::error('delivery_interval_incorrect_format', ['exception' => $e]);
-
                 return $this->response(null, __('response.internal_server_error'), Response::HTTP_INTERNAL_SERVER_ERROR);
             }
 
@@ -50,13 +48,18 @@ class DeliveryIntervalIndexController extends Controller
             ];
         });
 
-        // Поиск доступных временных интервалов по датам
+        // Фильтруем доступные интервалы
         foreach ($intervals as $interval) {
             foreach ($dates as $date) {
                 $date = $date->format('Y-m-d');
-                $start_datetime = Carbon::createFromFormat('Y-m-d H:i', $date . $interval['start_time']);
+                $start_datetime = Carbon::createFromFormat('Y-m-d H:i', $date . ' ' . $interval['start_time']);
 
                 if ($current_time->lessThan($start_datetime)) {
+                    // Если сейчас утро, оставляем только вечерние интервалы
+                    if ($onlyEvening && strtotime($interval['start_time']) < strtotime('18:00')) {
+                        continue; // Пропускаем, если интервал раньше 18:00
+                    }
+
                     $available_intervals[$date][] = $interval;
                 }
             }
