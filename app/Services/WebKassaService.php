@@ -36,7 +36,6 @@ class WebKassaService
     public function getToken(): string
     {
         Log::channel('webkassa')->info('Запрос токена WebKassa.');
-        Log::channel('webkassa')->info($this->apiUrl, $this->apiKey, $this->cashboxNumber, $this->login, $this->password);
 
         return Cache::remember('webkassa_token', Carbon::now()->addHours(24), function () {
             $response = Http::withHeaders([
@@ -48,9 +47,10 @@ class WebKassaService
 
             $responseData = $response->json();
 
-            if (isset($responseData['Errors']) && !empty($responseData['Errors'])) {
-                Log::channel('webkassa')->error("Ошибка при получении токена WebKassa", ['errors' => $responseData['Errors']]);
-                throw new Exception("Ошибка авторизации WebKassa: " . json_encode($responseData['Errors'], JSON_UNESCAPED_UNICODE));
+            // Проверка, что ответ содержит 'Data' и 'Token'
+            if (!isset($responseData['Data']) || !isset($responseData['Data']['Token'])) {
+                Log::channel('webkassa')->error("Некорректный ответ от WebKassa", ['response' => $responseData]);
+                throw new Exception("Ошибка авторизации WebKassa: Некорректный ответ API");
             }
 
             Log::channel('webkassa')->info('Токен WebKassa успешно получен.');
