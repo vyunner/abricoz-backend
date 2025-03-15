@@ -55,14 +55,14 @@ class OrderStoreController extends Controller
         }
 
 //        ✅ 1. Постоянное условие: запрещает даты раньше сегодня
-//        if ($deliveryDate->lt(Carbon::today())) {
-//            return response()->json(['message' => 'Дата доставки не может быть раньше сегодняшней.'], 422);
-//        }
+        if ($deliveryDate->lt(Carbon::today())) {
+            return response()->json(['message' => 'Дата доставки не может быть раньше сегодняшней.'], 422);
+        }
 
 //        🕒 2. Временное условие(закомментируй при необходимости): запрещает доставку в день заказа
-        if (Carbon::today()->gte($deliveryDate)) {
-            return response()->json(['message' => 'Доставка должна оформляться минимум за день до даты доставки.'], 422);
-        }
+//        if (Carbon::today()->gte($deliveryDate)) {
+//            return response()->json(['message' => 'Доставка должна оформляться минимум за день до даты доставки.'], 422);
+//        }
 
         // Проверка временного интервала, если дата доставки сегодня
         if ($deliveryDate->isToday()) {
