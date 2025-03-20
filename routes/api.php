@@ -195,6 +195,7 @@ Route::group(['prefix' => '/point'], function () {
 Route::group(['prefix' => '/user'], function () {
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::delete('/delete', Controllers\User\UserDeleteController::class);
+        Route::get('/me', Controllers\User\UserMeController::class);
     });
 });
 
