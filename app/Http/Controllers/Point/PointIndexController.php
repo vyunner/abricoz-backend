@@ -13,7 +13,7 @@ class PointIndexController extends Controller
     {
         $city_id = $request->input('city_id');
 
-        if ($city_id == null) {
+        if ($city_id == 'null') {
             $city_id = 1;
         }
 
