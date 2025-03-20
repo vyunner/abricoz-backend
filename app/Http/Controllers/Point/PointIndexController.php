@@ -17,8 +17,6 @@ class PointIndexController extends Controller
             $city_id = 1;
         }
 
-        return $city_id;
-
         return $this->response(Point::where(['city_id' => $city_id])->get(), 'Point успешнт загружены');
     }
 }
