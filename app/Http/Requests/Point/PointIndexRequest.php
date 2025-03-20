@@ -14,7 +14,7 @@ class PointIndexRequest extends FormRequest
     public function rules()
     {
         return [
-            'city_id' => 'required|int|exists:cities,id',
+            'city_id' => 'required',
         ];
     }
 }
