@@ -10,12 +10,12 @@ class UserDeleteController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $user = $request->user();
-
-        $user->addresses()->delete();
-
-        $user->delete();
-
-        return $this->response(null, 'Ваш аккаунт был успешно удален.');
+//        $user = $request->user();
+//
+//        $user->addresses()->delete();
+//
+//        $user->delete();
+//
+//        return $this->response(null, 'Ваш аккаунт был успешно удален.');
     }
 }
