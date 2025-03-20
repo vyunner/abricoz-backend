@@ -11,6 +11,7 @@ class UserMeController extends Controller
     public function __invoke(Request $request)
     {
         $user = $request->user();
+        $user['roles'] = $user->getRoleNames();
 
         return $user;
     }
