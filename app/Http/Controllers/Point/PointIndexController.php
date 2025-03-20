@@ -13,9 +13,11 @@ class PointIndexController extends Controller
     {
         $city_id = $request->input('city_id');
 
-        if ($city_id==null){
+        if ($city_id == null) {
             $city_id = 1;
         }
+
+        return $city_id;
 
         return $this->response(Point::where(['city_id' => $city_id])->get(), 'Point успешнт загружены');
     }
