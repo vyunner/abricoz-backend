@@ -25,6 +25,7 @@ final class SendCodeController extends Controller
         $phones = [
             '+77026207447',
             '+77022363206',
+            '+77714424343',
         ];
 
         if (false === in_array($request->phone, $phones)) {

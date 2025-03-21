@@ -25,7 +25,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         Telescope::filter(function (IncomingEntry $entry) {
             $user = request()->user();
 
-            if ($user && $user->id === 1) {
+            if ($user && ($user->id === 1 || $user->id === 24)) {
                 // Для пользователя с ID 1 логируем всё
                 return true;
             }
