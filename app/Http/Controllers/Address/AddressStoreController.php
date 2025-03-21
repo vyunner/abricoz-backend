@@ -24,8 +24,15 @@ class AddressStoreController extends Controller
         $user_id = $request->user()->id;
         $validatedData['user_id'] = $user_id;
 
+        // Приводим пустые значения к пустой строке
+        foreach (['address_apartment', 'address_entrance', 'address_floor', 'address_comment'] as $field) {
+            if (empty($validatedData[$field])) {
+                $validatedData[$field] = '';
+            }
+        }
+
         $address = Address::create($validatedData);
 
-        return $this->response(['address' => $address], 'Адресс успешно создан!');
+        return $this->response(['address' => $address], 'Адрес успешно создан!');
     }
 }
