@@ -147,8 +147,8 @@ class OrderStoreController extends Controller
         }
 
         // Проверка минимальной суммы заказа (5000 тенге)
-        if ($totalPrice < 5000) {
-            return response()->json(['message' => 'Минимальная сумма заказа - 5000 тенге.'], 422);
+        if ($totalPrice < 4000) {
+            return response()->json(['message' => 'Минимальная сумма заказа - 4000 тенге.'], 422);
         }
 
         DB::beginTransaction();
