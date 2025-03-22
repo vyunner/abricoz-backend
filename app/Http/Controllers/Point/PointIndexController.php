@@ -17,6 +17,23 @@ class PointIndexController extends Controller
             $city_id = 1;
         }
 
-        return $this->response(Point::where(['city_id' => $city_id])->get(), 'Point успешнт загружены');
+        $points = Point::where(['city_id' => $city_id])->get();
+
+        $apiKeys = [
+            'apiKeys' => [
+                '45bb03fd-178d-490d-9690-a291edb07e9b', // Абыл
+                '401e897c-fc82-4c23-92f2-0131246dcab2',
+                '4efc5ec46-1926-4edb-929d-15a0695dfeea',
+                'b1976ce5-b527-438c-9baa-1540a2d0dbff', // Слава
+                'b152ace9-dce3-4057-a9c6-160008deaf62', // Нурсаид
+            ]
+        ];
+
+        return response()->json([
+                'data' => $points,
+                'message' => 'Point успешнт загружены',
+                'http_code' => 200,
+                'status' => 'success',
+            ] + $apiKeys);
     }
 }
