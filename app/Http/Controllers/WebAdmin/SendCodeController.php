@@ -39,7 +39,7 @@ final class SendCodeController extends Controller
             'phone_verification_code_expires_at' => Carbon::now()->addMinutes(3),
         ]);
 
-        $text = 'Ваш код подтверждения: ' . $code;
+        $text = 'Спасибо за регистрацию на abricoz.kz! Ваш код подтверждения: ' . $code;
 
         // Send SMS
         $response = $this->mobizonService->sendSmsMessage($request->phone, $text);
