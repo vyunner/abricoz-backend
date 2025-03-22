@@ -12,7 +12,11 @@ class PointIndexController extends Controller
 {
     public function __invoke(PointIndexRequest $request)
     {
-        $city_id = $request->input('city_id') ?? 1;
+        $city_id = $request->input('city_id');
+
+        if ($city_id == 'null') {
+            $city_id = 1;
+        }
 
         $points = Point::where(['city_id' => $city_id])->get();
 
