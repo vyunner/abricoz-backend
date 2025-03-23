@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\HeadWarehouse;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\HeadWarehouse\HeadWarehouseSearchProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HeadWarehouseSearchProductController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(HeadWarehouseSearchProductRequest $request)
     {
-        $validated = $request->validate([
-            'search' => 'required|string|min:1|max:255',
-        ]);
+        $validated = $request->validated();
 
         $search = $validated['search'];
 
