@@ -10,11 +10,11 @@ class HeadWarehouseSearchProductController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $search = $request->input('search');
+        $validated = $request->validate([
+            'search' => 'required|string|min:1|max:255',
+        ]);
 
-        if (!$search) {
-            return response()->json(['message' => 'Search query is required'], 400);
-        }
+        $search = $validated['search'];
 
         $products = Product::where('name_ru', 'like', "%{$search}%")
             ->limit(20)
