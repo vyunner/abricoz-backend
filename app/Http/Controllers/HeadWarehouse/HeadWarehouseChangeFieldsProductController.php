@@ -13,7 +13,7 @@ class HeadWarehouseChangeFieldsProductController extends Controller
         $validated = $request->validate([
             'amount' => 'required|integer',
             'price' => 'required|integer',
-            'discount' => 'nullable|integer',
+            'discount' => 'required|integer',
             'price_with_discount' => 'required|integer',
             'is_active' => 'required|boolean',
         ]);
