@@ -32,11 +32,11 @@ class OrderCancelController extends Controller
         $user = $request->user();
         $order = Order::findOrFail($id);
 
-        if ($order->user_id === $user->id && $order->order_status_id == 1) {
-            $order->update(['order_status_id' => OrderStatus::CANCELLED]);
-
-            return $this->response($order, __('response.order.success.cancel'));
-        }
+//        if ($order->user_id === $user->id && $order->order_status_id == 1) {
+//            $order->update(['order_status_id' => OrderStatus::CANCELLED]);
+//
+//            return $this->response($order, __('response.order.success.cancel'));
+//        }
 
         return $this->response(null, __('response.order.error.forbidden'), Response::HTTP_FORBIDDEN);
     }

@@ -320,8 +320,8 @@ class OrderStoreController extends Controller
 
         $message .= "\n<b>💰 Итоговая сумма:</b> {$order->total_price} ₸";
 
-            if ($data['payment_type_id'] === PaymentType::CASH) {
-            $message .= "\n<b>❗️❗️❗️ НАЛИЧКА ❗️❗️❗️</b> {$order->total_price} ₸";
+        if ($data['payment_type_id'] === PaymentType::CASH) {
+            $message .= "\n<b>❗️❗️❗️ НАЛИЧКА ❗️❗️❗️</b>";
         }
 
         // ✅ Отправляем уведомление всем администраторам одним циклом
