@@ -62,7 +62,7 @@ class WebKassaService
     /**
      * Пробитие чека в WebKassa.
      */
-    public function createCheck(int $orderId, array $positions, float $totalSum, int $operationType, ?string $customerXin = null, ?string $customerPhone = null, ?string $customerEmail = null, int $attempt = 1): array
+    public function createCheck(int $orderId, array $positions, float $totalSum, int $operationType, int $paymentType, ?string $customerXin = null, ?string $customerPhone = null, ?string $customerEmail = null, int $attempt = 1): array
     {
         try {
             Log::channel('webkassa')->info("Начало пробития чека", compact('orderId', 'totalSum', 'operationType'));
@@ -75,7 +75,7 @@ class WebKassaService
                 'CashboxUniqueNumber' => $this->cashboxNumber,
                 'OperationType' => $operationType,
                 'Positions' => $positions,
-                'Payments' => [['Sum' => $totalSum, 'PaymentType' => 1]],
+                'Payments' => [['Sum' => $totalSum, 'PaymentType' => $paymentType]],
                 'ExternalCheckNumber' => $externalCheckNumber
             ];
 

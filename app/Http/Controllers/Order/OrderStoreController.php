@@ -30,11 +30,12 @@ class OrderStoreController extends Controller
     protected WebKassaService $webKassaService;
 
     public function __construct(
-        EpayService $epayService,
+        EpayService                 $epayService,
         FirebaseNotificationService $firebaseNotificationService,
-        TelegramService $telegramService,
-        WebKassaService $webKassaService
-    ) {
+        TelegramService             $telegramService,
+        WebKassaService             $webKassaService
+    )
+    {
         $this->epayService = $epayService;
         $this->firebaseNotificationService = $firebaseNotificationService;
         $this->telegramService = $telegramService;
@@ -134,7 +135,7 @@ class OrderStoreController extends Controller
 
             $positions[] = [
                 'PositionName' => $product->name_ru . ' ' . $product->weight,
-                'PositionCode' => (string) $product->id,
+                'PositionCode' => (string)$product->id,
                 'Price' => $product->price_with_discount,
                 'Count' => $productItem['product_quantity'],
                 'TaxPercent' => null,
@@ -267,11 +268,20 @@ class OrderStoreController extends Controller
 
         // ✅ Отправляем чек в WebKassa после успешного сохранения заказа
         try {
+            $webkassaPaymentType = null;
+
+            if ($data['payment_type_id'] === PaymentType::CASH) {
+                $webkassaPaymentType = 0;
+            } elseif ($data['payment_type_id'] === PaymentType::EPAY) {
+                $webkassaPaymentType = 1;
+            }
+
             $this->webKassaService->createCheck(
                 $order->id,
                 $positions,
                 $totalPrice,
                 2, // 2 - Продажа
+                $webkassaPaymentType,
                 null,
                 $user->phone,
                 $user->email
@@ -305,10 +315,14 @@ class OrderStoreController extends Controller
         foreach ($order->products as $product) {
             $message .= " - {$product->name_ru} \n ({$product->pivot->product_quantity} x {$product->weight}) – "
                 . "{$product->pivot->product_price} ₸, <b>" . ($product->pivot->product_quantity * $product->pivot->product_price)
-                . "</b> ₸\n";
+                . "</b> ₸\n\n";
         }
 
         $message .= "\n<b>💰 Итоговая сумма:</b> {$order->total_price} ₸";
+
+            if ($data['payment_type_id'] === PaymentType::CASH) {
+            $message .= "\n<b>❗️❗️❗️ НАЛИЧКА ❗️❗️❗️</b> {$order->total_price} ₸";
+        }
 
         // ✅ Отправляем уведомление всем администраторам одним циклом
         foreach ($telegramUsers as $telegramUser) {
