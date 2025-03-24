@@ -74,17 +74,17 @@ class OrderStoreController extends Controller
         }
 
 //        // Проверка количества активных заказов пользователя (не более 3)
-//        $activeOrdersCount = Order::where('user_id', $user->id)
-//            ->whereIn('order_status_id', [
-//                OrderStatus::IN_PROCESS,
-//                OrderStatus::ASSEMBLING,
-//                OrderStatus::WAITING_FOR_COURIER,
-//                OrderStatus::ON_THE_WAY,
-//            ])->count();
-//
-//        if ($activeOrdersCount >= 3) {
-//            return response()->json(['message' => 'Вы не можете иметь более 3 активных заказов.'], 422);
-//        }
+        $activeOrdersCount = Order::where('user_id', $user->id)
+            ->whereIn('order_status_id', [
+                OrderStatus::IN_PROCESS,
+                OrderStatus::ASSEMBLING,
+                OrderStatus::WAITING_FOR_COURIER,
+                OrderStatus::ON_THE_WAY,
+            ])->count();
+
+        if ($activeOrdersCount >= 3) {
+            return response()->json(['message' => 'Вы не можете иметь более 3 активных заказов.'], 422);
+        }
 
         // Проверка карты пользователя, если выбран способ оплаты банковской картой
         $cardMask = null;
