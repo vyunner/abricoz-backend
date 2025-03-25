@@ -35,12 +35,12 @@ class CourierAcceptOrderController extends Controller
         $orderId = $request->validated()['order_id'];
 
         // Проверяем, что заказ назначен этому курьеру
-        $order = Order::where('id', $orderId)
-            ->whereHas('assignments', function ($query) use ($courier) {
-                $query->where('user_id', $courier->id)
-                    ->where('role_id', 3);
-            })
-            ->first();
+        $order = Order::where('id', $orderId)->first();
+//            ->whereHas('assignments', function ($query) use ($courier) {
+//                $query->where('user_id', $courier->id)
+//                    ->where('role_id', 3);
+//            })
+//            ->first();
 
         if (!$order) {
             return $this->response(null, 'Заказ не найден или не назначен этому курьеру', 404);

@@ -19,10 +19,10 @@ class CourierGetCurrentOrdersController extends Controller
 
         // Получаем заказы, назначенные этому курьеру, со статусами 1, 2, 3, 4
         $orders = Order::whereIn('order_status_id', [1, 2, 3, 4])
-            ->whereHas('assignments', function ($query) use ($courier) {
-                $query->where('user_id', $courier->id)
-                    ->where('role_id', 3); // Айди роли курьера
-            })
+//            ->whereHas('assignments', function ($query) use ($courier) {
+//                $query->where('user_id', $courier->id)
+//                    ->where('role_id', 3); // Айди роли курьера
+//            })
             ->with([
                 'user:id,firstname,lastname,phone',
                 'deliveryInterval:id,name',
