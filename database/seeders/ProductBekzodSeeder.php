@@ -11,7 +11,7 @@ class ProductBekzodSeeder extends Seeder
     public function run()
     {
         // Путь к файлу Excel
-        $filePath = base_path('database/seeders/xlsx/конфетыитого.xlsx');
+        $filePath = base_path('database/seeders/xlsx/печенюшки.xlsx');
 
         // Загружаем файл Excel
         try {
