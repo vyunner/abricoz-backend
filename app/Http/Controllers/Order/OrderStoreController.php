@@ -274,18 +274,29 @@ class OrderStoreController extends Controller
                 $webkassaPaymentType = 0;
             } elseif ($data['payment_type_id'] === PaymentType::EPAY) {
                 $webkassaPaymentType = 1;
+
+                $this->webKassaService->createCheck(
+                    $order->id,
+                    $positions,
+                    $totalPrice,
+                    2, // 2 - Продажа
+                    $webkassaPaymentType,
+                    null,
+                    $user->phone,
+                    $user->email
+                );
             }
 
-            $this->webKassaService->createCheck(
-                $order->id,
-                $positions,
-                $totalPrice,
-                2, // 2 - Продажа
-                $webkassaPaymentType,
-                null,
-                $user->phone,
-                $user->email
-            );
+//            $this->webKassaService->createCheck(
+//                $order->id,
+//                $positions,
+//                $totalPrice,
+//                2, // 2 - Продажа
+//                $webkassaPaymentType,
+//                null,
+//                $user->phone,
+//                $user->email
+//            );
         } catch (\Exception $e) {
             Log::error("Ошибка WebKassa при создании чека: " . $e->getMessage());
 
