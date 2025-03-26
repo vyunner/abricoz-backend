@@ -20,18 +20,20 @@ class CategoryShowController extends Controller
      */
     public function __invoke(int $id)
     {
-        // Загружаем категорию с подкатегориями, отсортированными по `priority_number`
+        // Загружаем категорию с активными подкатегориями, отсортированными по `priority_number`
         $category = Category::with(['subcategories' => function ($query) {
-            $query->orderBy('priority_number', 'DESC');
+            $query->where('is_active', true)
+                ->orderBy('priority_number', 'DESC');
         }])->findOrFail($id);
 
         if ($id === 27) {
-            $subcategoriesWithDiscounts = Subcategory::whereExists(function ($query) {
-                $query->select(DB::raw(1))
-                    ->from('products')
-                    ->whereRaw('products.subcategory_id = subcategories.id')
-                    ->where('products.discount', '>', 0);
-            })->orderBy('priority_number', 'DESC')
+            $subcategoriesWithDiscounts = Subcategory::where('is_active', true)
+                ->whereExists(function ($query) {
+                    $query->select(DB::raw(1))
+                        ->from('products')
+                        ->whereRaw('products.subcategory_id = subcategories.id')
+                        ->where('products.discount', '>', 0);
+                })->orderBy('priority_number', 'DESC')
                 ->get();
 
             // Добавляем `is_discount: true` только к нужным подкатегориям
