@@ -314,7 +314,7 @@ class OrderStoreController extends Controller
         // ✅ Формируем список товаров
         foreach ($order->products as $product) {
             $message .= " - {$product->name_ru} \n ({$product->pivot->product_quantity} x {$product->weight}) – "
-                . "{$product->pivot->product_price} ₸, <b>" . ($product->pivot->product_quantity * $product->pivot->product_price)
+                . "{$product->pivot->product_price_with_discount} ₸, <b>" . ($product->pivot->product_quantity * $product->pivot->product_price)
                 . "</b> ₸\n\n";
         }
 
