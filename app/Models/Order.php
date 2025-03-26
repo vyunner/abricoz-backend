@@ -64,7 +64,7 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class, 'order_products')
-            ->withPivot(['product_quantity', 'product_price', 'product_discount']);
+            ->withPivot(['product_quantity', 'product_price', 'product_discount', 'product_price_with_discount']);
     }
 
     public function orderProducts(): HasMany
