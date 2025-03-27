@@ -56,6 +56,9 @@ class ProductIndexController extends Controller
         $minPrice = $priceRangeQuery->min('price');
         $maxPrice = $priceRangeQuery->max('price');
 
+        $query->orderByRaw('CASE WHEN amount > 0 THEN 0 ELSE 1 END')
+            ->orderByRaw('(price - price_with_discount) DESC');
+
         if ($request->has('perPage')) {
             $perPage = $request->input('perPage', 10);
             $page = $request->input('page', 1);
