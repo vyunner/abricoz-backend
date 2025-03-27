@@ -15,7 +15,7 @@ class HeadWarehouseChangeFieldsProductController extends Controller
             'price' => 'required|integer',
             'discount' => 'required|integer',
             'price_with_discount' => 'required|integer',
-            'weight' => 'required|integer',
+            'weight' => 'nullable|integer',
             'is_active' => 'required|boolean',
         ]);
 
