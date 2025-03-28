@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Courier;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use App\Models\DeliveryInterval;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
-use Carbon\Carbon;
+use App\Http\Controllers\Controller;
 
 class CourierGetCurrentOrdersController extends Controller
 {
@@ -13,17 +14,15 @@ class CourierGetCurrentOrdersController extends Controller
     {
         $courier = Auth::user();
 
-        // Проверяем, что пользователь имеет роль курьера
         if (!$courier->hasRole('courier')) {
             return $this->response(null, 'Доступ запрещен', 403);
         }
 
-        // Получаем заказы, назначенные этому курьеру, со статусами 1, 2, 3, 4
+        // Получаем интервалы доставки в нужном порядке (из БД)
+        $intervalNamesInOrder = DeliveryInterval::orderBy('id')->pluck('name')->toArray();
+
+        // Получаем заказы курьера со всеми нужными связями
         $orders = Order::whereIn('order_status_id', [1, 2, 3, 4])
-//            ->whereHas('assignments', function ($query) use ($courier) {
-//                $query->where('user_id', $courier->id)
-//                    ->where('role_id', 3); // Айди роли курьера
-//            })
             ->with([
                 'user:id,firstname,lastname,phone',
                 'deliveryInterval:id,name',
@@ -40,8 +39,8 @@ class CourierGetCurrentOrdersController extends Controller
             return $this->response(null, 'Текущих заказов нет', 404);
         }
 
-        // Формируем массив заказов с необходимыми полями
-        $ordersArray = $orders->map(function ($order) {
+        // Преобразуем каждый заказ в нужный формат
+        $formattedOrders = $orders->map(function ($order) {
             return [
                 'id' => $order->id,
                 'order_status_id' => $order->order_status_id,
@@ -71,6 +70,20 @@ class CourierGetCurrentOrdersController extends Controller
             ];
         });
 
-        return $this->response($ordersArray, 'Текущие заказы получены', 200);
+        // Сортируем сначала по delivery_date, потом по delivery_interval_name
+        $sortedOrders = $formattedOrders->sort(function ($a, $b) use ($intervalNamesInOrder) {
+            $dateA = strtotime(str_replace('.', '-', $a['delivery_date']));
+            $dateB = strtotime(str_replace('.', '-', $b['delivery_date']));
+
+            if ($dateA === $dateB) {
+                $intervalIndexA = array_search($a['delivery_interval_name'], $intervalNamesInOrder);
+                $intervalIndexB = array_search($b['delivery_interval_name'], $intervalNamesInOrder);
+                return $intervalIndexA <=> $intervalIndexB;
+            }
+
+            return $dateA <=> $dateB;
+        })->values();
+
+        return $this->response($sortedOrders, 'Текущие заказы получены', 200);
     }
 }
