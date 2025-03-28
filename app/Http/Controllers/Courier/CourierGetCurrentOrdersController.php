@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Courier;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
+use Carbon\Carbon;
 
 class CourierGetCurrentOrdersController extends Controller
 {
@@ -57,7 +58,7 @@ class CourierGetCurrentOrdersController extends Controller
                 'address_floor' => $order->address_floor,
                 'address_comment' => $order->address_comment,
                 '2gis_url' => "https://2gis.ru/geo/{$order->longitude},{$order->latitude}",
-                'delivery_date' => $order->delivery_date,
+                'delivery_date' => Carbon::parse($order->delivery_date)->format('d.m.Y'),
                 'order_status_name' => $order->orderStatus->name,
                 'products' => $order->products->map(function ($product) {
                     return [
