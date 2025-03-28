@@ -44,6 +44,8 @@ class CourierGetCurrentOrdersController extends Controller
             return [
                 'id' => $order->id,
                 'order_status_id' => $order->order_status_id,
+                'payment_type_id' => $order->payment_type_id,
+                'total_price' => $order->payment_type_id,
                 'phone' => $order->user->phone,
                 'firstname' => $order->user->firstname,
                 'lastname' => $order->user->lastname,
