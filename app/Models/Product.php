@@ -29,6 +29,7 @@ class Product extends Model
         'price',
         'discount',
         'price_with_discount',
+        'price_cost',
         'total_sales',
         'amount',
         'is_active',
