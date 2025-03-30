@@ -130,16 +130,16 @@ class AdminExportProductController extends Controller
                 if (file_exists($imagePath)) {
                     $tempFile = fopen($imagePath, 'r');
 
-                    // Загружаем в S3
-                    $path = Storage::disk('s3')->put('products', $tempFile, 'public');
+                    $uniqueName = Str::uuid() . '.webp';
+                    $path = 'products/' . $uniqueName;
+
+                    Storage::disk('s3')->put($path, $tempFile, 'public');
                     $photoUrl = Storage::disk('s3')->url($path);
 
-                    // Обновляем продукт
                     $product->update(['photo_url' => $photoUrl]);
 
                     fclose($tempFile);
                 }
-
             }
 
             DB::commit();
