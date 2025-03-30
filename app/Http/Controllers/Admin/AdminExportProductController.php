@@ -53,11 +53,18 @@ class AdminExportProductController extends Controller
             $zip->extractTo($extractPath);
             $zip->close();
 
-            // Проверка наличия файла Excel
-            $excelPath = "{$extractPath}/excel.xlsx";
-            if (!file_exists($excelPath)) {
-                return response()->json(['error' => 'Файл excel.xlsx не найден в архиве'], 400);
+            // Поиск Excel-файла в папке (игнорируем регистр)
+            $excelFile = collect(scandir($extractPath))
+                ->first(fn($file) => preg_match('/^excel\.xlsx$/i', $file));
+
+            if (!$excelFile) {
+                return response()->json([
+                    'error' => 'Файл excel.xlsx не найден в архиве',
+                    'found_files' => scandir($extractPath) // 👈 покажем, что реально найдено
+                ], 400);
             }
+
+            $excelPath = "{$extractPath}/{$excelFile}";
 
             // Чтение Excel
             $spreadsheet = IOFactory::load($excelPath);
