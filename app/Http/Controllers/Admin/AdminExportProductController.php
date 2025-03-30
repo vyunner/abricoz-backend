@@ -92,16 +92,34 @@ class AdminExportProductController extends Controller
             for ($i = 1; $i < count($rows); $i++) {
                 $data = $rows[$i];
 
-                // Простейшая проверка данных
-                if (!isset($data[0]) || !isset($data[1])) {
-                    throw new \Exception("Ошибка в строке {$i}: отсутствуют обязательные поля.");
+                // Пропускаем пустые строки
+                if (empty(array_filter($data))) {
+                    continue;
+                }
+
+                // Проверка обязательных полей (например, name и price)
+                if (empty($data[0]) || empty($data[1])) {
+                    throw new \Exception("Ошибка в строке " . ($i + 1) . ": отсутствуют обязательные поля.");
                 }
 
                 // Создаём продукт
                 $product = Product::create([
-                    'name' => $data[0],
-                    'price' => $data[1],
-                    'description' => $data[2] ?? null,
+                    'name_ru' => $data[0],
+                    'name_kz' => $data[1],
+                    'description_ru' => $data[2],
+                    'description_kz' => $data[3],
+                    'weight' => $data[4],
+                    'calories' => $data[5],
+                    'proteins' => $data[6],
+                    'fats' => $data[7],
+                    'carbohydrates' => $data[8],
+                    'price' => $data[9],
+                    'discount' => $data[10],
+                    'price_with_discount' => $data[11],
+                    'price_cost' => $data[12],
+                    'total_sales' => $data[13],
+                    'amount' => $data[14],
+                    'is_active' => $data[15],
                 ]);
 
                 // Обработка изображения
