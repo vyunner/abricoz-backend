@@ -43,7 +43,22 @@ class AdminExportProductController extends Controller
             if (is_dir($extractPath)) {
                 collect(scandir($extractPath))->each(function ($file) use ($extractPath) {
                     if (!in_array($file, ['.', '..'])) {
-                        unlink($extractPath . DIRECTORY_SEPARATOR . $file);
+                        $fullPath = $extractPath . DIRECTORY_SEPARATOR . $file;
+
+                        if (is_file($fullPath)) {
+                            unlink($fullPath);
+                        } elseif (is_dir($fullPath)) {
+                            // Удаляем вложенные папки и их содержимое
+                            collect(scandir($fullPath))->each(function ($subFile) use ($fullPath) {
+                                if (!in_array($subFile, ['.', '..'])) {
+                                    $subPath = $fullPath . DIRECTORY_SEPARATOR . $subFile;
+                                    if (is_file($subPath)) {
+                                        unlink($subPath);
+                                    }
+                                }
+                            });
+                            rmdir($fullPath);
+                        }
                     }
                 });
             } else {
