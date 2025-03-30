@@ -153,6 +153,9 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/set-roles', Controllers\Admin\AdminSetRolesController::class);
         Route::get('/get-user', Controllers\Admin\AdminGetUserController::class);
         Route::get('/get-users-with-roles', Controllers\Admin\AdminGetUsersWithRolesController::class);
+
+
+        Route::post('/export-product', Controllers\Admin\AdminExportProductController::class);
     });
 });
 
