@@ -55,14 +55,20 @@ class WarehousemanShowController extends Controller
         }
 
         // Преобразуем данные продуктов
-        $products = $order->orderProducts->map(function ($orderProduct) {
-            $product = $orderProduct->product;
-            return [
-                'name' => $product->name_ru,
-                'where' => $product->where,
-                'amount' => $orderProduct->product_quantity . ' * ' . $product->weight,
-            ];
-        })->all();
+        $products = $order->orderProducts
+            ->sortBy(function ($orderProduct) {
+                return $orderProduct->product->subcategory_id ?? 0;
+            })
+            ->map(function ($orderProduct) {
+                $product = $orderProduct->product;
+                return [
+                    'name' => $product->name_ru,
+                    'where' => $product->where,
+                    'amount' => $orderProduct->product_quantity . ' * ' . $product->weight,
+                ];
+            })
+            ->values()
+            ->all();
 
         // Получаем fullname сотрудника
         $fullname = null;
