@@ -23,7 +23,7 @@ class WarehousemanShowController extends Controller
                 $query->select('id', 'order_id', 'product_id', 'product_quantity');
             },
             'orderProducts.product' => function ($query) {
-                $query->select('id', 'name_ru', 'weight', 'where', 'subcategory_id');
+                $query->select('id', 'name_ru', 'weight', 'where', 'subcategory_id', 'photo_url');
             },
             'deliveryInterval:id,name',
             'warehousemanAssignment.user:id,firstname,lastname',
@@ -65,6 +65,7 @@ class WarehousemanShowController extends Controller
                     'name' => $product->name_ru,
                     'where' => $product->where,
                     'amount' => $orderProduct->product_quantity . ' * ' . $product->weight,
+                    'photo_url' => $product->photo_url,
                 ];
             })
             ->values()
