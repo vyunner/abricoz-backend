@@ -18,17 +18,17 @@ Route::get('/dashboard', function () {
 Route::post('/telegram/webhook', function (Request $request) {
     $update = Telegram::getWebhookUpdate();
 
-    // Обработка force reply — если это ответ на "Введите число текущего месяца"
+    // Обрабатываем force reply вручную
     if (
         $update->isType('message') &&
         $update->getMessage()->getReplyToMessage() &&
         str_contains($update->getMessage()->getReplyToMessage()->getText(), 'Введите число текущего месяца')
     ) {
         (new DailyOrdersCommand())->processMessage($update);
-        return response()->json(['status' => 'processed']);
+        return response()->json(['status' => 'reply processed']);
     }
 
-    // Стандартная обработка /start, /orders и т.д.
+    // Обработка обычных команд
     Telegram::commandsHandler(true);
 
     return response()->json(['status' => 'ok']);
