@@ -49,7 +49,7 @@ class OrderByIdCommand extends Command
 
         $deliveryInterval = DB::table('delivery_intervals')
             ->where('id', $order->delivery_interval_id)
-            ->value('name_ru');
+            ->value('name');
 
         $section->addText("Заказ №: {$order->id}", ['bold' => true, 'size' => 14]);
         $section->addText("Дата доставки: {$order->delivery_date}", ['size' => 12]);
