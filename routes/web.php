@@ -32,7 +32,7 @@ Route::post('/telegram/webhook', function (Request $request) {
     if (
         $update->isType('message') &&
         $update->getMessage()->getReplyToMessage() &&
-        str_contains($update->getMessage()->getReplyToMessage()->getText(), 'Введите ID заказа')
+        str_contains($update->getMessage()->getReplyToMessage()->getText(), 'Введите № заказа')
     ) {
         (new OrderByIdCommand())->processMessage($update);
         return response()->json(['status' => 'order processed']);
