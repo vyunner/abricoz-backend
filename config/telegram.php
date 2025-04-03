@@ -42,6 +42,7 @@ return [
             'commands' => [
                 \App\Telegram\Commands\StartCommand::class,
                 \App\Telegram\Commands\DailyOrdersCommand::class,
+                \App\Telegram\Commands\OrderByIdCommand::class,
             ],
         ],
 
