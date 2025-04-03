@@ -14,6 +14,20 @@ Route::get('/dashboard', function () {
 })->middleware('auth')->name('dashboard');
 
 Route::post('/telegram/webhook', function (Request $request) {
+    $update = Telegram::getWebhookUpdate();
+
+    // Обработка force reply для команды /orders
+    if ($update->isType('message') && $update->getMessage()->getReplyToMessage()) {
+        $replyText = $update->getMessage()->getReplyToMessage()->getText();
+
+        if (str_contains($replyText, 'Введите число текущего месяца')) {
+            (new \App\Telegram\Commands\DailyOrdersCommand())->processMessage($update);
+            return response()->json(['status' => 'processed']);
+        }
+    }
+
+    // Обработка стандартных команд типа /start, /orders и т.п.
     Telegram::commandsHandler(true);
+
     return response()->json(['status' => 'ok']);
 });
