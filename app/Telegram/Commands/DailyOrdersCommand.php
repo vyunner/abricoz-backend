@@ -55,10 +55,10 @@ class DailyOrdersCommand extends Command
         foreach ($orders as $order) {
             $deliveryInterval = DB::table('delivery_intervals')
                 ->where('id', $order->delivery_interval_id)
-                ->get();
+                ->value('name');
 
             $section->addText("Заказ №: {$order->id}", ['bold' => true, 'size' => 14]);
-            $section->addText("Временной интервал: {$deliveryInterval->name_ru}", ['bold' => true, 'size' => 14]);
+            $section->addText("Временной интервал: {$deliveryInterval}", ['bold' => true, 'size' => 14]);
             $section->addTextBreak();
 
             $orderProducts = DB::table('order_products')
