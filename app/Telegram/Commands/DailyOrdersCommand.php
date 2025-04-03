@@ -68,8 +68,7 @@ class DailyOrdersCommand extends Command
             foreach ($orderProducts as $op) {
                 $product = DB::table('products')->where('id', $op->product_id)->first();
 
-                $section->addText("⬜ {$product->name_ru} {$product->weight} x {$op->product_quantity}");
-                $section->addText("Закуп: {$product->price_cost} тенге. Цена: {$op->product_price_with_discount} тенге");
+                $section->addText("⬜ {$product->name_ru} {$product->weight} x {$op->product_quantity} ({$product->price_cost} тенге, {$op->product_price_with_discount} тенге)", ['size' => 12]);
                 $section->addTextBreak();
             }
 
