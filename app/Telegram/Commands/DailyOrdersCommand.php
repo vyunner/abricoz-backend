@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Storage;
 
 class DailyOrdersCommand extends Command
 {
-    protected $name = 'orders';
-    protected $description = 'Показать продукты по дате доставки в этом месяце';
+    protected string $name = 'orders';
+    protected string $description = 'Показать продукты по дате доставки в этом месяце';
 
     public function handle()
     {
