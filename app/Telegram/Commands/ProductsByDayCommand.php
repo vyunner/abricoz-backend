@@ -50,21 +50,25 @@ class ProductsByDayCommand extends Command
         }
 
         $productData = DB::table('order_products')
-            ->whereIn('order_id', $orderIds)
             ->select('product_id', DB::raw('SUM(product_quantity) as total_quantity'))
+            ->whereIn('order_id', $orderIds)
             ->groupBy('product_id')
             ->get();
 
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
-        $section->addText("Список закупленных продуктов на {$date}", ['bold' => true, 'size' => 16]);
+        $section->addText("Список всех продуктов на {$date}", ['bold' => true, 'size' => 16]);
         $section->addTextBreak();
 
         foreach ($productData as $item) {
             $product = DB::table('products')->where('id', $item->product_id)->first();
             if (!$product) continue;
 
-            $section->addText("📦 {$product->name_ru} {$product->weight} — {$item->total_quantity} шт.", ['size' => 12]);
+            $section->addText("📦 {$product->name_ru} {$product->weight}", ['bold' => true]);
+            $section->addText("▪ Кол-во: {$item->total_quantity}");
+            $section->addText("▪ Закуп: {$product->price_cost} тенге");
+            $section->addText("▪ Цена со скидкой: {$product->price_discount} тенге");
+            $section->addTextBreak();
         }
 
         $writer = IOFactory::createWriter($phpWord, 'Word2007');
@@ -75,7 +79,7 @@ class ProductsByDayCommand extends Command
             'chat_id' => $chatId,
             'document' => fopen($tempFilePath, 'r'),
             'filename' => "products_{$date}.docx",
-            'caption' => "📄 Закупленные продукты на {$date}",
+            'caption' => "📄 Список продуктов на {$date}",
         ]);
 
         unlink($tempFilePath);
