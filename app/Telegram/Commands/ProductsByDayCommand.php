@@ -67,7 +67,7 @@ class ProductsByDayCommand extends Command
             $section->addText("📦 {$product->name_ru} {$product->weight}", ['bold' => true]);
             $section->addText("▪ Кол-во: {$item->total_quantity}");
             $section->addText("▪ Закуп: {$product->price_cost} тенге");
-            $section->addText("▪ Цена со скидкой: {$product->price_discount} тенге");
+            $section->addText("▪ Цена со скидкой: {$product->price_with_discount} тенге");
             $section->addTextBreak();
         }
 
