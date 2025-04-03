@@ -48,11 +48,12 @@ class DailyOrdersCommand extends Command
 
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
+
         $section->addText("Отчёт по заказам на {$date}", ['bold' => true, 'size' => 16]);
         $section->addTextBreak();
 
         foreach ($orders as $order) {
-            $section->addText("Заказ ID: {$order->id}");
+            $section->addText("Заказ №: {$order->id}");
             $section->addText("Дата доставки: {$order->delivery_date}");
 
             $orderProducts = DB::table('order_products')
@@ -62,15 +63,15 @@ class DailyOrdersCommand extends Command
             foreach ($orderProducts as $op) {
                 $product = DB::table('products')->where('id', $op->product_id)->first();
 
-                $section->addText("  └ Продукт ID: {$op->product_id}");
-                $section->addText("     Кол-во: {$op->product_quantity}");
-                $section->addText("     Цена со скидкой: {$op->product_price_with_discount}");
-                $section->addText("     Себестоимость: {$product->price_cost}");
-                $section->addText("     Фото: {$product->photo_url}");
+                $section->addText("Название: {$product->name_ru}");
+                $section->addText("Количество: {$op->product_quantity} x {$product->weight}");
+                $section->addText("Закуп: {$product->price_cost} тенге");
+                $section->addText("Цена: {$op->product_price_with_discount} тенге");
                 $section->addTextBreak();
             }
 
             $section->addText('------------------------');
+            $section->addPageBreak();
         }
 
         $writer = IOFactory::createWriter($phpWord, 'Word2007');
