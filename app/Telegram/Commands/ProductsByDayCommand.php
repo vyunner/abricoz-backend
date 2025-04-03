@@ -17,7 +17,7 @@ class ProductsByDayCommand extends Command
     public function handle()
     {
         $this->replyWithMessage([
-            'text' => 'Введите число текущего месяца (например, 3):',
+            'text' => 'Введите число текущего месяца для вывода закупок',
             'reply_markup' => json_encode(['force_reply' => true])
         ]);
     }
