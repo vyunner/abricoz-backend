@@ -53,8 +53,13 @@ class DailyOrdersCommand extends Command
         $section->addTextBreak();
 
         foreach ($orders as $order) {
-            $section->addText("Заказ №: {$order->id}");
-            $section->addText("Дата доставки: {$order->delivery_date}");
+            $deliveryInterval = DB::table('delivery_intervals')
+                ->where('id', $order->delivery_interval_id)
+                ->get();
+
+            $section->addText("Заказ №: {$order->id}", ['bold' => true, 'size' => 14]);
+            $section->addText("Временной интервал: {$deliveryInterval->name_ru}", ['bold' => true, 'size' => 14]);
+            $section->addTextBreak();
 
             $orderProducts = DB::table('order_products')
                 ->where('order_id', $order->id)
@@ -63,10 +68,8 @@ class DailyOrdersCommand extends Command
             foreach ($orderProducts as $op) {
                 $product = DB::table('products')->where('id', $op->product_id)->first();
 
-                $section->addText("Название: {$product->name_ru}");
-                $section->addText("Количество: {$op->product_quantity} x {$product->weight}");
-                $section->addText("Закуп: {$product->price_cost} тенге");
-                $section->addText("Цена: {$op->product_price_with_discount} тенге");
+                $section->addText("⬜ {$product->name_ru} {$product->weight} x {$op->product_quantity}");
+                $section->addText("Закуп: {$product->price_cost} тенге. Цена: {$op->product_price_with_discount} тенге");
                 $section->addTextBreak();
             }
 
