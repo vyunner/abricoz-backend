@@ -64,10 +64,7 @@ class ProductsByDayCommand extends Command
             $product = DB::table('products')->where('id', $item->product_id)->first();
             if (!$product) continue;
 
-            $section->addText("📦 {$product->name_ru} {$product->weight}", ['bold' => true]);
-            $section->addText("▪ Кол-во: {$item->total_quantity}");
-            $section->addText("▪ Закуп: {$product->price_cost} тенге");
-            $section->addText("▪ Цена со скидкой: {$product->price_with_discount} тенге");
+            $section->addText("⬜ {$product->name_ru} {$product->weight} x {$item->total_quantity} ({$product->price_cost}, {$product->price_with_discount})", ['size' => 14]);
             $section->addTextBreak();
         }
 
