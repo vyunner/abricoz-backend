@@ -46,7 +46,6 @@ class DailyOrdersCommand extends Command
             return;
         }
 
-        // Генерируем Word документ в памяти
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
         $section->addText("Отчёт по заказам на {$date}", ['bold' => true, 'size' => 16]);
@@ -74,20 +73,17 @@ class DailyOrdersCommand extends Command
             $section->addText('------------------------');
         }
 
-        // Создаём поток в памяти
-        $tempStream = fopen('php://temp', 'r+');
         $writer = IOFactory::createWriter($phpWord, 'Word2007');
-        $writer->save($tempStream);
-        rewind($tempStream);
+        $tempFilePath = storage_path('app/orders_' . uniqid() . '.docx');
+        $writer->save($tempFilePath);
 
-        // Отправляем как документ
         Telegram::sendDocument([
             'chat_id' => $chatId,
-            'document' => $tempStream,
+            'document' => fopen($tempFilePath, 'r'),
             'filename' => "orders_{$date}.docx",
             'caption' => "📄 Отчёт по заказам на {$date}",
         ]);
 
-        fclose($tempStream);
+        unlink($tempFilePath);
     }
 }
