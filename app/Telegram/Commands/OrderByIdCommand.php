@@ -52,7 +52,7 @@ class OrderByIdCommand extends Command
             ->value('name');
 
         $section->addText("Заказ №: {$order->id}", ['bold' => true, 'size' => 14]);
-        $section->addText("Дата доставки: {$order->delivery_date}", ['size' => 12]);
+        $section->addText("Дата доставки: {$order->delivery_date}", ['bold', 'size' => 12]);
         $section->addText("Временной интервал: {$deliveryInterval}", ['bold' => true, 'size' => 12]);
         $section->addTextBreak();
 
