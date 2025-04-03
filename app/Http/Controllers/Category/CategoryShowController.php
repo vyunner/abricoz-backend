@@ -23,7 +23,7 @@ class CategoryShowController extends Controller
         // Загружаем категорию с активными подкатегориями, отсортированными по `priority_number`
         $category = Category::with(['subcategories' => function ($query) {
             $query->where('is_active', true)
-                ->orderBy('priority_number', 'DESC');
+                ->orderByRaw('priority_number = 0, priority_number ASC');
         }])->findOrFail($id);
 
         if ($id === 27) {
