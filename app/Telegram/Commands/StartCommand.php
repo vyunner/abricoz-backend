@@ -25,7 +25,7 @@ class StartCommand extends Command
 
         // Отправляем сообщение пользователю
         $this->replyWithMessage([
-            'text' => "Вы подписаны на уведомления! ✅"
+            'text' => "Вы подписаны на уведомления!!! ✅"
         ]);
     }
 }
