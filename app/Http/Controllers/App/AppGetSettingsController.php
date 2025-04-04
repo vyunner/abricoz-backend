@@ -20,7 +20,7 @@ class AppGetSettingsController extends Controller
     public function __invoke(Request $request)
     {
         return [
-            'isAppActive' => 0,            // Приложение активно
+            'isAppActive' => 1,            // Приложение активно
             'minOrderAmount' => 5000,         // Минимальная сумма заказа
             'isCashPaymentActive' => 1   // Разрешена ли оплата наличными
         ];

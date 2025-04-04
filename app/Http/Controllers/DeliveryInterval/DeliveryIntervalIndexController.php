@@ -28,7 +28,7 @@ class DeliveryIntervalIndexController extends Controller
             ->get();
 
         $dates = [
-            today(), // Добавляем текущий день
+//            today(), // Добавляем текущий день
             today()->addDays(1),
 //            today()->addDays(2),
         ];
