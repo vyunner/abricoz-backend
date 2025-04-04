@@ -236,3 +236,7 @@ Route::group(['prefix' => '/app'], function () {
     Route::get('/get-min-cart-price', Controllers\App\AppGetMinCartPriceController::class);
     Route::get('/get-settings', Controllers\App\AppGetSettingsController::class);
 });
+
+Route::group(['prefix' => '/ad'], function () {
+    Route::post('/click', Controllers\Ad\AdClickController::class);
+});
