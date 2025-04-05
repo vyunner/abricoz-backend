@@ -92,9 +92,9 @@ class OrderByIdCommand extends Command
             // Продукты
             foreach ($products as $product) {
                 $textRun = $section->addTextRun();
-                $textRun->addText("⬜ {$product['name']} {$product['weight']} ", ['size' => 12]);
-                $textRun->addText("({$product['price_cost']}₸, {$product['price_discount']}₸) ", ['italic' => true, 'size' => 12]);
-                $textRun->addText("x{$product['quantity']}", ['bold' => true, 'size' => 12]);
+
+                $textRun->addText("⬜ {$product['name']} {$product['weight']} ({$product['price_cost']} тенге, {$product['price_discount']} тенге) ", ['size' => 12]);
+                $textRun->addText("*{$product['quantity']}", ['bold' => true, 'size' => 18]);
             }
 
             $section->addTextBreak(); // Пустая строка между подкатегориями
