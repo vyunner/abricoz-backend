@@ -93,7 +93,7 @@ class DailyOrdersCommand extends Command
                     $textRun = $section->addTextRun();
 
                     $textRun->addText("⬜ {$product['name']} {$product['weight']} ({$product['price_cost']} тенге, {$product['price_discount']} тенге) ", ['size' => 12]);
-                    $textRun->addText("КОЛИЧЕСТВО: x {$product['quantity']}", ['bold' => true, 'size' => 12]);
+                    $textRun->addText("*{$product['quantity']}", ['bold' => true, 'size' => 18]);
                 }
 
                 $section->addText(''); // пустая строка между подкатегориями
