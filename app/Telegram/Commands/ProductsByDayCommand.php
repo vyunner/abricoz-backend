@@ -55,16 +55,47 @@ class ProductsByDayCommand extends Command
             ->groupBy('product_id')
             ->get();
 
-        $phpWord = new PhpWord();
-        $section = $phpWord->addSection();
-        $section->addText("Список всех продуктов на {$date}", ['bold' => true, 'size' => 16]);
-        $section->addTextBreak();
+        // Группировка по подкатегориям
+        $groupedProducts = [];
 
         foreach ($productData as $item) {
             $product = DB::table('products')->where('id', $item->product_id)->first();
             if (!$product) continue;
 
-            $section->addText("⬜ {$product->name_ru} {$product->weight} x {$item->total_quantity} ({$product->price_cost}, {$product->price_with_discount})", ['size' => 14]);
+            $subcategory = DB::table('subcategories')->where('id', $product->subcategory_id)->first();
+            $subcategoryName = $subcategory->name_ru ?? 'Без подкатегории';
+
+            $groupedProducts[$subcategoryName][] = [
+                'name' => $product->name_ru,
+                'weight' => $product->weight,
+                'quantity' => $item->total_quantity,
+                'price_cost' => $product->price_cost,
+                'price_discount' => $product->price_with_discount,
+            ];
+        }
+
+        // Сортируем подкатегории по имени
+        ksort($groupedProducts);
+
+        // Генерация Word-документа
+        $phpWord = new PhpWord();
+        $section = $phpWord->addSection();
+        $section->addText("Список всех продуктов на {$date}", ['bold' => true, 'size' => 16]);
+        $section->addTextBreak();
+
+        foreach ($groupedProducts as $subcategoryName => $products) {
+            $textRun = $section->addTextRun();
+            $textRun->addText('Подкатегория: ', ['bold' => true, 'size' => 13]);
+            $textRun->addText($subcategoryName, ['size' => 13]);
+            $section->addTextBreak();
+
+            foreach ($products as $product) {
+                $textRun = $section->addTextRun();
+                $textRun->addText("⬜ {$product['name']} {$product['weight']} ", ['size' => 12]);
+                $textRun->addText("({$product['price_cost']}₸, {$product['price_discount']}₸) ", ['size' => 12]);
+                $textRun->addText("x{$product['quantity']}", ['bold' => true, 'size' => 12]);
+            }
+
             $section->addTextBreak();
         }
 

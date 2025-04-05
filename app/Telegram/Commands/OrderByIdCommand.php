@@ -11,7 +11,7 @@ use PhpOffice\PhpWord\IOFactory;
 class OrderByIdCommand extends Command
 {
     protected string $name = 'order';
-    protected string $description = 'Показать заказ по ID';
+    protected string $description = 'Показать заказ по №';
 
     public function handle()
     {
