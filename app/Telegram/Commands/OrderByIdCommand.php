@@ -52,19 +52,52 @@ class OrderByIdCommand extends Command
             ->value('name');
 
         $section->addText("Заказ №: {$order->id}", ['bold' => true, 'size' => 14]);
-        $section->addText("Дата доставки: {$order->delivery_date}", ['bold', 'size' => 12]);
+        $section->addText("Дата доставки: {$order->delivery_date}", ['bold' => true, 'size' => 12]);
         $section->addText("Временной интервал: {$deliveryInterval}", ['bold' => true, 'size' => 12]);
         $section->addTextBreak();
 
+        // Загружаем продукты заказа
         $orderProducts = DB::table('order_products')
             ->where('order_id', $order->id)
             ->get();
 
+        // Группируем по подкатегориям
+        $productsData = [];
+
         foreach ($orderProducts as $op) {
             $product = DB::table('products')->where('id', $op->product_id)->first();
+            $subcategory = DB::table('subcategories')->where('id', $product->subcategory_id)->first();
 
-            $section->addText("⬜ {$product->name_ru} {$product->weight} x {$op->product_quantity} ({$product->price_cost} тенге, {$op->product_price_with_discount} тенге)", ['size' => 12]);
+            $subcategoryName = $subcategory->name_ru ?? 'Без подкатегории';
+
+            $productsData[$subcategoryName][] = [
+                'name' => $product->name_ru,
+                'weight' => $product->weight,
+                'quantity' => $op->product_quantity,
+                'price_cost' => $product->price_cost,
+                'price_discount' => $op->product_price_with_discount,
+            ];
+        }
+
+        // Сортировка по подкатегориям
+        ksort($productsData);
+
+        foreach ($productsData as $subcategoryName => $products) {
+            // Заголовок подкатегории (жирная часть + обычная в одной строке)
+            $textRun = $section->addTextRun();
+            $textRun->addText('Подкатегория: ', ['bold' => true, 'size' => 13]);
+            $textRun->addText($subcategoryName, ['size' => 13]);
             $section->addTextBreak();
+
+            // Продукты
+            foreach ($products as $product) {
+                $textRun = $section->addTextRun();
+                $textRun->addText("⬜ {$product['name']} {$product['weight']} ", ['size' => 12]);
+                $textRun->addText("({$product['price_cost']}₸, {$product['price_discount']}₸) ", ['italic' => true, 'size' => 12]);
+                $textRun->addText("x{$product['quantity']}", ['bold' => true, 'size' => 12]);
+            }
+
+            $section->addTextBreak(); // Пустая строка между подкатегориями
         }
 
         $writer = IOFactory::createWriter($phpWord, 'Word2007');
