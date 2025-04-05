@@ -86,12 +86,14 @@ class DailyOrdersCommand extends Command
             ksort($productsData);
 
             foreach ($productsData as $subcategoryName => $products) {
-                $section->addText("📂 Подкатегория: {$subcategoryName}", ['bold' => true, 'size' => 13]);
+                $section->addText("Подкатегория: {$subcategoryName}", ['bold' => true, 'size' => 13]);
                 $section->addTextBreak();
 
                 foreach ($products as $product) {
-                    $section->addText("⬜ {$product['name']} {$product['weight']} x {$product['quantity']} ({$product['price_cost']} тенге, {$product['price_discount']} тенге)", ['size' => 12]);
-                    $section->addTextBreak();
+                    $textRun = $section->addTextRun();
+
+                    $textRun->addText("⬜ {$product['name']} {$product['weight']} ({$product['price_cost']} тенге, {$product['price_discount']} тенге) ", ['size' => 12]);
+                    $textRun->addText("КОЛИЧЕСТВО: x {$product['quantity']}", ['bold' => true, 'size' => 12]);
                 }
 
                 $section->addText(''); // пустая строка между подкатегориями
