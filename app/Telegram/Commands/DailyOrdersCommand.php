@@ -65,12 +65,38 @@ class DailyOrdersCommand extends Command
                 ->where('order_id', $order->id)
                 ->get();
 
+            $productsData = [];
+
             foreach ($orderProducts as $op) {
                 $product = DB::table('products')->where('id', $op->product_id)->first();
+                $subcategory = DB::table('subcategories')->where('id', $product->subcategory_id)->first();
 
-                $section->addText("⬜ {$product->name_ru} {$product->weight} x {$op->product_quantity} ({$product->price_cost} тенге, {$op->product_price_with_discount} тенге)", ['size' => 12]);
-                $section->addTextBreak();
+                $subcategoryName = $subcategory->name_ru ?? 'Без подкатегории';
+
+                $productsData[$subcategoryName][] = [
+                    'name' => $product->name_ru,
+                    'weight' => $product->weight,
+                    'quantity' => $op->product_quantity,
+                    'price_cost' => $product->price_cost,
+                    'price_discount' => $op->product_price_with_discount,
+                ];
             }
+
+            // Сортировка по названию подкатегорий
+            ksort($productsData);
+
+            foreach ($productsData as $subcategoryName => $products) {
+                $section->addText("📂 Подкатегория: {$subcategoryName}", ['bold' => true, 'size' => 13]);
+                $section->addTextBreak();
+
+                foreach ($products as $product) {
+                    $section->addText("⬜ {$product['name']} {$product['weight']} x {$product['quantity']} ({$product['price_cost']} тенге, {$product['price_discount']} тенге)", ['size' => 12]);
+                    $section->addTextBreak();
+                }
+
+                $section->addText(''); // пустая строка между подкатегориями
+            }
+
 
             $section->addText('------------------------');
             $section->addPageBreak();
