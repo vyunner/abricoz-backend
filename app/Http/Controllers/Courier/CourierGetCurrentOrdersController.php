@@ -19,7 +19,15 @@ class CourierGetCurrentOrdersController extends Controller
         }
 
         // Получаем интервалы доставки в нужном порядке (из БД)
-        $intervalNamesInOrder = DeliveryInterval::orderBy('id')->pluck('name')->toArray();
+        $intervalNamesInOrder = DeliveryInterval::all()
+            ->sortBy(function ($interval) {
+                // Извлекаем начало интервала, например "07:00" из "07:00 - 10:00"
+                $startTime = explode(' - ', $interval->name)[0];
+                return strtotime($startTime);
+            })
+            ->pluck('name')
+            ->values()
+            ->toArray();
 
         // Получаем заказы курьера со всеми нужными связями
         $orders = Order::whereIn('order_status_id', [1, 2, 3, 4])
