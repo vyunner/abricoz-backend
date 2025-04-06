@@ -28,7 +28,7 @@ class DeliveryIntervalIndexController extends Controller
             ->get();
 
         $dates = [
-//            today(), // Добавляем текущий день
+            today(), // Добавляем текущий день
             today()->addDays(1),
 //            today()->addDays(2),
         ];
@@ -58,14 +58,14 @@ class DeliveryIntervalIndexController extends Controller
 
                 if ($current_time->lessThan($start_datetime)) {
                     // Если сегодня и время до 12:00, оставляем только интервалы после 18:00
-                    if ($onlyEveningToday && $dateFormatted === $current_date && strtotime($interval['start_time']) < strtotime('18:00')) {
-                        continue; // Пропускаем дневные интервалы
-                    }
-
-                    // Если уже после 12:00, сегодняшние интервалы не выводим
-                    if (!$onlyEveningToday && $dateFormatted === $current_date) {
-                        continue;
-                    }
+//                    if ($onlyEveningToday && $dateFormatted === $current_date && strtotime($interval['start_time']) < strtotime('18:00')) {
+//                        continue; // Пропускаем дневные интервалы
+//                    }
+//
+//                    // Если уже после 12:00, сегодняшние интервалы не выводим
+//                    if (!$onlyEveningToday && $dateFormatted === $current_date) {
+//                        continue;
+//                    }
 
                     $available_intervals[$dateFormatted][] = $interval;
                 }
