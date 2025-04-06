@@ -14,7 +14,7 @@ class WarehousemanIndexController extends Controller
 {
     /**
      * Отображение списка заказов со статусом 1 и 2
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function __invoke()
@@ -29,7 +29,7 @@ class WarehousemanIndexController extends Controller
             ->leftJoin('delivery_intervals', 'orders.delivery_interval_id', '=', 'delivery_intervals.id')
             ->leftJoin('order_statuses', 'orders.order_status_id', '=', 'order_statuses.id')
             ->orderBy('orders.delivery_date', 'asc')
-            ->orderBy('orders.delivery_interval_id', 'asc')
+            ->orderByRaw("STR_TO_DATE(SUBSTRING_INDEX(delivery_intervals.name, ' - ', 1), '%H:%i') ASC")
             ->get([
                 'orders.id',
                 'orders.order_status_id',
