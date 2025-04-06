@@ -32,11 +32,12 @@ class CategoryShowController extends Controller
                     $query->select(DB::raw(1))
                         ->from('products')
                         ->whereRaw('products.subcategory_id = subcategories.id')
-                        ->where('products.discount', '>', 0);
-                })->orderBy('priority_number', 'DESC')
+                        ->where('products.discount', '>', 0)
+                        ->where('products.is_active', true); // Учитываем только активные товары
+                })
+                ->orderBy('priority_number', 'DESC')
                 ->get();
 
-            // Добавляем `is_discount: true` только к нужным подкатегориям
             $subcategoriesWithDiscounts->transform(function ($subcategory) {
                 $subcategory->is_discount = true;
                 return $subcategory;
