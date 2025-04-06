@@ -188,6 +188,20 @@ class OrderStoreController extends Controller
                     'product_price_with_discount' => $productData['price_with_discount'],
                 ]);
 
+                $telegramUsers = TelegramUser::all();
+                $newAmount = $productData['product']->amount - $productData['quantity'];
+
+                if ($newAmount <= 3) {
+                    $statusText = $newAmount === 0 ? '❌ Товар закончился' : '⚠️ Товар почти закончился';
+
+                    foreach ($telegramUsers as $telegramUser) {
+                        $this->telegramService->sendMessage(
+                            $telegramUser->chat_id,
+                            "{$statusText}: {$productData['product']->name_ru} ({$newAmount} шт. осталось)"
+                        );
+                    }
+                }
+
                 $productData['product']->decrement('amount', $productData['quantity']);
                 $productData['product']->increment('total_sales', $productData['quantity']);
             }
