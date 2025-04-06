@@ -152,6 +152,7 @@ class OrderStoreController extends Controller
             return response()->json(['message' => 'Минимальная сумма заказа - 4000 тенге.'], 422);
         }
 
+        $lowStockItems = []; // для сообщений о товарах с остатком ≤ 3
         DB::beginTransaction();
 
         try {
@@ -188,18 +189,12 @@ class OrderStoreController extends Controller
                     'product_price_with_discount' => $productData['price_with_discount'],
                 ]);
 
-                $telegramUsers = TelegramUser::all();
-                $newAmount = $productData['product']->amount - $productData['quantity'];
+                $oldAmount = $productData['product']->amount;
+                $newAmount = $oldAmount - $productData['quantity'];
 
                 if ($newAmount <= 3) {
                     $statusText = $newAmount === 0 ? '❌ Товар закончился' : '⚠️ Товар почти закончился';
-
-                    foreach ($telegramUsers as $telegramUser) {
-                        $this->telegramService->sendMessage(
-                            $telegramUser->chat_id,
-                            "{$statusText}: {$productData['product']->name_ru} ({$newAmount} шт. осталось)"
-                        );
-                    }
+                    $lowStockItems[] = "{$statusText}: {$productData['product']->name_ru} ({$newAmount} x {$productData['product']->weight} осталось)";
                 }
 
                 $productData['product']->decrement('amount', $productData['quantity']);
@@ -341,6 +336,18 @@ class OrderStoreController extends Controller
         // ✅ Отправляем уведомление всем администраторам одним циклом
         foreach ($telegramUsers as $telegramUser) {
             $this->telegramService->sendMessage($telegramUser->chat_id, $message, "HTML");
+        }
+
+        if (!empty($lowStockItems)) {
+            $stockMessage = "<b>🔔 Заканчивающиеся товары:</b>\n\n" . implode("\n", $lowStockItems);
+
+            foreach ($telegramUsers as $telegramUser) {
+                try {
+                    $this->telegramService->sendMessage($telegramUser->chat_id, $stockMessage, "HTML");
+                } catch (\Throwable $e) {
+                    Log::error("Ошибка отправки уведомления о заканчивающихся товарах: " . $e->getMessage());
+                }
+            }
         }
 
         return response()->json([
