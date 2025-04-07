@@ -44,6 +44,7 @@ return [
                 \App\Telegram\Commands\DailyOrdersCommand::class,
                 \App\Telegram\Commands\OrderByIdCommand::class,
                 \App\Telegram\Commands\ProductsByDayCommand::class,
+                \App\Telegram\Commands\RemainingProductsCommand::class,
             ],
         ],
 
