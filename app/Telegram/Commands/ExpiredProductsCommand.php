@@ -19,7 +19,7 @@ class ExpiredProductsCommand extends Command
 
         $products = DB::table('products')
             ->where('is_active', 1)
-            ->where('amount', '<=', 5)
+            ->where('amount', '<=', 3)
             ->get();
 
         if ($products->isEmpty()) {
@@ -44,16 +44,13 @@ class ExpiredProductsCommand extends Command
             ];
         }
 
-        // Сортируем подкатегории по алфавиту
+        // Сортировка подкатегорий по алфавиту
         ksort($grouped);
 
-        // Сортировка внутри подкатегорий:
-        // Сначала amount == 0, потом по возрастанию
+        // Сортировка продуктов внутри подкатегории по убыванию amount
         foreach ($grouped as &$productsList) {
             usort($productsList, function ($a, $b) {
-                if ($a['amount'] == 0 && $b['amount'] != 0) return -1;
-                if ($a['amount'] != 0 && $b['amount'] == 0) return 1;
-                return $a['amount'] <=> $b['amount'];
+                return $b['amount'] <=> $a['amount'];
             });
         }
         unset($productsList);
