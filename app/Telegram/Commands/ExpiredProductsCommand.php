@@ -68,9 +68,9 @@ class ExpiredProductsCommand extends Command
             $section->addTextBreak();
 
             foreach ($productsList as $product) {
-                $symbol = $product['amount'] == 0 ? '🟥' : '🟨';
+                $status = $product['amount'] == 0 ? '[нет]' : '[мало]';
                 $textRun = $section->addTextRun();
-                $textRun->addText("{$symbol} {$product['name']} {$product['weight']} — ", ['size' => 12]);
+                $textRun->addText("{$status} {$product['name']} {$product['weight']} — ", ['size' => 12]);
                 $textRun->addText("*{$product['amount']}", ['bold' => true, 'size' => 18]);
             }
 
@@ -86,7 +86,7 @@ class ExpiredProductsCommand extends Command
             'chat_id' => $chatId,
             'document' => fopen($tempFilePath, 'r'),
             'filename' => "expired_{$date}.docx",
-            'caption' => "📉 Закончившиеся и заканчивающиеся продукты на {$date}",
+            'caption' => "Закончившиеся и заканчивающиеся продукты на {$date}",
         ]);
 
         unlink($tempFilePath);

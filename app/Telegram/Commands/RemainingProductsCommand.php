@@ -78,7 +78,7 @@ class RemainingProductsCommand extends Command
 
             foreach ($products as $product) {
                 $textRun = $section->addTextRun();
-                $textRun->addText("⬜ {$product['name']} {$product['weight']} — ", ['size' => 12]);
+                $textRun->addText("{$product['name']} {$product['weight']} — ", ['size' => 12]);
                 $textRun->addText("*{$product['amount']}", ['bold' => true, 'size' => 18]);
             }
 
@@ -94,7 +94,7 @@ class RemainingProductsCommand extends Command
             'chat_id' => $chatId,
             'document' => fopen($tempFilePath, 'r'),
             'filename' => "remaining_{$date}.docx",
-            'caption' => "📦 Остатки продуктов на {$date}",
+            'caption' => "Остатки продуктов на {$date}",
         ]);
 
         unlink($tempFilePath);
