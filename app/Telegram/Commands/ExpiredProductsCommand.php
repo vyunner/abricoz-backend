@@ -25,7 +25,7 @@ class ExpiredProductsCommand extends Command
         if ($products->isEmpty()) {
             Telegram::sendMessage([
                 'chat_id' => $chatId,
-                'text' => 'Нет продуктов, которые закончились или заканчиваются 😊',
+                'text' => 'Нет продуктов, которые закончились или заканчиваются',
             ]);
             return;
         }
@@ -68,9 +68,9 @@ class ExpiredProductsCommand extends Command
             $section->addTextBreak();
 
             foreach ($productsList as $product) {
-                $status = $product['amount'] == 0 ? '[нет]' : '[мало]';
+                $symbol = $product['amount'] == 0 ? '🟥' : '🟨';
                 $textRun = $section->addTextRun();
-                $textRun->addText("{$status} {$product['name']} {$product['weight']} — ", ['size' => 12]);
+                $textRun->addText("{$symbol} {$product['name']} {$product['weight']} — ", ['size' => 12]);
                 $textRun->addText("*{$product['amount']}", ['bold' => true, 'size' => 18]);
             }
 
@@ -86,7 +86,7 @@ class ExpiredProductsCommand extends Command
             'chat_id' => $chatId,
             'document' => fopen($tempFilePath, 'r'),
             'filename' => "expired_{$date}.docx",
-            'caption' => "Закончившиеся и заканчивающиеся продукты на {$date}",
+            'caption' => "📉 Закончившиеся и заканчивающиеся продукты на {$date}",
         ]);
 
         unlink($tempFilePath);
