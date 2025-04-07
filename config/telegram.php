@@ -45,6 +45,7 @@ return [
                 \App\Telegram\Commands\OrderByIdCommand::class,
                 \App\Telegram\Commands\ProductsByDayCommand::class,
                 \App\Telegram\Commands\RemainingProductsCommand::class,
+                \App\Telegram\Commands\ExpiredProductsCommand::class
             ],
         ],
 
