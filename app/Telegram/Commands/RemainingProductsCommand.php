@@ -19,12 +19,13 @@ class RemainingProductsCommand extends Command
 
         $products = DB::table('products')
             ->where('is_active', 1)
+            ->where('amount', '>', 0)
             ->get();
 
         if ($products->isEmpty()) {
             Telegram::sendMessage([
                 'chat_id' => $chatId,
-                'text' => 'Активных продуктов не найдено.',
+                'text' => 'Активных продуктов с остатками не найдено.',
             ]);
             return;
         }
@@ -53,7 +54,14 @@ class RemainingProductsCommand extends Command
         arsort($subcategoryTotals); // сортировка подкатегорий по сумме
         $sortedGrouped = [];
         foreach (array_keys($subcategoryTotals) as $subcategoryName) {
-            $sortedGrouped[$subcategoryName] = $grouped[$subcategoryName];
+            $products = $grouped[$subcategoryName];
+
+            // сортировка продуктов внутри подкатегории по amount убыванию
+            usort($products, function ($a, $b) {
+                return $b['amount'] <=> $a['amount'];
+            });
+
+            $sortedGrouped[$subcategoryName] = $products;
         }
 
         // Создание Word-документа
