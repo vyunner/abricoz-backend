@@ -95,20 +95,16 @@ class RemainingProductsCommand extends Command
         $htmlWriter->save($htmlPath);
 
         // Отправка двух документов
-        Telegram::sendMediaGroup([
+        Telegram::sendDocument([
             'chat_id' => $chatId,
-            'media' => [
-                [
-                    'type' => 'document',
-                    'media' => InputFile::create($wordPath),
-                    'caption' => "📄 DOCX: Остатки на {$date}",
-                ],
-                [
-                    'type' => 'document',
-                    'media' => InputFile::create($htmlPath),
-                    'caption' => "🌐 HTML: Остатки на {$date}",
-                ],
-            ],
+            'document' => InputFile::create($wordPath),
+            'caption' => "📄 DOCX: Остатки на {$date}",
+        ]);
+
+        Telegram::sendDocument([
+            'chat_id' => $chatId,
+            'document' => InputFile::create($htmlPath),
+            'caption' => "🌐 HTML: Остатки на {$date}",
         ]);
 
         // Удаляем временные файлы
