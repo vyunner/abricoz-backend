@@ -4,6 +4,7 @@ namespace App\Telegram\Commands;
 
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\FileUpload\InputFile;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
@@ -47,15 +48,13 @@ class ExpiredProductsCommand extends Command
         // Сортировка подкатегорий по алфавиту
         ksort($grouped);
 
-        // Сортировка продуктов внутри подкатегории по убыванию amount
+        // Сортировка продуктов внутри подкатегории
         foreach ($grouped as &$productsList) {
-            usort($productsList, function ($a, $b) {
-                return $b['amount'] <=> $a['amount'];
-            });
+            usort($productsList, fn($a, $b) => $b['amount'] <=> $a['amount']);
         }
         unset($productsList);
 
-        // Генерация Word-документа
+        // Генерация Word и HTML документов
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
         $section->addText("Закончившиеся и заканчивающиеся продукты", ['bold' => true, 'size' => 16]);
@@ -77,18 +76,34 @@ class ExpiredProductsCommand extends Command
             $section->addTextBreak();
         }
 
-        $writer = IOFactory::createWriter($phpWord, 'Word2007');
+        // Сохраняем документы
         $date = now()->format('Y-m-d');
-        $tempFilePath = storage_path("app/expired_{$date}_" . uniqid() . ".docx");
-        $writer->save($tempFilePath);
+        $unique = uniqid();
+        $filenameBase = "expired_{$date}_{$unique}";
+        $wordPath = storage_path("app/{$filenameBase}.docx");
+        $htmlPath = storage_path("app/{$filenameBase}.html");
+
+        $wordWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        $wordWriter->save($wordPath);
+
+        $htmlWriter = IOFactory::createWriter($phpWord, 'HTML');
+        $htmlWriter->save($htmlPath);
+
+        // Отправляем два файла отдельно
+        Telegram::sendDocument([
+            'chat_id' => $chatId,
+            'document' => InputFile::create($wordPath),
+            'caption' => "📄 DOCX: Закончившиеся продукты на {$date}",
+        ]);
 
         Telegram::sendDocument([
             'chat_id' => $chatId,
-            'document' => fopen($tempFilePath, 'r'),
-            'filename' => "expired_{$date}.docx",
-            'caption' => "📉 Закончившиеся и заканчивающиеся продукты на {$date}",
+            'document' => InputFile::create($htmlPath),
+            'caption' => "🌐 HTML: Закончившиеся продукты на {$date}",
         ]);
 
-        unlink($tempFilePath);
+        // Удаляем временные файлы
+        unlink($wordPath);
+        unlink($htmlPath);
     }
 }
