@@ -19,7 +19,6 @@ class RemainingProductsCommand extends Command
 
         $products = DB::table('products')
             ->where('is_active', 1)
-            ->where('amount', '>', 0)
             ->get();
 
         if ($products->isEmpty()) {
