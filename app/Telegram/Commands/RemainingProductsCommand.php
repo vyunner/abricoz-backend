@@ -31,7 +31,6 @@ class RemainingProductsCommand extends Command
 
         // Группировка по подкатегориям
         $grouped = [];
-
         foreach ($products as $product) {
             $subcategory = DB::table('subcategories')->where('id', $product->subcategory_id)->first();
             $subcategoryName = $subcategory->name_ru ?? 'Без подкатегории';
@@ -50,12 +49,11 @@ class RemainingProductsCommand extends Command
             $subcategoryTotals[$subcategoryName] = $totalAmount;
         }
 
-        arsort($subcategoryTotals); // сортировка подкатегорий по сумме
+        arsort($subcategoryTotals);
         $sortedGrouped = [];
         foreach (array_keys($subcategoryTotals) as $subcategoryName) {
             $products = $grouped[$subcategoryName];
 
-            // сортировка продуктов внутри подкатегории по amount убыванию
             usort($products, function ($a, $b) {
                 return $b['amount'] <=> $a['amount'];
             });
@@ -84,18 +82,38 @@ class RemainingProductsCommand extends Command
             $section->addTextBreak();
         }
 
-        $writer = IOFactory::createWriter($phpWord, 'Word2007');
         $date = now()->format('Y-m-d');
-        $tempFilePath = storage_path("app/remaining_{$date}_" . uniqid() . ".docx");
-        $writer->save($tempFilePath);
+        $unique = uniqid();
+        $filenameBase = "remaining_{$date}_{$unique}";
+        $wordPath = storage_path("app/{$filenameBase}.docx");
+        $htmlPath = storage_path("app/{$filenameBase}.html");
 
-        Telegram::sendDocument([
+        // Сохраняем DOCX
+        $wordWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        $wordWriter->save($wordPath);
+
+        // Сохраняем HTML
+        $htmlWriter = IOFactory::createWriter($phpWord, 'HTML');
+        $htmlWriter->save($htmlPath);
+
+        // Отправляем два файла в одном сообщении
+        Telegram::sendMediaGroup([
             'chat_id' => $chatId,
-            'document' => fopen($tempFilePath, 'r'),
-            'filename' => "remaining_{$date}.docx",
-            'caption' => "📦 Остатки продуктов на {$date}",
+            'media' => [
+                [
+                    'type' => 'document',
+                    'media' => Telegram::uploadFile($wordPath),
+                    'caption' => "📄 DOCX: Остатки на {$date}",
+                ],
+                [
+                    'type' => 'document',
+                    'media' => Telegram::uploadFile($htmlPath),
+                    'caption' => "🌐 HTML: Остатки на {$date}",
+                ],
+            ],
         ]);
 
-        unlink($tempFilePath);
+        unlink($wordPath);
+        unlink($htmlPath);
     }
 }
