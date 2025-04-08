@@ -102,12 +102,12 @@ class RemainingProductsCommand extends Command
             'media' => [
                 [
                     'type' => 'document',
-                    'media' => Telegram::uploadFile($wordPath),
+                    'media' => fopen($wordPath, 'r'),
                     'caption' => "📄 DOCX: Остатки на {$date}",
                 ],
                 [
                     'type' => 'document',
-                    'media' => Telegram::uploadFile($htmlPath),
+                    'media' => fopen($htmlPath, 'r'),
                     'caption' => "🌐 HTML: Остатки на {$date}",
                 ],
             ],
