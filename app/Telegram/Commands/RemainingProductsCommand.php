@@ -77,7 +77,7 @@ class RemainingProductsCommand extends Command
 
             foreach ($products as $product) {
                 $textRun = $section->addTextRun();
-                $textRun->addText("⬜ {$product['name']} {$product['weight']} — ", ['size' => 12]);
+                $textRun->addText("{$product['name']} {$product['weight']} — ", ['size' => 12]);
                 $textRun->addText("*{$product['amount']}", ['bold' => true, 'size' => 18]);
             }
 
