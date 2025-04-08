@@ -4,6 +4,7 @@ namespace App\Telegram\Commands;
 
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\FileUpload\InputFile;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
@@ -42,7 +43,7 @@ class RemainingProductsCommand extends Command
             ];
         }
 
-        // Сортировка подкатегорий по суммарному amount (по убыванию)
+        // Сортировка подкатегорий по суммарному amount
         $subcategoryTotals = [];
         foreach ($grouped as $subcategoryName => $products) {
             $totalAmount = array_sum(array_column($products, 'amount'));
@@ -53,11 +54,7 @@ class RemainingProductsCommand extends Command
         $sortedGrouped = [];
         foreach (array_keys($subcategoryTotals) as $subcategoryName) {
             $products = $grouped[$subcategoryName];
-
-            usort($products, function ($a, $b) {
-                return $b['amount'] <=> $a['amount'];
-            });
-
+            usort($products, fn($a, $b) => $b['amount'] <=> $a['amount']);
             $sortedGrouped[$subcategoryName] = $products;
         }
 
@@ -82,6 +79,7 @@ class RemainingProductsCommand extends Command
             $section->addTextBreak();
         }
 
+        // Пути и имена файлов
         $date = now()->format('Y-m-d');
         $unique = uniqid();
         $filenameBase = "remaining_{$date}_{$unique}";
@@ -96,23 +94,24 @@ class RemainingProductsCommand extends Command
         $htmlWriter = IOFactory::createWriter($phpWord, 'HTML');
         $htmlWriter->save($htmlPath);
 
-        // Отправляем два файла в одном сообщении
+        // Отправка двух документов
         Telegram::sendMediaGroup([
             'chat_id' => $chatId,
             'media' => [
                 [
                     'type' => 'document',
-                    'media' => fopen($wordPath, 'r'),
+                    'media' => InputFile::create($wordPath),
                     'caption' => "📄 DOCX: Остатки на {$date}",
                 ],
                 [
                     'type' => 'document',
-                    'media' => fopen($htmlPath, 'r'),
+                    'media' => InputFile::create($htmlPath),
                     'caption' => "🌐 HTML: Остатки на {$date}",
                 ],
             ],
         ]);
 
+        // Удаляем временные файлы
         unlink($wordPath);
         unlink($htmlPath);
     }
