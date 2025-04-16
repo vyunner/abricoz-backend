@@ -189,12 +189,16 @@ class OrderStoreController extends Controller
                     'product_price_with_discount' => $productData['price_with_discount'],
                 ]);
 
-                $oldAmount = $productData['product']->amount;
-                $newAmount = $oldAmount - $productData['quantity'];
+                $oldAmount = $productData['stock_quantity'];
+                $newAmount = $oldAmount - $productData['stock_quantity'];
 
-                if ($newAmount <= 3) {
-                    $statusText = $newAmount === 0 ? '❌ Товар закончился' : '⚠️ Товар почти закончился';
+                if ($newAmount <= 1 && $newAmount >= 0) {
+                    $statusText = $newAmount === 0 ? '⚠️ Товар закончился' : '⚠️ Товар почти закончился';
                     $lowStockItems[] = "{$statusText}: {$productData['product']->name_ru} ({$newAmount} x {$productData['product']->weight} осталось)";
+                }
+                elseif ($newAmount < 0) {
+                    $statusText = '❌ Закупить, не хватает на складе';
+                    $lowStockItems[] = "{$statusText}: {$productData['product']->name_ru} (" . abs($newAmount) . " x {$productData['product']->weight})";
                 }
 
                 $productData['product']->decrement('amount', $productData['quantity']);
