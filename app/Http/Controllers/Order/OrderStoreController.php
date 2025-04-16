@@ -203,7 +203,7 @@ class OrderStoreController extends Controller
                 }
 
                 $productData['product']->decrement('amount', $productData['quantity']);
-                $productData['product']->decrement('stock_quantity', $productData['stock_quantity']);
+                $productData['product']->decrement('stock_quantity', $productData['quantity']);
                 $productData['product']->increment('total_sales', $productData['quantity']);
             }
 
