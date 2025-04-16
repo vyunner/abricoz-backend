@@ -39,22 +39,22 @@ class RemainingProductsCommand extends Command
             $grouped[$subcategoryName][] = [
                 'name' => $product->name_ru,
                 'weight' => $product->weight,
-                'amount' => $product->amount,
+                'stock_quantity' => $product->stock_quantity,
             ];
         }
 
-        // Сортировка подкатегорий по суммарному amount
+        // Сортировка подкатегорий по суммарному stock_quantity
         $subcategoryTotals = [];
         foreach ($grouped as $subcategoryName => $products) {
-            $totalAmount = array_sum(array_column($products, 'amount'));
-            $subcategoryTotals[$subcategoryName] = $totalAmount;
+            $totalStock = array_sum(array_column($products, 'stock_quantity'));
+            $subcategoryTotals[$subcategoryName] = $totalStock;
         }
 
         arsort($subcategoryTotals);
         $sortedGrouped = [];
         foreach (array_keys($subcategoryTotals) as $subcategoryName) {
             $products = $grouped[$subcategoryName];
-            usort($products, fn($a, $b) => $b['amount'] <=> $a['amount']);
+            usort($products, fn($a, $b) => $b['stock_quantity'] <=> $a['stock_quantity']);
             $sortedGrouped[$subcategoryName] = $products;
         }
 
@@ -73,7 +73,7 @@ class RemainingProductsCommand extends Command
             foreach ($products as $product) {
                 $textRun = $section->addTextRun();
                 $textRun->addText("{$product['name']} {$product['weight']} — ", ['size' => 12]);
-                $textRun->addText("*{$product['amount']}", ['bold' => true, 'size' => 18]);
+                $textRun->addText("*{$product['stock_quantity']}", ['bold' => true, 'size' => 18]);
             }
 
             $section->addTextBreak();

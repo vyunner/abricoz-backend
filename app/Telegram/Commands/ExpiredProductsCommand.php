@@ -20,7 +20,7 @@ class ExpiredProductsCommand extends Command
 
         $products = DB::table('products')
             ->where('is_active', 1)
-            ->where('amount', '<=', 3)
+            ->where('stock_quantity', '<=', 3) // ✅ заменено с amount на stock_quantity
             ->get();
 
         if ($products->isEmpty()) {
@@ -41,7 +41,7 @@ class ExpiredProductsCommand extends Command
             $grouped[$subcategoryName][] = [
                 'name' => $product->name_ru,
                 'weight' => $product->weight,
-                'amount' => $product->amount,
+                'stock_quantity' => $product->stock_quantity, // ✅ заменено
             ];
         }
 
@@ -50,7 +50,7 @@ class ExpiredProductsCommand extends Command
 
         // Сортировка продуктов внутри подкатегории
         foreach ($grouped as &$productsList) {
-            usort($productsList, fn($a, $b) => $b['amount'] <=> $a['amount']);
+            usort($productsList, fn($a, $b) => $b['stock_quantity'] <=> $a['stock_quantity']); // ✅ заменено
         }
         unset($productsList);
 
@@ -67,10 +67,10 @@ class ExpiredProductsCommand extends Command
             $section->addTextBreak();
 
             foreach ($productsList as $product) {
-                $symbol = $product['amount'] == 0 ? '🟥' : '🟨';
+                $symbol = $product['stock_quantity'] == 0 ? '🟥' : '🟨'; // ✅ заменено
                 $textRun = $section->addTextRun();
                 $textRun->addText("{$symbol} {$product['name']} {$product['weight']} — ", ['size' => 12]);
-                $textRun->addText("*{$product['amount']}", ['bold' => true, 'size' => 18]);
+                $textRun->addText("*{$product['stock_quantity']}", ['bold' => true, 'size' => 18]); // ✅ заменено
             }
 
             $section->addTextBreak();
