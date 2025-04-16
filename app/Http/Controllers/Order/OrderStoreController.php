@@ -193,7 +193,7 @@ class OrderStoreController extends Controller
 
                 if ($remaining <= 1) {
                     if ($remaining < 0) {
-                        $statusText = '❌ Закупить, не хватает на складе';
+                        $statusText = '❌ Закупить';
                         $lowStockItems[] = "{$statusText}: {$productData['product']->name_ru} (" . abs($remaining) . " x {$productData['product']->weight})";
                     } else {
                         $statusText = $remaining === 0 ? '⚠️ Товар закончился' : '⚠️ Товар почти закончился';
