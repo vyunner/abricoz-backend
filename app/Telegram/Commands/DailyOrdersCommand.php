@@ -57,8 +57,14 @@ class DailyOrdersCommand extends Command
                 ->where('id', $order->delivery_interval_id)
                 ->value('name');
 
+            // Формируем адрес
+            $address = "{$order->address_street_and_house}, кв. {$order->address_apartment}, под. {$order->address_entrance}, эт. {$order->address_floor}";
+            $comment = $order->address_comment ? "Комментарий: {$order->address_comment}" : "Комментарий: —";
+
             $section->addText("Заказ №: {$order->id}", ['bold' => true, 'size' => 14]);
             $section->addText("Временной интервал: {$deliveryInterval}", ['bold' => true, 'size' => 14]);
+            $section->addText("Адрес: {$address}", ['size' => 12]);
+            $section->addText($comment, ['size' => 12]);
             $section->addTextBreak();
 
             $orderProducts = DB::table('order_products')
@@ -91,14 +97,12 @@ class DailyOrdersCommand extends Command
 
                 foreach ($products as $product) {
                     $textRun = $section->addTextRun();
-
                     $textRun->addText("⬜ {$product['name']} {$product['weight']} ({$product['price_cost']} тенге, {$product['price_discount']} тенге) ", ['size' => 12]);
                     $textRun->addText("*{$product['quantity']}", ['bold' => true, 'size' => 18]);
                 }
 
                 $section->addText(''); // пустая строка между подкатегориями
             }
-
 
             $section->addText('------------------------');
             $section->addPageBreak();
