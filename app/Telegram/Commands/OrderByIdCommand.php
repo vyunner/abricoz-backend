@@ -51,9 +51,21 @@ class OrderByIdCommand extends Command
             ->where('id', $order->delivery_interval_id)
             ->value('name');
 
+        // Формируем адрес с обработкой null
+        $address = sprintf(
+            "%s, кв. %s, под. %s, эт. %s",
+            $order->address_street_and_house ?: '–',
+            $order->address_apartment ?: '–',
+            $order->address_entrance ?: '–',
+            $order->address_floor ?: '–'
+        );
+        $comment = $order->address_comment ? "Комментарий: {$order->address_comment}" : "Комментарий: –";
+
         $section->addText("Заказ №: {$order->id}", ['bold' => true, 'size' => 14]);
         $section->addText("Дата доставки: {$order->delivery_date}", ['bold' => true, 'size' => 12]);
         $section->addText("Временной интервал: {$deliveryInterval}", ['bold' => true, 'size' => 12]);
+        $section->addText("Адрес: {$address}", ['size' => 12]);
+        $section->addText($comment, ['size' => 12]);
         $section->addTextBreak();
 
         // Загружаем продукты заказа
@@ -83,21 +95,18 @@ class OrderByIdCommand extends Command
         ksort($productsData);
 
         foreach ($productsData as $subcategoryName => $products) {
-            // Заголовок подкатегории (жирная часть + обычная в одной строке)
             $textRun = $section->addTextRun();
             $textRun->addText('Подкатегория: ', ['bold' => true, 'size' => 13]);
             $textRun->addText($subcategoryName, ['size' => 13]);
             $section->addTextBreak();
 
-            // Продукты
             foreach ($products as $product) {
                 $textRun = $section->addTextRun();
-
                 $textRun->addText("⬜ {$product['name']} {$product['weight']} ({$product['price_cost']} тенге, {$product['price_discount']} тенге) ", ['size' => 12]);
                 $textRun->addText("*{$product['quantity']}", ['bold' => true, 'size' => 18]);
             }
 
-            $section->addTextBreak(); // Пустая строка между подкатегориями
+            $section->addTextBreak();
         }
 
         $writer = IOFactory::createWriter($phpWord, 'Word2007');
