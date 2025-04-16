@@ -32,6 +32,7 @@ class Product extends Model
         'price_cost',
         'total_sales',
         'amount',
+        'stock_quantity',
         'is_active',
     ];
 
