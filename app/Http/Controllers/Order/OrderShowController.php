@@ -34,10 +34,18 @@ class OrderShowController extends Controller
                 ->findOrFail($id);
         }
 
-        if ($user->hasRole('admin') || $order->user_id === $user->id) {
-            return $this->response($order, 'Заказ успешно отображен!');
+        if (!($user->hasRole('admin') || $order->user_id === $user->id)) {
+            return $this->response([], 'Вы не имеете доступа к этому заказу!', Response::HTTP_FORBIDDEN);
         }
 
-        return $this->response([], 'Вы не имеете доступа к этому заказу!', Response::HTTP_FORBIDDEN);
+        // Преобразуем order в массив и заменим цену товара на цену из order_products
+        $orderArray = $order->toArray();
+        $orderArray['products'] = $order->products->map(function ($product) {
+            $productArray = $product->toArray();
+            $productArray['price'] = $product->pivot->product_price_with_discount;
+            return $productArray;
+        })->toArray();
+
+        return $this->response($orderArray, 'Заказ успешно отображен!');
     }
 }
