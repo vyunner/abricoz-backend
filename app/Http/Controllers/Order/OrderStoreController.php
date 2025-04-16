@@ -127,7 +127,6 @@ class OrderStoreController extends Controller
             $productsData[] = [
                 'product' => $product,
                 'quantity' => $productItem['product_quantity'],
-                'stock_quantity' => $product->stock_quantity,
                 'price' => $product->price,
                 'discount' => $product->discount,
                 'price_with_discount' => $product->price_with_discount,
