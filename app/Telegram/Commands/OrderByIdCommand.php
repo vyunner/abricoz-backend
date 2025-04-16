@@ -64,8 +64,8 @@ class OrderByIdCommand extends Command
         $section->addText("Заказ №: {$order->id}", ['bold' => true, 'size' => 14]);
         $section->addText("Дата доставки: {$order->delivery_date}", ['bold' => true, 'size' => 12]);
         $section->addText("Временной интервал: {$deliveryInterval}", ['bold' => true, 'size' => 12]);
-        $section->addText("Адрес: {$address}", ['size' => 12]);
-        $section->addText($comment, ['size' => 12]);
+        $section->addText("Адрес: {$address}", ['bold' => true, 'size' => 12]);
+        $section->addText($comment, ['bold' => true, 'size' => 12]);
         $section->addTextBreak();
 
         // Загружаем продукты заказа
