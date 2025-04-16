@@ -46,6 +46,7 @@ class HeadWarehouseDeleteOrderController extends Controller
 
             if ($product) {
                 $product->amount += $orderProduct->product_quantity;
+                $product->stock_quantity += $orderProduct->stock_quantity;
                 $product->total_sales = max(0, $product->total_sales - $orderProduct->product_quantity);
                 $product->save();
             }
