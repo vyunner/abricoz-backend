@@ -16,6 +16,7 @@ class HeadWarehouseSearchProductController extends Controller
         $search = $validated['search'];
 
         $products = Product::where('name_ru', 'like', "%{$search}%")
+            ->orderByDesc('is_active')
             ->limit(20)
             ->get();
 
