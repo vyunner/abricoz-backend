@@ -27,11 +27,10 @@ class DeliveryIntervalIndexController extends Controller
             ->orderByRaw("STR_TO_DATE(SUBSTRING_INDEX(name, ' - ', 1), '%H:%i')")
             ->get();
 
-        $dates = [
-            today(), // Добавляем текущий день
+        $dates = collect([
+            today()->format('Y-m-d') !== '2025-04-21' ? today() : null,
             today()->addDays(1),
-//            today()->addDays(2),
-        ];
+        ])->filter();
 
         // Преобразуем интервалы в удобный формат
         $intervals = $intervals->map(function ($interval) {
