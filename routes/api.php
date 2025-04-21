@@ -240,3 +240,7 @@ Route::group(['prefix' => '/app'], function () {
 Route::group(['prefix' => '/ad'], function () {
     Route::post('/click', Controllers\Ad\AdClickController::class);
 });
+
+Route::group(['prefix' => '/pos'], function () {
+    Route::get('/search-product', Controllers\Pos\PosSearchProductController::class);
+});
