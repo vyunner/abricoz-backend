@@ -8,14 +8,13 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('barcode')->unique()->after('subcategory_id');
+            $table->string('barcode')->after('subcategory_id');
         });
     }
 
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropUnique(['barcode']);
             $table->dropColumn('barcode');
         });
     }
