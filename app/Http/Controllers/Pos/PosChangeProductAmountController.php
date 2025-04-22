@@ -12,8 +12,8 @@ class PosChangeProductAmountController extends Controller
     {
         $data = $request->validate([
             'product_id' => 'required|exists:products,id',
-            'stock_quantity' => 'required|integer',
-            'amount' => 'required|integer',
+            'stock_quantity' => 'nullable|integer',
+            'amount' => 'nullable|integer',
         ]);
 
         $product = Product::findOrFail($data['product_id']);
