@@ -242,6 +242,9 @@ Route::group(['prefix' => '/ad'], function () {
 });
 
 Route::group(['prefix' => '/pos'], function () {
+    Route::post('/auth-login', Controllers\Pos\PosAuthLoginController::class);
+    Route::post('/auth-code', Controllers\Pos\PosAuthCodeController::class);
+
     Route::group(['middleware' => ['auth:sanctum', 'role:admin|head-warehouse']], function () {
         Route::get('/search-product', Controllers\Pos\PosSearchProductController::class);
     });
