@@ -23,7 +23,7 @@ class PosAuthCodeController extends Controller
         ]);
 
         $code = mt_rand(100000, 999999);
-        // $code = 123456; // тестовый код
+         $code = 123456; // тестовый код
 
         $user = User::where('phone', $data['phone'])->first();
 
@@ -43,7 +43,7 @@ class PosAuthCodeController extends Controller
         $recipient = $data['phone'];
         $text = 'Спасибо за регистрацию на abricoz.kz! Ваш код подтверждения: ' . $code;
 
-        $this->mobizonService->sendSmsMessage($recipient, $text);
+//        $this->mobizonService->sendSmsMessage($recipient, $text);
 
         return response()->json(['message' => 'Код отправлен']);
     }
