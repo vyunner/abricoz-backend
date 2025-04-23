@@ -55,7 +55,7 @@ class DeliveryIntervalIndexController extends Controller
                 $dateFormatted = $date->format('Y-m-d');
                 $start_datetime = Carbon::createFromFormat('Y-m-d H:i', $dateFormatted . ' ' . $interval['start_time']);
 
-                if ($current_time->lessThan($start_datetime)) {
+                if ($current_time->lessThan($start_datetime->copy()->subMinutes(15))) {
                     // Если сегодня и время до 12:00, оставляем только интервалы после 18:00
 //                    if ($onlyEveningToday && $dateFormatted === $current_date && strtotime($interval['start_time']) < strtotime('18:00')) {
 //                        continue; // Пропускаем дневные интервалы
