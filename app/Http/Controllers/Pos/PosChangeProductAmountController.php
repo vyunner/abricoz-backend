@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pos;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\ProductLog;
 
 class PosChangeProductAmountController extends Controller
 {
@@ -14,14 +15,27 @@ class PosChangeProductAmountController extends Controller
             'product_id' => 'required|exists:products,id',
             'stock_quantity' => 'nullable|integer',
             'amount' => 'nullable|integer',
+            'price_cost' => 'nullable|integer',
+            'price' => 'nullable|integer',
         ]);
 
         $product = Product::findOrFail($data['product_id']);
 
-        $product->stock_quantity += $data['stock_quantity'];
-        $product->amount += $data['amount'];
+        $stockDelta = $data['stock_quantity'] ?? 0;
+        $amountDelta = $data['amount'] ?? 0;
 
+        $product->stock_quantity += $stockDelta;
+        $product->amount += $amountDelta;
         $product->save();
+
+        if ($stockDelta !== 0) {
+            ProductLog::create([
+                'product_id' => $product->id,
+                'stock_quantity' => $stockDelta,
+                'price_cost' => $data['price_cost'] ?? null,
+                'price' => $data['price'] ?? null,
+            ]);
+        }
 
         return response()->json($product);
     }
