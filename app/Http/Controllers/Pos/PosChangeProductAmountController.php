@@ -28,7 +28,7 @@ class PosChangeProductAmountController extends Controller
         $product->amount += $amountDelta;
         $product->save();
 
-        if ($stockDelta !== 0 || $amountDelta !== 0) {
+        if ($stockDelta !== 0) {
             ProductLog::create([
                 'product_id' => $product->id,
                 'stock_quantity' => $stockDelta,
