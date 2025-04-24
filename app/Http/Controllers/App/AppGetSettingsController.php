@@ -22,7 +22,7 @@ class AppGetSettingsController extends Controller
         return [
             'isAppActive' => 1,            // Приложение активно
             'minOrderAmount' => 5000,         // Минимальная сумма заказа
-            'isCashPaymentActive' => 0,   // Разрешена ли оплата наличными
+            'isCashPaymentActive' => 1,   // Разрешена ли оплата наличными
             'isBankPaymentActive' => 0   // Разрешена ли оплата банком
         ];
     }
