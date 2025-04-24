@@ -14,24 +14,33 @@ class PosChangeProductAmountController extends Controller
         $data = $request->validate([
             'product_id' => 'required|exists:products,id',
             'stock_quantity' => 'nullable|integer',
-            'amount' => 'nullable|inte  ger',
+            'amount' => 'nullable|integer',
             'price_cost' => 'nullable|integer',
             'price' => 'nullable|integer',
+            'discount' => 'nullable|integer',
+            'price_with_discount' => 'nullable|integer',
         ]);
 
         $product = Product::findOrFail($data['product_id']);
 
-        $stockDelta = array_key_exists('stock_quantity', $data) ? $data['stock_quantity'] : 0;
-        $amountDelta = array_key_exists('amount', $data) ? $data['amount'] : 0;
+        // Применяем изменения количества
+        $product->stock_quantity += $data['stock_quantity'] ?? 0;
+        $product->amount += $data['amount'] ?? 0;
 
-        $product->stock_quantity += $stockDelta;
-        $product->amount += $amountDelta;
+        // Обновляем переданные поля
+        foreach (['price', 'discount', 'price_with_discount', 'price_cost'] as $field) {
+            if (isset($data[$field])) {
+                $product->$field = $data[$field];
+            }
+        }
+
         $product->save();
 
-        if ($stockDelta !== 0) {
+        // Логируем только если изменён остаток на складе
+        if (!empty($data['stock_quantity'])) {
             ProductLog::create([
                 'product_id' => $product->id,
-                'stock_quantity' => $stockDelta,
+                'stock_quantity' => $data['stock_quantity'],
                 'price_cost' => $data['price_cost'] ?? null,
                 'price' => $data['price'] ?? null,
             ]);
