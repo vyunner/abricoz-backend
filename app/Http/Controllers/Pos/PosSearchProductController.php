@@ -15,16 +15,26 @@ class PosSearchProductController extends Controller
 
         if ($barcode) {
             $product = Product::where('barcode', $barcode)->first();
-        } elseif ($name) {
-            $product = Product::where('name_ru', 'like', '%' . $name . '%')->first();
-        } else {
-            return response()->json(['message' => 'Barcode or name is required'], 400);
+
+            if (!$product) {
+                return response()->json(['message' => 'Product not found'], 404);
+            }
+
+            return response()->json($product);
         }
 
-        if (!$product) {
-            return response()->json(['message' => 'Product not found'], 404);
+        if ($name) {
+            $products = Product::where('name_ru', 'like', '%' . $name . '%')
+                ->take(10)
+                ->get();
+
+            if ($products->isEmpty()) {
+                return response()->json(['message' => 'No products found'], 404);
+            }
+
+            return response()->json($products);
         }
 
-        return response()->json($product);
+        return response()->json(['message' => 'Barcode or name is required'], 400);
     }
 }
