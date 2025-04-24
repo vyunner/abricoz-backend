@@ -248,7 +248,7 @@ Route::group(['prefix' => '/pos'], function () {
     Route::group(['middleware' => ['auth:sanctum', 'role:admin|head-warehouse']], function () {
         Route::get('/search-product', Controllers\Pos\PosSearchProductController::class);
         Route::post('/change-product-amount', Controllers\Pos\PosChangeProductAmountController::class);
-        Route::post('/update-product/${id}', Controllers\Pos\PosUpdateProductController::class);
+        Route::post('/update-product/{id}', Controllers\Pos\PosUpdateProductController::class);
         Route::get('/get-subcategories', Controllers\Pos\PosGetSubcategories::class);
     });
 });
