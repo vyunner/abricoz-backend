@@ -21,14 +21,14 @@ class PosChangeProductAmountController extends Controller
 
         $product = Product::findOrFail($data['product_id']);
 
-        $stockDelta = $data['stock_quantity'] ?? 0;
-        $amountDelta = $data['amount'] ?? 0;
+        $stockDelta = array_key_exists('stock_quantity', $data) ? $data['stock_quantity'] : 0;
+        $amountDelta = array_key_exists('amount', $data) ? $data['amount'] : 0;
 
         $product->stock_quantity += $stockDelta;
         $product->amount += $amountDelta;
         $product->save();
 
-        if ($stockDelta !== 0) {
+        if ($stockDelta !== 0 || $amountDelta !== 0) {
             ProductLog::create([
                 'product_id' => $product->id,
                 'stock_quantity' => $stockDelta,
