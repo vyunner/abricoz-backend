@@ -25,7 +25,7 @@ class PosSearchProductController extends Controller
 
         if ($name) {
             $products = Product::where('name_ru', 'like', '%' . $name . '%')
-                ->take(10)
+                ->take(20)
                 ->get();
 
             if ($products->isEmpty()) {

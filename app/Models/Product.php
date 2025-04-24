@@ -13,6 +13,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
+        'barcode',
         'subcategory_id',
         'photo_url',
         'where',
