@@ -48,12 +48,14 @@ class PosGetProductsReportController extends Controller
                         'amount' => $product->amount,
                         'stock_quantity' => $product->stock_quantity,
                         'photo_url' => $product->photo_url,
-                        'sales_by_day' => optional($sales[$product->id])->map(function ($sale) {
+                        'sales_by_day' => $sales->has($product->id)
+                            ? $sales[$product->id]->map(function ($sale) {
                                 return [
                                     'date' => $sale->date,
                                     'total_quantity' => $sale->total_quantity
                                 ];
-                            })->values() ?? []
+                            })->values()
+                            : []
                     ];
                 })->values()
             ];
