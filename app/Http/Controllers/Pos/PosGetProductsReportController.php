@@ -29,6 +29,7 @@ class PosGetProductsReportController extends Controller
                             'weight' => $product->weight,
                             'amount' => $product->amount,
                             'stock_quantity' => $product->stock_quantity,
+                            'photo_url' => $product->photo_url,
                         ];
                     })->values(),
                 ];
