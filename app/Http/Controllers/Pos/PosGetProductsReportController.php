@@ -20,10 +20,8 @@ class PosGetProductsReportController extends Controller
                 return $subcategory->products->isNotEmpty();
             });
 
-        // Соберём список ID всех активных продуктов
         $productIds = $subcategories->flatMap(fn ($s) => $s->products->pluck('id'))->unique()->values();
 
-        // Получим продажи по дням
         $sales = DB::table('order_products as op')
             ->join('orders as o', 'o.id', '=', 'op.order_id')
             ->select(
@@ -50,12 +48,12 @@ class PosGetProductsReportController extends Controller
                         'amount' => $product->amount,
                         'stock_quantity' => $product->stock_quantity,
                         'photo_url' => $product->photo_url,
-                        'sales_by_day' => $sales[$product->id]->map(function ($sale) {
-                            return [
-                                'date' => $sale->date,
-                                'total_quantity' => $sale->total_quantity
-                            ];
-                        })->values()
+                        'sales_by_day' => optional($sales[$product->id])->map(function ($sale) {
+                                return [
+                                    'date' => $sale->date,
+                                    'total_quantity' => $sale->total_quantity
+                                ];
+                            })->values() ?? []
                     ];
                 })->values()
             ];
