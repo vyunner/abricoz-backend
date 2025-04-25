@@ -12,7 +12,7 @@ class PosGetProductsReportController extends Controller
     {
         $subcategories = SubCategory::select('id', 'name_ru')
             ->with(['products' => function ($query) {
-                $query->select('id', 'subcategory_id', 'name_ru', 'weight', 'amount', 'stock_quantity', 'photo_url', 'is_active')
+                $query->select('id', 'subcategory_id', 'name_ru', 'weight', 'amount', 'stock_quantity', 'photo_url', 'price_cost', 'price_with_discount', 'is_active')
                     ->where('is_active', 1);
             }])
             ->get()
@@ -48,6 +48,8 @@ class PosGetProductsReportController extends Controller
                         'amount' => $product->amount,
                         'stock_quantity' => $product->stock_quantity,
                         'photo_url' => $product->photo_url,
+                        'price_cost' => $product->price_cost,
+                        'price_with_discount' => $product->price_with_discount,
                         'sales_by_day' => $sales->has($product->id)
                             ? $sales[$product->id]->map(function ($sale) {
                                 return [
