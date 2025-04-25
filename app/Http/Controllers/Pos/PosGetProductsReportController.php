@@ -12,7 +12,7 @@ class PosGetProductsReportController extends Controller
     {
         $subcategories = SubCategory::select('id', 'name_ru')
             ->with(['products' => function ($query) {
-                $query->select('id', 'subcategory_id', 'name_ru', 'weight', 'amount', 'stock_quantity')
+                $query->select('id', 'subcategory_id', 'name_ru', 'weight', 'amount', 'stock_quantity', 'photo_url')
                     ->where('is_active', 1);
             }])
             ->get()
