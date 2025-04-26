@@ -3,15 +3,17 @@ FROM php:8.1-fpm
 # Установка зависимостей
 RUN apt-get update && apt-get install -y \
     libpng-dev \
+    libjpeg-dev \
+    libwebp-dev \
     libonig-dev \
     libxml2-dev \
     libzip-dev \
     zip \
     unzip \
     cron \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && docker-php-ext-configure gd --with-jpeg --with-webp \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+
 
 # Копируем свой php.ini
 COPY ./php.ini /usr/local/etc/php/php.ini
