@@ -250,6 +250,7 @@ Route::group(['prefix' => '/pos'], function () {
         Route::post('/change-product-amount', Controllers\Pos\PosChangeProductAmountController::class);
         Route::post('/update-product/{id}', Controllers\Pos\PosUpdateProductController::class);
         Route::get('/get-subcategories', Controllers\Pos\PosGetSubcategories::class);
+        Route::post('/upload-product-photo', Controllers\Pos\PosUploadProductPhotoController::class);
     });
 
     Route::get('/get-products-report', Controllers\Pos\PosGetProductsReportController::class);
