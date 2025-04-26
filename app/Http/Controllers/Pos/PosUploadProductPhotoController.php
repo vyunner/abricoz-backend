@@ -13,6 +13,8 @@ class PosUploadProductPhotoController extends Controller
 {
     public function __invoke(Request $request)
     {
+        dd($request->allFiles());
+
         $request->validate([
             'photo' => 'required|file|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
