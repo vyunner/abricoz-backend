@@ -23,7 +23,7 @@ class PosUploadProductPhotoController extends Controller
         // 1. Сжимаем фото
         $original = $request->file('photo');
 
-        $manager = new ImageManager(); // создаём менеджер
+        $manager = new ImageManager(['driver' => 'gd']);
         $image = $manager->make($original)
             ->orientate()
             ->resize(500, 500, function ($constraint) {
