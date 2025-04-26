@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\Log;
 
 class PosUploadProductPhotoController extends Controller
@@ -20,26 +21,19 @@ class PosUploadProductPhotoController extends Controller
             'photo' => 'required|file|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
-        // 1. Сжимаем фото
         $original = $request->file('photo');
 
-        $manager = new ImageManager(['driver' => 'gd']);
-        $image = $manager->make($original)
-            ->orientate()
-            ->resize(500, 500, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })
-            ->encode('webp', 35);
+        // Новый способ работы в Intervention 3
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read($original)
+            ->cover(500, 500)        // обрезает и вписывает в 500x500 сохраняя пропорции
+            ->toWebp(quality: 35);    // сохраняет в webp с качеством
 
-        // 2. Генерация пути
         $filename = 'products/' . Str::uuid() . '.webp';
 
-        // 3. Загрузка в S3
         Storage::disk('s3')->put($filename, (string) $image, 'public');
         $photoUrl = Storage::disk('s3')->url($filename);
 
-        // 4. Отправка запроса в ChatGPT API напрямую
         $openaiApiKey = env('OPENAI_API_KEY');
 
         $response = Http::withToken($openaiApiKey)
