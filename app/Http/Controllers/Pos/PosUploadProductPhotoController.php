@@ -21,21 +21,28 @@ class PosUploadProductPhotoController extends Controller
             'photo' => 'required|file|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
+        // Получаем оригинальное фото
         $original = $request->file('photo');
 
-        // Новый способ работы в Intervention 3
+        // Кодируем оригинальное фото в base64
+        $base64Image = base64_encode(file_get_contents($original->getRealPath()));
+
+        // Новый способ работы в Intervention 3 (для сжатия и сохранения)
         $manager = new ImageManager(new Driver());
         $image = $manager->read($original)
-            ->cover(500, 500)        // обрезает и вписывает в 500x500 сохраняя пропорции
-            ->toWebp(quality: 95);    // сохраняет в webp с качеством
+            ->cover(500, 500)
+            ->toWebp(quality: 95);
 
+        // Генерация пути для сжатого фото
         $filename = 'products/' . Str::uuid() . '.webp';
 
+        // Загрузка сжатого изображения в S3
         Storage::disk('s3')->put($filename, (string) $image, 'public');
         $photoUrl = Storage::disk('s3')->url($filename);
 
         $openaiApiKey = env('OPENAI_API_KEY');
 
+        // Отправка запроса в OpenAI API c base64-изображением
         $response = Http::withToken($openaiApiKey)
             ->post('https://api.openai.com/v1/chat/completions', [
                 'model' => 'gpt-4o',
@@ -50,13 +57,12 @@ class PosUploadProductPhotoController extends Controller
 2) Название товара на английском языке
 3) Описание товара на русском языке (3 предложения)
 4) Описание товара на казахском языке (3 предложения)
-Даже если изображение не полностью понятно — необходимо всё равно придумать текст на основе наиболее вероятного предположения.
-',
+Даже если изображение не полностью понятно — необходимо всё равно придумать текст на основе наиболее вероятного предположения.'
                             ],
                             [
                                 'type' => 'image_url',
                                 'image_url' => [
-                                    'url' => $photoUrl,
+                                    'url' => 'data:image/jpeg;base64,' . $base64Image,
                                 ],
                             ],
                         ],
