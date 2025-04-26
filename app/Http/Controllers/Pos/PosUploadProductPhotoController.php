@@ -15,7 +15,6 @@ class PosUploadProductPhotoController extends Controller
 {
     public function __invoke(Request $request)
     {
-        return config('services.openai.api_key');
         $request->validate([
             'photo' => 'required|file|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
