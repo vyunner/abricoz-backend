@@ -13,6 +13,7 @@ class PosUploadProductPhotoController extends Controller
 {
     public function __invoke(Request $request)
     {
+        Log::info('Файлы, пришедшие с фронта:', $request->allFiles());
         dd($request->allFiles());
 
         $request->validate([
