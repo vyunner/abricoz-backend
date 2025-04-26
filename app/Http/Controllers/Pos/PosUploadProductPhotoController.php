@@ -14,7 +14,7 @@ class PosUploadProductPhotoController extends Controller
     public function __invoke(Request $request)
     {
         $request->validate([
-            'photo' => 'required|image|max:5120', // максимум 5MB
+            'photo' => 'required|file|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
         // 1. Сжимаем фото
