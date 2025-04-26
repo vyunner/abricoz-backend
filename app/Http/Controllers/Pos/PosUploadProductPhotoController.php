@@ -27,7 +27,7 @@ class PosUploadProductPhotoController extends Controller
         $manager = new ImageManager(new Driver());
         $image = $manager->read($original)
             ->cover(500, 500)        // обрезает и вписывает в 500x500 сохраняя пропорции
-            ->toWebp(quality: 90);    // сохраняет в webp с качеством
+            ->toWebp(quality: 100);    // сохраняет в webp с качеством
 
         $filename = 'products/' . Str::uuid() . '.webp';
 
