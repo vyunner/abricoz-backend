@@ -34,7 +34,7 @@ class PosUploadProductPhotoController extends Controller
 
         // 2. Готовим изображение для хранения в S3 (500px ширина, качество 95)
         $imageForS3 = $manager->read($original)
-            ->cover(500, 500)
+            ->resize(1000, null)
             ->toWebp(quality: 95);
 
         $filename = 'products/' . Str::uuid() . '.webp';
