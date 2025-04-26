@@ -27,6 +27,7 @@ class PosUploadProductPhotoController extends Controller
 
         // 1. Готовим изображение для ChatGPT (1000px ширина, качество 95)
         $imageForGpt = $manager->read($original)
+            ->autorotate()                // 🔥 исправляет ориентацию по EXIF
             ->resize(1000, null)
             ->toWebp(quality: 95);
 
@@ -34,6 +35,7 @@ class PosUploadProductPhotoController extends Controller
 
         // 2. Готовим изображение для хранения в S3 (500px ширина, качество 95)
         $imageForS3 = $manager->read($original)
+            ->autorotate()                // 🔥 исправляет ориентацию по EXIF
             ->resize(1000, null)
             ->toWebp(quality: 95);
 
