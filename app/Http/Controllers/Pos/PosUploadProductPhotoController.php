@@ -7,28 +7,30 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Log;
-
 
 class PosUploadProductPhotoController extends Controller
 {
     public function __invoke(Request $request)
     {
         Log::info('Файлы, пришедшие с фронта:', $request->allFiles());
+
         $request->validate([
             'photo' => 'required|file|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
         // 1. Сжимаем фото
         $original = $request->file('photo');
-        $image = Image::make($original)
+
+        $manager = new ImageManager(); // создаём менеджер
+        $image = $manager->make($original)
             ->orientate()
             ->resize(500, 500, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
             })
-            ->encode('webp', 35); // Качество около 20-25 КБ
+            ->encode('webp', 35);
 
         // 2. Генерация пути
         $filename = 'products/' . Str::uuid() . '.webp';
@@ -68,7 +70,6 @@ class PosUploadProductPhotoController extends Controller
 
         $gptAnswer = $response->json('choices.0.message.content') ?? '';
 
-        // 5. Возвращаем ответ
         return response()->json([
             'photo_url' => $photoUrl,
             'gpt_text' => $gptAnswer,
