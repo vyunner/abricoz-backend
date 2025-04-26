@@ -41,15 +41,15 @@ class PosUploadProductPhotoController extends Controller
         $openaiApiKey = config('services.openai.api_key');
 
         $prompt = <<<PROMPT
-Проанализируй изображение товара и верни строго JSON-объект без дополнительных символов, пояснений или Markdown.
+Проанализируй изображение товара и верни JSON-объект без Markdown.
 Формат JSON:
 {
   "name_ru": "название на русском",
-  "name_kz": "атауы қазақша",
+  "name_kz": "название на казахском",
   "description_ru": "описание на русском в 3 предложениях",
-  "description_kz": "сипаттама қазақша 3 сөйлеммен"
+  "description_kz": "описание на казахском в 3 предложения"
 }
-Если не уверен, придумай максимально логично. Верни только JSON — без обёрток, markdown и пояснений.
+Верни только JSON
 PROMPT;
 
         $response = Http::withToken($openaiApiKey)
