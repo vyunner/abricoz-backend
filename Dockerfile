@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Копируем свой php.ini
+COPY ./php.ini /usr/local/etc/php/php.ini
+
 # Установка Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -22,12 +25,14 @@ WORKDIR /var/www
 # Копирование кода приложения
 COPY . /var/www
 
-# Создание .env из примера и генерация ключа
+# Установка зависимостей через composer
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# Копирование .env.example (если нужно)
 COPY .env.example /var/www/.env
 
-# Установка зависимостей через composer
-RUN composer update
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+# Генерация ключа приложения (можно удалить если у тебя в процессе развертывания это делается отдельно)
+# RUN php artisan key:generate
 
 # Установка прав
 RUN chown -R www-data:www-data /var/www \
@@ -37,15 +42,16 @@ RUN chown -R www-data:www-data /var/www \
 # Определяем путь к php (нужно для crontab)
 RUN which php > /etc/php_path
 
-# Копируем crontab файл
+# Копируем файл с задачами cron
 COPY crontab /etc/cron.d/laravel-cron
 RUN chmod 0644 /etc/cron.d/laravel-cron
 RUN crontab /etc/cron.d/laravel-cron
 
-# Делаем /var/log/cron.log доступным для записи
+# Делаем лог файл доступным для записи
 RUN touch /var/log/cron.log && chmod 777 /var/log/cron.log
 
+# Открываем порт
 EXPOSE 9000
 
-# Запускаем php-fpm, Laravel Queue и cron в фоне
+# Команда запуска: php-fpm + cron + очередь
 CMD ["sh", "-c", "cron && php-fpm & php artisan queue:work --queue=webkassa --tries=3"]
