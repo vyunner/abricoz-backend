@@ -25,7 +25,7 @@ class PosUploadProductPhotoController extends Controller
         // 1. GPT: 1000px ширина, качество 95
         $imageForGpt = $manager->read($original)
             ->resize(1000, 1000)
-            ->toWebp(quality: 95);
+            ->toWebp(quality: 100);
 
         $base64Image = base64_encode((string) $imageForGpt);
 
