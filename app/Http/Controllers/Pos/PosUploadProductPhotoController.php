@@ -21,28 +21,30 @@ class PosUploadProductPhotoController extends Controller
             'photo' => 'required|file|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
 
-        // Получаем оригинальное фото
         $original = $request->file('photo');
 
-        // Кодируем оригинальное фото в base64
-        $base64Image = base64_encode(file_get_contents($original->getRealPath()));
-
-        // Новый способ работы в Intervention 3 (для сжатия и сохранения)
         $manager = new ImageManager(new Driver());
-        $image = $manager->read($original)
+
+        // 1. Готовим изображение для ChatGPT (1000px ширина, качество 95)
+        $imageForGpt = $manager->read($original)
+            ->resize(1000, null)
+            ->toWebp(quality: 95);
+
+        $base64Image = base64_encode((string) $imageForGpt);
+
+        // 2. Готовим изображение для хранения в S3 (500px ширина, качество 95)
+        $imageForS3 = $manager->read($original)
             ->cover(500, 500)
             ->toWebp(quality: 95);
 
-        // Генерация пути для сжатого фото
         $filename = 'products/' . Str::uuid() . '.webp';
 
-        // Загрузка сжатого изображения в S3
-        Storage::disk('s3')->put($filename, (string) $image, 'public');
+        Storage::disk('s3')->put($filename, (string) $imageForS3, 'public');
         $photoUrl = Storage::disk('s3')->url($filename);
 
         $openaiApiKey = env('OPENAI_API_KEY');
 
-        // Отправка запроса в OpenAI API c base64-изображением
+        // Отправка base64-картинки в OpenAI
         $response = Http::withToken($openaiApiKey)
             ->post('https://api.openai.com/v1/chat/completions', [
                 'model' => 'gpt-4o',
@@ -62,7 +64,7 @@ class PosUploadProductPhotoController extends Controller
                             [
                                 'type' => 'image_url',
                                 'image_url' => [
-                                    'url' => 'data:image/jpeg;base64,' . $base64Image,
+                                    'url' => 'data:image/webp;base64,' . $base64Image,
                                 ],
                             ],
                         ],
