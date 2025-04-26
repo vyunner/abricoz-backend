@@ -38,7 +38,7 @@ class PosUploadProductPhotoController extends Controller
         Storage::disk('s3')->put($filename, (string) $imageForS3, 'public');
         $photoUrl = Storage::disk('s3')->url($filename);
 
-        $openaiApiKey = env('OPENAI_API_KEY');
+        $openaiApiKey = config('services.openai.api_key');
 
         $prompt = <<<PROMPT
 Проанализируй изображение товара и верни строго JSON-объект без дополнительных символов, пояснений или Markdown.
