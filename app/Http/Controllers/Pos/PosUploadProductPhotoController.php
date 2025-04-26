@@ -15,8 +15,6 @@ class PosUploadProductPhotoController extends Controller
 {
     public function __invoke(Request $request)
     {
-        Log::info('Файлы, пришедшие с фронта:', $request->allFiles());
-
         $request->validate([
             'photo' => 'required|file|mimes:jpg,jpeg,png,webp|max:5120',
         ]);
@@ -24,7 +22,7 @@ class PosUploadProductPhotoController extends Controller
         $original = $request->file('photo');
         $manager = new ImageManager(new Driver());
 
-        // 1. Готовим изображение для GPT (1000px ширина, качество 95)
+        // 1. Готовим изображение для GPT (1500x1500, качество 97)
         $imageForGpt = $manager->read($original)
             ->resize(1500, 1500)
             ->toWebp(quality: 97);
@@ -42,7 +40,6 @@ class PosUploadProductPhotoController extends Controller
 
         $openaiApiKey = env('OPENAI_API_KEY');
 
-        // ✍️ Чёткий prompt с инструкцией и без Markdown
         $prompt = <<<PROMPT
 Проанализируй изображение товара и верни строго JSON-объект без дополнительных символов, пояснений или Markdown.
 Формат JSON:
@@ -56,26 +53,43 @@ class PosUploadProductPhotoController extends Controller
 PROMPT;
 
         $response = Http::withToken($openaiApiKey)
+            ->asJson()
             ->post('https://api.openai.com/v1/chat/completions', [
                 'model' => 'gpt-4o',
                 'messages' => [
                     [
                         'role' => 'user',
                         'content' => [
-                            ['type' => 'text', 'text' => $prompt],
-                            ['type' => 'image_url', 'image_url' => ['url' => 'data:image/webp;base64,' . $base64Image]],
+                            [
+                                'type' => 'text',
+                                'text' => $prompt,
+                            ],
+                            [
+                                'type' => 'image_url',
+                                'image_url' => [
+                                    'url' => 'data:image/webp;base64,' . $base64Image,
+                                    'detail' => 'auto',
+                                ],
+                            ],
                         ],
                     ],
                 ],
             ]);
 
+
         if ($response->failed()) {
-            return response()->json(['error' => 'Ошибка при запросе к OpenAI'], 500);
+            Log::error('Ошибка OpenAI', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+            ]);
+            return response()->json([
+                'error' => 'Ошибка при запросе к OpenAI',
+                'details' => $response->json(),
+            ], 500);
         }
 
         $text = $response->json('choices.0.message.content');
 
-        // Удалим возможные Markdown обёртки
         $text = trim($text);
         $text = preg_replace('/^```json|```$/i', '', $text);
         $text = trim($text);
