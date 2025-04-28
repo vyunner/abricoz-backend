@@ -107,6 +107,7 @@ class OrderStoreController extends Controller
 
         // Проверка товаров и подсчет общей суммы
         $totalPrice = 0;
+        $totalPriceCost = 0;
         $productsData = [];
 
         $positions = [];
@@ -122,7 +123,9 @@ class OrderStoreController extends Controller
             }
 
             $linePrice = $product->price_with_discount * $productItem['product_quantity'];
+            $linePriceCost = $product->price_cost * $productItem['product_quantity'];
             $totalPrice += $linePrice;
+            $totalPriceCost += $linePriceCost;
 
             $productsData[] = [
                 'product' => $product,
@@ -174,6 +177,7 @@ class OrderStoreController extends Controller
                 'products_price' => $totalPrice,
                 'delivery_price' => 0, // Добавить расчет стоимости доставки, если необходимо
                 'total_price' => $totalPrice,
+                'total_price_cost' => $totalPriceCost,
                 'cardMask' => $cardMask,
                 'issuer' => $issuer,
             ]);
@@ -183,10 +187,12 @@ class OrderStoreController extends Controller
                 OrderProduct::create([
                     'order_id' => $order->id,
                     'product_id' => $productData['product']->id,
+                    'product_weight' => $productData['product']->weight,
                     'product_quantity' => $productData['quantity'],
                     'product_price' => $productData['price'],
                     'product_discount' => $productData['discount'],
                     'product_price_with_discount' => $productData['price_with_discount'],
+                    'product_price_cost' => $productData['product']->price_cost,
                 ]);
 
                 $remaining = $productData['product']->stock_quantity - $productData['quantity'];

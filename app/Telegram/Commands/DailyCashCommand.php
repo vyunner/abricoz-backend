@@ -9,15 +9,15 @@ use Carbon\Carbon;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 
-class DailyOrdersCommand extends Command
+class DailyCashCommand extends Command
 {
-    protected string $name = 'orders';
-    protected string $description = 'Показать продукты по дате доставки в этом месяце';
+    protected string $name = 'cash';
+    protected string $description = 'Показать кассу по дате в этом месяце';
 
     public function handle()
     {
         $this->replyWithMessage([
-            'text' => 'Введите число текущего месяца (например, 3):',
+            'text' => 'Введите число текущего месяца (например, 3) для вывода кассы:',
             'reply_markup' => json_encode(['force_reply' => true])
         ]);
     }
@@ -36,6 +36,7 @@ class DailyOrdersCommand extends Command
         }
 
         $date = Carbon::now()->format('Y-m') . '-' . str_pad($day, 2, '0', STR_PAD_LEFT);
+
         $orders = DB::table('orders')
             ->whereDate('delivery_date', $date)
             ->where('order_status_id', '!=', 6)

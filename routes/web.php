@@ -22,7 +22,7 @@ Route::post('/telegram/webhook', function (Request $request) {
     if ($update->isType('message') && $update->getMessage()->getReplyToMessage()) {
         $replyText = $update->getMessage()->getReplyToMessage()->getText();
 
-        if (str_contains($replyText, 'Введите число текущего месяца') && $replyText === 'Введите число текущего месяца (например, 3):') {
+        if (str_contains($replyText, 'Введите число текущего месяца (например, 3):')) {
             (new DailyOrdersCommand())->processMessage($update);
             return response()->json(['status' => 'orders processed']);
         }
