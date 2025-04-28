@@ -66,6 +66,11 @@ class DailyCashCommand extends Command
         }
 
         $row = 2;
+        $totalOrders = 0;
+        $totalSum = 0;
+        $totalCost = 0;
+        $totalProfit = 0;
+
         foreach ($orders as $order) {
             $profit = ($order->total_price ?? 0) - ($order->total_price_cost ?? 0);
 
@@ -74,8 +79,34 @@ class DailyCashCommand extends Command
             $sheet->setCellValue("C{$row}", (int) $order->total_price_cost);
             $sheet->setCellValue("D{$row}", (int) $profit);
 
+            $totalOrders++;
+            $totalSum += (int) $order->total_price;
+            $totalCost += (int) $order->total_price_cost;
+            $totalProfit += (int) $profit;
+
             $row++;
         }
+
+        // Пишем итоговые значения
+        $sheet->setCellValue("A{$row}", 'Итого заказов:');
+        $sheet->setCellValue("B{$row}", $totalOrders);
+        $sheet->setCellValue("C{$row}", '');
+        $sheet->setCellValue("D{$row}", '');
+
+        $row++;
+
+        $sheet->setCellValue("A{$row}", 'Итого сумма:');
+        $sheet->setCellValue("B{$row}", $totalSum);
+
+        $row++;
+
+        $sheet->setCellValue("A{$row}", 'Итого себестоимость:');
+        $sheet->setCellValue("B{$row}", $totalCost);
+
+        $row++;
+
+        $sheet->setCellValue("A{$row}", 'Итого выручка:');
+        $sheet->setCellValue("B{$row}", $totalProfit);
 
         $tempFilePath = storage_path('app/orders_' . uniqid() . '.xlsx');
         (new Xlsx($spreadsheet))->save($tempFilePath);
