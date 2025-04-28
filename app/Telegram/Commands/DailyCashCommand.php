@@ -60,6 +60,11 @@ class DailyCashCommand extends Command
         $sheet->setCellValue('C1', 'Себестоимость');
         $sheet->setCellValue('D1', 'Выручка');
 
+        // Автоматическая ширина колонок
+        foreach (range('A', 'D') as $col) {
+            $sheet->getColumnDimension($col)->setAutoSize(true);
+        }
+
         $row = 2;
         foreach ($orders as $order) {
             $profit = ($order->total_price ?? 0) - ($order->total_price_cost ?? 0);
