@@ -87,6 +87,8 @@ class DailyCashCommand extends Command
             $row++;
         }
 
+        $row++;
+
         // Пишем итоговые значения
         $sheet->setCellValue("A{$row}", 'Итого заказов:');
         $sheet->setCellValue("B{$row}", $totalOrders);
@@ -107,6 +109,13 @@ class DailyCashCommand extends Command
 
         $sheet->setCellValue("A{$row}", 'Итого выручка:');
         $sheet->setCellValue("B{$row}", $totalProfit);
+
+        $row++;
+
+        // Средний чек
+        $averageCheck = $totalOrders > 0 ? intval(round($totalSum / $totalOrders)) : 0;
+        $sheet->setCellValue("A{$row}", 'Средний чек:');
+        $sheet->setCellValue("B{$row}", $averageCheck);
 
         $tempFilePath = storage_path('app/orders_' . uniqid() . '.xlsx');
         (new Xlsx($spreadsheet))->save($tempFilePath);
