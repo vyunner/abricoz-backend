@@ -38,8 +38,8 @@ Route::post('/telegram/webhook', function (Request $request) {
         }
 
         if (str_contains($replyText, 'Введите число текущего месяца для вывода кассы')) {
-            (new ProductsByDayCommand())->processMessage($update);
-            return response()->json(['status' => 'orders prices processed']);
+            (new \App\Telegram\Commands\DailyCashCommand())->processMessage($update);
+            return response()->json(['status' => 'cash processed']);
         }
     }
 
