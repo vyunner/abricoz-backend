@@ -32,6 +32,7 @@ class Order extends Model
         'products_price',
         'delivery_price',
         'total_price',
+        'total_price_cost',
         'issuer',
         'cardMask'
     ];
