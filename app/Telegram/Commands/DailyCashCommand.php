@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 
 class DailyCashCommand extends Command
 {
@@ -53,6 +55,9 @@ class DailyCashCommand extends Command
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
+
+        // Установка горизонтальной ориентации
+        $sheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
 
         // Заголовки
         $sheet->setCellValue('A1', 'Номер заказа');
@@ -115,34 +120,34 @@ class DailyCashCommand extends Command
         }
 
         // Пишем итоговые значения
-        $row++;
-
         $sheet->setCellValue("A{$row}", 'Итого заказов:');
         $sheet->setCellValue("B{$row}", $totalOrders);
-        $sheet->setCellValue("C{$row}", '');
-        $sheet->setCellValue("D{$row}", '');
 
         $row++;
-
         $sheet->setCellValue("A{$row}", 'Итого сумма:');
         $sheet->setCellValue("B{$row}", $totalSum);
 
         $row++;
-
         $sheet->setCellValue("A{$row}", 'Итого себестоимость:');
         $sheet->setCellValue("B{$row}", $totalCost);
 
         $row++;
-
         $sheet->setCellValue("A{$row}", 'Итого выручка:');
         $sheet->setCellValue("B{$row}", $totalProfit);
 
         $row++;
-
-        // Средний чек
         $averageCheck = $totalOrders > 0 ? intval(round($totalSum / $totalOrders)) : 0;
         $sheet->setCellValue("A{$row}", 'Средний чек:');
         $sheet->setCellValue("B{$row}", $averageCheck);
+
+        // Добавляем границы для всех заполненных ячеек
+        $highestColumn = $sheet->getHighestColumn();
+        $highestRow = $sheet->getHighestRow();
+
+        $sheet->getStyle("A1:{$highestColumn}{$highestRow}")
+            ->getBorders()
+            ->getAllBorders()
+            ->setBorderStyle(Border::BORDER_THIN);
 
         $tempFilePath = storage_path('app/orders_' . uniqid() . '.xlsx');
         (new Xlsx($spreadsheet))->save($tempFilePath);
