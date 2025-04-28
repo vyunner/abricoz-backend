@@ -36,6 +36,11 @@ Route::post('/telegram/webhook', function (Request $request) {
             (new ProductsByDayCommand())->processMessage($update);
             return response()->json(['status' => 'products processed']);
         }
+
+        if (str_contains($replyText, 'Введите число текущего месяца для вывода кассы')) {
+            (new ProductsByDayCommand())->processMessage($update);
+            return response()->json(['status' => 'orders prices processed']);
+        }
     }
 
     Telegram::commandsHandler(true);
