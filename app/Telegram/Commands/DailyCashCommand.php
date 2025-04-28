@@ -59,9 +59,11 @@ class DailyCashCommand extends Command
         $sheet->setCellValue('B1', 'Сумма заказа');
         $sheet->setCellValue('C1', 'Себестоимость');
         $sheet->setCellValue('D1', 'Выручка');
+        $sheet->setCellValue('E1', 'Собрал');
+        $sheet->setCellValue('F1', 'Доставил');
 
         // Автоматическая ширина колонок
-        foreach (range('A', 'D') as $col) {
+        foreach (range('A', 'F') as $col) {
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 
@@ -74,10 +76,35 @@ class DailyCashCommand extends Command
         foreach ($orders as $order) {
             $profit = ($order->total_price ?? 0) - ($order->total_price_cost ?? 0);
 
+            // Получаем сборщика и доставщика
+            $assignments = DB::table('order_assignments')
+                ->where('order_id', $order->id)
+                ->get();
+
+            $collector = '';
+            $courier = '';
+
+            foreach ($assignments as $assign) {
+                $user = DB::table('users')->where('id', $assign->user_id)->first();
+                if (!$user) {
+                    continue;
+                }
+
+                $fullName = trim(($user->firstname ?? '') . ' ' . ($user->lastname ?? ''));
+
+                if ($assign->role_id == 2) {
+                    $collector = $fullName;
+                } elseif ($assign->role_id == 3) {
+                    $courier = $fullName;
+                }
+            }
+
             $sheet->setCellValue("A{$row}", $order->id);
             $sheet->setCellValue("B{$row}", (int) $order->total_price);
             $sheet->setCellValue("C{$row}", (int) $order->total_price_cost);
             $sheet->setCellValue("D{$row}", (int) $profit);
+            $sheet->setCellValue("E{$row}", $collector);
+            $sheet->setCellValue("F{$row}", $courier);
 
             $totalOrders++;
             $totalSum += (int) $order->total_price;
@@ -86,8 +113,6 @@ class DailyCashCommand extends Command
 
             $row++;
         }
-
-        $row++;
 
         // Пишем итоговые значения
         $sheet->setCellValue("A{$row}", 'Итого заказов:');
