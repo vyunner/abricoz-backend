@@ -120,6 +120,7 @@ class DailyCashCommand extends Command
         }
 
         // Пишем итоговые значения
+        $row++;
         $sheet->setCellValue("A{$row}", 'Итого заказов:');
         $sheet->setCellValue("B{$row}", $totalOrders);
 
