@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Courier;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Courier\CourierCompleteOrderRequest;
+use App\Models\OrderAssignment;
 use App\Models\User;
 use App\Models\UserDevice;
 use App\Services\FirebaseNotificationService;
@@ -50,6 +51,12 @@ class CourierAcceptOrderController extends Controller
         if (!in_array($order->order_status_id, [3])) {
             return $this->response(null, 'Статус заказа не позволяет его взять', 400);
         }
+
+        $orderAssignment = OrderAssignment::create([
+            'order_id' => $orderId,
+            'user_id' => $courier->id,
+            'role_id' => 3
+        ]);
 
         // Меняем статус заказа на 4
         $order->order_status_id = 4;
