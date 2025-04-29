@@ -42,7 +42,7 @@ class DailyCashCommand extends Command
         $orders = DB::table('orders')
             ->whereDate('delivery_date', $date)
             ->where('order_status_id', '!=', 6)
-            ->select('id', 'total_price', 'total_price_cost')
+            ->select('id', 'total_price', 'total_price_cost', 'delivery_interval_id')
             ->get();
 
         if ($orders->isEmpty()) {
@@ -53,6 +53,9 @@ class DailyCashCommand extends Command
             return;
         }
 
+        // Предзагрузка всех интервалов доставки в память
+        $intervals = DB::table('delivery_intervals')->pluck('name', 'id')->toArray();
+
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -61,14 +64,15 @@ class DailyCashCommand extends Command
 
         // Заголовки
         $sheet->setCellValue('A1', 'Номер заказа');
-        $sheet->setCellValue('B1', 'Сумма заказа');
-        $sheet->setCellValue('C1', 'Себестоимость');
-        $sheet->setCellValue('D1', 'Выручка');
-        $sheet->setCellValue('E1', 'Собрал');
-        $sheet->setCellValue('F1', 'Доставил');
+        $sheet->setCellValue('B1', 'Интервал доставки');
+        $sheet->setCellValue('C1', 'Сумма заказа');
+        $sheet->setCellValue('D1', 'Себестоимость');
+        $sheet->setCellValue('E1', 'Выручка');
+        $sheet->setCellValue('F1', 'Собрал');
+        $sheet->setCellValue('G1', 'Доставил');
 
         // Автоматическая ширина колонок
-        foreach (range('A', 'F') as $col) {
+        foreach (range('A', 'G') as $col) {
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 
@@ -80,6 +84,9 @@ class DailyCashCommand extends Command
 
         foreach ($orders as $order) {
             $profit = ($order->total_price ?? 0) - ($order->total_price_cost ?? 0);
+
+            // Получаем интервал доставки по delivery_interval_id
+            $deliveryIntervalName = $order->delivery_interval_id ? ($intervals[$order->delivery_interval_id] ?? '') : '';
 
             // Получаем сборщика и доставщика
             $assignments = DB::table('order_assignments')
@@ -104,12 +111,14 @@ class DailyCashCommand extends Command
                 }
             }
 
+            // Заполняем строку
             $sheet->setCellValue("A{$row}", $order->id);
-            $sheet->setCellValue("B{$row}", (int) $order->total_price);
-            $sheet->setCellValue("C{$row}", (int) $order->total_price_cost);
-            $sheet->setCellValue("D{$row}", (int) $profit);
-            $sheet->setCellValue("E{$row}", $collector);
-            $sheet->setCellValue("F{$row}", $courier);
+            $sheet->setCellValue("B{$row}", $deliveryIntervalName);
+            $sheet->setCellValue("C{$row}", (int) $order->total_price);
+            $sheet->setCellValue("D{$row}", (int) $order->total_price_cost);
+            $sheet->setCellValue("E{$row}", (int) $profit);
+            $sheet->setCellValue("F{$row}", $collector);
+            $sheet->setCellValue("G{$row}", $courier);
 
             $totalOrders++;
             $totalSum += (int) $order->total_price;
