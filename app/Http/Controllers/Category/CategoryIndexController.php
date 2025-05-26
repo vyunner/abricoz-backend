@@ -24,7 +24,7 @@ class CategoryIndexController extends Controller
 
         // Если user_id == 3, фильтруем по конкретным ID категорий
         if ($request->user()->id === 3) {
-            $allowedIds = [1, 2, 5]; // укажи нужные ID категорий
+            $allowedIds = [1, 2, 5]; // Укажи нужные ID категорий
             $query->whereIn('id', $allowedIds);
         }
 
@@ -42,6 +42,13 @@ class CategoryIndexController extends Controller
             ], 'Список категорий успешно загружен!');
         }
 
-        return $this->response($query->get(), 'Список категорий успешно загружен!');
+        $categories = $query->get();
+
+        return $this->response([
+            'current_page' => 1,
+            'total' => $categories->count(),
+            'total_pages' => 1,
+            'categories' => $categories,
+        ], 'Список категорий успешно загружен!');
     }
 }
