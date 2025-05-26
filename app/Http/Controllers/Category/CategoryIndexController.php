@@ -21,6 +21,8 @@ class CategoryIndexController extends Controller
         $query = Category::where('is_active', true)
             ->orderByRaw('priority_number = 0, priority_number ASC');
 
+        return $request->user();
+
         // Только если пользователь аутентифицирован и id == 3
         if ($request->user()->id === 1) {
             $allowedIds = [1, 2, 5]; // ← нужные ID категорий
