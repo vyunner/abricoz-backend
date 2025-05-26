@@ -22,6 +22,12 @@ class CategoryIndexController extends Controller
         $query = Category::where('is_active', true)
             ->orderByRaw('priority_number = 0, priority_number ASC');
 
+        // Если user_id == 3, фильтруем по конкретным ID категорий
+        if (auth()->id() === 3) {
+            $allowedIds = [1, 2, 5]; // укажи нужные ID категорий
+            $query->whereIn('id', $allowedIds);
+        }
+
         if ($request->has('perPage')) {
             $perPage = $request->query('perPage', 10);
             $page = $request->query('page', 1);
