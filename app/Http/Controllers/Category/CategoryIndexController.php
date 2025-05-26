@@ -23,7 +23,7 @@ class CategoryIndexController extends Controller
             ->orderByRaw('priority_number = 0, priority_number ASC');
 
         // Если user_id == 3, фильтруем по конкретным ID категорий
-        if (auth()->id() === 3) {
+        if ($request->user()->id === 3) {
             $allowedIds = [1, 2, 5]; // укажи нужные ID категорий
             $query->whereIn('id', $allowedIds);
         }
