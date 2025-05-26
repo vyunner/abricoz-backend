@@ -22,7 +22,7 @@ class CategoryIndexController extends Controller
             ->orderByRaw('priority_number = 0, priority_number ASC');
 
         // Только если пользователь аутентифицирован и id == 3
-        if ($request->user()?->id === 3) {
+        if ($request->user()->id === 1) {
             $allowedIds = [1, 2, 5]; // ← нужные ID категорий
             $query->whereIn('id', $allowedIds);
         }
