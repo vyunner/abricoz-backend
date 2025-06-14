@@ -21,14 +21,16 @@ class DeliveryIntervalIndexController extends Controller
         $available_intervals = [];
         $current_time = now();
         $current_date = today()->format('Y-m-d');
-        $onlyEveningToday = $current_time->format('H') < 12; // Если время до 12:00, оставляем только вечерние интервалы
+
+        // Новая логика: до 06:00 показываем интервалы на сегодня и завтра, после 06:00 — только на завтра
+        $beforeSixAm = $current_time->lt(Carbon::createFromTime(6, 0));
 
         $intervals = DeliveryInterval::where('is_active', true)
             ->orderByRaw("STR_TO_DATE(SUBSTRING_INDEX(name, ' - ', 1), '%H:%i')")
             ->get();
 
         $dates = collect([
-            today()->format('Y-m-d') !== '2025-04-21' ? today() : null,
+            $beforeSixAm && $current_date !== '2025-04-21' ? today() : null,
             today()->addDays(1),
         ])->filter();
 
@@ -56,15 +58,25 @@ class DeliveryIntervalIndexController extends Controller
                 $start_datetime = Carbon::createFromFormat('Y-m-d H:i', $dateFormatted . ' ' . $interval['start_time']);
 
                 if ($current_time->lessThan($start_datetime->copy()->subMinutes(15))) {
-                    // Если сегодня и время до 12:00, оставляем только интервалы после 18:00
-//                    if ($onlyEveningToday && $dateFormatted === $current_date && strtotime($interval['start_time']) < strtotime('18:00')) {
-//                        continue; // Пропускаем дневные интервалы
-//                    }
-//
-//                    // Если уже после 12:00, сегодняшние интервалы не выводим
-//                    if (!$onlyEveningToday && $dateFormatted === $current_date) {
-//                        continue;
-//                    }
+
+                    // ====== СТАРАЯ ЛОГИКА (закомментирована) ======
+                    // $onlyEveningToday = $current_time->format('H') < 12;
+                    //
+                    // if ($onlyEveningToday && $dateFormatted === $current_date && strtotime($interval['start_time']) < strtotime('18:00')) {
+                    //     continue; // Пропускаем дневные интервалы
+                    // }
+                    //
+                    // if (!$onlyEveningToday && $dateFormatted === $current_date) {
+                    //     continue; // После 12:00 сегодняшние интервалы не показываем
+                    // }
+                    // ==============================================
+
+                    // ====== НОВАЯ ЛОГИКА ======
+                    // После 06:00 полностью исключаем сегодняшние интервалы
+                    if (!$beforeSixAm && $dateFormatted === $current_date) {
+                        continue;
+                    }
+                    // ==========================
 
                     $available_intervals[$dateFormatted][] = $interval;
                 }
