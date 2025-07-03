@@ -109,14 +109,15 @@ class OrderByIdCommand extends Command
                 $textRun = $section->addTextRun();
                 $textRun->addText("⬜ {$product['name']} ", ['size' => 12]);
                 $textRun->addText("{$product['quantity']}", ['bold' => true, 'size' => 18]);
-                $textRun->addText(" x {$product['weight']} ({$product['price_discount']} тенге) = $sumProduct", ['size' => 12]);
+                $textRun->addText(" x {$product['weight']} ({$product['price_discount']} тенге) = $sumProduct тенге", ['size' => 12]);
             }
 
             $section->addTextBreak();
 
-            $textRun = $section->addTextRun();
-            $textRun->addText("Сумма: {$sumDiscount}", ['size' => 12]);
         }
+
+        $textRun = $section->addTextRun();
+        $textRun->addText("Сумма: {$sumDiscount}", ['size' => 12]);
 
         $writer = IOFactory::createWriter($phpWord, 'Word2007');
         $tempFilePath = storage_path('app/order_' . $orderId . '_' . uniqid() . '.docx');
