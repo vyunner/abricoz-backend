@@ -103,11 +103,13 @@ class OrderByIdCommand extends Command
             $section->addTextBreak();
 
             foreach ($products as $product) {
+                $sumProduct = $product['price_discount'] * $product['quantity'];
+                $sumDiscount += $product['price_discount'];
+
                 $textRun = $section->addTextRun();
                 $textRun->addText("⬜ {$product['name']} ", ['size' => 12]);
                 $textRun->addText("{$product['quantity']}", ['bold' => true, 'size' => 18]);
-                $textRun->addText(" x {$product['weight']} ({$product['price_discount']} тенге)", ['size' => 12]);
-                $sumDiscount += $product['price_discount'];
+                $textRun->addText(" x {$product['weight']} ({$product['price_discount']} тенге) = $sumProduct", ['size' => 12]);
             }
 
             $section->addTextBreak();
