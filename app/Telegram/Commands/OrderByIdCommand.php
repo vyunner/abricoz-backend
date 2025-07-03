@@ -95,6 +95,8 @@ class OrderByIdCommand extends Command
         ksort($productsData);
 
         foreach ($productsData as $subcategoryName => $products) {
+            $sumDiscount = 0;
+
             $textRun = $section->addTextRun();
             $textRun->addText('Подкатегория: ', ['bold' => true, 'size' => 13]);
             $textRun->addText($subcategoryName, ['size' => 13]);
@@ -104,10 +106,14 @@ class OrderByIdCommand extends Command
                 $textRun = $section->addTextRun();
                 $textRun->addText("⬜ {$product['name']} ", ['size' => 12]);
                 $textRun->addText("{$product['quantity']}", ['bold' => true, 'size' => 18]);
-                $textRun->addText(" x {$product['weight']} ({$product['price_cost']} тенге, {$product['price_discount']} тенге)", ['size' => 12]);
+                $textRun->addText(" x {$product['weight']} ({$product['price_discount']} тенге)", ['size' => 12]);
+                $sumDiscount += $product['price_discount'];
             }
 
             $section->addTextBreak();
+
+            $textRun = $section->addTextRun();
+            $textRun->addText("Сумма: {$sumDiscount}", ['size' => 12]);
         }
 
         $writer = IOFactory::createWriter($phpWord, 'Word2007');
