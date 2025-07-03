@@ -94,8 +94,9 @@ class OrderByIdCommand extends Command
         // Сортировка по подкатегориям
         ksort($productsData);
 
+        $sumDiscount = 0;
+
         foreach ($productsData as $subcategoryName => $products) {
-            $sumDiscount = 0;
 
             $textRun = $section->addTextRun();
             $textRun->addText('Подкатегория: ', ['bold' => true, 'size' => 13]);
