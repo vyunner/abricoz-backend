@@ -105,7 +105,7 @@ class OrderByIdCommand extends Command
 
             foreach ($products as $product) {
                 $sumProduct = $product['price_discount'] * $product['quantity'];
-                $sumDiscount += $product['price_discount'];
+                $sumDiscount += $sumProduct;
 
                 $textRun = $section->addTextRun();
                 $textRun->addText("⬜ {$product['name']} ", ['size' => 12]);
