@@ -60,28 +60,21 @@ class DeliveryIntervalIndexController extends Controller
                 if ($current_time->lessThan($start_datetime->copy()->subMinutes(15))) {
 
                     // ====== СТАРАЯ ЛОГИКА (закомментирована) ======
-                    // $onlyEveningToday = $current_time->format('H') < 12;
-                    //
-                    // if ($onlyEveningToday && $dateFormatted === $current_date && strtotime($interval['start_time']) < strtotime('18:00')) {
-                    //     continue; // Пропускаем дневные интервалы
-                    // }
-                    //
-                    // if (!$onlyEveningToday && $dateFormatted === $current_date) {
-                    //     continue; // После 12:00 сегодняшние интервалы не показываем
-                    // }
+                    // ...
                     // ==============================================
 
                     // ====== НОВАЯ ЛОГИКА ======
                     // После 06:00 полностью исключаем сегодняшние интервалы
-                    if (!$beforeSixAm && $dateFormatted === $current_date) {
-                        continue;
-                    }
+                    // if (!$beforeSixAm && $dateFormatted === $current_date) {
+                    //     continue;
+                    // }
                     // ==========================
 
                     $available_intervals[$dateFormatted][] = $interval;
                 }
             }
         }
+
 
         return $this->response(
             [
