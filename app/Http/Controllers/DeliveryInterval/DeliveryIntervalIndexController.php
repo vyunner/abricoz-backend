@@ -30,9 +30,9 @@ class DeliveryIntervalIndexController extends Controller
             ->get();
 
         $dates = collect([
-            $beforeSixAm && $current_date !== '2025-04-21' ? today() : null,
+            today(),
             today()->addDays(1),
-        ])->filter();
+        ]);
 
         // Преобразуем интервалы в удобный формат
         $intervals = $intervals->map(function ($interval) {
