@@ -82,7 +82,7 @@ class OrderStoreController extends Controller
                 OrderStatus::ON_THE_WAY,
             ])->count();
 
-        if ($activeOrdersCount >= 3) {
+        if ($activeOrdersCount >= 10) {
             return response()->json(['message' => 'Вы не можете иметь более 3 активных заказов.'], 422);
         }
 
@@ -151,7 +151,7 @@ class OrderStoreController extends Controller
         }
 
         // Проверка минимальной суммы заказа (5000 тенге)
-        if ($totalPrice < 4000) {
+        if ($totalPrice < 500) {
             return response()->json(['message' => 'Минимальная сумма заказа - 4000 тенге.'], 422);
         }
 
