@@ -162,7 +162,7 @@ class OrderStoreController extends Controller
             // Создание заказа
             $order = Order::create([
                 'user_id' => $user->id,
-                'order_status_id' => OrderStatus::IN_PROCESS,
+                'order_status_id' => OrderStatus::DELIVERED,
                 'delivery_interval_id' => $data['delivery_interval_id'],
                 'payment_type_id' => $data['payment_type_id'],
                 'city_id' => $address->city_id,
