@@ -25,7 +25,7 @@ class DailyOrdersCommand extends Command
     public function processMessage($update)
     {
         $chatId = $update->getMessage()->getChat()->getId();
-        $day = $update->getMessage()->getText();
+        $day = trim($update->getMessage()->getText());
 
         if (!is_numeric($day) || $day < 1 || $day > 31) {
             Telegram::sendMessage([
@@ -36,9 +36,11 @@ class DailyOrdersCommand extends Command
         }
 
         $date = Carbon::now()->format('Y-m') . '-' . str_pad($day, 2, '0', STR_PAD_LEFT);
+
         $orders = DB::table('orders')
             ->whereDate('delivery_date', $date)
             ->where('order_status_id', '!=', 6)
+            ->orderBy('id')
             ->get();
 
         if ($orders->isEmpty()) {
@@ -51,7 +53,6 @@ class DailyOrdersCommand extends Command
 
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
-
         $section->addText("Отчёт по заказам на {$date}", ['bold' => true, 'size' => 16]);
         $section->addTextBreak();
 
@@ -60,19 +61,18 @@ class DailyOrdersCommand extends Command
                 ->where('id', $order->delivery_interval_id)
                 ->value('name');
 
-            // Формируем адрес
-            $addressParts = [
-                'улица' => $order->address_street_and_house ?: '–',
-                'кв.' => $order->address_apartment ?: '–',
-                'под.' => $order->address_entrance ?: '–',
-                'эт.' => $order->address_floor ?: '–',
-            ];
-
-            $address = "{$addressParts['улица']}, {$addressParts['кв.']}, {$addressParts['под.']}, {$addressParts['эт.']}";
-            $comment = $order->address_comment ?: 'Комментарий: –';
+            $address = sprintf(
+                "%s, кв. %s, под. %s, эт. %s",
+                $order->address_street_and_house ?: '–',
+                $order->address_apartment ?: '–',
+                $order->address_entrance ?: '–',
+                $order->address_floor ?: '–'
+            );
+            $comment = $order->address_comment ? "Комментарий: {$order->address_comment}" : "Комментарий: –";
 
             $section->addText("Заказ №: {$order->id}", ['bold' => true, 'size' => 14]);
-            $section->addText("Временной интервал: {$deliveryInterval}", ['bold' => true, 'size' => 14]);
+            $section->addText("Дата доставки: {$order->delivery_date}", ['bold' => true, 'size' => 12]);
+            $section->addText("Временной интервал: {$deliveryInterval}", ['bold' => true, 'size' => 12]);
             $section->addText("Адрес: {$address}", ['bold' => true, 'size' => 12]);
             $section->addText($comment, ['bold' => true, 'size' => 12]);
             $section->addTextBreak();
@@ -82,40 +82,41 @@ class DailyOrdersCommand extends Command
                 ->get();
 
             $productsData = [];
-
             foreach ($orderProducts as $op) {
                 $product = DB::table('products')->where('id', $op->product_id)->first();
                 $subcategory = DB::table('subcategories')->where('id', $product->subcategory_id)->first();
-
                 $subcategoryName = $subcategory->name_ru ?? 'Без подкатегории';
 
                 $productsData[$subcategoryName][] = [
                     'name' => $product->name_ru,
                     'weight' => $product->weight,
                     'quantity' => $op->product_quantity,
-                    'price_cost' => $product->price_cost,
                     'price_discount' => $op->product_price_with_discount,
                 ];
             }
 
-            // Сортировка по названию подкатегорий
             ksort($productsData);
 
+            $sumDiscount = 0;
             foreach ($productsData as $subcategoryName => $products) {
                 $section->addText("Подкатегория: {$subcategoryName}", ['bold' => true, 'size' => 13]);
                 $section->addTextBreak();
 
                 foreach ($products as $product) {
+                    $sumProduct = $product['price_discount'] * $product['quantity'];
+                    $sumDiscount += $sumProduct;
+
                     $textRun = $section->addTextRun();
                     $textRun->addText("⬜ {$product['name']} ", ['size' => 12]);
-                    $textRun->addText("{$product['quantity']} x ", ['bold' => true, 'size' => 18]);
-                    $textRun->addText(" x {$product['weight']} ({$product['price_cost']} тенге, {$product['price_discount']} тенге)", ['size' => 12]);
+                    $textRun->addText("{$product['quantity']}", ['bold' => true, 'size' => 18]);
+                    $textRun->addText(" x {$product['weight']} ({$product['price_discount']} тг) = {$sumProduct} тг", ['size' => 12]);
                 }
 
-                $section->addText(''); // пустая строка между подкатегориями
+                $section->addTextBreak();
             }
 
-            $section->addText('------------------------');
+            $section->addText("Сумма заказа: {$sumDiscount} тг", ['bold' => true, 'size' => 12]);
+            $section->addText('------------------------------------');
             $section->addPageBreak();
         }
 
