@@ -53,8 +53,6 @@ class DailyOrdersCommand extends Command
 
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
-        $section->addText("Отчёт по заказам на {$date}", ['bold' => true, 'size' => 16]);
-        $section->addTextBreak();
 
         foreach ($orders as $order) {
             $deliveryInterval = DB::table('delivery_intervals')
